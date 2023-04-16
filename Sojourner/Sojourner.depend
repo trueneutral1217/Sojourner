@@ -932,14 +932,14 @@
 1659385836 c:\sojourner\sojourner\timer.h
 	"Texture.h"
 
-1678087542 source:c:\sojourner\sojourner\audio.cpp
+1681001214 source:c:\sojourner\sojourner\audio.cpp
 	"audio.h"
 
 1678087542 c:\sojourner\sojourner\audio.h
 	"texture.h"
 	<SDL_mixer.h>
 
-1680653332 source:c:\sojourner\sojourner\main.cpp
+1681596110 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -952,13 +952,13 @@
 	"stage.h"
 	"text.h"
 
-1678086284 c:\sojourner\sojourner\button.h
+1681080141 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
 1658541873 c:\sojourner\sojourner\particle.h
 	"Texture.h"
 
-1678578690 c:\sojourner\sojourner\chapter.h
+1680996722 c:\sojourner\sojourner\chapter.h
 	"timer.h"
 	"button.h"
 	"parallax.h"
@@ -970,17 +970,18 @@
 1678065546 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 
-1680653254 c:\sojourner\sojourner\pregameui.h
+1680996722 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
 
-1680220205 c:\sojourner\sojourner\stage.h
+1680736213 c:\sojourner\sojourner\stage.h
 	"Texture.h"
 	"button.h"
 	"player.h"
+	"parallax.h"
 
-1659760284 c:\sojourner\sojourner\player.h
+1681687035 c:\sojourner\sojourner\player.h
 	"texture.h"
 
 1677975242 c:\sojourner\sojourner\text.h
@@ -989,16 +990,16 @@
 1677111190 source:c:\sojourner\sojourner\parallax.cpp
 	"parallax.h"
 
-1659687110 source:c:\sojourner\sojourner\particle.cpp
+1680997053 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1659760284 source:c:\sojourner\sojourner\player.cpp
+1681603569 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1678065557 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1680219974 source:c:\sojourner\sojourner\stage.cpp
+1680736627 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1678404809 source:c:\sojourner\sojourner\text.cpp
@@ -1010,14 +1011,14 @@
 1658447856 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1680220833 source:c:\sojourner\sojourner\button.cpp
+1681081391 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
-1680221019 source:c:\sojourner\sojourner\chapter.cpp
+1680732414 source:c:\sojourner\sojourner\chapter.cpp
 	"chapter.h"
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1680221019 source:c:\sojourner\sojourner\pregameui.cpp
+1681082441 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 

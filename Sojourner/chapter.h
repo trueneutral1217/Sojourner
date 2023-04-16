@@ -61,6 +61,7 @@ class chapter
         Texture menuBar;
         Texture tinCan;
 
+
         parallax ch2Pg7Fore;
         parallax ch2Pg7Mid;
         parallax ch2Pg7Back;

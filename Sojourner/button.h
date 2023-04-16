@@ -4,7 +4,7 @@
 #include "Texture.h"
 
 //buttons on the title screen + back button for screens like options
-const int TOTAL_BUTTONS = 15;
+//const int TOTAL_BUTTONS = 15;
 
 const int BUTTON_WIDTH = 160;
 const int BUTTON_HEIGHT = 120;
@@ -30,16 +30,18 @@ class button
 		bool fullScreen;
 		bool musicOn;
 		bool voiceOn;
+		bool mouseOver;
 
 		//Handles pre-game user interface mouse events (mainly button clicks, like new game, load game, options, credits, etc)
 		int handlePGUIEvent( int gameState, std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles buttons while player is in a chapter (menu bar buttons like backline, backpage, auto text speed, auto text toggle, and save + exit button
 		int handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles mouse events in stages (currently not in use.
-		int handleStageEvent( int gameState, std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
+		int handleStageEvent( std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
 
 
         Texture buttonTexture;
+        Texture buttonMOTexture;
 
         bool setFullScreenOn(SDL_Window* window,SDL_Renderer* renderer);
         bool setFullScreenOff(SDL_Window* window,SDL_Renderer* renderer);

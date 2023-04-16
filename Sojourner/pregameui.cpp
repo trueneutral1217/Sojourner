@@ -20,6 +20,10 @@ bool pregameui::setPreGameButtonTextures(SDL_Renderer* renderer, bool success)
         success = buttons[i].buttonTexture.loadFromFile( str,renderer );
         buttons[ i ].setPosition( ((i*160)-80), SCREEN_HEIGHT - 140 );
     }
+    success = buttons[1].buttonMOTexture.loadFromFile("images/buttons/newMO.png",renderer);
+    success = buttons[2].buttonMOTexture.loadFromFile("images/buttons/loadMO.png",renderer);
+    success = buttons[3].buttonMOTexture.loadFromFile("images/buttons/optionsMO.png",renderer);
+    success = buttons[4].buttonMOTexture.loadFromFile("images/buttons/creditsMO.png",renderer);
     buttons[0].setPosition(600,20);
     buttons[5].setPosition(20,20);//chapter 1 button
     buttons[6].setPosition(20,100);//fullscreen button
@@ -119,14 +123,22 @@ void pregameui::renderParticles(SDL_Renderer* renderer)
 
 void pregameui::handleTitleScreenRendering(SDL_Renderer* renderer)
 {
-    titleTexture.render( 0, 0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
+    PGUIBlackGround.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderParticles(renderer);
+    titleTexture.render( 0, 0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
+
     title.render(200, 100,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //render title screen buttons
     //5 is back button 6 is fullscreen button
     for(int i=1;i<5;i++)
     {
-        buttons[i].buttonTexture.render(buttons[i].getPositionX(),buttons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(buttons[i].mouseOver == false){
+            buttons[i].buttonTexture.render(buttons[i].getPositionX(),buttons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else
+        {
+            buttons[i].buttonMOTexture.render(buttons[i].getPositionX(),buttons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
     }
 }
 
@@ -143,11 +155,12 @@ bool pregameui::setPGUITextures(SDL_Renderer* renderer)
     //game title image
 	success = title.loadFromFile( "images/title.png",renderer );
 	//load background image files for non-chapter1 backgrounds
-	success = titleTexture.loadFromFile( "images/skidrow.png",renderer );
-	success = loadGameTexture.loadFromFile( "images/loadgamescreen.png",renderer );
-	success = chapterSelectTexture.loadFromFile( "images/busstop.png",renderer );
-	success = creditsTexture.loadFromFile( "images/brickwall.png",renderer );
-	success = optionsTexture.loadFromFile("images/maritime.png",renderer );
+	success = titleTexture.loadFromFile( "images/EarthMoon2.png",renderer );
+	success = loadGameTexture.loadFromFile( "images/AsteroidMoon.png",renderer );
+	success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer );
+	success = creditsTexture.loadFromFile( "images/cockpit.png",renderer );
+	success = optionsTexture.loadFromFile("images/docking.png",renderer );
+	success = PGUIBlackGround.loadFromFile("images/blackground.png",renderer);
 	//success = thanksTexture.loadFromFile("images/thanks.png",renderer);
 
 	if(!success)
@@ -168,6 +181,7 @@ void pregameui::freePGUITextures()
 	loadGameTexture.free();
 	optionsTexture.free();
 	creditsTexture.free();
+	PGUIBlackGround.free();
     //thanksTexture.free();
 }
 

@@ -382,32 +382,32 @@ void chapter::freeBGTextures()
 void chapter::setFileNames()
 {
     //chapter1 background file names
-    bgFileName[0] = "images/signflying800x600.png";
-    bgFileName[1] = "images/parkbench.png";
-    bgFileName[2] = "images/bluewave.png";
-    bgFileName[3] = "images/please.png";
-    bgFileName[4] = "images/biblioteca.png";
-    bgFileName[5] = "images/America2.png";
-    bgFileName[6] = "images/darknight.png";
-    bgFileName[7] = "images/forest.png";
+    bgFileName[0] = "images/blackground.png";
+    bgFileName[1] = "images/blackground.png";
+    bgFileName[2] = "images/blackground.png";
+    bgFileName[3] = "images/blackground.png";
+    bgFileName[4] = "images/blackground.png";
+    bgFileName[5] = "images/blackground.png";
+    bgFileName[6] = "images/blackground.png";
+    bgFileName[7] = "images/blackground.png";
     //chapter2 background file names
-    bgFileName2[0] = "images/bubbleparty.png";
-    bgFileName2[1] = "images/randomcolors.png";
-    bgFileName2[2] = "images/angryright.png";
-    bgFileName2[3] = "images/nondigitalpaperclip.png";
-    bgFileName2[4] = "images/joblesspurpose.png";
-    bgFileName2[5] = "images/treadonyou.png";
+    bgFileName2[0] = "images/blackground.png";
+    bgFileName2[1] = "images/blackground.png";
+    bgFileName2[2] = "images/blackground.png";
+    bgFileName2[3] = "images/blackground.png";
+    bgFileName2[4] = "images/blackground.png";
+    bgFileName2[5] = "images/blackground.png";
     bgFileName2[6] = "images/blackground.png";
     bgFileName2[7] = "images/blackground.png";
     //chapter 3 background file names
-    bgFileName3[0] = "images/groundsleeper.png";
-    bgFileName3[1] = "images/emptypockets.png";
-    bgFileName3[2] = "images/kindnesshelps.png";
-    bgFileName3[3] = "images/poorperson.png";
-    bgFileName3[4] = "images/realdemocracy.png";
-    bgFileName3[5] = "images/purepoverty.png";
-    bgFileName3[6] = "images/trailer.png";
-    bgFileName3[7] = "images/badsign.png";
+    bgFileName3[0] = "images/blackground.png";
+    bgFileName3[1] = "images/blackground.png";
+    bgFileName3[2] = "images/blackground.png";
+    bgFileName3[3] = "images/blackground.png";
+    bgFileName3[4] = "images/blackground.png";
+    bgFileName3[5] = "images/blackground.png";
+    bgFileName3[6] = "images/blackground.png";
+    bgFileName3[7] = "images/blackground.png";
 }
 
 bool chapter::setChapterTextures(SDL_Renderer* renderer)
@@ -432,10 +432,10 @@ bool chapter::setChapterTextures(SDL_Renderer* renderer)
         success = ch2Pg7Mid.parallaxTexture.loadFromFile("images/starlaxmid.png",renderer);
         success = ch2Pg7Back.parallaxTexture.loadFromFile("images/starlaxback.png",renderer);
         //load pg 8 parallax background textures
-        success = ch2Pg8Fore.parallaxTexture.loadFromFile("images/dusk.png",renderer);
-        success = ch2Pg8AnteriorMid.parallaxTexture.loadFromFile("images/road.png",renderer);
-        success = ch2Pg8Mid.parallaxTexture.loadFromFile("images/cityscape.png",renderer);
-        success = ch2Pg8Back.parallaxTexture.loadFromFile("images/citystars.png",renderer);
+        success = ch2Pg8Fore.parallaxTexture.loadFromFile("images/blackground.png",renderer);
+        success = ch2Pg8AnteriorMid.parallaxTexture.loadFromFile("images/blackground.png",renderer);
+        success = ch2Pg8Mid.parallaxTexture.loadFromFile("images/blackground.png",renderer);
+        success = ch2Pg8Back.parallaxTexture.loadFromFile("images/blackground.png",renderer);
     }
     else if(currentChapter == 2)
     {
@@ -447,11 +447,10 @@ bool chapter::setChapterTextures(SDL_Renderer* renderer)
 
     }
     //load dialog box image
-	success = dialogBox.loadFromFile( "images/dialogbox1.png",renderer );
-	success = menuBar.loadFromFile("images/menuBar.png",renderer);
-	success = tinCan.loadFromFile("images/tincan.png",renderer);
-    //set dialog box alpha (about 75% opaque @ 192)
-    dialogBox.setAlpha(215);
+	success = dialogBox.loadFromFile( "images/dialogbox2.png",renderer );
+	//success = menuBar.loadFromFile("images/menuBar.png",renderer);
+
+    //dialogBox.setAlpha(215);
     return success;
 }
 
@@ -534,7 +533,7 @@ void chapter::testSaveVariables()
 void chapter::loadFont()
 {
     //load the font
-	font = TTF_OpenFont( "fonts/Tapeworm.ttf", 16 );
+	font = TTF_OpenFont( "fonts/PublicPixel-z84yD.ttf", 16 );
 }
 
 void chapter::progress(SDL_Renderer* renderer)

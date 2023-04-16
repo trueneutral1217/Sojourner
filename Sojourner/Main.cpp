@@ -263,7 +263,7 @@ int main( int argc, char* args[] )
 					{
 						quit = true;
 					}
-                    if(e.type == SDL_MOUSEBUTTONDOWN)
+                    if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
 
                         if(gameState == 8)//chapter 3
@@ -302,6 +302,21 @@ int main( int argc, char* args[] )
                                 gameState=0;
                                 music.resetMusic();
                                 chapter.exitChapter = false;
+                            }
+                        }
+                        if(gameState == 6){
+                            //player clicks mouse inside stage
+                            int buttonClicked = 0;
+                            //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
+                            for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
+                            {
+                                buttonClicked += stage.buttons[ i ].handleStageEvent(stage.buttons[i].buttonName, &e, window,renderer );
+                            }
+                            stage.handleStageButtonPresses(buttonClicked,renderer);
+                            if(buttonClicked == 1)
+                            {//player clicked exit button
+                                gameState=0;
+                                music.resetMusic();
                             }
                         }
                         if(gameState == 5)
@@ -503,7 +518,7 @@ int main( int argc, char* args[] )
 					stage.player1.handleEvent(e);
 				}
 				//process player movement
-				stage.player1.move();
+				stage.player1.move(countedFrames);
 				//Clear screen
 				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( renderer );

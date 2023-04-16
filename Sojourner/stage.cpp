@@ -49,24 +49,30 @@ bool stage::setStageTextures(SDL_Renderer* renderer)
     {
         success = stage1BG[i].loadFromFile( bgFileName[i],renderer );
     }
+    success = starsFore.parallaxTexture.loadFromFile("images/starlaxfore.png",renderer);
+    success = starsMid.parallaxTexture.loadFromFile("images/starlaxmid.png",renderer);
+    success = starsBack.parallaxTexture.loadFromFile("images/starlaxback.png",renderer);
 
     return success;
 }
 
 void stage::setFileNames()
 {  //filenames being specified
-    bgFileName[0] = "images/thanks.png";
+    bgFileName[0] = "images/blackground.png";
 }
 
 void stage::freeBGTextures()
 {//free resources
     stage1BG[0].free();
+    starsFore.freeParallaxTexture();
+    starsMid.freeParallaxTexture();
+    starsBack.freeParallaxTexture();
 }
 
 void stage::loadFont()
 {
     //load the font
-	font = TTF_OpenFont( "fonts/NemoyLight.ttf", 16 );
+	font = TTF_OpenFont( "fonts/NemoyMedium.ttf", 16 );
 }
 
 bool stage::loadStage(SDL_Renderer* renderer, bool success)
@@ -90,9 +96,32 @@ void stage::free()
     player1.freePlayer();
 }
 
+void stage::handleStageButtonPresses(int buttonClicked,SDL_Renderer* renderer)
+{
+    if(buttonClicked==1)
+    {//player clicked save & exit
+        //voice.stopVoice();
+    }
+}
+
 void stage::renderStage1(SDL_Renderer* renderer)
 {//while stage scene is running this displays bgs,buttons, and player with updated positions.
     stage1BG[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    starsHandleParallax(renderer);
     player1.render(renderer);
     buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void stage::starsHandleParallax(SDL_Renderer* renderer)
+{//space parallax
+    //slows down the animation of the parallax backgrounds
+    SDL_Delay(10);
+    //parallax rendering
+    starsBack.parallaxRender(renderer);
+    starsMid.parallaxRender(renderer);
+    starsFore.parallaxRender(renderer);
+    // parallax incrementation
+    starsFore.incrementFore();
+    starsMid.incrementMid();
+    starsBack.incrementBack();
 }

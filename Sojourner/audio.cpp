@@ -21,7 +21,19 @@ audio::~audio()
 
 void audio::loadMusic()
 {
-    music = Mix_LoadMUS( "music/openingsequence.mp3" );
+    //music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" );
+
+    switch( rand() % 7 )
+    {
+        case 0: music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" ); break;
+        case 1: music = Mix_LoadMUS( "music/koi/Koi-discovery - Empsykoun.mp3" ); break;
+        case 2: music = Mix_LoadMUS( "music/koi/Koi-discovery - Polylove.mp3" ); break;
+        case 3: music = Mix_LoadMUS( "music/koi/Koi-discovery - Rouge-haine-les-9-âmes.mp3" ); break;
+        case 4: music = Mix_LoadMUS( "music/koi/Koi-discovery - The lost cyborg.mp3" ); break;
+        case 5: music = Mix_LoadMUS( "music/koi/Koi-discovery - There-is-someone.mp3" ); break;
+        case 6: music = Mix_LoadMUS( "music/koi/Koi-discovery - Vortex-temporalis.mp3" ); break;
+
+    }
 }
 
 void audio::loadChapter1Music()
@@ -138,6 +150,7 @@ void audio::resumeMusic()
 void audio::stopMusic()
 {
     Mix_HaltMusic();
+    loadMusic();
 }
 
 void audio::resetMusic()

@@ -12,16 +12,16 @@ void Particle::createParticle(SDL_Renderer* renderer)
     frame = rand() % 50;
 
     //Set type
-    switch( rand() % 8 )
+    switch( rand() % 4 )
     {
         case 0: SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0x00, 0xFF );renderColor=0; break;//red
-        case 1: SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );renderColor=1; break;//green
-        case 2: SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );renderColor=2; break;//blue
-        case 3: SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0x00, 0xFF );renderColor=3; break;//yellow
-        case 4: SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );renderColor=4; break;//black
-        case 5: SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );renderColor=5; break;//white
-        case 6: SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0xFF, 0xFF );renderColor=6; break;//lavender
-        case 7: SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0xFF, 0xFF );renderColor=7; break;//teal
+        //case 1: SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0x00, 0xFF );renderColor=1; break;//green
+        //case 2: SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0xFF, 0xFF );renderColor=2; break;//blue
+        case 1: SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0x00, 0xFF );renderColor=3; break;//yellow
+        //case 4: SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );renderColor=4; break;//black
+        case 2: SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );renderColor=5; break;//white
+        //case 6: SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0xFF, 0xFF );renderColor=6; break;//lavender
+        case 3: SDL_SetRenderDrawColor( renderer, 0x00, 0xFF, 0xFF, 0xFF );renderColor=7; break;//teal
 
     }
 }

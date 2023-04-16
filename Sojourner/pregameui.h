@@ -22,6 +22,8 @@ public:
     Texture optionsTexture;
     Texture loadGameTexture;
     Texture chapterSelectTexture;
+    //behind background images that have transparency and need black background instead of default white.
+    Texture PGUIBlackGround;
 
 
     button buttons[TOTAL_PREGAME_BUTTONS];

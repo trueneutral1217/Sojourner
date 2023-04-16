@@ -5,6 +5,7 @@
 //#include "timer.h"
 #include "button.h"
 #include "player.h"
+#include "parallax.h"
 
 const static int TOTAL_STAGE_BACKGROUNDS = 1;
 
@@ -19,6 +20,10 @@ class stage
         TTF_Font *font;
         //temporary texture for stage background
         Texture thanksTexture;
+        //stars going by in bg.
+        parallax starsFore;
+        parallax starsMid;
+        parallax starsBack;
         //buttons for stage UI.
         button buttons[TOTAL_STAGE_BUTTONS];
         //array of background image names.
@@ -28,6 +33,8 @@ class stage
         //free resources
         void freeButtons();
         void freeBGTextures();
+        //handles movement and rendering for parallax images
+        void starsHandleParallax(SDL_Renderer* renderer);
         //button textures are applied via button names from button class
         bool setStageButtonTextures(SDL_Renderer* renderer, bool success);
         //background textures are applied via bgFileName array above.
@@ -36,6 +43,8 @@ class stage
         void setFileNames();
         //set button names
         void setButtonNames();
+        //user clicks a button in stage
+        void handleStageButtonPresses(int gameState,SDL_Renderer* renderer);
         //declare player
         player player1;
         //loads resources at opening of stages.

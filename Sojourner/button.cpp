@@ -8,6 +8,7 @@ button::button()
     fullScreen=false;
     musicOn=true;
     voiceOn=true;
+    mouseOver=false;
     //move buttons 0-7 to pregameui
     pregameButtonNames[0]="back";
 	pregameButtonNames[1]="new";
@@ -21,6 +22,7 @@ button::button()
 	pregameButtonNames[9]="chapter3";
 	pregameButtonNames[10]="musicOn";
 	pregameButtonNames[11]="voiceOn";
+
 	//move buttons 8-15 to chapter
 	chapterButtonNames[0]="backPage";
 	chapterButtonNames[1]="backLine";
@@ -188,11 +190,20 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
 		//Mouse is outside button
 		if( !inside )
 		{
-
+            mouseOver=false;
+            //std::cout << "\n mouseOver: " << std::to_string( mouseOver );
 		}
 		//Mouse is inside button
 		else
 		{
+		    mouseOver=true;
+
+		    //if(buttonName=="new")
+            //{
+                //std::cout<<"new game button mouseover == true";
+                //std::cout << "\n mouseOver: " << std::to_string( mouseOver );
+            //}
+
                 switch( e->type )
                 {
                     case SDL_MOUSEBUTTONDOWN:
@@ -416,8 +427,9 @@ int button::handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window
 	return buttonClicked;
 }
 
-int button::handleStageEvent(int gameState, std::string buttonName, SDL_Event* e, SDL_Window* window, SDL_Renderer* renderer )
+int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* window, SDL_Renderer* renderer )
 {
+    int buttonClicked = 0;
 	//If mouse event happened
 	if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
 	{
@@ -452,7 +464,7 @@ int button::handleStageEvent(int gameState, std::string buttonName, SDL_Event* e
 		//Mouse is outside button
 		if( !inside )
 		{
-
+            buttonClicked=0;
 		}
 		//Mouse is inside button
 		else
@@ -461,12 +473,16 @@ int button::handleStageEvent(int gameState, std::string buttonName, SDL_Event* e
                 {
                     case SDL_MOUSEBUTTONDOWN:
 
-
+                        if(buttonName=="saveAndExit")
+                        {
+                            printf("\n \n saveAndExit button pressed \n \n");
+                            buttonClicked=1;
+                        }
 
 
                     break;
                 }
 		}
 	}
-	return gameState;
+	return buttonClicked;
 }
