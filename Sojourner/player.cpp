@@ -81,33 +81,29 @@ void player::move(int tick)
             flipHorizontal=false;
             //moveState 1 = walking left/right
             moveState = 1;
-            if(tick%3 == 0)
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
             {
-                if(!countDown)
+                walkFrame++;
+                if(walkFrame >= LR_TEXTURES)
                 {
-                    walkFrame++;
-                    if(walkFrame >= LR_TEXTURES)
-                    {
-                        countDown = true;
-                        walkFrame--;
-                    }
-                }
-                else
-                {
-                    walkFrame--;
-                    if(walkFrame< 1)
-                    {
-                        countDown=false;
-                        walkFrame++;
-                    }
+                    walkFrame=0;
                 }
             }
         }
-        else if(pVelY > 0)//player is walking right & up
+        else if(pVelY > 0)//player is walking right & down
         {
-
+            flipHorizontal=false;
+            moveState=2;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= DLDR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
         }
-        else//player is walking right and down
+        else//player is walking right and up
         {
 
         }
@@ -124,31 +120,27 @@ void player::move(int tick)
             moveState=1;
             if(tick%3 == 0)
             {
-                if(!countDown)
+                walkFrame++;
+                if(walkFrame >= LR_TEXTURES)
                 {
-                    walkFrame++;
-                    if(walkFrame >= LR_TEXTURES)
-                    {
-                        countDown = true;
-                        walkFrame--;
-                    }
-                }
-                else
-                {
-                    walkFrame--;
-                    if(walkFrame< 1)
-                    {
-                        countDown=false;
-                        walkFrame++;
-                    }
+                    walkFrame=0;
                 }
             }
         }
-        else if(pVelY > 0)//player is walking left and up
+        else if(pVelY > 0)//player is walking left and down
         {
-
+            flipHorizontal=true;
+            moveState=2;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= DLDR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
         }
-        else//player is walking left and down
+        else//player is walking left and up
         {
 
         }
@@ -190,7 +182,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
     {
         if(i==IDLE)
         {
-            ss.str("images/sprites/PlayerCharacter");
+            ss.str("images/sprites/PlayerCharacterDown1");
             ss2.str(".png");
 
             for(int j = 0; j<IDLE_TEXTURES;j++)
@@ -208,6 +200,20 @@ void player::loadPlayer(SDL_Renderer* renderer)
             ss.str("images/sprites/PlayerCharacterRight");
             ss2.str(".png");
             for(int k = 0; k<LR_TEXTURES;k++)
+            {
+                ss3 << ss.str();
+                ss3 << (k+1);
+                ss3 << ss2.str();
+                str = ss3.str();
+                playerTexture[i][k].loadFromFile( str,renderer );
+                ss3.str("");//reset ss3
+            }
+        }
+        else if(i==WALK_DLDR)//loads textures for walking downright and down left (downleft get flipped horizontally)
+        {
+            ss.str("images/sprites/PlayerCharacterRightDown");
+            ss2.str(".png");
+            for(int k = 0; k<DLDR_TEXTURES;k++)
             {
                 ss3 << ss.str();
                 ss3 << (k+1);

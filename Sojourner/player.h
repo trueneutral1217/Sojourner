@@ -6,15 +6,18 @@
 //textures for character, soon to be broken up into different dimensions
 //const int PLAYER_TEXTURES = 11;
 const int IDLE_TEXTURES=1;
-const int LR_TEXTURES=10;
+const int LR_TEXTURES=7;
+const int DLDR_TEXTURES=7;
 
 //walk states is used to determine which dimension of the player textures array to display
-const int MOVE_STATES = 2;
+const int MOVE_STATES = 3;
 
 //idle is walk state 0, this consists of character standing in place
 const int IDLE = 0;
 //LR is walk state 1, this array has the textures of player moving left and right, although left walk is right flipped horizontally.
 const int WALK_LR = 1;
+//player is walking down right or down left when movestate is 2
+const int WALK_DLDR = 2;
 
 class player
 {
