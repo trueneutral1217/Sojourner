@@ -3,7 +3,7 @@
 player::player()
 {
     playerX = playerY = pVelX = pVelY = walkFrame = moveState = 0;
-    flipHorizontal = countDown = false;
+    flipHorizontal = false;
 }
 player::~player()
 {
@@ -19,6 +19,34 @@ player::~player()
         else if(i==WALK_LR)
         {
             for(int k = 0; k<LR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_DLDR)
+        {
+            for(int k = 0; k<DLDR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_ULUR)
+        {
+            for(int k = 0; k<ULUR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_D)
+        {
+            for(int k = 0; k<D_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_U)
+        {
+            for(int k = 0; k<U_TEXTURES;k++)
             {
                 playerTexture[i][k].free();
             }
@@ -80,7 +108,7 @@ void player::move(int tick)
             //the images used are right facing, therefore no need to flip.
             flipHorizontal=false;
             //moveState 1 = walking left/right
-            moveState = 1;
+            moveState = WALK_LR;
             if(tick%3 == 0)//every 3 frames a new animation image is loaded
             {
                 walkFrame++;
@@ -93,7 +121,7 @@ void player::move(int tick)
         else if(pVelY > 0)//player is walking right & down
         {
             flipHorizontal=false;
-            moveState=2;
+            moveState=WALK_DLDR;
             if(tick%3 == 0)//every 3 frames a new animation image is loaded
             {
                 walkFrame++;
@@ -105,7 +133,16 @@ void player::move(int tick)
         }
         else//player is walking right and up
         {
-
+            flipHorizontal=false;
+            moveState=WALK_ULUR;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= ULUR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
         }
         currentTexture = playerTexture[moveState][walkFrame];
         std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
@@ -117,7 +154,7 @@ void player::move(int tick)
             //images are right facing, player is walking left, so flip horizontal.
             flipHorizontal=true;
             //moveState 1 is walking left/right
-            moveState=1;
+            moveState=WALK_LR;
             if(tick%3 == 0)
             {
                 walkFrame++;
@@ -130,7 +167,7 @@ void player::move(int tick)
         else if(pVelY > 0)//player is walking left and down
         {
             flipHorizontal=true;
-            moveState=2;
+            moveState=WALK_DLDR;
             if(tick%3 == 0)//every 3 frames a new animation image is loaded
             {
                 walkFrame++;
@@ -142,21 +179,64 @@ void player::move(int tick)
         }
         else//player is walking left and up
         {
-
+            flipHorizontal=true;
+            moveState=WALK_ULUR;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= ULUR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
         }
         currentTexture = playerTexture[moveState][walkFrame];
         std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
     }
     else
     {
-        //player is idling, no need for horizontal flip.
+        //player is idling,walking down, or walking up, no need for horizontal flip.
         flipHorizontal=false;
-        //currently no idle animation, so no need to cycle back through frames.
-        countDown=false;
-        //moveState 0 is idle
-        moveState=0;
+
+        if(pVelY > 0)//player is walking down
+        {
+            moveState=WALK_D;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= D_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else if(pVelY < 0)//player is walking up
+        {
+            moveState=WALK_U;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= U_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else//player is not moving up or down (idle)
+        {
+            //moveState 0 is idle
+            moveState=IDLE;
+            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= IDLE_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
         //walkFrame is 0 since currently only 1 texture for idle state.
-        walkFrame = 0;
+        //walkFrame = 0;
         currentTexture = playerTexture[moveState][walkFrame];
     }
 
@@ -223,6 +303,48 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 ss3.str("");//reset ss3
             }
         }
+        else if(i==WALK_ULUR)//loads textures for walking up right and up left (up left get flipped horizontally)
+        {
+            ss.str("images/sprites/PlayerCharacterRightUp");
+            ss2.str(".png");
+            for(int k = 0; k<ULUR_TEXTURES;k++)
+            {
+                ss3 << ss.str();
+                ss3 << (k+1);
+                ss3 << ss2.str();
+                str = ss3.str();
+                playerTexture[i][k].loadFromFile( str,renderer );
+                ss3.str("");//reset ss3
+            }
+        }
+        else if(i==WALK_D)//loads textures for walking down
+        {
+            ss.str("images/sprites/PlayerCharacterDown");
+            ss2.str(".png");
+            for(int k = 0; k<D_TEXTURES;k++)
+            {
+                ss3 << ss.str();
+                ss3 << (k+1);
+                ss3 << ss2.str();
+                str = ss3.str();
+                playerTexture[i][k].loadFromFile( str,renderer );
+                ss3.str("");//reset ss3
+            }
+        }
+        else if(i==WALK_U)//loads textures for walking up
+        {
+            ss.str("images/sprites/PlayerCharacterUp");
+            ss2.str(".png");
+            for(int k = 0; k<U_TEXTURES;k++)
+            {
+                ss3 << ss.str();
+                ss3 << (k+1);
+                ss3 << ss2.str();
+                str = ss3.str();
+                playerTexture[i][k].loadFromFile( str,renderer );
+                ss3.str("");//reset ss3
+            }
+        }
     }
     currentTexture = playerTexture[moveState][walkFrame];//beginning texture for currentTexture is idle 0 (standing around)
 }
@@ -254,6 +376,34 @@ void player::freePlayer()
         else if(i==WALK_LR)
         {
             for(int k = 0; k<LR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_DLDR)
+        {
+            for(int k = 0; k<DLDR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_ULUR)
+        {
+            for(int k = 0; k<ULUR_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_D)
+        {
+            for(int k = 0; k<D_TEXTURES;k++)
+            {
+                playerTexture[i][k].free();
+            }
+        }
+        else if(i==WALK_U)
+        {
+            for(int k = 0; k<U_TEXTURES;k++)
             {
                 playerTexture[i][k].free();
             }
