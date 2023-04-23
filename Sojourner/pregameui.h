@@ -15,6 +15,8 @@ public:
     //destructor
     ~pregameui();
 
+    bool existingSave;
+
     //declaring textures (title, backgrounds, etc
     Texture title;
     Texture titleTexture;
@@ -25,8 +27,44 @@ public:
     //behind background images that have transparency and need black background instead of default white.
     Texture PGUIBlackGround;
 
+    //phasing this setup out
+    //button buttons[TOTAL_PREGAME_BUTTONS];
 
-    button buttons[TOTAL_PREGAME_BUTTONS];
+    //new button setup
+    button mainButtons[TOTAL_MAIN_BUTTONS];
+    button newgameButtons[TOTAL_NEWGAME_BUTTONS];
+    button loadgameButtons[TOTAL_LOADGAME_BUTTONS];
+    button optionsButtons[TOTAL_OPTIONS_BUTTONS];
+    button creditsButtons[TOTAL_CREDITS_BUTTONS];
+
+    //this is the new set of string arrays
+    std::string mainButtonNames[TOTAL_MAIN_BUTTONS];
+    std::string newgameButtonNames[TOTAL_NEWGAME_BUTTONS];
+    std::string loadgameButtonNames[TOTAL_LOADGAME_BUTTONS];
+    std::string optionsButtonNames[TOTAL_OPTIONS_BUTTONS];
+    std::string creditsButtonNames[TOTAL_CREDITS_BUTTONS];
+
+    //loads each scene's buttons
+    void loadMainButtons(SDL_Renderer* renderer);
+    void loadNewgameButtons(SDL_Renderer* renderer);
+    void loadLoadgameButtons(SDL_Renderer* renderer);
+    void loadOptionsButtons(SDL_Renderer* renderer);
+    void loadCreditsButtons(SDL_Renderer* renderer);
+
+    //renders the buttons for each scene
+    void renderMainButtons(SDL_Renderer* renderer);
+    void renderNewgameButtons(SDL_Renderer* renderer);
+    void renderLoadgameButtons(SDL_Renderer* renderer);
+    void renderOptionsButtons(SDL_Renderer* renderer);
+    void renderCreditsButtons(SDL_Renderer* renderer);
+
+    //these free up set of buttons depending on the scene the user is in.
+    void freeMainButtons();
+    void freeNewgameButtons();
+    void freeLoadgameButtons();
+    void freeOptionsButtons();
+    void freeCreditsButtons();
+
 
     bool setPGUITextures(SDL_Renderer* renderer);
     void freePGUITextures();
@@ -42,7 +80,7 @@ public:
 
     void handleCreditsScreenRendering(SDL_Renderer* renderer);
 
-    void handleLoadGameScreenRendering(SDL_Renderer* renderer,bool chapter1Complete,bool chapter2Complete,bool chapter3Complete);
+    void handleLoadGameScreenRendering(SDL_Renderer* renderer);
 
     void handleNewGameScreenRendering(SDL_Renderer* renderer);
 

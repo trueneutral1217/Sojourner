@@ -7,7 +7,7 @@
 #include "player.h"
 #include "parallax.h"
 
-const static int TOTAL_STAGE_BACKGROUNDS = 1;
+const static int TOTAL_STAGE_BACKGROUNDS = 4;
 
 class stage
 {
@@ -16,6 +16,16 @@ class stage
         stage();
         //destructor
         ~stage();
+        //show externalView at start, external gets triggered at mouse movement, gonna have to fix that.
+        bool externalView;
+        //internal view keys internal habitat backgrounds to be rendered, stops rendering external background
+        bool internalView;
+        //player should not be displayed while in externalView
+        bool showPlayer;
+        //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
+        int habInternalY1;
+        int habInternalY2;
+
         //declare font
         TTF_Font *font;
         //temporary texture for stage background
@@ -55,6 +65,10 @@ class stage
         void renderStage1(SDL_Renderer* renderer);
         //stage font is different from gohomeless chapter font
         void loadFont();
+        //renders the habitat internal background images.
+        void habInternalHandleParallax(SDL_Renderer* renderer);
+        //updates the Y coords for habitat background
+        void move();
 
     private:
 

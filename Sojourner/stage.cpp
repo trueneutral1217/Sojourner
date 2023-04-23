@@ -2,7 +2,11 @@
 
 stage::stage()
 {
-
+    internalView=false;
+    externalView=true;
+    showPlayer=false;
+    habInternalY1=0;
+    habInternalY2=-600;
 }
 
 stage::~stage()
@@ -59,11 +63,18 @@ bool stage::setStageTextures(SDL_Renderer* renderer)
 void stage::setFileNames()
 {  //filenames being specified
     bgFileName[0] = "images/blackground.png";
+    bgFileName[1] = "images/outerShip1.png";
+    bgFileName[2] = "images/habitation1.png";
+    bgFileName[3] = "images/habitation2.png";
+
 }
 
 void stage::freeBGTextures()
 {//free resources
-    stage1BG[0].free();
+    for(int i = 0; i<TOTAL_STAGE_BACKGROUNDS;i++)
+    {
+        stage1BG[i].free();
+    }
     starsFore.freeParallaxTexture();
     starsMid.freeParallaxTexture();
     starsBack.freeParallaxTexture();
@@ -102,13 +113,31 @@ void stage::handleStageButtonPresses(int buttonClicked,SDL_Renderer* renderer)
     {//player clicked save & exit
         //voice.stopVoice();
     }
+    else if(buttonClicked==2)
+    {
+        internalView=true;
+        showPlayer=true;
+        externalView=false;
+    }
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
 {//while stage scene is running this displays bgs,buttons, and player with updated positions.
     stage1BG[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     starsHandleParallax(renderer);
-    player1.render(renderer);
+    if(externalView)
+    {//renders the exterior of the ship
+        stage1BG[1].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else if(internalView)
+    {//renders the interior of the ship (supposed to parallax as player walks up or down.
+        habInternalHandleParallax(renderer);
+    }
+    if(showPlayer)
+    {//player is shown if internalView is on.
+        player1.render(renderer);
+    }
+
     buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
@@ -124,4 +153,41 @@ void stage::starsHandleParallax(SDL_Renderer* renderer)
     starsFore.incrementFore();
     starsMid.incrementMid();
     starsBack.incrementBack();
+}
+
+void stage::habInternalHandleParallax(SDL_Renderer* renderer)
+{
+    stage1BG[2].render(0,habInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[3].render(0,habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void stage::move()
+{
+    if( player1.getY() == 360 && player1.getPVelY() > 0 )
+    {
+        habInternalY1-=player1.getPVelY();
+        habInternalY2-=player1.getPVelY();
+        if(habInternalY1 < -599)
+        {
+            habInternalY1 = 600;
+        }
+        if(habInternalY2 < -599)
+        {
+            habInternalY2 = 600;
+        }
+    }
+    if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
+    {
+
+        habInternalY1-=player1.getPVelY();
+        habInternalY2-=player1.getPVelY();
+        if(habInternalY1 > 599)
+        {
+            habInternalY1 = -600;
+        }
+        if(habInternalY2 > 599)
+        {
+            habInternalY2 = -600;
+        }
+    }
 }

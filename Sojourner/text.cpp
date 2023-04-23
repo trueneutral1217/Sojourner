@@ -2,16 +2,16 @@
 
 text::text()
 {
-    verified = false;
-    inputText.str( "" );
-    noRobo.str("");
+  //  verified = false;
+    //inputText.str( "" );
+    //noRobo.str("");
 }
 
 text::~text()
 {
 
 }
-
+/*
 bool text::verifyNoRobo()
 {
     if (inputText.str() == noRobo.str())
@@ -19,21 +19,18 @@ bool text::verifyNoRobo()
         verified = true;
     }
     return verified;
-}
+}*/
 
-void text::loadText(TTF_Font* font,SDL_Renderer* renderer)
+void text::loadText(SDL_Renderer* renderer)
 {
-    //verification background at beginning of chapter 3
-    verify.loadFromFile("images/verify.png",renderer);
+    font = TTF_OpenFont( "fonts/PublicPixel-z84yD.ttf", 16 );
     //Set text color as black
     SDL_Color textColor = { 255, 255, 255, 0xFF };
-    //the text to be verified
-    noRobo.str("fuck capitalism");
-    noRoboTextTexture.loadFromRenderedText( noRobo.str().c_str(),textColor,font,renderer );
+
     //Enable text input
     SDL_StartTextInput();
 }
-
+/*
 void text::renderVerification(TTF_Font* font,SDL_Renderer* renderer)
 {
     verify.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -47,13 +44,16 @@ void text::renderVerification(TTF_Font* font,SDL_Renderer* renderer)
     {
         inputTextTexture.render(150,370,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-}
+}*/
 
 void text::free()
 {
     //free text background
-    verify.free();
+    //verify.free();
     //Free Text images
-	noRoboTextTexture.free();
-	inputTextTexture.free();
+	//noRoboTextTexture.free();
+	//inputTextTexture.free();
+
+	TTF_CloseFont( font );
+    font = NULL;
 }

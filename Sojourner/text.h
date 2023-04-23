@@ -11,24 +11,26 @@ class text
         //destructor
         ~text();
 
-        bool verified;
+        TTF_Font* font;
+
+        //bool verified;
         //verification passphrase & inputted text texture
-        Texture noRoboTextTexture;
-        Texture inputTextTexture;
+        //Texture noRoboTextTexture;
+        //Texture inputTextTexture;
         //verification bg texture
-        Texture verify;
+        //Texture verify;
 
-        std::string foo;
+        //std::string foo;
 
-        std::stringstream inputText;
+        //std::stringstream inputText;
 
-        std::stringstream noRobo;
+        //std::stringstream noRobo;
 
-        void loadText(TTF_Font* font,SDL_Renderer* renderer);
+        void loadText(SDL_Renderer* renderer);
 
-        bool verifyNoRobo();
+        //bool verifyNoRobo();
 
-        void renderVerification(TTF_Font* font,SDL_Renderer* renderer);
+        //void renderVerification(TTF_Font* font,SDL_Renderer* renderer);
 
         void free();
 

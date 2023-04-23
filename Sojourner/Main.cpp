@@ -4,14 +4,14 @@
 #include "Texture.h"
 #include "timer.h"
 #include "particle.h"
-#include "chapter.h"
+//#include "chapter.h"
 #include "saveGame.h"
 #include "pregameui.h"
 #include "animations.h"
 #include "stage.h"
 #include "text.h"
 
-const int TOTAL_STATES = 8;
+const int TOTAL_STATES = 6;
 
 //gameStates
 //gameState = 0 pregameui
@@ -19,10 +19,7 @@ const int TOTAL_STATES = 8;
 //gameState = 2 load game chapter select
 //gameState = 3 options
 //gameState = 4 credits
-//gameState = 5 chapter 1
-//gameState = 6 stage 1
-//gameState = 7 chapter 2
-//gameState = 8 chapter 3
+//gameState = 5 stage 1
 
 //Starts up SDL and creates window
 bool init();
@@ -40,7 +37,7 @@ audio music;
 std::vector<audio> sounds;
 audio sound;
 //declare chapter1
-chapter chapter;
+//chapter chapter;
 //declare stage
 stage stage;
 //declare instance of pregame user interface.
@@ -163,20 +160,48 @@ bool loadMedia()
 	bool success = true;
     //load saved game
 	savegame.readFile();
+
+    //has play clicked stage1 button from newgame screen, if so, loadgame will show stage1 button.
+	pregameui.existingSave=savegame.data[0];
+
 	//pre-game chapter set up.
-	success = chapter.loadChapters(savegame.data[0],savegame.data[1],savegame.data[2],savegame.data[3],savegame.data[4],savegame.data[5],renderer,success);
+	//success = chapter.loadChapters(savegame.data[0],savegame.data[1],savegame.data[2],savegame.data[3],savegame.data[4],savegame.data[5],renderer,success);
     //load animations textures
     success = animations.setAnimationTextures(renderer);
     //sets up pregame ui button names, button textures, and bg textures.
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
     success = stage.loadStage(renderer,success);
+    //load player x and y coords from savegame
+    stage.player1.setX(savegame.data[1]);
+    stage.player1.setY(savegame.data[2]);
+    //load habitat Y1 and Y2 coords from safe file
+    stage.habInternalY1 = savegame.data[6];
+    stage.habInternalY2 = savegame.data[7];
+    std::cout<<"\n \n stage.habInternalY1: "<<stage.habInternalY1;
+    std::cout<<"\n \n stage.habInternalY2: "<<stage.habInternalY2;
 	//load sound effects
 	loadSounds();
+	//load user options preferences from save.
+	pregameui.optionsButtons[1].fullScreenToggle = savegame.data[3];
+	pregameui.optionsButtons[2].musicToggle = savegame.data[4];
+	pregameui.optionsButtons[3].voiceToggle = savegame.data[5];
+	music.musicToggle=pregameui.optionsButtons[2].musicToggle;
+    if(music.musicToggle)//if music is toggled on from save file, this plays it
+    {
+        music.playMusic();
+    }
+    if(pregameui.optionsButtons[1].fullScreenToggle)//if fullscreen is toggled on from save file, this updates the window
+    {
+        pregameui.optionsButtons[1].setFullScreenOn(window,renderer);
+    }
+
+
+
     //fade to black background
     blackGround.loadFromFile("images/Blackground.png",renderer);
-    //sets strings for verification page, loads those strings into their textures,loads verification page bg
-    text.loadText(chapter.font,renderer);
+    //loads the font
+    text.loadText(renderer);
     //for debugging
     if(success == false)
     {
@@ -188,9 +213,7 @@ bool loadMedia()
 void close()
 {
     //save progress
-    savegame.writeFile(chapter.currentChapter,chapter.currentPage,chapter.currentScript,chapter.chapter1Complete,chapter.chapter2Complete,chapter.chapter3Complete);
-    //free chapter resources
-    chapter.free();
+    savegame.writeFile(pregameui,stage);
     //free pregame ui resouces
     pregameui.free();
     //free stage resources
@@ -265,46 +288,7 @@ int main( int argc, char* args[] )
 					}
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
-
-                        if(gameState == 8)//chapter 3
-                        {
-                            if(!verified)
-                            {
-                                verified = text.verifyNoRobo();
-                            }
-                            else
-                            {
-                                int buttonClicked = 0;
-                                for( int i = 0; i < TOTAL_CHAPTER_BUTTONS; ++i )
-                                {
-                                    buttonClicked += chapter.buttons[ i ].handleChapterEvent(chapter.buttons[i].buttonName, &e, window,renderer );
-                                }
-                                chapter.handleChapterButtonPresses(buttonClicked,renderer);
-                                if( chapter.exitChapter || buttonClicked == 1)
-                                {
-                                    gameState=0;
-                                    music.resetMusic();
-                                    chapter.exitChapter = false;
-                                }
-                            }
-                        }
-                        if(gameState == 7)
-                        {//player clicks mouse inside chapter 1 or 2
-                            int buttonClicked = 0;
-                            //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
-                            for( int i = 0; i < TOTAL_CHAPTER_BUTTONS; ++i )
-                            {
-                                buttonClicked += chapter.buttons[ i ].handleChapterEvent(chapter.buttons[i].buttonName, &e, window,renderer );
-                            }
-                            chapter.handleChapterButtonPresses(buttonClicked,renderer);
-                            if(chapter.exitChapter || buttonClicked == 1)
-                            {//player clicked back button or player completed chapter 2
-                                gameState=0;
-                                music.resetMusic();
-                                chapter.exitChapter = false;
-                            }
-                        }
-                        if(gameState == 6){
+                        if(gameState == 5){
                             //player clicks mouse inside stage
                             int buttonClicked = 0;
                             //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
@@ -314,46 +298,41 @@ int main( int argc, char* args[] )
                             }
                             stage.handleStageButtonPresses(buttonClicked,renderer);
                             if(buttonClicked == 1)
-                            {//player clicked exit button
+                            {//player clicked save and exit button
                                 gameState=0;
-                                music.resetMusic();
+                                pregameui.loadMainButtons(renderer);
+                                std::cout<<"\n \n stage.habInternalY1: "<<stage.habInternalY1;
+                                std::cout<<"\n \n stage.habInternalY2: "<<stage.habInternalY2;
+                                //music.resetMusic();
                             }
                         }
-                        if(gameState == 5)
-                        {//player clicks mouse inside chapter 1 or 2
-                            int buttonClicked = 0;
-                            //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
-                            for( int i = 0; i < TOTAL_CHAPTER_BUTTONS; ++i )
-                            {
-                                buttonClicked += chapter.buttons[ i ].handleChapterEvent(chapter.buttons[i].buttonName, &e, window,renderer );
-                            }
-                            chapter.handleChapterButtonPresses(buttonClicked,renderer);
-                            if(chapter.exitChapter || buttonClicked == 1)
-                            {//player clicked back button or player completed chapter 2
-                                gameState=0;
-                                music.resetMusic();
-                                chapter.exitChapter=false;
-                            }
-                        }
-                        //Handle button events when in pregame ui (opening, newgame, loadgame,options,and credits).
-                        if(gameState <5)
+                        //Handle button events when in main screen
+                        if(gameState == 0)
                         {
-                            //chapters get reset here, but I may have the actual chapter 1 button on this screen determine the reset.
-                            //chapter.resetChapters(renderer);
                             int oldGameState = gameState;
-                            for( int i = 0; i < TOTAL_PREGAME_BUTTONS; ++i )
-                            {
-                                gameState = pregameui.buttons[ i ].handlePGUIEvent(gameState,pregameui.buttons[i].buttonName, &e, window,renderer );
+                            for( int i = 0; i < TOTAL_MAIN_BUTTONS; ++i )
+                            {//handlePGUIEvent needs to be broken up into 5 parts
+                                gameState = pregameui.mainButtons[ i ].handlePGUIEvent(gameState,pregameui.mainButtons[i].buttonName, &e, window,renderer );
                             }
                             if(gameState==1)
                             {//user clicks the newGame button
-                                chapter.resetChapters(renderer);
+                                //chapter.resetChapters(renderer);
+                                pregameui.freeMainButtons();
+                                pregameui.loadNewgameButtons(renderer);
+                            }
+                            if(gameState==2)
+                            {
+                                pregameui.freeMainButtons();
+                                pregameui.loadLoadgameButtons(renderer);
                             }
                             if(gameState==3)
-                            {//user toggles music on or off
-                                if(pregameui.buttons[10].musicOn)
+                            {
+                                pregameui.freeMainButtons();
+                                pregameui.loadOptionsButtons(renderer);
+                                //user toggles music on or off
+                                if(pregameui.optionsButtons[2].musicToggle)
                                 {
-                                    music.musicOn = true;
+                                    music.musicToggle = true;
                                     if(!music.isPlaying())
                                     {
                                         music.playMusic();
@@ -361,50 +340,125 @@ int main( int argc, char* args[] )
                                 }
                                 else
                                 {
-                                    music.musicOn = false;
+                                    music.musicToggle = false;
                                     if(music.isPlaying())
                                     {
                                         music.stopMusic();
                                     }
                                 }
-                                if(pregameui.buttons[11].voiceOn)
+                                if(pregameui.optionsButtons[3].voiceToggle)
                                 {
-                                    chapter.voice.voiceOn = true;
+                                    //chapter.voice.voiceOn = true;
                                 }
                                 else
                                 {
-                                    chapter.voice.voiceOn = false;
+                                    //chapter.voice.voiceOn = false;
                                 }
                             }
-                            if(gameState == 5)
-                            {//user clicks chapter 1 button
-                                if(chapter.currentChapter != 0)
-                                {
-                                    chapter.currentChapter = 0;
-                                    chapter.resetPages();
-                                }
-                                music.resetChapter1Music();
-                                chapter.loadChapter(renderer);
+                            if(gameState==4)
+                            {
+                                pregameui.freeMainButtons();
+                                pregameui.loadCreditsButtons(renderer);
                             }
-                            else if(gameState == 7)
-                            {//user clicks chapter 2 button
-                                if(chapter.currentChapter!=1)
-                                {
-                                    chapter.currentChapter =1;
-                                    chapter.resetPages();
-                                }
-                                music.resetChapter2Music();
-                                chapter.loadChapter(renderer);
+                            if(gameState != oldGameState)
+                            {
+                                int newGameState = gameState;
+                                gameState = oldGameState;
+                                fade=true;
+                                fade=fadeOut(countedFrames,fade);
+                                gameState=newGameState;
                             }
-                            else if(gameState == 8)
-                            {//user clicks chapter 3 button
-                                if(chapter.currentChapter!=2)
-                                {
-                                    chapter.currentChapter =2;
-                                    chapter.resetPages();
-                                }
-                                music.resetChapter3Music();
-                                chapter.loadChapter(renderer);
+                        }
+                        if(gameState==1)
+                        {
+                            int oldGameState = gameState;
+                            for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
+                            {//handlePGUIEvent needs to be broken up into 5 parts
+                                gameState = pregameui.newgameButtons[ i ].handlePGUIEvent(gameState,pregameui.newgameButtons[i].buttonName, &e, window,renderer );
+                            }
+                            if(gameState==0)
+                            {//user clicked back button
+                                pregameui.freeNewgameButtons();
+                                pregameui.loadMainButtons(renderer);
+                            }
+                            if(gameState==5)
+                            {//user clicked stage 1 button
+                                pregameui.freeNewgameButtons();
+                                pregameui.existingSave=true;
+                                stage.player1.setX(380);
+                                stage.player1.setY(260);
+                                stage.habInternalY1 = 0;
+                                stage.habInternalY2 = -600;
+                                std::cout<<"\n \n pregameui.existingSave: "<<pregameui.existingSave;
+                                //pregameui.loadLoadgameButtons(renderer);
+                            }
+                            if(gameState != oldGameState)
+                            {
+                                int newGameState = gameState;
+                                gameState = oldGameState;
+                                fade=true;
+                                fade=fadeOut(countedFrames,fade);
+                                gameState=newGameState;
+                            }
+                        }
+                        if(gameState==2)
+                        {
+                            int oldGameState = gameState;
+                            for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
+                            {//handlePGUIEvent needs to be broken up into 5 parts
+                                gameState = pregameui.loadgameButtons[ i ].handlePGUIEvent(gameState,pregameui.loadgameButtons[i].buttonName, &e, window,renderer );
+                            }
+                            if(gameState==0)
+                            {//user clicked back button
+                                pregameui.freeLoadgameButtons();
+                                pregameui.loadMainButtons(renderer);
+                            }
+                            if(gameState==5)
+                            {//user clicked stage 1 button
+                                pregameui.freeLoadgameButtons();
+                                //pregameui.loadLoadgameButtons(renderer);
+                            }
+                            if(gameState != oldGameState)
+                            {
+                                int newGameState = gameState;
+                                gameState = oldGameState;
+                                fade=true;
+                                fade=fadeOut(countedFrames,fade);
+                                gameState=newGameState;
+                            }
+                        }
+                        if(gameState==3)
+                        {
+                            int oldGameState = gameState;
+                            for( int i = 0; i < TOTAL_OPTIONS_BUTTONS; ++i )
+                            {//handlePGUIEvent needs to be broken up into 5 parts
+                                gameState = pregameui.optionsButtons[ i ].handlePGUIEvent(gameState,pregameui.optionsButtons[i].buttonName, &e, window,renderer );
+                            }
+                            if(gameState==0)
+                            {//user clicked back button
+                                pregameui.freeOptionsButtons();
+                                pregameui.loadMainButtons(renderer);
+                            }
+                            if(gameState != oldGameState)
+                            {
+                                int newGameState = gameState;
+                                gameState = oldGameState;
+                                fade=true;
+                                fade=fadeOut(countedFrames,fade);
+                                gameState=newGameState;
+                            }
+                        }
+                        if(gameState==4)
+                        {
+                            int oldGameState = gameState;
+                            for( int i = 0; i < TOTAL_CREDITS_BUTTONS; ++i )
+                            {//handlePGUIEvent needs to be broken up into 5 parts
+                                gameState = pregameui.creditsButtons[ i ].handlePGUIEvent(gameState,pregameui.creditsButtons[i].buttonName, &e, window,renderer );
+                            }
+                            if(gameState==0)
+                            {//user clicked back button
+                                pregameui.freeCreditsButtons();
+                                pregameui.loadMainButtons(renderer);
                             }
                             if(gameState != oldGameState)
                             {
@@ -419,59 +473,12 @@ int main( int argc, char* args[] )
 					//Handle key press
 					if( e.type == SDL_KEYDOWN )
 					{
-					    if(gameState==8 && !verified)
-                        {
-                            //Handle backspace
-                            if( e.key.keysym.sym == SDLK_BACKSPACE && text.inputText.str().length() > 0 )
-                            {
-                                text.inputText.str("");
-                            }
-                            //Handle copy
-                            else if( e.key.keysym.sym == SDLK_c && SDL_GetModState() & KMOD_CTRL )
-                            {
-                                SDL_SetClipboardText( text.inputText.str().c_str() );
-                            }
-                            //Handle paste
-                            else if( e.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL )
-                            {
-                                text.inputText.str() = SDL_GetClipboardText();
-                            }
-                        }
-
-						switch( e.key.keysym.sym )
+                        switch( e.key.keysym.sym )
 						{
                             case SDLK_SPACE:
-                                if(gameState ==8)
-                                {
-                                    //update script line, page, end chapter
-                                    chapter.progress2(renderer);
-                                    if(chapter.exitChapter)
-                                    {
-                                        gameState=0;
-                                        chapter.exitChapter = false;
-                                    }
-                                }
-                                else if(gameState==7)
-                                {
-                                    //update script line, page, end chapter
-                                    chapter.progress2(renderer);
-                                    if(chapter.exitChapter)
-                                    {
-                                        gameState=0;
-                                        chapter.exitChapter = false;
-                                    }
-                                }
-                                else if(gameState==5)
-                                {
-                                    //update script line, page, end chapter
-                                    chapter.progress2(renderer);
-                                    if(chapter.exitChapter)
-                                    {
-                                        gameState=0;
-                                        chapter.exitChapter = false;
-                                    }
-                                }
                                 break;
+
+
                             case SDLK_ESCAPE:
                             if(gameState==0)
                             {
@@ -491,32 +498,18 @@ int main( int argc, char* args[] )
 							case SDLK_4:
                                 sounds[3].playSound();
 							break;
-							case SDLK_h:
-							    //press h to cycle dialog visability
-							    chapter.handleDialogVisability();
-							break;
 							case SDLK_9:
                                 //press 9 to play / pause music
                                 music.playMusic();
 							break;
 						}
 					}
-					else if( gameState == 8 && verified==false && e.type == SDL_TEXTINPUT )
-                    {
-                        //Not copy or pasting
-						if( !( SDL_GetModState() & KMOD_CTRL && ( e.text.text[ 0 ] == 'c' || e.text.text[ 0 ] == 'C' || e.text.text[ 0 ] == 'v' || e.text.text[ 0 ] == 'V' ) ) )
-						{
-                            text.inputText << e.text.text;
-						}
-						verified = text.verifyNoRobo();
-						if(verified)
-                        {//somehow currentScript was greater than 0 without this
-                            chapter.currentScript = 0;
-                        }
-                    }
+
 					//if wasd are pressed player will be moved.
 					stage.player1.handleEvent(e);
 				}
+				//may need to add stage.move function to process stage movement.
+                stage.move();
 				//process player movement
 				stage.player1.move(countedFrames);
 				//Clear screen
@@ -525,81 +518,28 @@ int main( int argc, char* args[] )
                 //Title Screen rendering
                 if(gameState == 0)
                 {
-                    chapter.chapterTimer.stop();
+                    //chapter.chapterTimer.stop();
                     //renders buttons, bg, title image, and handles particle effect.
                     pregameui.handleTitleScreenRendering(renderer);
                 }
                 else if(gameState == 1)
                 {//new game chapter select screen
-                    chapter.chapterTimer.stop();
+                    //chapter.chapterTimer.stop();
                     pregameui.handleNewGameScreenRendering(renderer);
                 }
                 else if(gameState == 2)
                 {//load game chapter/stage select screen
-                    chapter.chapterTimer.stop();
+                    //chapter.chapterTimer.stop();
                     //handles the buttons and background rendering
-                    pregameui.handleLoadGameScreenRendering(renderer,chapter.chapter1Complete,chapter.chapter2Complete,chapter.chapter3Complete);
+                    pregameui.handleLoadGameScreenRendering(renderer);
                 }
                 else if(gameState == 3)
                 {
                     //options screen buttons/bg rendering
                     pregameui.handleOptionsScreenRendering(renderer);
                 }
-                //chapter 1 is in effect
-                else if(gameState == 5)
-                {
-                    //Chapter rendering (buttons and backgrounds and text.
-                    chapter.handleRendering(renderer);
-                    //render tao animation
-                    animations.renderTao(renderer);
-                    //render rat animation
-                    animations.renderRat(renderer);
-                }
-                //if chapter 2 is in effect
-                else if(gameState == 7)
-                {
-                    chapter.handleRendering(renderer);
-                    //rat animation rendered after chapter background, dialog box are rendered.
-                    animations.renderRat(renderer);
-                    if(chapter.currentPage == 3)
-                    {
-                        animations.renderToaster2(renderer);
-                    }
-                    else
-                    {
-                        animations.resetToaster2();
-                    }
-                    if(chapter.currentPage == 4)
-                    {
-                        animations.renderBlackstar(renderer);
-                    }
-                    if(chapter.currentPage == 5)
-                    {
-                        animations.renderPortal(renderer);
-                    }
-                    else
-                    {
-                        animations.resetPortal();
-                    }
-                }
-                else if(gameState == 8)//render chapter 3 no robo verification, if passed, render chapter 3
-                {
-                    if(!verified)
-                    {
-                        text.renderVerification(chapter.font,renderer);
-                    }
-                    else
-                    {
-                        if(chapter.currentPage == 6)
-                        {
-                            animations.renderTrailer(renderer);
-                        }
-                        //Chapter rendering (buttons and backgrounds and text.
-                        chapter.handleRendering(renderer);
-                        //rat is rendered on top of dialog box in lower right hand corner. (after verification)
-                        animations.renderRat(renderer);
-                    }
-                }
+
+
                 else if(gameState == 4)
                 {
                     //render background image and back button
@@ -608,7 +548,7 @@ int main( int argc, char* args[] )
                     animations.renderToaster(renderer);
                     //animations.renderToaster2(renderer);
                 }
-                else if(gameState == 6)
+                else if(gameState == 5)
                 {
                     //renders bg, stage ui buttons and player
                     stage.renderStage1(renderer);
@@ -635,7 +575,7 @@ int main( int argc, char* args[] )
 				//increments frames for animations
 				animations.progress();
                 //set script line
-                chapter.setAutoScript();
+                //chapter.setAutoScript();
 			}
 			//Disable text input
 			SDL_StopTextInput();

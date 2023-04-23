@@ -5,8 +5,8 @@ audio::audio()
     music = NULL;
     sound = NULL;
     voice = NULL;
-    musicOn = true;
-    voiceOn = true;
+    musicToggle = true;
+    voiceToggle = true;
 }
 audio::~audio()
 {
@@ -67,6 +67,12 @@ void audio::loadSound(int soundNum)
         case 3:
             sound = Mix_LoadWAV( "sounds/titleitemselect4.wav" );
         break;
+        case 4:
+            sound = Mix_LoadWAV( "sounds/beam.mp3");
+        break;
+        case 5:
+            sound = Mix_LoadWAV( "sounds/3beeps.mp3");
+        break;
     }
 }
 
@@ -99,7 +105,7 @@ void audio::playSound()
 
 void audio::playVoice()
 {
-    if(voiceOn)
+    if(voiceToggle)
     {
         Mix_PlayChannel(-1,voice,0);
     }
@@ -107,7 +113,7 @@ void audio::playVoice()
 
 void audio::playMusic()
 {
-    if(musicOn)
+    if(musicToggle)
     {
         if( Mix_PlayingMusic() == 0 )
         {
@@ -141,7 +147,7 @@ void audio::pauseMusic()
 
 void audio::resumeMusic()
 {
-    if(musicOn)
+    if(musicToggle)
     {
         Mix_ResumeMusic();
     }
@@ -164,7 +170,7 @@ bool audio::isPlaying()
 {
     return Mix_PlayingMusic();
 }
-
+/*
 void audio::resetChapter1Music()
 {
     stopMusic();
@@ -184,4 +190,7 @@ void audio::resetChapter3Music()
     stopMusic();
     loadChapter3Music();
     playMusic();
-}
+}*/
+
+
+

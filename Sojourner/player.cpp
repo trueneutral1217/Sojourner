@@ -2,7 +2,9 @@
 
 player::player()
 {
-    playerX = playerY = pVelX = pVelY = walkFrame = moveState = 0;
+    pVelX = pVelY = walkFrame = moveState = 0;
+    playerX = 380;//middle of screen (considering player width)
+    playerY = 260;//also middle, considering player height.  player starts in screen center.
     flipHorizontal = false;
 }
 player::~player()
@@ -99,7 +101,16 @@ void player::handleEvent(SDL_Event& e)
 void player::move(int tick)
 {
     playerX += pVelX;
-    playerY += pVelY;
+    //keeps playerY within 100 pixels of center
+    if(playerY<360 && pVelY>0)
+    {
+        playerY += pVelY;
+    }
+    if(playerY>160 && pVelY<0)
+    {
+        playerY+=pVelY;
+    }
+
 
     if(pVelX > 0)//player is walking right
     {
@@ -434,4 +445,34 @@ void player::setCamera(SDL_Rect& camera)
     {
         camera.y=SCREEN_HEIGHT-camera.h;
     }
+}
+
+int player::getX()
+{
+    return playerX;
+}
+
+int player::getY()
+{
+    return playerY;
+}
+
+int player::getPVelX()
+{
+    return pVelX;
+}
+
+int player::getPVelY()
+{
+    return pVelY;
+}
+
+void player::setX(int x)
+{
+    playerX = x;
+}
+
+void player::setY(int y)
+{
+    playerY = y;
 }

@@ -5,26 +5,26 @@ button::button()
 	position.x = 0;
 	position.y = 0;
     buttonName = "";
-    fullScreen=false;
-    musicOn=true;
-    voiceOn=true;
+    fullScreenToggle=false;
+    musicToggle=true;
+    voiceToggle=true;
     mouseOver=false;
     //move buttons 0-7 to pregameui
-    pregameButtonNames[0]="back";
+/*    pregameButtonNames[0]="back";
 	pregameButtonNames[1]="new";
 	pregameButtonNames[2]="load";
 	pregameButtonNames[3]="options";
 	pregameButtonNames[4]="credits";
-	pregameButtonNames[5]="chapter1";
-	pregameButtonNames[6]="fullScreenOff";
-	pregameButtonNames[7]="stage1";
-	pregameButtonNames[8]="chapter2";
-	pregameButtonNames[9]="chapter3";
-	pregameButtonNames[10]="musicOn";
-	pregameButtonNames[11]="voiceOn";
+	//pregameButtonNames[5]="chapter1";
+	pregameButtonNames[5]="fullScreenToggle";
+	pregameButtonNames[6]="stage1";
+	//pregameButtonNames[8]="chapter2";
+	//pregameButtonNames[9]="chapter3";
+	pregameButtonNames[7]="musicToggle";
+	pregameButtonNames[8]="voiceToggle*/
 
 	//move buttons 8-15 to chapter
-	chapterButtonNames[0]="backPage";
+/*	chapterButtonNames[0]="backPage";
 	chapterButtonNames[1]="backLine";
 	chapterButtonNames[2]="autoOn";
 	chapterButtonNames[3]="autoOff";
@@ -33,9 +33,8 @@ button::button()
 	chapterButtonNames[6]="autoSpeed3";
     chapterButtonNames[7]="saveAndExit";
     chapterButtonNames[8]="nextPage";
-
+*/
     stageButtonNames[0]="saveAndExit";
-
     //buttonTexture=NULL;
 }
 
@@ -44,16 +43,18 @@ button::~button()
     buttonTexture.free();
 }
 
+
+
 void button::fullScreenButtonTextureToggle(SDL_Renderer* renderer)
 {
     buttonTexture.free();
-    if(fullScreen)
+    if(fullScreenToggle)
     {
         buttonTexture.loadFromFile("images/buttons/fullScreenOn.png", renderer);
     }
     else
     {
-        buttonTexture.loadFromFile("images/buttons/fullScreenOff.png", renderer);
+        buttonTexture.loadFromFile("images/buttons/fullScreenToggle.png", renderer);
     }
     buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
@@ -61,9 +62,9 @@ void button::fullScreenButtonTextureToggle(SDL_Renderer* renderer)
 void button::musicButtonTextureToggle(SDL_Renderer* renderer)
 {
     buttonTexture.free();
-    if(musicOn)
+    if(musicToggle)
     {
-        buttonTexture.loadFromFile("images/buttons/musicOn.png", renderer);
+        buttonTexture.loadFromFile("images/buttons/musicToggle.png", renderer);
     }
     else
     {
@@ -75,9 +76,9 @@ void button::musicButtonTextureToggle(SDL_Renderer* renderer)
 void button::voiceButtonTextureToggle(SDL_Renderer* renderer)
 {
     buttonTexture.free();
-    if(voiceOn)
+    if(voiceToggle)
     {
-        buttonTexture.loadFromFile("images/buttons/voiceOn.png", renderer);
+        buttonTexture.loadFromFile("images/buttons/voiceToggle.png", renderer);
     }
     else
     {
@@ -101,53 +102,47 @@ int button::getPositionY()
     return position.y;
 }
 
-bool button::setFullScreenOn(SDL_Window* window,SDL_Renderer* renderer)
+void button::setFullScreenOn(SDL_Window* window,SDL_Renderer* renderer)
 {
-    fullScreen = true;
+    fullScreenToggle = true;
     SDL_SetWindowFullscreen( window, SDL_TRUE );
-    return fullScreen;
 }
 
-bool button::setFullScreenOff(SDL_Window* window,SDL_Renderer* renderer)
+void button::setFullScreenOff(SDL_Window* window,SDL_Renderer* renderer)
 {
-    fullScreen = false;
+    fullScreenToggle = false;
     SDL_SetWindowFullscreen( window, SDL_FALSE );
-    return fullScreen;
 }
 
-bool button::setMusicOn()
+void button::setMusicOn()
 {
-    musicOn = true;
-    return musicOn;
+    musicToggle = true;
 }
 
-bool button::setMusicOff()
+void button::setMusicOff()
 {
-    musicOn=false;
-    return musicOn;
+    musicToggle=false;
 }
 
-bool button::setVoiceOn()
+void button::setVoiceOn()
 {
-    voiceOn = true;
-    return voiceOn;
+    voiceToggle = true;
 }
 
-bool button::setVoiceOff()
+void button::setVoiceOff()
 {
-    voiceOn = false;
-    return voiceOn;
+    voiceToggle = false;
 }
-
+/*
 void button::setChapterButtonName(int i)
 {
     buttonName=chapterButtonNames[i];
-}
-
+}*/
+/*
 void button::setPregameButtonName(int i)
 {
     buttonName=pregameButtonNames[i];
-}
+}*/
 
 void button::setStageButtonName(int i)
 {
@@ -191,18 +186,15 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
 		if( !inside )
 		{
             mouseOver=false;
-            //std::cout << "\n mouseOver: " << std::to_string( mouseOver );
 		}
 		//Mouse is inside button
 		else
 		{
-		    mouseOver=true;
-
-		    //if(buttonName=="new")
-            //{
-                //std::cout<<"new game button mouseover == true";
-                //std::cout << "\n mouseOver: " << std::to_string( mouseOver );
-            //}
+		    if(!mouseOver)
+            {
+                std::cout<<"\n \n mouseOver = true";
+                mouseOver=true;
+		    }
 
                 switch( e->type )
                 {
@@ -237,9 +229,9 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
                                 printf("\n \n back button pressed from newgame \n \n");
                                 gameState = 0;
                             }
-                            else if(buttonName=="chapter1")
+                            else if(buttonName=="stage1")
                             {
-                                printf("\n \n chapter 1 button pressed from newgame \n \n");
+                                printf("\n \n stage 1 button pressed from newgame \n \n");
                                 gameState = 5;
                             }
                         }
@@ -250,25 +242,10 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
                                 printf("\n \n back button pressed from loadgame \n \n");
                                 gameState = 0;
                             }
-                            else if(buttonName=="chapter1")
-                            {
-                                printf("\n \n chapter 1 button pressed from loadgame \n \n");
-                                gameState = 5;
-                            }
-                            else if(buttonName=="chapter2")
-                            {
-                                printf("\n \n chapter 2 button pressed from loadgame \n \n");
-                                gameState = 7;
-                            }
-                            else if(buttonName=="chapter3")
-                            {
-                                printf("\n \n chapter 3 button pressed from loadgame \n \n");
-                                gameState = 8;
-                            }
                             else if(buttonName=="stage1")
                             {
                                 printf("\n \n stage 1 button pressed from loadgame \n \n");
-                                gameState = 6;
+                                gameState = 5;
                             }
                         }
                         else if(gameState==3)
@@ -278,28 +255,28 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
                                 printf("\n \n back button pressed from options \n \n");
                                 gameState = 0;
                             }
-                            else if(buttonName=="fullScreenOff")
+                            else if(buttonName=="fullScreenToggle")
                             {
-                                printf("\n \n fullScreenOff button pressed \n \n");
-                                if(!fullScreen)
+                                printf("\n \n fullScreen toggle button pressed \n \n");
+                                if(!fullScreenToggle)
                                     setFullScreenOn(window,renderer);
                                 else
                                     setFullScreenOff(window,renderer);
                                 gameState = 3;
                             }
-                            else if(buttonName=="musicOn")
+                            else if(buttonName=="musicToggle")
                             {
-                                printf("\n \n musicOn button pressed \n \n");
-                                if(!musicOn)
+                                printf("\n \n music toggle button pressed \n \n");
+                                if(!musicToggle)
                                     setMusicOn();
                                 else
                                     setMusicOff();
                                 gameState = 3;
                             }
-                            else if(buttonName=="voiceOn")
+                            else if(buttonName=="voiceToggle")
                             {
-                                printf("\n \n voiceOn button pressed \n \n");
-                                if(!voiceOn)
+                                printf("\n \n voice toggle button pressed \n \n");
+                                if(!voiceToggle)
                                     setVoiceOn();
                                 else
                                     setVoiceOff();
@@ -321,7 +298,7 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
 	}
 	return gameState;
 }
-
+/*
 int button::handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window* window, SDL_Renderer* renderer )
 {
     int buttonClicked = 0;
@@ -369,12 +346,12 @@ int button::handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window
                     case SDL_MOUSEBUTTONDOWN:
 
                         //stage 1 not currently implemented
-                        /*
+
                         else if(buttonName=="stage1" && gameState==2)
                         {
                             printf("\n \n Stage 1 button pressed \n \n");
                             gameState = 6;
-                        }*/
+                        }
                         if(buttonName=="saveAndExit")
                         {
                             printf("\n \n saveAndExit button pressed \n \n");
@@ -425,7 +402,7 @@ int button::handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window
 		}
 	}
 	return buttonClicked;
-}
+}*/
 
 int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* window, SDL_Renderer* renderer )
 {
@@ -465,6 +442,10 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* w
 		if( !inside )
 		{
             buttonClicked=0;
+            if(e->type == SDL_MOUSEBUTTONDOWN)
+            {
+                buttonClicked=2;
+            }
 		}
 		//Mouse is inside button
 		else
@@ -486,3 +467,4 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* w
 	}
 	return buttonClicked;
 }
+

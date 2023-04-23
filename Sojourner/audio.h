@@ -4,7 +4,7 @@
 #include "texture.h"
 #include <SDL_mixer.h>
 
-const int TOTAL_SOUNDS = 4;
+const int TOTAL_SOUNDS = 6;
 
 class audio
 {
@@ -15,9 +15,11 @@ class audio
         Mix_Chunk *voice;
         audio();
         ~audio();
-        //if musicOn or voiceOn == false, no voice or music will be played.
-        bool voiceOn;
-        bool musicOn;
+
+
+        //if musicToggle or voiceToggle == false, no voice or music will be played.
+        bool voiceToggle;
+        bool musicToggle;
 
         //music
         void loadMusic();
@@ -26,6 +28,7 @@ class audio
         void loadChapter3Music();
         //sounds
         void loadSound(int soundNum);
+
         void loadVoice(int chapter, int page,int line);
 
         void playMusic();
@@ -40,9 +43,9 @@ class audio
         //resets pregame music
         void resetMusic();
         //resets music for the individual chapters
-        void resetChapter1Music();
+        /*void resetChapter1Music();
         void resetChapter2Music();
-        void resetChapter3Music();
+        void resetChapter3Music();*/
 
     private:
 

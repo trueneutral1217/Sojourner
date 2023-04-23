@@ -36,7 +36,7 @@ class player
         ~player();
         static const int PLAYER_WIDTH = 40;
         static const int PLAYER_HEIGHT = 80;
-        static const int PLAYER_VEL = 10;
+        static const int PLAYER_VEL = 5;
         //tracks current player movement state (idle, walkLR, soon to be other directions and possible other types of movement like floating or running)
         int moveState;
         //tracks current player animation frame
@@ -56,6 +56,15 @@ class player
         void freePlayer();
 
         void setCamera(SDL_Rect& camera);
+
+        int getX();
+        int getY();
+
+        int getPVelX();
+        int getPVelY();
+
+        void setX(int x);
+        void setY(int y);
 
     private:
         //player coordinates

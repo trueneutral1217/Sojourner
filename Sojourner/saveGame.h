@@ -2,9 +2,11 @@
 #define SAVEGAME_H
 
 #include "Texture.h"
+#include "pregameui.h"
+#include "stage.h"
 
 //total save game data points
-const int TOTAL_DATA = 6;
+const int TOTAL_DATA = 8;
 
 class saveGame
 {
@@ -12,11 +14,11 @@ class saveGame
 
     //file read/write stuff
     Sint32 data[ TOTAL_DATA ];
-    SDL_RWops* file = SDL_RWFromFile( "savegame/save.gsf", "r+b" );
+    SDL_RWops* file = SDL_RWFromFile( "savegame/save.ssf", "r+b" );
 
     void readFile();
-    void writeFile(int currentChapter,int currentPage,int currentScript, bool chapter1Complete, bool chapter2Complete, bool chapter3Complete);
 
+    void writeFile(pregameui pregameui,stage stage);
 
     private:
 

@@ -1,3 +1,5 @@
+
+/*
 #include "chapter.h"
 
 chapter::chapter()
@@ -709,27 +711,27 @@ void chapter::handleRendering(SDL_Renderer* renderer)
         if(autoText)
         {
             //render auto texture on button (hightlights auto text on in menubar)
-            buttons[2].buttonTexture.render(buttons[2].getPositionX(),buttons[2].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons[2].buttonTexture.render(buttons[2].getPositionX(),buttons[2].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         else
         {
             //render auto texture off button (hightlights auto text off in menubar)
-            buttons[3].buttonTexture.render(buttons[3].getPositionX(),buttons[3].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons[3].buttonTexture.render(buttons[3].getPositionX(),buttons[3].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         if(autoTextSpeed==0)
         {
             //highlights text speed 1
-            buttons[4].buttonTexture.render(buttons[4].getPositionX(),buttons[4].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons[4].buttonTexture.render(buttons[4].getPositionX(),buttons[4].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         else if(autoTextSpeed==1)
         {
             //highlights text speed 2
-            buttons[5].buttonTexture.render(buttons[5].getPositionX(),buttons[5].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons[5].buttonTexture.render(buttons[5].getPositionX(),buttons[5].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         else if(autoTextSpeed==2)
         {
             //highlights text speed 3
-            buttons[6].buttonTexture.render(buttons[6].getPositionX(),buttons[6].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons[6].buttonTexture.render(buttons[6].getPositionX(),buttons[6].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         menuBar.render(0,350,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         //load page number into menubar
@@ -742,7 +744,7 @@ void chapter::handleRendering(SDL_Renderer* renderer)
         handleDialogRendering(renderer);
     }
     //render save & exit button
-    buttons[7].buttonTexture.render(buttons[7].getPositionX(),buttons[7].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //buttons[7].buttonTexture.render(buttons[7].getPositionX(),buttons[7].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 bool chapter::setChapterButtonTextures(SDL_Renderer* renderer, bool success)
@@ -985,4 +987,4 @@ void chapter::free()
 	//free the font
 	TTF_CloseFont( font );
     font = NULL;
-}
+}*/

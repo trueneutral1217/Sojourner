@@ -3,6 +3,7 @@
 
 //#include "Texture.h"
 //texture.h is included in button.h, so maybe I'm okay to exclude the line.
+/*
 #include "timer.h"
 #include "button.h"
 #include "parallax.h"
@@ -30,7 +31,7 @@ class chapter
 
         audio voice;
 
-        button buttons[TOTAL_CHAPTER_BUTTONS];
+        //button buttons[TOTAL_CHAPTER_BUTTONS];
 
         //tracks chapter progress.  used to save/load and display properly
         int currentScript;
@@ -148,6 +149,6 @@ class chapter
 
     private:
 
-};
+};*/
 
 #endif // CHAPTER_H

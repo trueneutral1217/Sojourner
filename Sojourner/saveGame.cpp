@@ -6,7 +6,7 @@ void saveGame::readFile()
     {
         printf( "\n Warning: Unable to open file! SDL Error: %s\n", SDL_GetError() );
         //Create file for writing
-        file = SDL_RWFromFile( "savegame/save.gsf", "w+b" );
+        file = SDL_RWFromFile( "savegame/save.ssf", "w+b" );
         if( file != NULL )
         {
             printf( "\n New file created!\n" );
@@ -38,20 +38,22 @@ void saveGame::readFile()
     }
 }
 
-void saveGame::writeFile(int currentChapter,int currentPage, int currentScript,bool chapter1Complete,bool chapter2Complete,bool chapter3Complete)
+void saveGame::writeFile(pregameui pregameui,stage stage)
 {
 
-    SDL_RWops* file = SDL_RWFromFile( "savegame/save.gsf", "w+b" );
+    SDL_RWops* file = SDL_RWFromFile( "savegame/save.ssf", "w+b" );
     if( file != NULL )
     {
         //Save data
-        data[0] = currentChapter;
-        data[1] = currentPage;
-        data[2] = currentScript;
-        data[3] = chapter1Complete;
-        data[4] = chapter2Complete;
-        data[5] = chapter3Complete;
-        //testSaveVariables();
+        data[0] = pregameui.existingSave;
+        data[1] = stage.player1.getX();
+        data[2] = stage.player1.getY();
+        data[3] = pregameui.optionsButtons[1].fullScreenToggle;
+        data[4] = pregameui.optionsButtons[2].musicToggle;
+        data[5] = pregameui.optionsButtons[3].voiceToggle;
+        data[6] = stage.habInternalY1;
+        data[7] = stage.habInternalY2;
+
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
             SDL_RWwrite( file, &data[ i ], sizeof(Sint32), 1 );
