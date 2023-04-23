@@ -25,13 +25,34 @@ void audio::loadMusic()
 
     switch( rand() % 7 )
     {
-        case 0: music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" ); break;
-        case 1: music = Mix_LoadMUS( "music/koi/Koi-discovery - Empsykoun.mp3" ); break;
-        case 2: music = Mix_LoadMUS( "music/koi/Koi-discovery - Polylove.mp3" ); break;
-        case 3: music = Mix_LoadMUS( "music/koi/Koi-discovery - Rouge-haine-les-9-âmes.mp3" ); break;
-        case 4: music = Mix_LoadMUS( "music/koi/Koi-discovery - The lost cyborg.mp3" ); break;
-        case 5: music = Mix_LoadMUS( "music/koi/Koi-discovery - There-is-someone.mp3" ); break;
-        case 6: music = Mix_LoadMUS( "music/koi/Koi-discovery - Vortex-temporalis.mp3" ); break;
+        case 0:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" );
+            std::cout<<"\n\n playing blitz-nevrosis.mp3";
+        break;
+        case 1:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - Empsykoun.mp3" );
+            std::cout<<"\n\n playing empsykoun.mp3";
+            break;
+        case 2:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - Polylove.mp3" );
+            std::cout<<"\n\n playing polylove.mp3";
+            break;
+        case 3:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - Rouge-haine-les-9-ames.mp3" );
+            std::cout<<"\n\n playing rouge-haine-les-9-ames.mp3";
+            break;
+        case 4:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - The lost cyborg.mp3" );
+            std::cout<<"\n\n playing the lost cyborg.mp3";
+            break;
+        case 5:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - There-is-someone.mp3" );
+            std::cout<<"\n\n playing there-is-someone.mp3";
+            break;
+        case 6:
+            music = Mix_LoadMUS( "music/koi/Koi-discovery - Vortex-temporalis.mp3" );
+            std::cout<<"\n\n playing vortex-temporalis.mp3";
+            break;
 
     }
 }

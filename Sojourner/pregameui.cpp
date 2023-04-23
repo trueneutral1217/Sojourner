@@ -70,8 +70,13 @@ void pregameui::loadOptionsButtons(SDL_Renderer* renderer)
         std::string str = ss.str();
         //std::string str2 = ssMO.str();
         optionsButtons[i].buttonTexture.loadFromFile( str,renderer );
+
         //mainButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
     }
+    optionsButtons[1].fullScreenButtonTextureToggle(renderer);
+    optionsButtons[2].musicButtonTextureToggle(renderer);
+    optionsButtons[3].voiceButtonTextureToggle(renderer);
+
     optionsButtons[0].setPosition(600,20);
     optionsButtons[1].setPosition(20,100);
     optionsButtons[2].setPosition(20,200);
@@ -123,6 +128,7 @@ void pregameui::handleOptionsScreenRendering(SDL_Renderer* renderer)
 void pregameui::loadCreditsButtons(SDL_Renderer* renderer)
 {
     creditsButtonNames[0]="back";
+    creditsButtons[0].buttonName = creditsButtonNames[0];
     //lines for mouseover are commented out until the textures are created
 	creditsButtons[0].buttonTexture.loadFromFile("images/buttons/back.png",renderer);
 	/*
@@ -179,6 +185,7 @@ void pregameui::handleCreditsScreenRendering(SDL_Renderer* renderer)
 void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 {
     loadgameButtonNames[0]="back";
+    loadgameButtons[0].buttonName = loadgameButtonNames[0];
     //lines for mouseover are commented out until the textures are created
 	loadgameButtons[0].buttonTexture.loadFromFile("images/buttons/back.png",renderer);
 	/*
@@ -199,6 +206,7 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
     if(existingSave)
     {
         loadgameButtonNames[1]="stage1";
+        loadgameButtons[1].buttonName = loadgameButtonNames[1];
         loadgameButtons[1].buttonTexture.loadFromFile("images/buttons/stage1.png",renderer);
         loadgameButtons[1].setPosition(20,20);
     }
@@ -354,6 +362,8 @@ void pregameui::freeMainButtons()
     for(int i = 0; i<TOTAL_MAIN_BUTTONS;i++)
     {
         mainButtons[i].buttonTexture.free();
+        mainButtons[i].buttonMOTexture.free();
+        mainButtons[i].mouseOver=false;
     }
 }
 

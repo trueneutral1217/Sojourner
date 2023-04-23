@@ -329,31 +329,7 @@ int main( int argc, char* args[] )
                             {
                                 pregameui.freeMainButtons();
                                 pregameui.loadOptionsButtons(renderer);
-                                //user toggles music on or off
-                                if(pregameui.optionsButtons[2].musicToggle)
-                                {
-                                    music.musicToggle = true;
-                                    if(!music.isPlaying())
-                                    {
-                                        music.playMusic();
-                                    }
-                                }
-                                else
-                                {
-                                    music.musicToggle = false;
-                                    if(music.isPlaying())
-                                    {
-                                        music.stopMusic();
-                                    }
-                                }
-                                if(pregameui.optionsButtons[3].voiceToggle)
-                                {
-                                    //chapter.voice.voiceOn = true;
-                                }
-                                else
-                                {
-                                    //chapter.voice.voiceOn = false;
-                                }
+
                             }
                             if(gameState==4)
                             {
@@ -438,6 +414,36 @@ int main( int argc, char* args[] )
                             {//user clicked back button
                                 pregameui.freeOptionsButtons();
                                 pregameui.loadMainButtons(renderer);
+                            }
+                            if(gameState==3)
+                            {
+                                pregameui.freeOptionsButtons();
+                                pregameui.loadOptionsButtons(renderer);
+                                //user toggles music on or off
+                                if(pregameui.optionsButtons[2].musicToggle)
+                                {
+                                    music.musicToggle = true;
+                                    if(!music.isPlaying())
+                                    {
+                                        music.playMusic();
+                                    }
+                                }
+                                else
+                                {
+                                    music.musicToggle = false;
+                                    if(music.isPlaying())
+                                    {
+                                        music.stopMusic();
+                                    }
+                                }
+                                if(pregameui.optionsButtons[3].voiceToggle)
+                                {
+                                    //chapter.voice.voiceOn = true;
+                                }
+                                else
+                                {
+                                    //chapter.voice.voiceOn = false;
+                                }
                             }
                             if(gameState != oldGameState)
                             {

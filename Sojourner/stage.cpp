@@ -175,6 +175,7 @@ void stage::move()
         {
             habInternalY2 = 600;
         }
+        std::cout<<"\n habY1: "<<habInternalY1<<"\n habY2: "<<habInternalY2;
     }
     if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
     {
@@ -189,5 +190,6 @@ void stage::move()
         {
             habInternalY2 = -600;
         }
+        std::cout<<"\n habY1: "<<habInternalY1<<"\n habY2: "<<habInternalY2;
     }
 }

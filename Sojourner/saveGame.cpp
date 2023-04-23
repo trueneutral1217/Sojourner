@@ -14,6 +14,10 @@ void saveGame::readFile()
             for( int i = 0; i < TOTAL_DATA; ++i )
             {
                 data[ i ] = 0;
+                if(i==4 || i==5)//when new file is created setting defaults for music and voice to be on.
+                {
+                    data[i] = 1;
+                }
                 SDL_RWwrite( file, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler

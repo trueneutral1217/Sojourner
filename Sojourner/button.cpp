@@ -56,7 +56,7 @@ void button::fullScreenButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/fullScreenToggle.png", renderer);
     }
-    buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::musicButtonTextureToggle(SDL_Renderer* renderer)
@@ -70,7 +70,7 @@ void button::musicButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/musicOff.png", renderer);
     }
-    buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::voiceButtonTextureToggle(SDL_Renderer* renderer)
@@ -84,7 +84,7 @@ void button::voiceButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/voiceOff.png", renderer);
     }
-    buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::setPosition( int x, int y )
@@ -192,7 +192,7 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
 		{
 		    if(!mouseOver)
             {
-                std::cout<<"\n \n mouseOver = true";
+                std::cout<<"\n \n mouseOver = true, buttonName: "<<buttonName;
                 mouseOver=true;
 		    }
 
