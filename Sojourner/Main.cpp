@@ -301,9 +301,6 @@ int main( int argc, char* args[] )
                             {//player clicked save and exit button
                                 gameState=0;
                                 pregameui.loadMainButtons(renderer);
-                                std::cout<<"\n \n stage.habInternalY1: "<<stage.habInternalY1;
-                                std::cout<<"\n \n stage.habInternalY2: "<<stage.habInternalY2;
-                                //music.resetMusic();
                             }
                         }
                         //Handle button events when in main screen
@@ -314,30 +311,9 @@ int main( int argc, char* args[] )
                             {//handlePGUIEvent needs to be broken up into 5 parts
                                 gameState = pregameui.mainButtons[ i ].handlePGUIEvent(gameState,pregameui.mainButtons[i].buttonName, &e, window,renderer );
                             }
-                            if(gameState==1)
-                            {//user clicks the newGame button
-                                //chapter.resetChapters(renderer);
-                                pregameui.freeMainButtons();
-                                pregameui.loadNewgameButtons(renderer);
-                            }
-                            if(gameState==2)
-                            {
-                                pregameui.freeMainButtons();
-                                pregameui.loadLoadgameButtons(renderer);
-                            }
-                            if(gameState==3)
-                            {
-                                pregameui.freeMainButtons();
-                                pregameui.loadOptionsButtons(renderer);
-
-                            }
-                            if(gameState==4)
-                            {
-                                pregameui.freeMainButtons();
-                                pregameui.loadCreditsButtons(renderer);
-                            }
                             if(gameState != oldGameState)
-                            {
+                            {//user clicked a button
+                                pregameui.loadState(oldGameState,gameState,renderer);
                                 int newGameState = gameState;
                                 gameState = oldGameState;
                                 fade=true;
@@ -349,24 +325,18 @@ int main( int argc, char* args[] )
                         {
                             int oldGameState = gameState;
                             for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
-                            {//handlePGUIEvent needs to be broken up into 5 parts
+                            {//poll for mouse clicks on buttons
                                 gameState = pregameui.newgameButtons[ i ].handlePGUIEvent(gameState,pregameui.newgameButtons[i].buttonName, &e, window,renderer );
                             }
                             if(gameState==0)
                             {//user clicked back button
-                                pregameui.freeNewgameButtons();
-                                pregameui.loadMainButtons(renderer);
+                                pregameui.loadState(oldGameState,gameState,renderer);
                             }
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 pregameui.freeNewgameButtons();
                                 pregameui.existingSave=true;
-                                stage.player1.setX(380);
-                                stage.player1.setY(260);
-                                stage.habInternalY1 = 0;
-                                stage.habInternalY2 = -600;
-                                std::cout<<"\n \n pregameui.existingSave: "<<pregameui.existingSave;
-                                //pregameui.loadLoadgameButtons(renderer);
+                                stage.setNewgameVars();
                             }
                             if(gameState != oldGameState)
                             {
@@ -386,8 +356,7 @@ int main( int argc, char* args[] )
                             }
                             if(gameState==0)
                             {//user clicked back button
-                                pregameui.freeLoadgameButtons();
-                                pregameui.loadMainButtons(renderer);
+                                pregameui.loadState(oldGameState,gameState,renderer);
                             }
                             if(gameState==5)
                             {//user clicked stage 1 button
@@ -412,13 +381,12 @@ int main( int argc, char* args[] )
                             }
                             if(gameState==0)
                             {//user clicked back button
-                                pregameui.freeOptionsButtons();
-                                pregameui.loadMainButtons(renderer);
+                                pregameui.loadState(oldGameState,gameState,renderer);
                             }
                             if(gameState==3)
-                            {
-                                pregameui.freeOptionsButtons();
-                                pregameui.loadOptionsButtons(renderer);
+                            {//user clicked one of the toggle buttons
+                                //refresh the buttons to reflect the new toggled status of the one clicked
+                                pregameui.loadState(oldGameState,gameState,renderer);
                                 //user toggles music on or off
                                 if(pregameui.optionsButtons[2].musicToggle)
                                 {
@@ -461,13 +429,9 @@ int main( int argc, char* args[] )
                             {//handlePGUIEvent needs to be broken up into 5 parts
                                 gameState = pregameui.creditsButtons[ i ].handlePGUIEvent(gameState,pregameui.creditsButtons[i].buttonName, &e, window,renderer );
                             }
-                            if(gameState==0)
-                            {//user clicked back button
-                                pregameui.freeCreditsButtons();
-                                pregameui.loadMainButtons(renderer);
-                            }
                             if(gameState != oldGameState)
                             {
+                                pregameui.loadState(oldGameState,gameState,renderer);
                                 int newGameState = gameState;
                                 gameState = oldGameState;
                                 fade=true;
@@ -512,30 +476,34 @@ int main( int argc, char* args[] )
 					}
 
 					//if wasd are pressed player will be moved.
-					stage.player1.handleEvent(e);
+					if(stage.internalView)
+                    {
+                        stage.player1.handleEvent(e);
+					}
 				}
-				//may need to add stage.move function to process stage movement.
-                stage.move();
-				//process player movement
-				stage.player1.move(countedFrames);
+
+				//process player movement, updates hab internal background as well
+				if(stage.internalView)
+                {
+                    stage.move();
+                    stage.player1.move(countedFrames);
+                }
+
 				//Clear screen
 				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( renderer );
                 //Title Screen rendering
                 if(gameState == 0)
                 {
-                    //chapter.chapterTimer.stop();
                     //renders buttons, bg, title image, and handles particle effect.
                     pregameui.handleTitleScreenRendering(renderer);
                 }
                 else if(gameState == 1)
                 {//new game chapter select screen
-                    //chapter.chapterTimer.stop();
                     pregameui.handleNewGameScreenRendering(renderer);
                 }
                 else if(gameState == 2)
                 {//load game chapter/stage select screen
-                    //chapter.chapterTimer.stop();
                     //handles the buttons and background rendering
                     pregameui.handleLoadGameScreenRendering(renderer);
                 }
@@ -544,8 +512,6 @@ int main( int argc, char* args[] )
                     //options screen buttons/bg rendering
                     pregameui.handleOptionsScreenRendering(renderer);
                 }
-
-
                 else if(gameState == 4)
                 {
                     //render background image and back button
@@ -580,8 +546,6 @@ int main( int argc, char* args[] )
 				}
 				//increments frames for animations
 				animations.progress();
-                //set script line
-                //chapter.setAutoScript();
 			}
 			//Disable text input
 			SDL_StopTextInput();

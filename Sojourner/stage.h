@@ -69,6 +69,8 @@ class stage
         void habInternalHandleParallax(SDL_Renderer* renderer);
         //updates the Y coords for habitat background
         void move();
+        //new game created, this sets player coords and bg coords for hab internal view
+        void setNewgameVars();
 
     private:
 

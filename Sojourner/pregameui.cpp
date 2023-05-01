@@ -444,3 +444,33 @@ void pregameui::free()
     //free pregame ui textures
     freePGUITextures();
 }
+
+void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)
+{
+    switch( oldGameState )
+    {
+        case 0: freeMainButtons();
+            break;
+        case 1: freeNewgameButtons();
+            break;
+        case 2: freeLoadgameButtons();
+            break;
+        case 3: freeOptionsButtons();
+            break;
+        case 4: freeCreditsButtons();
+            break;
+    }
+    switch( newGameState )
+    {
+        case 0: loadMainButtons(renderer);
+            break;
+        case 1: loadNewgameButtons(renderer);
+            break;
+        case 2: loadLoadgameButtons(renderer);
+            break;
+        case 3: loadOptionsButtons(renderer);
+            break;
+        case 4: loadCreditsButtons(renderer);
+            break;
+    }
+}

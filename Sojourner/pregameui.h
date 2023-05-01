@@ -65,6 +65,9 @@ public:
     void freeOptionsButtons();
     void freeCreditsButtons();
 
+    //this function uses old gamestate to choose which gamestate to free and newgamestate to choose which gamestate to load.
+    void loadState(int oldGameState, int newGameState, SDL_Renderer* renderer);
+
 
     bool setPGUITextures(SDL_Renderer* renderer);
     void freePGUITextures();

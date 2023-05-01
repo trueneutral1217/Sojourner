@@ -112,6 +112,9 @@ void stage::handleStageButtonPresses(int buttonClicked,SDL_Renderer* renderer)
     if(buttonClicked==1)
     {//player clicked save & exit
         //voice.stopVoice();
+        internalView = false;
+        showPlayer = false;
+        externalView = true;
     }
     else if(buttonClicked==2)
     {
@@ -164,10 +167,10 @@ void stage::habInternalHandleParallax(SDL_Renderer* renderer)
 void stage::move()
 {
     if( player1.getY() == 360 && player1.getPVelY() > 0 )
-    {
-        habInternalY1-=player1.getPVelY();
-        habInternalY2-=player1.getPVelY();
-        if(habInternalY1 < -599)
+    {//player is heading down after hitting lower threshold.
+
+        //y value of hab background continues to decrease as it moves up the screen
+        if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
         {
             habInternalY1 = 600;
         }
@@ -175,13 +178,16 @@ void stage::move()
         {
             habInternalY2 = 600;
         }
-        std::cout<<"\n habY1: "<<habInternalY1<<"\n habY2: "<<habInternalY2;
+
+        habInternalY1-=player1.getPVelY();
+        habInternalY2-=player1.getPVelY();
+
+        std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
     if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
     {
 
-        habInternalY1-=player1.getPVelY();
-        habInternalY2-=player1.getPVelY();
+
         if(habInternalY1 > 599)
         {
             habInternalY1 = -600;
@@ -190,6 +196,18 @@ void stage::move()
         {
             habInternalY2 = -600;
         }
-        std::cout<<"\n habY1: "<<habInternalY1<<"\n habY2: "<<habInternalY2;
+
+        habInternalY1-=player1.getPVelY();
+        habInternalY2-=player1.getPVelY();
+        std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
+}
+
+void stage::setNewgameVars()
+{
+    player1.setX(380);
+    player1.setY(260);
+    habInternalY1 = 0;
+    habInternalY2 = -600;
+    //externalView=true;
 }
