@@ -2,56 +2,16 @@
 
 pregameui::pregameui()
 {
-    existingSave = false;
+    for(int i = 0; i<TOTAL_SAVES;i++)
+    {
+        existingSave[i] = false;
+    }
 }
 
 pregameui::~pregameui()
 {
 
 }
-/*
-bool pregameui::setPreGameButtonTextures(SDL_Renderer* renderer, bool success)
-{
-    for( int i = 0; i < TOTAL_PREGAME_BUTTONS; ++i )
-    {
-        std::stringstream ss;
-        ss << "images/buttons/" << buttons[i].buttonName << ".png";
-        std::string str = ss.str();
-        success = buttons[i].buttonTexture.loadFromFile( str,renderer );
-        buttons[ i ].setPosition( ((i*160)-80), SCREEN_HEIGHT - 140 );
-    }
-    success = buttons[1].buttonMOTexture.loadFromFile("images/buttons/newMO.png",renderer);
-    success = buttons[2].buttonMOTexture.loadFromFile("images/buttons/loadMO.png",renderer);
-    success = buttons[3].buttonMOTexture.loadFromFile("images/buttons/optionsMO.png",renderer);
-    success = buttons[4].buttonMOTexture.loadFromFile("images/buttons/creditsMO.png",renderer);
-    buttons[0].setPosition(600,20);
-    buttons[6].setPosition(20,20);//chapter 1 button
-    buttons[5].setPosition(20,100);//fullscreentoggle button
-    //buttons[7].setPosition(220,150);//stage 1 button
-    //buttons[8].setPosition(20,200);//chapter 2 button
-    //buttons[9].setPosition(20,300);//chapter 3 button
-    buttons[7].setPosition(20,200);//musictoggle button
-    buttons[8].setPosition(20,300);//voicetoggle button
-    return success;
-}*/
-
-/*
-void pregameui::setButtonNames()
-{
-    for(int i = 0; i<TOTAL_PREGAME_BUTTONS; i++)
-    {
-        buttons[i].setPregameButtonName(i);
-    }
-}*/
-/*
-void pregameui::freeButtons()
-{
-    for(int i = 0; i<TOTAL_PREGAME_BUTTONS;i++)
-    {
-        buttons[i].buttonTexture.free();
-    }
-}*/
-
 
 void pregameui::loadOptionsButtons(SDL_Renderer* renderer)
 {
@@ -114,13 +74,11 @@ void pregameui::freeOptionsButtons()
 
 void pregameui::handleOptionsScreenRendering(SDL_Renderer* renderer)
 {
+    //render background image
     optionsTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //render buttons
     renderOptionsButtons(renderer);
-    /*
-    buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    buttons[5].fullScreenButtonTextureToggle(renderer);
-    buttons[7].musicButtonTextureToggle(renderer);
-    buttons[8].voiceButtonTextureToggle(renderer);*/
+
     //add soundtoggle button
 }
 

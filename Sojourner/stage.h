@@ -6,6 +6,7 @@
 #include "button.h"
 #include "player.h"
 #include "parallax.h"
+//#include "saveGame.h"
 
 const static int TOTAL_STAGE_BACKGROUNDS = 4;
 
@@ -22,6 +23,7 @@ class stage
         bool internalView;
         //player should not be displayed while in externalView
         bool showPlayer;
+
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
         int habInternalY1;
         int habInternalY2;
@@ -71,6 +73,8 @@ class stage
         void move();
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
+        //loads saved data from saves
+        //void loadSavedGameData(saveGame savegame);
 
     private:
 

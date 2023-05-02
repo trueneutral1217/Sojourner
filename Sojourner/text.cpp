@@ -25,7 +25,7 @@ void text::loadText(SDL_Renderer* renderer)
 {
     font = TTF_OpenFont( "fonts/PublicPixel-z84yD.ttf", 16 );
     //Set text color as black
-    SDL_Color textColor = { 255, 255, 255, 0xFF };
+    //SDL_Color textColor = { 255, 255, 255, 0xFF };
 
     //Enable text input
     SDL_StartTextInput();

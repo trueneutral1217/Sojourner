@@ -211,3 +211,14 @@ void stage::setNewgameVars()
     habInternalY2 = -600;
     //externalView=true;
 }
+
+/*
+void stage::loadSavedGameData(saveGame savegame)
+{
+    player1.setX(savegame.data[1]);
+    player1.setY(savegame.data[2]);
+    //load habitat Y1 and Y2 coords from safe file
+    habInternalY1 = savegame.data[3];
+    habInternalY2 = savegame.data[4];
+}
+*/

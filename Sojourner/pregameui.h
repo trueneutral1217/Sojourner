@@ -5,7 +5,7 @@
 #include "button.h"
 #include "particle.h"
 
-
+const static int TOTAL_SAVES = 3;
 
 class pregameui
 {
@@ -15,7 +15,7 @@ public:
     //destructor
     ~pregameui();
 
-    bool existingSave;
+    bool existingSave[TOTAL_SAVES];
 
     //declaring textures (title, backgrounds, etc
     Texture title;

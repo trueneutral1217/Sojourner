@@ -11,6 +11,7 @@
 #include "stage.h"
 #include "text.h"
 
+
 const int TOTAL_STATES = 6;
 
 //gameStates
@@ -32,12 +33,11 @@ SDL_Renderer* renderer = NULL;
 //The window we'll be rendering to
 SDL_Window* window = NULL;
 //savegame handler
+saveGame preferences;
 saveGame savegame;
 audio music;
 std::vector<audio> sounds;
 audio sound;
-//declare chapter1
-//chapter chapter;
 //declare stage
 stage stage;
 //declare instance of pregame user interface.
@@ -46,8 +46,6 @@ pregameui pregameui;
 animations animations;
 //set up text input
 text text;
-//if player is not verified they wont progress to ch 3.
-bool verified = false;
 //declare sound vector & load sounds into it.
 void loadSounds();
 //render particles to screen
@@ -159,33 +157,66 @@ bool loadMedia()
 {
 	bool success = true;
     //load saved game
-	savegame.readFile();
+    preferences.readPrefsFile();
 
-    //has play clicked stage1 button from newgame screen, if so, loadgame will show stage1 button.
-	pregameui.existingSave=savegame.data[0];
+    /* future way to read savegame files (the files themselves will have to be declared in main.cpp instead of savegame.h
+    for(int i = 0; i < TOTAL_SAVES; i++)
+    {
+        savegame[i].readFile();
+    }
+    */
+    for(int i = 0; i<TOTAL_SAVES;i++)//this should be done when loading stage
+    {
+        savegame.readSaveFile(i);
 
-	//pre-game chapter set up.
-	//success = chapter.loadChapters(savegame.data[0],savegame.data[1],savegame.data[2],savegame.data[3],savegame.data[4],savegame.data[5],renderer,success);
-    //load animations textures
+        if(i==0)//this is done just to test readSaveFile function
+        {
+            pregameui.existingSave[i] = savegame.data[0];
+
+            //time gets typecasted to an sint32 at save time (before converting it to string)
+            //I typecast it back to time_t, then convert to string after loading, sdt (saved date time)
+            //can be used at newgame/loadgame gamestates to show when that file was last saved, if at all.
+            //I might also want to save the amount of time a user spent on any particular save game.
+            time_t saved = savegame.data[1];
+            char* sdt = ctime(&saved);
+            std::cout<<"\n time of save: "<<sdt;
+
+
+            stage.player1.setX(savegame.data[2]);
+            stage.player1.setY(savegame.data[3]);
+            stage.habInternalY1 = savegame.data[4];
+            stage.habInternalY2 = savegame.data[5];
+        }
+
+    }
+
+	//savegame[0].readFile1();
+	//savegame[1].readFile2();
+	//savegame[2].readFile3();
+
+    //has user clicked stage1 button from newgame screen, if so, loadgame will show stage1 button.
+	//pregameui.existingSave=savegame.data[0];
+
+	//load animations textures
     success = animations.setAnimationTextures(renderer);
     //sets up pregame ui button names, button textures, and bg textures.
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
     success = stage.loadStage(renderer,success);
     //load player x and y coords from savegame
-    stage.player1.setX(savegame.data[1]);
-    stage.player1.setY(savegame.data[2]);
-    //load habitat Y1 and Y2 coords from safe file
-    stage.habInternalY1 = savegame.data[6];
-    stage.habInternalY2 = savegame.data[7];
-    std::cout<<"\n \n stage.habInternalY1: "<<stage.habInternalY1;
-    std::cout<<"\n \n stage.habInternalY2: "<<stage.habInternalY2;
+
+    /* this will have to be called when user clicks a saved file button from load game screen
+    stage.loadSavedGameData(savegame1);
+    stage.loadSavedGameData(savegame2);
+    stage.loadSavedGameData(savegame3);
+    */
+
 	//load sound effects
 	loadSounds();
 	//load user options preferences from save.
-	pregameui.optionsButtons[1].fullScreenToggle = savegame.data[3];
-	pregameui.optionsButtons[2].musicToggle = savegame.data[4];
-	pregameui.optionsButtons[3].voiceToggle = savegame.data[5];
+	pregameui.optionsButtons[1].fullScreenToggle = preferences.prefsData[0];
+	pregameui.optionsButtons[2].musicToggle = preferences.prefsData[1];
+	pregameui.optionsButtons[3].voiceToggle = preferences.prefsData[2];
 	music.musicToggle=pregameui.optionsButtons[2].musicToggle;
     if(music.musicToggle)//if music is toggled on from save file, this plays it
     {
@@ -213,7 +244,13 @@ bool loadMedia()
 void close()
 {
     //save progress
-    savegame.writeFile(pregameui,stage);
+    //this needs to be written when player exits stage1, probably needs to be multithread
+    savegame.writeSaveFile(0,pregameui,stage);//need to scale to 3.
+
+
+    //save preferences
+    preferences.writePrefsFile(pregameui);
+
     //free pregame ui resouces
     pregameui.free();
     //free stage resources
@@ -236,6 +273,8 @@ void close()
 	SDL_DestroyWindow( window );
 	window = NULL;
 	renderer = NULL;
+
+
 	//Quit SDL subsystems
 	TTF_Quit();
 	Mix_Quit();
@@ -306,6 +345,7 @@ int main( int argc, char* args[] )
                         //Handle button events when in main screen
                         if(gameState == 0)
                         {
+
                             int oldGameState = gameState;
                             for( int i = 0; i < TOTAL_MAIN_BUTTONS; ++i )
                             {//handlePGUIEvent needs to be broken up into 5 parts
@@ -335,7 +375,7 @@ int main( int argc, char* args[] )
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 pregameui.freeNewgameButtons();
-                                pregameui.existingSave=true;
+                                //pregameui.existingSave=true;
                                 stage.setNewgameVars();
                             }
                             if(gameState != oldGameState)
@@ -381,7 +421,13 @@ int main( int argc, char* args[] )
                             }
                             if(gameState==0)
                             {//user clicked back button
+
+                                //this is where I want preferences to be written to file, but I'll probably need
+                                //to set up a thread for it.
+
+
                                 pregameui.loadState(oldGameState,gameState,renderer);
+
                             }
                             if(gameState==3)
                             {//user clicked one of the toggle buttons
@@ -546,7 +592,10 @@ int main( int argc, char* args[] )
 				}
 				//increments frames for animations
 				animations.progress();
+
+
 			}
+
 			//Disable text input
 			SDL_StopTextInput();
 		}
