@@ -20,6 +20,11 @@ class saveGame
     Sint32 data[ TOTAL_DATA ];
     Sint32 prefsData[ TOTAL_PREFS_DATA ];
 
+    std::stringstream savedDate[TOTAL_SAVES];
+    Texture savedDateTexture[TOTAL_SAVES];
+
+    void loadSavedDate(SDL_Renderer* renderer,TTF_Font* font);
+
     int fileNum;
 
     const char *saveLocation[TOTAL_SAVES] = {"savegame/save1.ssf","savegame/save2.ssf","savegame/save3.ssf"};

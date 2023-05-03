@@ -229,9 +229,19 @@ int button::handlePGUIEvent(int gameState, std::string buttonName, SDL_Event* e,
                                 printf("\n \n back button pressed from newgame \n \n");
                                 gameState = 0;
                             }
-                            else if(buttonName=="stage1")
+                            else if(buttonName=="save1")
                             {
-                                printf("\n \n stage 1 button pressed from newgame \n \n");
+                                printf("\n \n save 1 button pressed from newgame \n \n");
+                                gameState = 5;
+                            }
+                            else if(buttonName=="save2")
+                            {
+                                printf("\n \n save 2 button pressed from newgame \n \n");
+                                gameState = 5;
+                            }
+                            else if(buttonName=="save3")
+                            {
+                                printf("\n \n save 3 button pressed from newgame \n \n");
                                 gameState = 5;
                             }
                         }

@@ -149,3 +149,19 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 }
 
+void saveGame::loadSavedDate(SDL_Renderer* renderer,TTF_Font* font)
+{
+
+    std::stringstream savedDate[TOTAL_SAVES];
+    Texture savedDateTexture[TOTAL_SAVES];
+    SDL_Color textColor = {0,0,0};//black
+    textColor = {255,255,0};
+    for(int i; i<TOTAL_SAVES;i++)
+    {
+        savedDate[i].str("");
+        if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
+        }
+    }
+}

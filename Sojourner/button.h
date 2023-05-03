@@ -6,8 +6,8 @@
 //buttons on the title screen + back button for screens like options
 //const int TOTAL_BUTTONS = 15;
 
-const int BUTTON_WIDTH = 160;
-const int BUTTON_HEIGHT = 120;
+const int BUTTON_WIDTH = 103;
+const int BUTTON_HEIGHT = 57;
 
 //buttons in the menubar plus save & quit button .
 //const static int TOTAL_CHAPTER_BUTTONS=9;
@@ -15,8 +15,8 @@ const int BUTTON_HEIGHT = 120;
 const static int TOTAL_PREGAME_BUTTONS = 9;
 //going to switch over to having each page load it's buttons at open, and free at close
 const static int TOTAL_MAIN_BUTTONS = 4;
-const static int TOTAL_NEWGAME_BUTTONS = 2;
-const static int TOTAL_LOADGAME_BUTTONS = 2;
+const static int TOTAL_NEWGAME_BUTTONS = 4;
+const static int TOTAL_LOADGAME_BUTTONS = 4;
 const static int TOTAL_OPTIONS_BUTTONS = 4;
 const static int TOTAL_CREDITS_BUTTONS = 1;
 //gamestate=6, stage1 buttons
