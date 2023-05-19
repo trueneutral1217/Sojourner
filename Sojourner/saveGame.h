@@ -27,8 +27,7 @@ class saveGame
 
     bool exists[TOTAL_SAVES];
 
-    void loadSavedDate(SDL_Renderer* renderer,TTF_Font* font);
-    void loadSavedPlayTime(SDL_Renderer* renderer,TTF_Font* font);
+    void loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font);
 
     int fileNum;
 
@@ -49,9 +48,8 @@ class saveGame
 
     void writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime);
 
-    void handleSavedDateRendering(SDL_Renderer* renderer);
+    void handleSavedMetaDataRendering(SDL_Renderer* renderer);
 
-    void handleSavedPlayTimeRendering(SDL_Renderer* renderer);
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.
 

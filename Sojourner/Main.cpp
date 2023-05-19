@@ -277,9 +277,10 @@ bool loadMedia()
     blackGround.loadFromFile("images/Blackground.png",renderer);
     //loads the font
     text.loadText(renderer);
+
     //creates text textures for new/load game screens to display time of save by filenumber
-    savegame.loadSavedDate(renderer,text.font);
-    savegame.loadSavedPlayTime(renderer,text.font);
+    savegame.loadSavedMetaData(renderer,text.font);
+
     //for debugging
     if(success == false)
     {
@@ -637,15 +638,13 @@ int main( int argc, char* args[] )
                 else if(gameState == 1)
                 {//new game chapter select screen
                     pregameui.handleNewGameScreenRendering(renderer);
-                    savegame.handleSavedDateRendering(renderer);
-                    savegame.handleSavedPlayTimeRendering(renderer);
+                    savegame.handleSavedMetaDataRendering(renderer);
                 }
                 else if(gameState == 2)
                 {//load game chapter/stage select screen
                     //handles the buttons and background rendering
                     pregameui.handleLoadGameScreenRendering(renderer);
-                    savegame.handleSavedDateRendering(renderer);
-                    savegame.handleSavedPlayTimeRendering(renderer);
+                    savegame.handleSavedMetaDataRendering(renderer);
                 }
                 else if(gameState == 3)
                 {
