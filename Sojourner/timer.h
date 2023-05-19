@@ -30,8 +30,11 @@ class timer
 		bool isStarted();
 		bool isPaused();
 
+		Uint32 timePlayed;
+
+
     private:
-		//The clock time when the timer started
+        //The clock time when the timer started
 		Uint32 startTicks;
 
 		//The ticks stored when the timer was paused

@@ -143,10 +143,30 @@ void pregameui::handleCreditsScreenRendering(SDL_Renderer* renderer)
 void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 {
     loadgameButtonNames[0]="back";
+	loadgameButtonNames[1]="save1";
+	loadgameButtonNames[2]="save2";
+	loadgameButtonNames[3]="save3";
+	for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
+    {
+        loadgameButtons[i].buttonName = loadgameButtonNames[i];
+        std::stringstream ss;
+        std::stringstream ssMO;
+        ss << "images/buttons/" << loadgameButtons[i].buttonName << ".png";
+        ssMO << "images/buttons/" << loadgameButtons[i].buttonName << "MO.png";
+        std::string str = ss.str();
+        std::string str2 = ssMO.str();
+        /*success = */loadgameButtons[i].buttonTexture.loadFromFile( str,renderer );
+        loadgameButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
+    }
+    loadgameButtons[0].setPosition(600,20);
+    loadgameButtons[1].setPosition(40,100);
+    loadgameButtons[2].setPosition(40,200);
+    loadgameButtons[3].setPosition(40,300);
+	/*
     loadgameButtons[0].buttonName = loadgameButtonNames[0];
     //lines for mouseover are commented out until the textures are created
 	loadgameButtons[0].buttonTexture.loadFromFile("images/buttons/back.png",renderer);
-	/*
+
 	for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
     {
         loadgameButtons[i].buttonName = loadgameButtonNames[i];
@@ -158,7 +178,7 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
         //std::string str2 = ssMO.str();
         //loadgameButtons[i].buttonTexture.loadFromFile( str,renderer );
         //mainButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
-    }*/
+    }
     loadgameButtons[0].setPosition(600,20);
 
     if(existingSave)
@@ -167,7 +187,7 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
         loadgameButtons[1].buttonName = loadgameButtonNames[1];
         loadgameButtons[1].buttonTexture.loadFromFile("images/buttons/stage1.png",renderer);
         loadgameButtons[1].setPosition(20,20);
-    }
+    }*/
 }
 
 void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
@@ -177,8 +197,8 @@ void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
         loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
     //below is for when mouseover buttons are added to this screen
-    /*
-    for(int i=1;i<TOTAL_NEWGAME_BUTTONS;i++)
+
+    for(int i=1;i<TOTAL_LOADGAME_BUTTONS;i++)
     {
         if(loadgameButtons[i].mouseOver == false){
             loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -187,7 +207,7 @@ void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
         {
             loadgameButtons[i].buttonMOTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-    }*/
+    }
 }
 
 void pregameui::freeLoadgameButtons()
@@ -195,6 +215,8 @@ void pregameui::freeLoadgameButtons()
     for(int i = 0; i<TOTAL_LOADGAME_BUTTONS;i++)
     {
         loadgameButtons[i].buttonTexture.free();
+        loadgameButtons[i].buttonMOTexture.free();
+        loadgameButtons[i].mouseOver = false;
     }
 }
 
@@ -211,7 +233,7 @@ void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 	newgameButtonNames[1]="save1";
 	newgameButtonNames[2]="save2";
 	newgameButtonNames[3]="save3";
-    //lines for mouseover are commented out until the textures are created
+
 	for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
     {
         newgameButtons[i].buttonName = newgameButtonNames[i];

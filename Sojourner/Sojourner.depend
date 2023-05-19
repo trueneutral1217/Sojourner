@@ -1589,8 +1589,7 @@
 	<vector>
 	"cstdlib"
 
-1659385836 c:\sojourner\sojourner\timer.h
-	"Texture.h"
+1684451067 c:\sojourner\sojourner\timer.h
 	"Texture.h"
 
 1682229405 source:c:\sojourner\sojourner\audio.cpp
@@ -1603,7 +1602,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1683068368 source:c:\sojourner\sojourner\main.cpp
+1684453085 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1615,7 +1614,7 @@
 	"stage.h"
 	"text.h"
 
-1683078515 c:\sojourner\sojourner\button.h
+1684360600 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
 1658541873 c:\sojourner\sojourner\particle.h
@@ -1636,16 +1635,13 @@
 	"Texture.h"
 	"Texture.h"
 
-1683075675 c:\sojourner\sojourner\savegame.h
+1684452052 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 	"pregameui.h"
 	"stage.h"
 	<ctime>
 
-1682993447 c:\sojourner\sojourner\pregameui.h
-	"texture.h"
-	"button.h"
-	"particle.h"
+1684360600 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
@@ -1676,7 +1672,7 @@
 	"player.h"
 	"player.h"
 
-1683075675 source:c:\sojourner\sojourner\savegame.cpp
+1684452181 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
 1683021645 source:c:\sojourner\sojourner\stage.cpp
@@ -1689,11 +1685,10 @@
 	"Texture.h"
 	"Texture.h"
 
-1658447856 source:c:\sojourner\sojourner\timer.cpp
-	"timer.h"
+1684450722 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1683076274 source:c:\sojourner\sojourner\button.cpp
+1684362559 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682120724 source:c:\sojourner\sojourner\chapter.cpp
@@ -1702,6 +1697,6 @@
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1683078261 source:c:\sojourner\sojourner\pregameui.cpp
+1684360735 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 

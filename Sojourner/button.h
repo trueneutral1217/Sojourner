@@ -41,6 +41,8 @@ class button
 		//true if mouse is over a button
 		bool mouseOver;
 
+		int chosenSave;
+
 		//Handles pre-game user interface mouse events (mainly button clicks, like new game, load game, options, credits, etc)
 		int handlePGUIEvent( int gameState, std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles buttons while player is in a chapter (menu bar buttons like backline, backpage, auto text speed, auto text toggle, and save + exit button

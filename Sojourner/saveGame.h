@@ -8,7 +8,7 @@
 
 
 //total save game data points
-const int TOTAL_DATA = 6;
+const int TOTAL_DATA = 7;
 //total preferences data points
 const int TOTAL_PREFS_DATA = 3;
 
@@ -21,9 +21,14 @@ class saveGame
     Sint32 prefsData[ TOTAL_PREFS_DATA ];
 
     std::stringstream savedDate[TOTAL_SAVES];
+    std::stringstream savedPlayTime[TOTAL_SAVES];
     Texture savedDateTexture[TOTAL_SAVES];
+    Texture savedPlayTimeTexture[TOTAL_SAVES];
+
+    bool exists[TOTAL_SAVES];
 
     void loadSavedDate(SDL_Renderer* renderer,TTF_Font* font);
+    void loadSavedPlayTime(SDL_Renderer* renderer,TTF_Font* font);
 
     int fileNum;
 
@@ -33,7 +38,7 @@ class saveGame
 
     SDL_RWops* saveFile;
 
-    //int threadFunction(void* data);
+
 
     void readPrefsFile();
 
@@ -42,8 +47,11 @@ class saveGame
 
     void writePrefsFile(pregameui pregameui);
 
-    void writeSaveFile(int fileNum,pregameui pregameui,stage stage);
+    void writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime);
 
+    void handleSavedDateRendering(SDL_Renderer* renderer);
+
+    void handleSavedPlayTimeRendering(SDL_Renderer* renderer);
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.
 
