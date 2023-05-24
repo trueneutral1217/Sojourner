@@ -259,14 +259,21 @@ void player::move(int tick)
     {
         playerY -= pVelY;
     }
+    //update player collision box coords
+    playerCollisionBox.x = playerX;
+    playerCollisionBox.y = playerY+40;
 }
 
 void player::loadPlayer(SDL_Renderer* renderer)
 {
+    //set up player collision box dimensions (lower half of player texture is the size of the collision box.
+    playerCollisionBox.x = playerX;
+    playerCollisionBox.y = playerY+40;
+    playerCollisionBox.w=40;
+    playerCollisionBox.h=40;
 
+    //used for loading the player textures for walking animations
     std::stringstream ss,ss2,ss3;
-
-
     ss3.str("");
     std::string str = ss3.str();
     for(int i = 0; i<MOVE_STATES;i++)
@@ -475,4 +482,46 @@ void player::setX(int x)
 void player::setY(int y)
 {
     playerY = y;
+}
+
+bool player::collisionDetector(SDL_Rect collidable)
+{
+    int playerLeft, collidableLeft;
+    int playerRight, collidableRight;
+    int playerTop, collidableTop;
+    int playerBottom, collidableBottom;
+
+    playerLeft = playerCollisionBox.x;
+    playerRight = playerCollisionBox.x + playerCollisionBox.w;
+    playerTop = playerCollisionBox.y;
+    playerBottom = playerCollisionBox.y + playerCollisionBox.h;
+
+    collidableLeft = collidable.x;
+    collidableRight = collidable.x+collidable.w;
+    collidableTop = collidable.y;
+    collidableBottom = collidable.y + collidable.h;
+
+    if( playerBottom <= collidableTop )
+    {
+        return false;
+    }
+
+    if( playerTop >= collidableBottom )
+    {
+        return false;
+    }
+
+    if( playerRight <= collidableLeft )
+    {
+        return false;
+    }
+
+    if( playerLeft >= collidableRight )
+    {
+        return false;
+    }
+
+    return true;
+
+
 }

@@ -32,6 +32,11 @@ class timer
 
 		Uint32 timePlayed;
 
+		void updatePlayedTime();
+		void restartPlayedTime();
+
+		void loadSavedPlayedTimeData(Uint32 saved);
+
 
     private:
         //The clock time when the timer started

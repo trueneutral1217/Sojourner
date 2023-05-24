@@ -70,11 +70,11 @@ class stage
         //renders the habitat internal background images.
         void habInternalHandleParallax(SDL_Renderer* renderer);
         //updates the Y coords for habitat background
-        void move();
+        void move(int countedFrames);
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
-        //loads saved data from saves
-        //void loadSavedGameData(saveGame savegame);
+        //loads saved data from savesfile (player coords, location in habitat)
+        void loadSavedGameData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4);
 
     private:
 

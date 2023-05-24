@@ -34,6 +34,7 @@ class player
 
         player();
         ~player();
+        //player's dimensions and velocity
         static const int PLAYER_WIDTH = 40;
         static const int PLAYER_HEIGHT = 80;
         static const int PLAYER_VEL = 5;
@@ -43,28 +44,33 @@ class player
         int walkFrame;
         //used for player frame animation when walking left
         bool flipHorizontal;
-
+        //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.
         Texture playerTexture[MOVE_STATES][LR_TEXTURES];
-
+        //loads player resources
         void loadPlayer(SDL_Renderer* renderer);
+        //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
+        //updates player position, walk animation, wall collision
         void move(int tick);
+        //renders player
         void render(SDL_Renderer* renderer);
-
+        //frees player resources
         void freePlayer();
-
+        //centers camera over player
         void setCamera(SDL_Rect& camera);
-
+        //returns player's coordinates
         int getX();
         int getY();
-
+        //returns player velocity by direction (x for horizontal, y for vert)
         int getPVelX();
         int getPVelY();
-
+        //set's player's x/y coords
         void setX(int x);
         void setY(int y);
+        //checks for collisions between a collidable object and player
+        bool collisionDetector(SDL_Rect collidable);
 
     private:
         //player coordinates

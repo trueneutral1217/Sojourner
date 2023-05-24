@@ -4,17 +4,13 @@
 #include "Texture.h"
 #include "timer.h"
 #include "particle.h"
-//#include "chapter.h"
 #include "saveGame.h"
 #include "pregameui.h"
 #include "animations.h"
 #include "stage.h"
 #include "text.h"
-//#include <SDL_thread.h>
-
-
+//total gamestates
 const int TOTAL_STATES = 6;
-
 //gameStates
 //gameState = 0 pregameui
 //gameState = 1 new game chapter select
@@ -33,11 +29,15 @@ void close();
 SDL_Renderer* renderer = NULL;
 //The window we'll be rendering to
 SDL_Window* window = NULL;
-//savegame handler
+//declare user preferences
 saveGame preferences;
+//declare user savegame
 saveGame savegame;
+//declare music
 audio music;
+//declare sounds vector
 std::vector<audio> sounds;
+//declare sound
 audio sound;
 //declare stage
 stage stage;
@@ -50,7 +50,7 @@ text text;
 //tracks the amount of time user has been in gameState 5
 timer playedTime;
 //declare sound vector & load sounds into it.
-void loadSounds();
+bool loadSounds();
 //render particles to screen
 //tracks the state of the game for rendering etc.
 int gameState;
@@ -58,53 +58,11 @@ int gameState;
 int chosenSave;
 //initializes audio,video, etc.
 Texture blackGround;
+//fadeout function for old gamestate
 bool fadeOut(int countedFrames, bool fade);
-
+//fadein function for current gamestate
 bool fadeIn(int countedFrames,bool fade);
-/*
-//write preferences semaphore
-SDL_sem* writePrefsLock = NULL;
-
-int threadFunction(void* data);
-
-bool mainPrefsData[TOTAL_PREFS_DATA];
-
-int threadFunction(void* data)
-{
-
-    //Lock
-    SDL_SemWait( writePrefsLock );
-
-    mainPrefsData[0]=pregameui.optionsButtons[1].fullScreenToggle;
-    mainPrefsData[1]=pregameui.optionsButtons[2].musicToggle;
-    mainPrefsData[2]=pregameui.optionsButtons[3].voiceToggle;
-
-    SDL_RWops* prefsFile = SDL_RWFromFile( "savegame/prefs.ssf", "w+b" );
-    if( prefsFile != NULL )
-    {
-
-        for( int i = 0; i < TOTAL_PREFS_DATA; ++i )
-        {
-            SDL_RWwrite( prefsFile, &mainPrefsData[ i ], sizeof(Sint32), 1 );
-            std::cout<<"\n "<<mainPrefsData[i];
-        }
-
-        //Close file handler
-        SDL_RWclose( prefsFile );
-
-    }
-    else
-    {
-        printf( "Error: Unable to save file! %s\n", SDL_GetError() );
-    }
-    std::cout<<"\n write prefs function complete";
-
-    //Unlock
-    SDL_SemPost( writePrefsLock );
-
-    return 0;
-}*/
-
+//reduces opacity of blackground texture (blackground is a foreground texture)
 bool fadeIn(int countedFrames, bool fade)
 {
     Uint32 alpha = 255-(countedFrames%256);
@@ -115,7 +73,7 @@ bool fadeIn(int countedFrames, bool fade)
     }
     return fade;
 }
-
+//increases opacity of blackground texture
 bool fadeOut(int countedFrames, bool fade)
 {
    if(countedFrames%256 < 255)
@@ -187,8 +145,9 @@ bool init()
 	return success;
 }
 
-void loadSounds()
+bool loadSounds()
 {
+    bool success = true;
     //prep the vector
     for(int i = 0; i < TOTAL_SOUNDS; i++)
     {
@@ -199,68 +158,42 @@ void loadSounds()
     {
         sounds[i].loadSound(i);
     }
+    return success;
 }
 
 bool loadMedia()
 {
 	bool success = true;
-
-	//Initialize semaphore
-	//writePrefsLock = SDL_CreateSemaphore( 1 );
-
-    //load saved game
+    //load saved preferences
     preferences.readPrefsFile();
-
-    /* future way to read savegame files (the files themselves will have to be declared in main.cpp instead of savegame.h
-    for(int i = 0; i < TOTAL_SAVES; i++)
-    {
-        savegame[i].readFile();
-    }
-    */
-    for(int i = 0; i<TOTAL_SAVES;i++)//this should be done when loading stage
+    //reads save data, if a save exists, shows the time saved and played
+    for(int i = 0; i<TOTAL_SAVES;i++)
     {
         savegame.readSaveFile(i);
         pregameui.existingSave[i] = savegame.data[0];
         //time gets typecasted to an sint32 at save time (before converting it to string)
         //I typecast it back to time_t, then convert to string after loading, sdt (saved date time)
         //can be used at newgame/loadgame gamestates to show when that file was last saved, if at all.
-        //I might also want to save the amount of time a user spent on any particular save game.
+        //I also save the amount of time a user spent on any particular save game.
         time_t saved = savegame.data[1];
         char* sdt = ctime(&saved);
         std::cout<<"\n time of save: "<<sdt;
-
         std::cout<<"\n amount of time played: "<<savegame.data[2];
-
-
     }
-
-	//savegame[0].readFile1();
-	//savegame[1].readFile2();
-	//savegame[2].readFile3();
-
-    //has user clicked stage1 button from newgame screen, if so, loadgame will show stage1 button.
-	//pregameui.existingSave=savegame.data[0];
-
 	//load animations textures
     success = animations.setAnimationTextures(renderer);
     //sets up pregame ui button names, button textures, and bg textures.
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
     success = stage.loadStage(renderer,success);
-    //load player x and y coords from savegame
-
-    /* this will have to be called when user clicks a saved file button from load game screen
-    stage.loadSavedGameData(savegame1);
-    stage.loadSavedGameData(savegame2);
-    stage.loadSavedGameData(savegame3);
-    */
-
 	//load sound effects
-	loadSounds();
+	success = loadSounds();
+	//loadSounds();
 	//load user options preferences from save.
 	pregameui.optionsButtons[1].fullScreenToggle = preferences.prefsData[0];
 	pregameui.optionsButtons[2].musicToggle = preferences.prefsData[1];
 	pregameui.optionsButtons[3].voiceToggle = preferences.prefsData[2];
+	//sets music on/off based on saved data
 	music.musicToggle=pregameui.optionsButtons[2].musicToggle;
     if(music.musicToggle)//if music is toggled on from save file, this plays it
     {
@@ -270,17 +203,12 @@ bool loadMedia()
     {
         pregameui.optionsButtons[1].setFullScreenOn(window,renderer);
     }
-
-
-
     //fade to black background
     blackGround.loadFromFile("images/Blackground.png",renderer);
     //loads the font
     text.loadText(renderer);
-
-    //creates text textures for new/load game screens to display time of save by filenumber
+    //creates text textures for new/load game screens to display time of save by filenumber, as well as time played
     savegame.loadSavedMetaData(renderer,text.font);
-
     //for debugging
     if(success == false)
     {
@@ -297,14 +225,8 @@ void close()
     {
         savegame.writeSaveFile(chosenSave,pregameui,stage,playedTime.timePlayed);
     }
-    //need to scale to 3.
-    //savegame.writeSaveFile(1,pregameui,stage);
-    //savegame.writeSaveFile(2,pregameui,stage);
-
     //save preferences
     preferences.writePrefsFile(pregameui);
-
-
     //free pregame ui resouces
     pregameui.free();
     //free stage resources
@@ -317,16 +239,13 @@ void close()
 	text.free();
 	//audio destructor frees audio
 	music.freeAudio();
+	//frees the sound resources
 	sound.freeAudio();
+	//frees the elements in the sounds vector
 	while(!sounds.empty()){
         sounds.pop_back();
 	}
-
-	//Free semaphore
-	//SDL_DestroySemaphore( writePrefsLock );
-	//writePrefsLock = NULL;
-
-	//Destroy window
+	//Destroy window and renderer
 	SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
 	window = NULL;
@@ -369,7 +288,6 @@ int main( int argc, char* args[] )
 			//Event handler
 			SDL_Event e;
 
-
 			//While application is running
 			while( !quit )
 			{
@@ -397,9 +315,7 @@ int main( int argc, char* args[] )
                             if(buttonClicked == 1)
                             {//player clicked save and exit button
                                 gameState=0;
-                                std::cout<<"\n playedTime: "<<playedTime.getTicks();
-                                playedTime.timePlayed += playedTime.getTicks();
-                                playedTime.pause();
+                                playedTime.updatePlayedTime();
                                 pregameui.loadMainButtons(renderer);
                             }
                         }
@@ -434,8 +350,8 @@ int main( int argc, char* args[] )
                                     chosenSave = pregameui.newgameButtons[i].chosenSave;
                                     std::cout<<"\n main chosenSave: "<<chosenSave;
                                     clickedSave=true;
-                                    playedTime.timePlayed=0;
-                                    playedTime.start();
+                                    playedTime.restartPlayedTime();
+
                                 }
                             }
                             if(gameState==0)
@@ -462,16 +378,17 @@ int main( int argc, char* args[] )
                             int oldGameState = gameState;
                             bool clickedSave = false;
                             for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
-                            {//handlePGUIEvent needs to be broken up into 5 parts
+                            {
                                 gameState = pregameui.loadgameButtons[ i ].handlePGUIEvent(gameState,pregameui.loadgameButtons[i].buttonName, &e, window,renderer );
                                 if(gameState==5 && !clickedSave)
                                 {
+                                    //chosenSave
                                     chosenSave = pregameui.loadgameButtons[i].chosenSave;
                                     std::cout<<"\n main chosenSave: "<<chosenSave;
                                     clickedSave=true;
                                     savegame.readSaveFile(chosenSave);
-                                    playedTime.timePlayed=savegame.data[2];
-                                    playedTime.start();
+                                    //updates timePlayed for file write at exit
+                                    playedTime.loadSavedPlayedTimeData(savegame.data[2]);
 
                                 }
                             }
@@ -480,13 +397,11 @@ int main( int argc, char* args[] )
                                 pregameui.loadState(oldGameState,gameState,renderer);
                             }
                             if(gameState==5)
-                            {//user clicked stage 1 button
+                            {//user clicked a load saved game button (1, 2, or 3)
                                 std::cout<<"\n chosenSave: "<<chosenSave;
                                 savegame.readSaveFile(chosenSave);
-                                stage.player1.setX(savegame.data[3]);
-                                stage.player1.setY(savegame.data[4]);
-                                stage.habInternalY1 = savegame.data[5];
-                                stage.habInternalY2 = savegame.data[6];
+                                //set player coords on screen and location in habitat (since it parallaxes vertically)
+                                stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
 
                                 pregameui.freeLoadgameButtons();
                                 //pregameui.loadLoadgameButtons(renderer);
@@ -509,16 +424,7 @@ int main( int argc, char* args[] )
                             }
                             if(gameState==0)
                             {//user clicked back button
-
-                                //this is where I want preferences to be written to file, but I'll probably need
-                                //to set up a thread for it.
-                                //SDL_Thread* writePrefsThread = SDL_CreateThread( threadFunction, "writePrefsThread", NULL );
-
-                                //Wait for thread to finish
-                                //SDL_WaitThread( writePrefsThread, NULL );
-
                                 pregameui.loadState(oldGameState,gameState,renderer);
-
                             }
                             if(gameState==3)
                             {//user clicked one of the toggle buttons
@@ -621,9 +527,8 @@ int main( int argc, char* args[] )
 
 				//process player movement, updates hab internal background as well
 				if(stage.internalView)
-                {
-                    stage.move();
-                    stage.player1.move(countedFrames);
+                {//updates player and habitat coords
+                    stage.move(countedFrames);
                 }
 
 				//Clear screen
@@ -673,7 +578,7 @@ int main( int argc, char* args[] )
 				SDL_RenderPresent( renderer );
 				++countedFrames;
 				if(countedFrames>0 && countedFrames < 255 && gameState==0)
-                {  //fades in the go homeless title
+                {  //fades in the title
                     pregameui.title.setAlpha(countedFrames);
                 }
 				//If frame finished early
@@ -685,10 +590,7 @@ int main( int argc, char* args[] )
 				}
 				//increments frames for animations
 				animations.progress();
-
-
 			}
-
 			//Disable text input
 			SDL_StopTextInput();
 		}

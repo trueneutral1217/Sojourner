@@ -164,7 +164,7 @@ void stage::habInternalHandleParallax(SDL_Renderer* renderer)
     stage1BG[3].render(0,habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
-void stage::move()
+void stage::move(int countedFrames)
 {
     if( player1.getY() == 360 && player1.getPVelY() > 0 )
     {//player is heading down after hitting lower threshold.
@@ -201,6 +201,7 @@ void stage::move()
         habInternalY2-=player1.getPVelY();
         std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
+    player1.move(countedFrames);
 }
 
 void stage::setNewgameVars()
@@ -212,13 +213,13 @@ void stage::setNewgameVars()
     //externalView=true;
 }
 
-/*
-void stage::loadSavedGameData(saveGame savegame)
+
+void stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)
 {
-    player1.setX(savegame.data[1]);
-    player1.setY(savegame.data[2]);
+    player1.setX(d1);
+    player1.setY(d2);
     //load habitat Y1 and Y2 coords from safe file
-    habInternalY1 = savegame.data[3];
-    habInternalY2 = savegame.data[4];
+    habInternalY1 = d3;
+    habInternalY2 = d4;
 }
-*/
+

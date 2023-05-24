@@ -130,3 +130,22 @@ bool timer::isPaused()
 	//Timer is running and paused
     return paused && started;
 }
+
+void timer::updatePlayedTime()
+{
+    std::cout<<"\n playedTime: "<<getTicks();
+    timePlayed += getTicks();
+    pause();
+}
+
+void timer::restartPlayedTime()
+{
+    timePlayed=0;
+    start();
+}
+
+void timer::loadSavedPlayedTimeData(Uint32 saved)
+{
+    timePlayed=saved;
+    start();
+}
