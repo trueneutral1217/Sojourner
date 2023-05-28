@@ -6,6 +6,7 @@ player::player()
     playerX = 380;//middle of screen (considering player width)
     playerY = 260;//also middle, considering player height.  player starts in screen center.
     flipHorizontal = false;
+    inSpace=false;
 }
 player::~player()
 {
@@ -280,7 +281,14 @@ void player::loadPlayer(SDL_Renderer* renderer)
     {
         if(i==IDLE)
         {
-            ss.str("images/sprites/PlayerCharacterDown1");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceDown1");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterDown1");
+            }
             ss2.str(".png");
 
             for(int j = 0; j<IDLE_TEXTURES;j++)
@@ -295,7 +303,15 @@ void player::loadPlayer(SDL_Renderer* renderer)
         }
         else if(i==WALK_LR)
         {
-            ss.str("images/sprites/PlayerCharacterRight");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceRight");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterRight");
+            }
+
             ss2.str(".png");
             for(int k = 0; k<LR_TEXTURES;k++)
             {
@@ -309,7 +325,15 @@ void player::loadPlayer(SDL_Renderer* renderer)
         }
         else if(i==WALK_DLDR)//loads textures for walking downright and down left (downleft get flipped horizontally)
         {
-            ss.str("images/sprites/PlayerCharacterRightDown");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceRightDown");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterRightDown");
+            }
+
             ss2.str(".png");
             for(int k = 0; k<DLDR_TEXTURES;k++)
             {
@@ -323,7 +347,15 @@ void player::loadPlayer(SDL_Renderer* renderer)
         }
         else if(i==WALK_ULUR)//loads textures for walking up right and up left (up left get flipped horizontally)
         {
-            ss.str("images/sprites/PlayerCharacterRightUp");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceRightUp");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterRightUp");
+            }
+
             ss2.str(".png");
             for(int k = 0; k<ULUR_TEXTURES;k++)
             {
@@ -337,7 +369,15 @@ void player::loadPlayer(SDL_Renderer* renderer)
         }
         else if(i==WALK_D)//loads textures for walking down
         {
-            ss.str("images/sprites/PlayerCharacterDown");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceDown");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterDown");
+            }
+
             ss2.str(".png");
             for(int k = 0; k<D_TEXTURES;k++)
             {
@@ -351,7 +391,15 @@ void player::loadPlayer(SDL_Renderer* renderer)
         }
         else if(i==WALK_U)//loads textures for walking up
         {
-            ss.str("images/sprites/PlayerCharacterUp");
+            if(inSpace)
+            {
+                ss.str("images/sprites/PlayerCharacterSpaceUp");
+            }
+            else
+            {
+                ss.str("images/sprites/PlayerCharacterUp");
+            }
+
             ss2.str(".png");
             for(int k = 0; k<U_TEXTURES;k++)
             {

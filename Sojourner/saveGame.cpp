@@ -120,7 +120,7 @@ void saveGame::readSaveFile(int fileNum)
             }
 
             savedPlayTime[fileNum].str("");
-            savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<minutes<<" mins, "<<seconds<<" secs";
+            savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<(minutes%60)<<" mins, "<<(seconds%60)<<" secs";
 
             std::cout<<"\n savedPlayTime["<<fileNum<<"]: "<<savedPlayTime[fileNum].str();
         }
