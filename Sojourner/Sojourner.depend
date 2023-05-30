@@ -1673,7 +1673,7 @@
 1685304801 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1684736395 source:c:\sojourner\sojourner\stage.cpp
+1685489348 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1683021254 source:c:\sojourner\sojourner\text.cpp
@@ -1695,6 +1695,6 @@
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1684360735 source:c:\sojourner\sojourner\pregameui.cpp
+1685489113 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 

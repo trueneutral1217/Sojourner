@@ -473,6 +473,7 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* w
 		//Mouse is outside button
 		if( !inside )
 		{
+		    mouseOver=false;
             buttonClicked=0;
             if(e->type == SDL_MOUSEBUTTONDOWN)
             {
@@ -482,6 +483,11 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e, SDL_Window* w
 		//Mouse is inside button
 		else
 		{
+		    if(!mouseOver)
+            {
+                std::cout<<"\n \n mouseOver = true, buttonName: "<<buttonName;
+                mouseOver=true;
+		    }
                 switch( e->type )
                 {
                     case SDL_MOUSEBUTTONDOWN:

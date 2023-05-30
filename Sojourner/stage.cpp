@@ -19,6 +19,7 @@ void stage::freeButtons()
     for(int i = 0; i < TOTAL_STAGE_BUTTONS; i++)
     {
         buttons[i].buttonTexture.free();
+        buttons[i].buttonMOTexture.free();
     }
 }
 
@@ -27,9 +28,13 @@ bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
         std::stringstream ss;
+        std::stringstream ssMO;
         ss << "images/buttons/" << buttons[i].buttonName << ".png";
+        ssMO << "images/buttons/" << buttons[i].buttonName << "MO.png";
         std::string str = ss.str();
+        std::string str2 = ssMO.str();
         success = buttons[i].buttonTexture.loadFromFile( str,renderer );
+        success = buttons[i].buttonMOTexture.loadFromFile( str2,renderer );
         //buttons[ i ].setPosition( ((i*160)-80), SCREEN_HEIGHT - 140 );
     }
     //save and exit
@@ -140,8 +145,14 @@ void stage::renderStage1(SDL_Renderer* renderer)
     {//player is shown if internalView is on.
         player1.render(renderer);
     }
-
-    buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    if(buttons[0].mouseOver==false)
+    {
+        buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else
+    {
+        buttons[0].buttonMOTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void stage::starsHandleParallax(SDL_Renderer* renderer)
