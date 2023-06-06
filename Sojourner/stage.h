@@ -7,6 +7,7 @@
 #include "player.h"
 #include "parallax.h"
 //#include "saveGame.h"
+#include "station.h"
 
 const static int TOTAL_STAGE_BACKGROUNDS = 4;
 
@@ -59,6 +60,8 @@ class stage
         void handleStageButtonPresses(int gameState,SDL_Renderer* renderer);
         //declare player
         player player1;
+        //declare station
+        station station;
         //loads resources at opening of stages.
         bool loadStage(SDL_Renderer* renderer, bool success);
         //free resources

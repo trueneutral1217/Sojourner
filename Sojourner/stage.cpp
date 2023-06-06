@@ -102,6 +102,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     success = setStageTextures(renderer);
     //load player texture
     player1.loadPlayer(renderer);
+    station.loadStation(renderer);
     return success;
 }
 
@@ -141,10 +142,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
     {//renders the interior of the ship (supposed to parallax as player walks up or down.
         habInternalHandleParallax(renderer);
     }
-    if(showPlayer)
-    {//player is shown if internalView is on.
-        player1.render(renderer);
-    }
     if(buttons[0].mouseOver==false)
     {
         buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -152,6 +149,14 @@ void stage::renderStage1(SDL_Renderer* renderer)
     else
     {
         buttons[0].buttonMOTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(internalView)
+    {
+        station.renderStation(renderer);
+    }
+    if(showPlayer)
+    {//player is shown if internalView is on.
+        player1.render(renderer);
     }
 }
 
@@ -212,7 +217,8 @@ void stage::move(int countedFrames)
         habInternalY2-=player1.getPVelY();
         std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
-    player1.move(countedFrames);
+    player1.move(countedFrames,station.collidable);
+    station.updatePosition(habInternalY1);
 }
 
 void stage::setNewgameVars()

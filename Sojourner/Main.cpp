@@ -9,6 +9,7 @@
 #include "animations.h"
 #include "stage.h"
 #include "text.h"
+
 //total gamestates
 const int TOTAL_STATES = 6;
 //gameStates
@@ -49,6 +50,8 @@ animations animations;
 text text;
 //tracks the amount of time user has been in gameState 5
 timer playedTime;
+
+
 //declare sound vector & load sounds into it.
 bool loadSounds();
 //render particles to screen
@@ -186,6 +189,8 @@ bool loadMedia()
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
     success = stage.loadStage(renderer,success);
+
+
 	//load sound effects
 	success = loadSounds();
 	//loadSounds();

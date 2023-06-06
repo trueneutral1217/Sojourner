@@ -67,6 +67,8 @@
 		<Unit filename="saveGame.h" />
 		<Unit filename="stage.cpp" />
 		<Unit filename="stage.h" />
+		<Unit filename="station.cpp" />
+		<Unit filename="station.h" />
 		<Unit filename="text.cpp" />
 		<Unit filename="text.h" />
 		<Unit filename="texture.cpp" />

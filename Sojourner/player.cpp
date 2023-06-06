@@ -7,6 +7,11 @@ player::player()
     playerY = 260;//also middle, considering player height.  player starts in screen center.
     flipHorizontal = false;
     inSpace=false;
+
+    playerCollisionBox.x = playerX;
+    playerCollisionBox.y = playerY;
+    playerCollisionBox.w = PLAYER_WIDTH;
+    playerCollisionBox.h = PLAYER_HEIGHT;
 }
 player::~player()
 {
@@ -99,7 +104,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick)
+void player::move(int tick, SDL_Rect& collidable)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -252,17 +257,24 @@ void player::move(int tick)
         currentTexture = playerTexture[moveState][walkFrame];
     }
 
-    if((playerX < 0) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH))
+    if((playerX < 0) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
     {
         playerX -= pVelX;
     }
-    if((playerY < 0) || (playerY + PLAYER_HEIGHT > SCREEN_HEIGHT))
+    if((playerY < 0) || (playerY + PLAYER_HEIGHT > SCREEN_HEIGHT) )
     {
         playerY -= pVelY;
     }
     //update player collision box coords
     playerCollisionBox.x = playerX;
     playerCollisionBox.y = playerY+40;
+
+    if(collisionDetector(collidable))
+    {
+        std::cout<<"\n collision detected!";
+        playerX-=pVelX;
+        playerY-=pVelY;
+    }
 }
 
 void player::loadPlayer(SDL_Renderer* renderer)
