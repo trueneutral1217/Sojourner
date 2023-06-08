@@ -8,10 +8,12 @@ player::player()
     flipHorizontal = false;
     inSpace=false;
 
-    playerCollisionBox.x = playerX;
-    playerCollisionBox.y = playerY;
-    playerCollisionBox.w = PLAYER_WIDTH;
-    playerCollisionBox.h = PLAYER_HEIGHT;
+    //making the collision box a 30x20 pixel box at player's feet area.
+    playerCollisionBox.x = playerX+5;
+    playerCollisionBox.y = playerY+60;
+    playerCollisionBox.w = 30;
+    playerCollisionBox.h = PLAYER_HEIGHT/4;
+
 }
 player::~player()
 {
@@ -104,7 +106,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick, SDL_Rect& collidable)
+void player::move(int tick, SDL_Rect collidable[],int STATIONS)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -266,24 +268,28 @@ void player::move(int tick, SDL_Rect& collidable)
         playerY -= pVelY;
     }
     //update player collision box coords
-    playerCollisionBox.x = playerX;
-    playerCollisionBox.y = playerY+40;
+    playerCollisionBox.x = playerX+5;
+    playerCollisionBox.y = playerY+60;
 
-    if(collisionDetector(collidable))
+
+    for(int i = 0; i<STATIONS;i++)
     {
-        std::cout<<"\n collision detected!";
-        playerX-=pVelX;
-        playerY-=pVelY;
+        if(collisionDetector(collidable[i]))
+        {
+            std::cout<<"\n collision detected!";
+            playerX-=pVelX;
+            playerY-=pVelY;
+        }
     }
 }
 
 void player::loadPlayer(SDL_Renderer* renderer)
 {
-    //set up player collision box dimensions (lower half of player texture is the size of the collision box.
-    playerCollisionBox.x = playerX;
-    playerCollisionBox.y = playerY+40;
-    playerCollisionBox.w=40;
-    playerCollisionBox.h=40;
+    //set up player collision box dimensions (lower quarter of player texture is the size of the collision box.
+    playerCollisionBox.x = playerX+5;
+    playerCollisionBox.y = playerY+60;
+    playerCollisionBox.w=30;
+    playerCollisionBox.h=20;
 
     //used for loading the player textures for walking animations
     std::stringstream ss,ss2,ss3;
@@ -582,6 +588,4 @@ bool player::collisionDetector(SDL_Rect collidable)
     }
 
     return true;
-
-
 }

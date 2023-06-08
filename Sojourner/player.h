@@ -63,7 +63,7 @@ class player
         //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
         //updates player position, walk animation, wall collision
-        void move(int tick, SDL_Rect& collidable);
+        void move(int tick, SDL_Rect collidable[],int STATIONS);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources
@@ -79,7 +79,7 @@ class player
         //set's player's x/y coords
         void setX(int x);
         void setY(int y);
-        //checks for collisions between a collidable object and player
+        //checks for collisions between collidable objects and player
         bool collisionDetector(SDL_Rect collidable);
 
     private:

@@ -3,6 +3,8 @@
 
 #include "texture.h"
 
+
+
 class station
 {
     public:
@@ -12,10 +14,14 @@ class station
         ~station();
 
         int bedX, bedY;
+        int waterTankX, waterTankY;
+
+        const static int STATIONS = 2;
 
         Texture bedTexture;
+        Texture waterTankTexture;
 
-        SDL_Rect collidable;
+        SDL_Rect collidable[STATIONS];
 
         void loadStation(SDL_Renderer* renderer);
 

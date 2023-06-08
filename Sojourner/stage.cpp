@@ -217,7 +217,7 @@ void stage::move(int countedFrames)
         habInternalY2-=player1.getPVelY();
         std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
-    player1.move(countedFrames,station.collidable);
+    player1.move(countedFrames,station.collidable,station.STATIONS);
     station.updatePosition(habInternalY1);
 }
 
