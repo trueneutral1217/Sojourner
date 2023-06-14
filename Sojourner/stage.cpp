@@ -102,7 +102,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     success = setStageTextures(renderer);
     //load player texture
     player1.loadPlayer(renderer);
-    station.loadStation(renderer);
+    station.loadStation(renderer,font);
     return success;
 }
 
@@ -157,6 +157,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(showPlayer)
     {//player is shown if internalView is on.
         player1.render(renderer);
+        if(player1.interactWaterTank)
+        {
+            station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
+        }
     }
 }
 
@@ -217,7 +221,7 @@ void stage::move(int countedFrames)
         habInternalY2-=player1.getPVelY();
         std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
-    player1.move(countedFrames,station.collidable,station.STATIONS);
+    player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);
     station.updatePosition(habInternalY1);
 }
 

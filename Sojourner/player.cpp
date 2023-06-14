@@ -83,6 +83,9 @@ void player::handleEvent(SDL_Event& e)
         case SDLK_d:
             pVelX += PLAYER_VEL;
             break;
+        case SDLK_e:
+            interact = true;
+            break;
         }
     }
     else if(e.type == SDL_KEYUP && e.key.repeat == 0)
@@ -101,12 +104,15 @@ void player::handleEvent(SDL_Event& e)
         case SDLK_d:
             pVelX -= PLAYER_VEL;
             break;
+        case SDLK_e:
+            interact = false;
+            break;
         }
     }
 }
 
 
-void player::move(int tick, SDL_Rect collidable[],int STATIONS)
+void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -274,11 +280,34 @@ void player::move(int tick, SDL_Rect collidable[],int STATIONS)
 
     for(int i = 0; i<STATIONS;i++)
     {
+        //prevent player from walking into station
         if(collisionDetector(collidable[i]))
         {
             std::cout<<"\n collision detected!";
             playerX-=pVelX;
             playerY-=pVelY;
+        }
+        //if player is in range of interacting with a station
+        if(collisionDetector(interactable[i]))
+        {
+            std::cout<<"\n player.interactWaterTank: "<<interactWaterTank;
+            //player pressed 'e' button
+            if(interact)
+            {
+                //watertank is interactable[1]
+                if(i==1)
+                {
+                    //flag stage to render water tank level
+                    interactWaterTank = true;
+                }
+            }
+            else
+            {
+                //no longer render watertank level
+                interactWaterTank = false;
+            }
+
+
         }
     }
 }

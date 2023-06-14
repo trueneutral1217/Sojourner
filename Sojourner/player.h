@@ -54,6 +54,10 @@ class player
         bool flipHorizontal;
         //is player is in space, load space outfit textures, else earth textures
         bool inSpace;
+        //player press 'E' button, signaling they want to interact.
+        bool interact;
+        //the flag for rendering the water tank level.
+        bool interactWaterTank;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.
@@ -62,8 +66,8 @@ class player
         void loadPlayer(SDL_Renderer* renderer);
         //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
-        //updates player position, walk animation, wall collision
-        void move(int tick, SDL_Rect collidable[],int STATIONS);
+        //updates player position, walk animation, station collision box, station interaction box
+        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources
