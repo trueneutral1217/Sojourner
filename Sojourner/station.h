@@ -14,24 +14,29 @@ class station
         int bedX, bedY;
         //watertank coordinates
         int waterTankX, waterTankY;
-        //
+        //planter coords
         int planterX,planterY;
+        //kitchen coords
+        int kitchenX,kitchenY;
         //current number of stations
-        const static int STATIONS = 3;
+        const static int STATIONS = 4;
         //string for water level interaction of water tank station
         std::string waterLevel;
         std::string sleepyTime;
         std::string plantStatus;
+        std::string foodTime;
         //the texture for the waterLevel stringstream
         Texture waterLevelTexture;
         Texture sleepyTimeTexture;
         Texture plantStatusTexture;
+        Texture foodTimeTexture;
         //textures for stations
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
         Texture waterTankTexture;
         Texture planterTexture;
+        Texture kitchenTexture;
         //the impassable area of the station
         SDL_Rect collidable[STATIONS];
         //the interactable area of the station
@@ -49,6 +54,10 @@ class station
         void loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font);
         //renders planter interaction text texture
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
+        //load kitchen interaction string and text texture
+        void loadInteractKitchen(SDL_Renderer* renderer, TTF_Font* font);
+        //render kitchen interaction text texture
+        void renderInteractKitchen(SDL_Renderer* renderer,int x, int y);
         //loads textures for stations (sleepingbag image, water tank image)
         void loadStation(SDL_Renderer* renderer,TTF_Font* font);
         //when player walks around, the stations move with the background.

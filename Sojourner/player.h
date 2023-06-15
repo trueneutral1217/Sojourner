@@ -62,6 +62,8 @@ class player
         bool interactBed;
         //flag for rendering planter text texture
         bool interactPlanter;
+        //flag for rendering kitchen text texture
+        bool interactKitchen;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.

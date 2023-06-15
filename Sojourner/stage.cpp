@@ -150,6 +150,8 @@ void stage::renderStage1(SDL_Renderer* renderer)
     {
         buttons[0].buttonMOTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    //this set up always keeps player in front of station, considering setting up a system to display station in
+    //front of player if station's y coord is greater than player's.  might be complicated with vertical parallax/loop
     if(internalView)
     {
         station.renderStation(renderer);
@@ -168,6 +170,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
         if(player1.interactPlanter)
         {
             station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
+        }
+        if(player1.interactKitchen)
+        {
+            station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
         }
     }
 }

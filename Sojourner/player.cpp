@@ -312,6 +312,11 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
                     //flag stage to render planter plantStatus text texture
                     interactPlanter = true;
                 }
+                if(i==3)
+                {
+                    //flag stage to render kitchen foodTime text texture
+                    interactKitchen = true;
+                }
             }
             else
             {
@@ -321,6 +326,8 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
                 interactBed = false;
                 //no longer render planter plantStatus text texture
                 interactPlanter = false;
+                //no longer render kitchen foodTime text texture
+                interactKitchen = false;
             }
 
 

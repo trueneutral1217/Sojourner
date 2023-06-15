@@ -24,7 +24,7 @@ station::station()
     interactable[1].y = collidable[1].y-2;
     interactable[1].w=collidable[1].w+6;
     interactable[1].h = collidable[1].h+4;
-
+    //setup coords for planter + it's collision box, plus it's interaction box.
     planterX = 400;
     planterY = 200;
     collidable[2].x = planterX;
@@ -35,6 +35,17 @@ station::station()
     interactable[2].y=collidable[2].y-2;
     interactable[2].w=collidable[2].w+4;
     interactable[2].h=collidable[2].h+4;
+    //setup coords for kitchen + it's collision box, plus it's interaction box.
+    kitchenX = 300;
+    kitchenY = 500;
+    collidable[3].x = kitchenX;
+    collidable[3].y = kitchenY;
+    collidable[3].w = 200;
+    collidable[3].h = 100;
+    interactable[3].x=collidable[3].x-2;
+    interactable[3].y=collidable[3].y-2;
+    interactable[3].w=collidable[3].w+4;
+    interactable[3].h=collidable[3].h+4;
 }
 
 station::~station()
@@ -47,9 +58,25 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     bedTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
     waterTankTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     planterTexture.loadFromFile("images/sprites/planter.png",renderer);
+    kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
+
     loadInteractWaterTank(renderer,font);
     loadInteractBed(renderer,font);
     loadInteractPlanter(renderer,font);
+    loadInteractKitchen(renderer,font);
+}
+
+void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
+{
+    //setting text for waterTank interaction
+    foodTime = "Not Hungry";
+    //test if water tank interaction function is running
+    std::cout<<"\n loadInteractKitchen function executed";
+    SDL_Color textColor = {0,0,0};//black
+    if(!foodTimeTexture.loadFromRenderedText(foodTime.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render foodTime string to foodTimeTexture!";
+    }
 }
 
 void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
@@ -106,7 +133,18 @@ void station::updatePosition(int y)
     collidable[2].y=planterY;
     interactable[2].y=collidable[2].y-2;
 
+    kitchenY = y+500;
+    collidable[3].y=kitchenY;
+    interactable[3].y=collidable[3].y-2;
+
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
+}
+
+void station::renderInteractKitchen(SDL_Renderer* renderer,int x, int y)
+{
+    //displays texture above player's head
+    y-=20;
+    foodTimeTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractWaterTank(SDL_Renderer* renderer,int x, int y)
@@ -135,6 +173,7 @@ void station::renderStation(SDL_Renderer* renderer)
     bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::free()
@@ -145,4 +184,6 @@ void station::free()
 	sleepyTimeTexture.free();
 	planterTexture.free();
 	plantStatusTexture.free();
+	kitchenTexture.free();
+	foodTimeTexture.free();
 }
