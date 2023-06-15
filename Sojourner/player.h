@@ -58,6 +58,10 @@ class player
         bool interact;
         //the flag for rendering the water tank level.
         bool interactWaterTank;
+        //the flag for rendering the bed text texture
+        bool interactBed;
+        //flag for rendering planter text texture
+        bool interactPlanter;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.

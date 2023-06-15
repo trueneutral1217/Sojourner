@@ -290,21 +290,37 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
         //if player is in range of interacting with a station
         if(collisionDetector(interactable[i]))
         {
-            std::cout<<"\n player.interactWaterTank: "<<interactWaterTank;
+            //std::cout<<"\n player.interactBed: "<<interactBed;
+            //std::cout<<"\n player.interactWaterTank: "<<interactWaterTank;
+            std::cout<<"\n player.interactPlanter: "<<interactPlanter;
             //player pressed 'e' button
             if(interact)
             {
+                if(i==0)
+                {
+                    //flag stage to render bed sleeptyTime text texture
+                    interactBed = true;
+                }
                 //watertank is interactable[1]
                 if(i==1)
                 {
-                    //flag stage to render water tank level
+                    //flag stage to render watertank waterLevel text texture
                     interactWaterTank = true;
+                }
+                if(i==2)
+                {
+                    //flag stage to render planter plantStatus text texture
+                    interactPlanter = true;
                 }
             }
             else
             {
                 //no longer render watertank level
                 interactWaterTank = false;
+                //no longer render bed text texture
+                interactBed = false;
+                //no longer render planter plantStatus text texture
+                interactPlanter = false;
             }
 
 

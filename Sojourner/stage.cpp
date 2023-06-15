@@ -161,6 +161,14 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
         }
+        if(player1.interactBed)
+        {
+            station.renderInteractBed(renderer,player1.getX(),player1.getY());
+        }
+        if(player1.interactPlanter)
+        {
+            station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
+        }
     }
 }
 
