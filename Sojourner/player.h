@@ -56,6 +56,8 @@ class player
         bool inSpace;
         //player press 'E' button, signaling they want to interact.
         bool interact;
+        //flag if player is collided with interaction box of a station.
+        bool inRange;
         //the flag for rendering the water tank level.
         bool interactWaterTank;
         //the flag for rendering the bed text texture

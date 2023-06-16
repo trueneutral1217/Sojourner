@@ -62,6 +62,15 @@ bool stage::setStageTextures(SDL_Renderer* renderer)
     success = starsMid.parallaxTexture.loadFromFile("images/starlaxmid.png",renderer);
     success = starsBack.parallaxTexture.loadFromFile("images/starlaxback.png",renderer);
 
+    courage = "Courage is freedom in practice.";
+    //test if water tank interaction function is running
+    std::cout<<"\n courage function executed";
+    SDL_Color textColor = {255,255,255};//white
+    if(!courageTexture.loadFromRenderedText(courage.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render courage string to courageTexture!";
+    }
+
     return success;
 }
 
@@ -80,6 +89,7 @@ void stage::freeBGTextures()
     {
         stage1BG[i].free();
     }
+    courageTexture.free();
     starsFore.freeParallaxTexture();
     starsMid.freeParallaxTexture();
     starsBack.freeParallaxTexture();
@@ -137,6 +147,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(externalView)
     {//renders the exterior of the ship
         stage1BG[1].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        courageTexture.render(10,580,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
     else if(internalView)
     {//renders the interior of the ship (supposed to parallax as player walks up or down.
@@ -159,21 +170,26 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(showPlayer)
     {//player is shown if internalView is on.
         player1.render(renderer);
-        if(player1.interactWaterTank)
+
+        //interact is user pressed 'e', inRange is player collision with interactable station
+        if(player1.interact)
         {
-            station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
-        }
-        if(player1.interactBed)
-        {
-            station.renderInteractBed(renderer,player1.getX(),player1.getY());
-        }
-        if(player1.interactPlanter)
-        {
-            station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
-        }
-        if(player1.interactKitchen)
-        {
-            station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+            if(player1.interactWaterTank)
+            {
+                station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
+            }
+            if(player1.interactBed)
+            {
+                station.renderInteractBed(renderer,player1.getX(),player1.getY());
+            }
+            if(player1.interactPlanter)
+            {
+                station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
+            }
+            if(player1.interactKitchen)
+            {
+                station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+            }
         }
     }
 }

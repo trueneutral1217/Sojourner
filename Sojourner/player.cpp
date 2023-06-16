@@ -7,6 +7,12 @@ player::player()
     playerY = 260;//also middle, considering player height.  player starts in screen center.
     flipHorizontal = false;
     inSpace=false;
+    inRange=false;
+    interact=false;
+    interactBed=false;
+    interactWaterTank=false;
+    interactPlanter=false;
+    interactKitchen=false;
 
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
@@ -85,6 +91,7 @@ void player::handleEvent(SDL_Event& e)
             break;
         case SDLK_e:
             interact = true;
+            std::cout<<"\n interact: "<<interact;
             break;
         }
     }
@@ -106,6 +113,7 @@ void player::handleEvent(SDL_Event& e)
             break;
         case SDLK_e:
             interact = false;
+            std::cout<<"\n interact: "<<interact;
             break;
         }
     }
@@ -280,6 +288,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
 
     for(int i = 0; i<STATIONS;i++)
     {
+
         //prevent player from walking into station
         if(collisionDetector(collidable[i]))
         {
@@ -287,50 +296,57 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             playerX-=pVelX;
             playerY-=pVelY;
         }
-        //if player is in range of interacting with a station
+        //check if player is in range of interacting with a station
         if(collisionDetector(interactable[i]))
         {
             //std::cout<<"\n player.interactBed: "<<interactBed;
             //std::cout<<"\n player.interactWaterTank: "<<interactWaterTank;
-            std::cout<<"\n player.interactPlanter: "<<interactPlanter;
-            //player pressed 'e' button
-            if(interact)
+            //std::cout<<"\n player.interactPlanter: "<<interactPlanter;
+
+            if(i==0)
             {
-                if(i==0)
-                {
-                    //flag stage to render bed sleeptyTime text texture
-                    interactBed = true;
-                }
-                //watertank is interactable[1]
-                if(i==1)
-                {
-                    //flag stage to render watertank waterLevel text texture
-                    interactWaterTank = true;
-                }
-                if(i==2)
-                {
-                    //flag stage to render planter plantStatus text texture
-                    interactPlanter = true;
-                }
-                if(i==3)
-                {
-                    //flag stage to render kitchen foodTime text texture
-                    interactKitchen = true;
-                }
+                //flag stage to render bed sleeptyTime text texture
+                interactBed = true;
             }
-            else
+            //watertank is interactable[1]
+            if(i==1)
             {
-                //no longer render watertank level
-                interactWaterTank = false;
-                //no longer render bed text texture
+                //flag stage to render watertank waterLevel text texture
+                interactWaterTank = true;
+            }
+            if(i==2)
+            {
+                //flag stage to render planter plantStatus text texture
+                interactPlanter = true;
+            }
+            if(i==3)
+            {
+                //flag stage to render kitchen foodTime text texture
+                interactKitchen = true;
+            }
+        }
+        else
+        {
+            if(i==0)
+            {
+                //flag stage to render bed sleeptyTime text texture
                 interactBed = false;
-                //no longer render planter plantStatus text texture
+            }
+            if(i==1)
+            {
+                //flag stage to render watertank waterLevel text texture
+                interactWaterTank = false;
+            }
+            if(i==2)
+            {
+                //flag stage to render planter plantStatus text texture
                 interactPlanter = false;
-                //no longer render kitchen foodTime text texture
+            }
+            if(i==3)
+            {
+                //flag stage to render kitchen foodTime text texture
                 interactKitchen = false;
             }
-
-
         }
     }
 }

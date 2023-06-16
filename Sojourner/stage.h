@@ -37,6 +37,10 @@ class stage
         parallax starsFore;
         parallax starsMid;
         parallax starsBack;
+        //message of courage in external view
+        std::string courage;
+        //text texture for message of courage
+        Texture courageTexture;
         //buttons for stage UI.
         button buttons[TOTAL_STAGE_BUTTONS];
         //array of background image names.
