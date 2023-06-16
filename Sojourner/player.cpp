@@ -5,6 +5,7 @@ player::player()
     pVelX = pVelY = walkFrame = moveState = 0;
     playerX = 380;//middle of screen (considering player width)
     playerY = 260;//also middle, considering player height.  player starts in screen center.
+    playerBot = playerY+PLAYER_HEIGHT;
     flipHorizontal = false;
     inSpace=false;
     inRange=false;
@@ -349,6 +350,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             }
         }
     }
+    playerBot = playerY+PLAYER_HEIGHT;
 }
 
 void player::loadPlayer(SDL_Renderer* renderer)

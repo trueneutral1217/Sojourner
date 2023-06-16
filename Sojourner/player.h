@@ -46,6 +46,8 @@ class player
         static const int PLAYER_WIDTH = 40;
         static const int PLAYER_HEIGHT = 80;
         static const int PLAYER_VEL = 5;
+        //bottom of player sprite
+        int playerBot;
         //tracks current player movement state (idle, walkLR, soon to be other directions and possible other types of movement like floating or running)
         int moveState;
         //tracks current player animation frame

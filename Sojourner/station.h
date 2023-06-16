@@ -11,13 +11,13 @@ class station
         //destructor
         ~station();
         //bed (sleeping bag) coordinates
-        int bedX, bedY;
+        int bedX, bedY,bedH,bedBot;
         //watertank coordinates
-        int waterTankX, waterTankY;
+        int waterTankX, waterTankY,waterTankH,waterTankBot;
         //planter coords
-        int planterX,planterY;
+        int planterX,planterY,planterH,planterBot;
         //kitchen coords
-        int kitchenX,kitchenY;
+        int kitchenX,kitchenY,kitchenH,kitchenBot;
         //current number of stations
         const static int STATIONS = 4;
         //string for water level interaction of water tank station
@@ -62,8 +62,10 @@ class station
         void loadStation(SDL_Renderer* renderer,TTF_Font* font);
         //when player walks around, the stations move with the background.
         void updatePosition(int y);
-        //renders the textures
-        void renderStation(SDL_Renderer* renderer);
+        //renders the textures that belong behind player
+        void renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
+        //renders the textures that belong in front of the player
+        void renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
         //frees the resources
         void free();
 

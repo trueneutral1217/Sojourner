@@ -5,10 +5,12 @@ station::station()
     //Setup coords & collision box for bed
     bedX = 100;
     bedY = 300;
+    bedH = 37;
+    bedBot = bedY + bedH;
     collidable[0].x = bedX;
-    collidable[0].y = bedY;
+    collidable[0].y = bedY+(bedH/2);
     collidable[0].w = 85;
-    collidable[0].h = 37;
+    collidable[0].h = bedH/2;
     interactable[0].x=collidable[0].x-2;
     interactable[0].y=collidable[0].y-2;
     interactable[0].w=collidable[0].w+4;
@@ -16,10 +18,12 @@ station::station()
     //setup coords & collision box for water Tank
     waterTankX = 200;
     waterTankY = 100;
+    waterTankH = 34;
+    waterTankBot = waterTankY + waterTankH;
     collidable[1].x = waterTankX;
-    collidable[1].y = waterTankY;
+    collidable[1].y = waterTankY+(waterTankH/2);
     collidable[1].w = 87;
-    collidable[1].h = 34;
+    collidable[1].h = waterTankH/2;
     interactable[1].x=collidable[1].x-2;
     interactable[1].y = collidable[1].y-2;
     interactable[1].w=collidable[1].w+6;
@@ -27,21 +31,25 @@ station::station()
     //setup coords for planter + it's collision box, plus it's interaction box.
     planterX = 400;
     planterY = 200;
+    planterH = 50;
+    planterBot = planterY+planterH;
     collidable[2].x = planterX;
-    collidable[2].y = planterY;
+    collidable[2].y = planterY+(planterH/2);
     collidable[2].w = 100;
-    collidable[2].h = 50;
+    collidable[2].h = planterH/2;
     interactable[2].x=collidable[2].x-2;
     interactable[2].y=collidable[2].y-2;
     interactable[2].w=collidable[2].w+4;
     interactable[2].h=collidable[2].h+4;
     //setup coords for kitchen + it's collision box, plus it's interaction box.
     kitchenX = 300;
-    kitchenY = 500;
+    kitchenY = 400;
+    kitchenH = 100;
+    kitchenBot = kitchenY+kitchenH;
     collidable[3].x = kitchenX;
-    collidable[3].y = kitchenY;
+    collidable[3].y = kitchenY+(kitchenH/2);
     collidable[3].w = 200;
-    collidable[3].h = 100;
+    collidable[3].h = kitchenH/2;
     interactable[3].x=collidable[3].x-2;
     interactable[3].y=collidable[3].y-2;
     interactable[3].w=collidable[3].w+4;
@@ -122,19 +130,23 @@ void station::updatePosition(int y)
 {
     //when player moves, background parallaxes, this makes sure the stations stay in their places.
     bedY = y+300;
-    collidable[0].y=bedY;
+    bedBot = bedY + bedH;
+    collidable[0].y=bedY+(bedH/2);
     interactable[0].y=collidable[0].y-2;
 
     waterTankY = y+100;
-    collidable[1].y=waterTankY;
+    waterTankBot = waterTankY+waterTankH;
+    collidable[1].y=waterTankY + (waterTankH/2);
     interactable[1].y=collidable[1].y-2;
 
     planterY = y+200;
-    collidable[2].y=planterY;
+    planterBot = planterY + planterH;
+    collidable[2].y=planterY+(planterH/2);
     interactable[2].y=collidable[2].y-2;
 
-    kitchenY = y+500;
-    collidable[3].y=kitchenY;
+    kitchenY = y+400;
+    kitchenBot = kitchenY+kitchenH;
+    collidable[3].y=kitchenY+(kitchenH/2);
     interactable[3].y=collidable[3].y-2;
 
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
@@ -168,12 +180,47 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
     plantStatusTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
-void station::renderStation(SDL_Renderer* renderer)
+void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 {
-    bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+    if(playerBot>bedBot)
+    {
+        bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot>waterTankBot)
+    {
+        waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot>planterBot)
+    {
+        planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot>kitchenBot)
+    {
+        kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        std::cout<<"\n rendering kitchen behind player (ideally)";
+    }
+}
+
+void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
+{
+    if(playerBot<=bedBot)
+    {
+        bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot<=waterTankBot)
+    {
+        waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot<=planterBot)
+    {
+        planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot<=kitchenBot)
+    {
+        kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        std::cout<<"\n rendering kitchen in front of player (ideally)";
+    }
 }
 
 void station::free()

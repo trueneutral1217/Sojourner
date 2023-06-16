@@ -1653,7 +1653,7 @@
 	"parallax.h"
 	"station.h"
 
-1686903785 c:\sojourner\sojourner\player.h
+1686957331 c:\sojourner\sojourner\player.h
 	"texture.h"
 
 1685578234 c:\sojourner\sojourner\text.h
@@ -1667,13 +1667,13 @@
 	"particle.h"
 	"particle.h"
 
-1686908203 source:c:\sojourner\sojourner\player.cpp
+1686957331 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1686722304 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1686908394 source:c:\sojourner\sojourner\stage.cpp
+1686957331 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1685578234 source:c:\sojourner\sojourner\text.cpp
@@ -1701,6 +1701,6 @@
 1686902030 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1686870231 c:\sojourner\sojourner\station.h
+1686957331 c:\sojourner\sojourner\station.h
 	"texture.h"
 

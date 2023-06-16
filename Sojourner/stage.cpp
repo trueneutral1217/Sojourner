@@ -165,11 +165,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
     //front of player if station's y coord is greater than player's.  might be complicated with vertical parallax/loop
     if(internalView)
     {
-        station.renderStation(renderer);
+        station.renderStationBehindPlayer(renderer,player1.playerBot);
     }
     if(showPlayer)
     {//player is shown if internalView is on.
         player1.render(renderer);
+        station.renderStationFrontPlayer(renderer,player1.playerBot);
 
         //interact is user pressed 'e', inRange is player collision with interactable station
         if(player1.interact)
