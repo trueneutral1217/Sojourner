@@ -12,9 +12,9 @@ station::station()
     collidable[0].w = 85;
     collidable[0].h = bedH/2;
     interactable[0].x=collidable[0].x-2;
-    interactable[0].y=collidable[0].y-2;
+    interactable[0].y=collidable[0].y-4;
     interactable[0].w=collidable[0].w+4;
-    interactable[0].h=collidable[0].h+6;
+    interactable[0].h=collidable[0].h+10;
     //setup coords & collision box for water Tank
     waterTankX = 200;
     waterTankY = 100;
@@ -25,9 +25,9 @@ station::station()
     collidable[1].w = 87;
     collidable[1].h = waterTankH/2;
     interactable[1].x=collidable[1].x-2;
-    interactable[1].y = collidable[1].y-2;
+    interactable[1].y = collidable[1].y-4;
     interactable[1].w=collidable[1].w+6;
-    interactable[1].h = collidable[1].h+4;
+    interactable[1].h = collidable[1].h+6;
     //setup coords for planter + it's collision box, plus it's interaction box.
     planterX = 400;
     planterY = 200;
@@ -132,12 +132,12 @@ void station::updatePosition(int y)
     bedY = y+300;
     bedBot = bedY + bedH;
     collidable[0].y=bedY+(bedH/2);
-    interactable[0].y=collidable[0].y-2;
+    interactable[0].y=collidable[0].y-4;
 
     waterTankY = y+100;
     waterTankBot = waterTankY+waterTankH;
     collidable[1].y=waterTankY + (waterTankH/2);
-    interactable[1].y=collidable[1].y-2;
+    interactable[1].y=collidable[1].y-4;
 
     planterY = y+200;
     planterBot = planterY + planterH;
@@ -198,7 +198,6 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     if(playerBot>kitchenBot)
     {
         kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        std::cout<<"\n rendering kitchen behind player (ideally)";
     }
 }
 
@@ -219,7 +218,6 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     if(playerBot<=kitchenBot)
     {
         kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        std::cout<<"\n rendering kitchen in front of player (ideally)";
     }
 }
 
