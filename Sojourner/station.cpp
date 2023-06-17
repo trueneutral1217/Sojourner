@@ -41,6 +41,9 @@ station::station()
     interactable[2].y=collidable[2].y-2;
     interactable[2].w=collidable[2].w+4;
     interactable[2].h=collidable[2].h+4;
+    plantOkay = true;
+    waterPlantsOkay = true;
+    harvestOkay = false;
     //setup coords for kitchen + it's collision box, plus it's interaction box.
     kitchenX = 300;
     kitchenY = 400;
@@ -90,13 +93,68 @@ void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
 void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
 {
     //setting text for waterTank interaction
-    plantStatus = "Not Planted";
+    //plantStatus = "Not Planted";
+
+    plant="Plant";
+    waterPlants = "Water Plants";
+    harvest = "Harvest";
+    cancel = "cancel";
     //test if water tank interaction function is running
     std::cout<<"\n loadInteractPlanter function executed";
-    SDL_Color textColor = {0,0,0};//black
+    SDL_Color textColor = {255,255,255};//white
+    SDL_Color unavailable = {0,0,0};//black
+    /*
     if(!plantStatusTexture.loadFromRenderedText(plantStatus.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render plantStatus string to plantStatusTexture!";
+    }
+    */
+    if(plantOkay)
+    {
+        if(!plantTexture.loadFromRenderedText(plant.c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render plant string to plantTexture!";
+        }
+    }
+    else
+    {
+        if(!plantTexture.loadFromRenderedText(plant.c_str(), unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render plant string to plantTexture!";
+        }
+    }
+    if(waterPlantsOkay)
+    {
+        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render waterPlants string to waterPlantsTexture!";
+        }
+    }
+    else
+    {
+        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render waterPlants string to waterPlantsTexture!";
+        }
+    }
+    if(harvestOkay)
+    {
+        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render harvest string to harvestTexture!";
+        }
+    }
+    else
+    {
+        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render harvest string to harvestTexture!";
+        }
+    }
+
+    if(!cancelTexture.loadFromRenderedText(cancel.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render cancel string to cancelTexture!";
     }
 }
 
@@ -175,9 +233,20 @@ void station::renderInteractBed(SDL_Renderer* renderer,int x, int y)
 
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 {
+    //displays textures to the right of player texture
+    x+=50;
     //displays texture above player's head
     y-=20;
-    plantStatusTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    plantTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //render below previous option
+    y+=20;
+    waterPlantsTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //render below previous option
+    y+=20;
+    harvestTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //render below previous option
+    y+=20;
+    cancelTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)

@@ -25,11 +25,25 @@ class station
         std::string sleepyTime;
         std::string plantStatus;
         std::string foodTime;
+        //strings to be used to determine interaction type for planter
+        std::string plant;
+        std::string waterPlants;
+        std::string harvest;
+        std::string cancel;
+        //flags for planter options
+        bool plantOkay;
+        bool waterPlantsOkay;
+        bool harvestOkay;
         //the texture for the waterLevel stringstream
         Texture waterLevelTexture;
         Texture sleepyTimeTexture;
         Texture plantStatusTexture;
         Texture foodTimeTexture;
+        //Textures for planter interaction
+        Texture plantTexture;
+        Texture waterPlantsTexture;
+        Texture harvestTexture;
+        Texture cancelTexture;
         //textures for stations
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
