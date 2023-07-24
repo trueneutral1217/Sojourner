@@ -37,6 +37,8 @@ class timer
 
 		void loadSavedPlayedTimeData(Uint32 saved);
 
+		void setPaused();
+
 
     private:
         //The clock time when the timer started

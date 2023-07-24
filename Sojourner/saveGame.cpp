@@ -86,6 +86,7 @@ void saveGame::readSaveFile(int fileNum)
         if(data[0])
         {
             savedDate[fileNum].str("");
+            savedDate[fileNum].clear();
             time_t saved = data[1];
             char* sdt = ctime(&saved);
             savedDate[fileNum] << "Last Saved: " << sdt;
@@ -120,6 +121,7 @@ void saveGame::readSaveFile(int fileNum)
             }
 
             savedPlayTime[fileNum].str("");
+            savedPlayTime[fileNum].clear();
             savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<(minutes%60)<<" mins, "<<(seconds%60)<<" secs";
 
             std::cout<<"\n savedPlayTime["<<fileNum<<"]: "<<savedPlayTime[fileNum].str();
@@ -162,6 +164,22 @@ void saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 
 
 }
 
+void saveGame::updateSaveData(stage stage,Uint32 playedTime)
+{
+    std::cout<<"\n running updateSaveData";
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    std::cout<<"\n now = "<<now;
+    std::cout<<"\n current date & time: "<<dt;
+    //Save data
+    data[0] = true;
+    data[1] = now;
+    data[2] = playedTime;
+    data[3] = stage.player1.getX();
+    data[4] = stage.player1.getY();
+    data[5] = stage.habInternalY1;
+    data[6] = stage.habInternalY2;
+}
 
 
 void saveGame::writePrefsFile(pregameui pregameui)
@@ -197,7 +215,7 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
 {
-    std::cout<<"\n running loadSavedDate";
+    std::cout<<"\n running loadSavedMetaData";
     SDL_Color textColor = {0,0,0};//black
     //textColor = {255,255,0};//ochre?
     //textColor = {0,255,0};//green
@@ -209,6 +227,80 @@ void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
         std::cout<<"\n"<<savedDate[i].str().c_str();
         if(savedDate[i].str() == "")
         {
+            savedDate[i].str("Empty");
+        }
+        if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
+        }
+        if(savedPlayTime[i].str() == "")
+        {
+            savedPlayTime[i].str("Empty");
+        }
+        if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
+        }
+    }
+}
+
+void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)
+{
+    std::cout<<"\n running updateSavedMetaData";
+    savedDate[fileNum].str("");
+    savedDate[fileNum].clear();
+    time_t saved = data[1];
+    char* sdt = ctime(&saved);
+    savedDate[fileNum] << "Last Saved: " << sdt;
+    std::cout<<"\n savedDate["<<fileNum<<"]: "<<savedDate[fileNum].str();
+
+            int hours,minutes,seconds;
+            if(data[2]/1000 < 0)
+            {
+                seconds = 0;
+            }
+            else
+            {
+                seconds = data[2]/1000;
+            }
+
+            if( (data[2]/1000)/60 < 0 )
+            {
+                minutes = 0;
+            }
+            else
+            {
+                minutes = (data[2]/1000)/60;
+            }
+
+            if( ( (data[2]/1000)/60 )/60 < 0 )
+            {
+                hours = 0;
+            }
+            else
+            {
+                hours = ((data[2]/1000)/60)/60;
+            }
+
+            savedPlayTime[fileNum].str("");
+            savedPlayTime[fileNum].clear();
+            savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<(minutes%60)<<" mins, "<<(seconds%60)<<" secs";
+
+            std::cout<<"\n savedPlayTime["<<fileNum<<"]: "<<savedPlayTime[fileNum].str();
+
+
+    SDL_Color textColor = {0,0,0};//black
+    //textColor = {255,255,0};//ochre?
+    //textColor = {0,255,0};//green
+    //textColor = {255,0,255};//pink
+    //textColor = {255,0,0};//red
+    textColor = {0,128,200};
+    for(int i; i<TOTAL_SAVES;i++)
+    {
+        std::cout<<"\n"<<savedDate[i].str().c_str();
+        if(savedDate[i].str() == "")
+        {
+            std::cout<<"\n savedDate["<<i<<".str() = \"\"";
             savedDate[i].str("Empty");
         }
         if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))

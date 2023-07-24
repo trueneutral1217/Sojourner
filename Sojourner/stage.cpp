@@ -123,7 +123,7 @@ void stage::free()
     player1.freePlayer();
 }
 
-void stage::handleStageButtonPresses(int buttonClicked,SDL_Renderer* renderer)
+void stage::handleStageButtonPresses(int buttonClicked)
 {
     if(buttonClicked==1)
     {//player clicked save & exit
@@ -138,6 +138,28 @@ void stage::handleStageButtonPresses(int buttonClicked,SDL_Renderer* renderer)
         showPlayer=true;
         externalView=false;
     }
+}
+
+int stage::handleButtons( SDL_Event* e )
+{
+    //player clicks mouse inside stage
+    int buttonClicked = 0;
+    //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
+    for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
+    {
+        buttonClicked = buttons[ i ].handleStageEvent(buttons[i].buttonName, e );
+    }
+    handleStageButtonPresses(buttonClicked);
+
+    if(buttonClicked == 1)
+    {
+        return 0;
+    }
+    else
+    {
+        return 5;
+    }
+
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)

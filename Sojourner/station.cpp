@@ -92,23 +92,16 @@ void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
 {
-    //setting text for waterTank interaction
-    //plantStatus = "Not Planted";
-
+    //setting text for planter interaction
     plant="Plant";
     waterPlants = "Water Plants";
     harvest = "Harvest";
-    cancel = "cancel";
+    //cancel = "cancel";
     //test if water tank interaction function is running
     std::cout<<"\n loadInteractPlanter function executed";
     SDL_Color textColor = {255,255,255};//white
     SDL_Color unavailable = {0,0,0};//black
-    /*
-    if(!plantStatusTexture.loadFromRenderedText(plantStatus.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render plantStatus string to plantStatusTexture!";
-    }
-    */
+
     if(plantOkay)
     {
         if(!plantTexture.loadFromRenderedText(plant.c_str(), textColor,font,renderer))
@@ -152,10 +145,6 @@ void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
         }
     }
 
-    if(!cancelTexture.loadFromRenderedText(cancel.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render cancel string to cancelTexture!";
-    }
 }
 
 void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
@@ -244,9 +233,6 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
     //render below previous option
     y+=20;
     harvestTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    //render below previous option
-    y+=20;
-    cancelTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
@@ -297,7 +283,9 @@ void station::free()
 	waterLevelTexture.free();
 	sleepyTimeTexture.free();
 	planterTexture.free();
-	plantStatusTexture.free();
 	kitchenTexture.free();
 	foodTimeTexture.free();
+	plantTexture.free();
+	waterPlantsTexture.free();
+	harvestTexture.free();
 }

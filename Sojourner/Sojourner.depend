@@ -1589,7 +1589,7 @@
 	<vector>
 	"cstdlib"
 
-1684736228 c:\sojourner\sojourner\timer.h
+1690230537 c:\sojourner\sojourner\timer.h
 	"Texture.h"
 
 1682229405 source:c:\sojourner\sojourner\audio.cpp
@@ -1602,7 +1602,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1686903243 source:c:\sojourner\sojourner\main.cpp
+1690231246 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1614,7 +1614,7 @@
 	"stage.h"
 	"text.h"
 
-1684360600 c:\sojourner\sojourner\button.h
+1689967383 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
 1658541873 c:\sojourner\sojourner\particle.h
@@ -1635,18 +1635,18 @@
 	"Texture.h"
 	"Texture.h"
 
-1684526647 c:\sojourner\sojourner\savegame.h
+1688448147 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 	"pregameui.h"
 	"stage.h"
 	<ctime>
 
-1684360600 c:\sojourner\sojourner\pregameui.h
+1688447251 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
 
-1686901540 c:\sojourner\sojourner\stage.h
+1689967848 c:\sojourner\sojourner\stage.h
 	"Texture.h"
 	"button.h"
 	"player.h"
@@ -1667,13 +1667,13 @@
 	"particle.h"
 	"particle.h"
 
-1686957331 source:c:\sojourner\sojourner\player.cpp
+1689628298 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
-1686722304 source:c:\sojourner\sojourner\savegame.cpp
+1690228819 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1686957331 source:c:\sojourner\sojourner\stage.cpp
+1690057912 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1685578234 source:c:\sojourner\sojourner\text.cpp
@@ -1686,7 +1686,7 @@
 1684736228 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1685489585 source:c:\sojourner\sojourner\button.cpp
+1690144972 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682120724 source:c:\sojourner\sojourner\chapter.cpp
@@ -1695,12 +1695,13 @@
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1685489113 source:c:\sojourner\sojourner\pregameui.cpp
+1689967383 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1686902030 source:c:\sojourner\sojourner\station.cpp
+1687127657 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1686980943 c:\sojourner\sojourner\station.h
+1687122874 c:\sojourner\sojourner\station.h
 	"texture.h"
+	"button.h"
 

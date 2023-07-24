@@ -74,9 +74,10 @@ void timer::pause()
 
 void timer::unpause()
 {
-    //If the timer is running and paused
-    if( started && paused )
+    //If the timer is !running and paused
+    if( !started && paused )
     {
+        std::cout<<"\n running unpause";
         //Unpause the timer
         paused = false;
 
@@ -85,6 +86,8 @@ void timer::unpause()
 
         //Reset the paused ticks
         pausedTicks = 0;
+
+        started = true;
     }
 }
 
@@ -114,9 +117,17 @@ Uint32 timer::getTicks()
 void timer::setTicks(Uint32 x)
 {
 	if(started)
+    {
         startTicks += x;
+        std::cout<<"\n started = true, startTicks: "<<startTicks;
+    }
+
     if(paused)
+    {
         pausedTicks += x;
+        std::cout<<"\n paused = true, pausedTicks: "<<pausedTicks;
+    }
+
 }
 
 bool timer::isStarted()
@@ -129,6 +140,12 @@ bool timer::isPaused()
 {
 	//Timer is running and paused
     return paused && started;
+}
+
+void timer::setPaused()
+{
+    paused = true;
+    started = false;
 }
 
 void timer::updatePlayedTime()

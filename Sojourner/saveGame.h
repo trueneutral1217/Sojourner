@@ -47,6 +47,10 @@ class saveGame
     void writePrefsFile(pregameui pregameui);
 
     void writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime);
+    //just updates data of a save file, writing happens at program close.
+    void updateSaveData(stage stage, Uint32 playedTime);
+    //updates the text textures of after the data has been updated.
+    void updateSavedMetaData(int fileNum,SDL_Renderer* renderer,TTF_Font* font);
 
     void handleSavedMetaDataRendering(SDL_Renderer* renderer);
 

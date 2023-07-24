@@ -412,8 +412,89 @@ void pregameui::free()
     freePGUITextures();
 }
 
+int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer )
+{//user clicks a button in the pregameui scenes
+    //backing up gamestate
+    int oldGameState = gameState;
+    //handles buttons by gamestate.
+    if(gameState==0)
+    {
+        for( int i = 0; i < TOTAL_MAIN_BUTTONS; ++i )
+        {//handlePGUIEvent needs to be broken up into 5 parts
+            //polls the buttons on the mainscreen, returns the value of the gamestate the button points to.
+            gameState = mainButtons[ i ].handlePGUIEvent(e, window,renderer );
+            //user clicked a button, escape for loop.
+            if(gameState!=-1)
+            {
+                i+=TOTAL_MAIN_BUTTONS;
+            }
+        }
+    }
+    else if(gameState==1)
+    {
+        for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
+        {//handlePGUIEvent needs to be broken up into 5 parts
+            gameState = newgameButtons[ i ].handlePGUIEvent(e, window,renderer );
+            //user clicked a button, escape for loop.
+            if(gameState!=-1)
+            {
+                chosenSave = newgameButtons[i].chosenSave;
+                i+=TOTAL_NEWGAME_BUTTONS;
+            }
+        }
+    }
+    else if(gameState==2)
+    {
+        for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
+        {//handlePGUIEvent needs to be broken up into 5 parts
+            gameState = loadgameButtons[ i ].handlePGUIEvent(e, window,renderer );
+            //user clicked a button, escape for loop.
+            if(gameState!=-1)
+            {
+                i+=TOTAL_LOADGAME_BUTTONS;
+            }
+        }
+    }
+    else if(gameState==3)
+    {
+        for( int i = 0; i < TOTAL_OPTIONS_BUTTONS; ++i )
+        {//handlePGUIEvent needs to be broken up into 5 parts
+            gameState = optionsButtons[ i ].handlePGUIEvent(e, window,renderer );
+            //user clicked a button, escape for loop.
+            if(gameState!=-1)
+            {
+                i+=TOTAL_OPTIONS_BUTTONS;
+            }
+        }
+    }
+    else if(gameState==4)
+    {
+        for( int i = 0; i < TOTAL_CREDITS_BUTTONS; ++i )
+        {//handlePGUIEvent needs to be broken up into 5 parts
+            gameState = creditsButtons[ i ].handlePGUIEvent(e, window,renderer );
+            //user clicked a button, escape for loop.
+            if(gameState!=-1)
+            {
+                i+=TOTAL_CREDITS_BUTTONS;
+            }
+        }
+    }
+    if(gameState<0)
+    {
+        gameState=oldGameState;
+    }
+    int newGameState = gameState;
+    //user pressed a button that changes gamestate.
+    if(oldGameState != newGameState)
+    {//free old state, load new state.
+        loadState(oldGameState,newGameState,renderer);
+    }
+    return newGameState;
+}
+
 void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)
 {
+    std::cout<<"\n running loadState, old: "<<oldGameState<<" new: "<<newGameState;
     switch( oldGameState )
     {
         case 0: freeMainButtons();

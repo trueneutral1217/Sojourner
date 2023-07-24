@@ -2,6 +2,7 @@
 #define STATION_H
 
 #include "texture.h"
+#include "button.h"
 
 class station
 {
@@ -29,7 +30,7 @@ class station
         std::string plant;
         std::string waterPlants;
         std::string harvest;
-        std::string cancel;
+        //std::string cancel;
         //flags for planter options
         bool plantOkay;
         bool waterPlantsOkay;
@@ -37,13 +38,13 @@ class station
         //the texture for the waterLevel stringstream
         Texture waterLevelTexture;
         Texture sleepyTimeTexture;
-        Texture plantStatusTexture;
+        //Texture plantStatusTexture;
         Texture foodTimeTexture;
         //Textures for planter interaction
         Texture plantTexture;
         Texture waterPlantsTexture;
         Texture harvestTexture;
-        Texture cancelTexture;
+        //Texture cancelTexture;
         //textures for stations
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,

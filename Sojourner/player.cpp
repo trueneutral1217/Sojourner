@@ -364,6 +364,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
     //used for loading the player textures for walking animations
     std::stringstream ss,ss2,ss3;
     ss3.str("");
+    ss3.clear();
     std::string str = ss3.str();
     for(int i = 0; i<MOVE_STATES;i++)
     {
@@ -387,6 +388,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][j].loadFromFile( str,renderer );
                 ss3.str( "" );//reset ss3
+                ss3.clear();
             }
         }
         else if(i==WALK_LR)
@@ -409,6 +411,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][k].loadFromFile( str,renderer );
                 ss3.str("");//reset ss3
+                ss3.clear();
             }
         }
         else if(i==WALK_DLDR)//loads textures for walking downright and down left (downleft get flipped horizontally)
@@ -431,6 +434,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][k].loadFromFile( str,renderer );
                 ss3.str("");//reset ss3
+                ss3.clear();
             }
         }
         else if(i==WALK_ULUR)//loads textures for walking up right and up left (up left get flipped horizontally)
@@ -453,6 +457,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][k].loadFromFile( str,renderer );
                 ss3.str("");//reset ss3
+                ss3.clear();
             }
         }
         else if(i==WALK_D)//loads textures for walking down
@@ -475,6 +480,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][k].loadFromFile( str,renderer );
                 ss3.str("");//reset ss3
+                ss3.clear();
             }
         }
         else if(i==WALK_U)//loads textures for walking up
@@ -497,6 +503,7 @@ void player::loadPlayer(SDL_Renderer* renderer)
                 str = ss3.str();
                 playerTexture[i][k].loadFromFile( str,renderer );
                 ss3.str("");//reset ss3
+                ss3.clear();
             }
         }
     }

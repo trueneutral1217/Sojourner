@@ -65,6 +65,10 @@ public:
     void freeOptionsButtons();
     void freeCreditsButtons();
 
+    int chosenSave;
+    //handles button presses/mouseover
+    int handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
+
     //this function uses old gamestate to choose which gamestate to free and newgamestate to choose which gamestate to load.
     void loadState(int oldGameState, int newGameState, SDL_Renderer* renderer);
 

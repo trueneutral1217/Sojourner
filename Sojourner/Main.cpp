@@ -226,6 +226,7 @@ void close()
 {
     //save progress
     //this needs to be written when player exits stage1, probably needs to be multithread
+    std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
     if(playedTime.getTicks() > 0)
     {
         savegame.writeSaveFile(chosenSave,pregameui,stage,playedTime.timePlayed);
@@ -309,25 +310,29 @@ int main( int argc, char* args[] )
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
                         if(gameState == 5){
-                            //player clicks mouse inside stage
-                            int buttonClicked = 0;
-                            //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
-                            for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
-                            {
-                                buttonClicked += stage.buttons[ i ].handleStageEvent(stage.buttons[i].buttonName, &e, window,renderer );
-                            }
-                            stage.handleStageButtonPresses(buttonClicked,renderer);
-                            if(buttonClicked == 1)
+                            std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+                            gameState = stage.handleButtons(&e);
+                            if(gameState!= 5)
                             {//player clicked save and exit button
-                                gameState=0;
+                                //player is going back to the main scene
+                                //playedTime needs to be updated because player was in game
                                 playedTime.updatePlayedTime();
+                                //player position, background y, and played amount of time, and the date of last save
+                                //are updated by these two functions
+                                savegame.updateSaveData(stage,playedTime.timePlayed);
+                                savegame.updateSavedMetaData(chosenSave,renderer,text.font);
+                                //load main scene buttons
                                 pregameui.loadMainButtons(renderer);
+                                //probably should free up stage resources here
                             }
                         }
                         //Handle button events when in main screen
                         if(gameState == 0)
                         {
+                            //handles button presses / mouseover from pregame scenes.
 
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            /*
                             int oldGameState = gameState;
                             for( int i = 0; i < TOTAL_MAIN_BUTTONS; ++i )
                             {//handlePGUIEvent needs to be broken up into 5 parts
@@ -342,13 +347,19 @@ int main( int argc, char* args[] )
                                 fade=fadeOut(countedFrames,fade);
                                 gameState=newGameState;
                             }
+                            */
                         }
                         if(gameState==1)
                         {//newgame screen - handles button clicks and gamestate change
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+
+
+                            /*
                             int oldGameState = gameState;
                             bool clickedSave = false;
                             for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
                             {//poll for mouse clicks on buttons
+
                                 gameState = pregameui.newgameButtons[ i ].handlePGUIEvent(gameState,pregameui.newgameButtons[i].buttonName, &e, window,renderer );
                                 if(gameState==5 && !clickedSave)
                                 {
@@ -358,17 +369,20 @@ int main( int argc, char* args[] )
                                     playedTime.restartPlayedTime();
 
                                 }
+
                             }
                             if(gameState==0)
                             {//user clicked back button
                                 pregameui.loadState(oldGameState,gameState,renderer);
-                            }
+                            }*/
                             if(gameState==5)
                             {//user clicked stage 1 button
+                                chosenSave = pregameui.chosenSave;
                                 pregameui.freeNewgameButtons();
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
-                            }
+                                playedTime.start();
+                            }/*
                             if(gameState != oldGameState)
                             {
                                 int newGameState = gameState;
@@ -376,12 +390,15 @@ int main( int argc, char* args[] )
                                 fade=true;
                                 fade=fadeOut(countedFrames,fade);
                                 gameState=newGameState;
-                            }
+                            }*/
                         }
                         if(gameState==2)
                         {//loadgame gamestate button click / gamestate change handling
-                            int oldGameState = gameState;
-                            bool clickedSave = false;
+
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            //int oldGameState = gameState;
+                            //bool clickedSave = false;
+                            /*
                             for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
                             {
                                 gameState = pregameui.loadgameButtons[ i ].handlePGUIEvent(gameState,pregameui.loadgameButtons[i].buttonName, &e, window,renderer );
@@ -397,20 +414,38 @@ int main( int argc, char* args[] )
 
                                 }
                             }
+
                             if(gameState==0)
                             {//user clicked back button
                                 pregameui.loadState(oldGameState,gameState,renderer);
-                            }
+                            }*/
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
+                                chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
                                 savegame.readSaveFile(chosenSave);
                                 //set player coords on screen and location in habitat (since it parallaxes vertically)
                                 stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
 
                                 pregameui.freeLoadgameButtons();
+                                std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
+                                Uint32 previouslyPlayed = savegame.data[2];
+                                std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
+                                if(previouslyPlayed > 0)
+                                {
+                                    //setting started = false, paused = true
+                                    playedTime.setPaused();
+                                    //setting the pausedTicks to saved ticks
+                                    playedTime.setTicks(previouslyPlayed);
+                                    //might have an error in this function, need to check if it's used elsewhere
+                                    playedTime.unpause();
+                                }
+                                else
+                                {
+                                    playedTime.start();
+                                }
                                 //pregameui.loadLoadgameButtons(renderer);
-                            }
+                            }/*
                             if(gameState != oldGameState)
                             {
                                 int newGameState = gameState;
@@ -418,23 +453,26 @@ int main( int argc, char* args[] )
                                 fade=true;
                                 fade=fadeOut(countedFrames,fade);
                                 gameState=newGameState;
-                            }
+                            }*/
                         }
                         if(gameState==3)
                         {//options screen button handling /gamestate change handing
-                            int oldGameState = gameState;
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            //int oldGameState = gameState;
+                            /*
                             for( int i = 0; i < TOTAL_OPTIONS_BUTTONS; ++i )
                             {//handlePGUIEvent needs to be broken up into 5 parts
                                 gameState = pregameui.optionsButtons[ i ].handlePGUIEvent(gameState,pregameui.optionsButtons[i].buttonName, &e, window,renderer );
                             }
+
                             if(gameState==0)
                             {//user clicked back button
                                 pregameui.loadState(oldGameState,gameState,renderer);
-                            }
-                            if(gameState==3)
-                            {//user clicked one of the toggle buttons
+                            }*/
+                            //if(gameState==3)
+                            //{//user clicked one of the toggle buttons
                                 //refresh the buttons to reflect the new toggled status of the one clicked
-                                pregameui.loadState(oldGameState,gameState,renderer);
+                                //pregameui.loadState(oldGameState,gameState,renderer);
                                 //user toggles music on or off
                                 if(pregameui.optionsButtons[2].musicToggle)
                                 {
@@ -460,7 +498,8 @@ int main( int argc, char* args[] )
                                 {
                                     //chapter.voice.voiceOn = false;
                                 }
-                            }
+                            //}
+                            /*
                             if(gameState != oldGameState)
                             {
                                 int newGameState = gameState;
@@ -468,10 +507,12 @@ int main( int argc, char* args[] )
                                 fade=true;
                                 fade=fadeOut(countedFrames,fade);
                                 gameState=newGameState;
-                            }
+                            }*/
                         }
                         if(gameState==4)
                         {
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            /*
                             int oldGameState = gameState;
                             for( int i = 0; i < TOTAL_CREDITS_BUTTONS; ++i )
                             {//handlePGUIEvent needs to be broken up into 5 parts
@@ -486,6 +527,7 @@ int main( int argc, char* args[] )
                                 fade=fadeOut(countedFrames,fade);
                                 gameState=newGameState;
                             }
+                            */
                         }
                     }
 					//Handle key press

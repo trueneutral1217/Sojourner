@@ -44,11 +44,11 @@ class button
 		int chosenSave;
 
 		//Handles pre-game user interface mouse events (mainly button clicks, like new game, load game, options, credits, etc)
-		int handlePGUIEvent( int gameState, std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
+		int handlePGUIEvent(SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles buttons while player is in a chapter (menu bar buttons like backline, backpage, auto text speed, auto text toggle, and save + exit button
 		//int handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles mouse events in stages (currently not in use.
-		int handleStageEvent( std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
+		int handleStageEvent( std::string buttonName, SDL_Event* e );
 
 
         Texture buttonTexture;
@@ -57,28 +57,22 @@ class button
         void setFullScreenOn(SDL_Window* window,SDL_Renderer* renderer);
         void setFullScreenOff(SDL_Window* window,SDL_Renderer* renderer);
 
-        void setMusicOn();
-        void setMusicOff();
+        void setMusicOn(SDL_Renderer* renderer);
+        void setMusicOff(SDL_Renderer* renderer);
 
-        void setVoiceOn();
-        void setVoiceOff();
-
+        void setVoiceOn(SDL_Renderer* renderer);
+        void setVoiceOff(SDL_Renderer* renderer);
 
 		std::string buttonName;
 
         //phasing this string array out
 		//std::string pregameButtonNames[TOTAL_PREGAME_BUTTONS];
-
-
-
 		//std::string chapterButtonNames[TOTAL_CHAPTER_BUTTONS];
 
 		std::string stageButtonNames[TOTAL_STAGE_BUTTONS];
 
         //each button has a string that describes the button.
-
 		//void setChapterButtonName(int i);
-
 		//void setPregameButtonName(int i);
 
 		void setStageButtonName(int i);
@@ -87,8 +81,6 @@ class button
 		void fullScreenButtonTextureToggle(SDL_Renderer* renderer);
         void musicButtonTextureToggle(SDL_Renderer* renderer);
         void voiceButtonTextureToggle(SDL_Renderer* renderer);
-
-
 
 	private:
 		//Top left point of button image location

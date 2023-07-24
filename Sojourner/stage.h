@@ -61,7 +61,10 @@ class stage
         //set button names
         void setButtonNames();
         //user clicks a button in stage
-        void handleStageButtonPresses(int gameState,SDL_Renderer* renderer);
+        void handleStageButtonPresses(int gameState);
+        //handle stage button presses will be called in this function which is more over-arching
+        int handleButtons( SDL_Event* e );
+
         //declare player
         player player1;
         //declare station
