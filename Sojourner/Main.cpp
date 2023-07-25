@@ -310,7 +310,6 @@ int main( int argc, char* args[] )
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
                         if(gameState == 5){
-                            std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
                             gameState = stage.handleButtons(&e);
                             if(gameState!= 5)
                             {//player clicked save and exit button

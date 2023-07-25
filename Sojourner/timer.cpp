@@ -65,10 +65,16 @@ void timer::pause()
     {
         //Pause the timer
         paused = true;
-
+        std::cout<<"\n pause";
+        std::cout<<"\n pausedTicks before operating = "<<pausedTicks;
+        std::cout<<"\n SDL_GetTicks() before operating = "<<SDL_GetTicks();
+        std::cout<<"\n startTicks before operating = "<<startTicks;
         //Calculate the paused ticks
         pausedTicks = SDL_GetTicks() - startTicks;
+        std::cout<<"\n pausedTicks after operating = "<<pausedTicks;
+        std::cout<<"\n end pause function";
 		startTicks = 0;
+		//std::cout<<"\n pause: startTicks = 0, pausedTicks = "<<pausedTicks;
     }
 }
 
@@ -77,13 +83,21 @@ void timer::unpause()
     //If the timer is !running and paused
     if( !started && paused )
     {
-        std::cout<<"\n running unpause";
         //Unpause the timer
         paused = false;
 
+        std::cout<<"\n unpause";
+        std::cout<<"\n pausedTicks (before set to 0) = "<<pausedTicks;
+        std::cout<<"\n startTicks (before operating) = "<<startTicks;
+        std::cout<<"\n SDL_GetTicks() (before operating) = "<<SDL_GetTicks();
         //Reset the starting ticks
-        startTicks = SDL_GetTicks() - pausedTicks;
+        //startTicks = SDL_GetTicks() - pausedTicks;
 
+
+        startTicks = pausedTicks;
+
+        std::cout<<"\n startTicks (after startTicks = pausedTicks) = "<<startTicks;
+        std::cout<<"\n end unpause function";
         //Reset the paused ticks
         pausedTicks = 0;
 
@@ -119,13 +133,11 @@ void timer::setTicks(Uint32 x)
 	if(started)
     {
         startTicks += x;
-        std::cout<<"\n started = true, startTicks: "<<startTicks;
     }
 
     if(paused)
     {
         pausedTicks += x;
-        std::cout<<"\n paused = true, pausedTicks: "<<pausedTicks;
     }
 
 }
@@ -150,8 +162,9 @@ void timer::setPaused()
 
 void timer::updatePlayedTime()
 {
-    std::cout<<"\n playedTime: "<<getTicks();
+    std::cout<<"\n running updatePlayedTime()";
     timePlayed += getTicks();
+    std::cout<<"\n timePlayed = "<<timePlayed;
     pause();
 }
 
@@ -163,6 +176,9 @@ void timer::restartPlayedTime()
 
 void timer::loadSavedPlayedTimeData(Uint32 saved)
 {
+    std::cout<<"\n running loadSavedPlayedTimeData";
+    std::cout<<"\n timePlayed before loading: "<<timePlayed;
     timePlayed=saved;
+    std::cout<<"\n timePlayed after loading: "<<timePlayed;
     start();
 }

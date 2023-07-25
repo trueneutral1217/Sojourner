@@ -175,10 +175,15 @@ void saveGame::updateSaveData(stage stage,Uint32 playedTime)
     data[0] = true;
     data[1] = now;
     data[2] = playedTime;
+    std::cout<<"\n playedTime = "<<playedTime;
     data[3] = stage.player1.getX();
+    std::cout<<"\n stage.player1.getX() = "<<stage.player1.getX();
     data[4] = stage.player1.getY();
+    std::cout<<"\n stage.player1.getY() = "<<stage.player1.getY();
     data[5] = stage.habInternalY1;
+    std::cout<<"\n stage.habInternalY1 = "<<stage.habInternalY1;
     data[6] = stage.habInternalY2;
+    std::cout<<"\n stage.habInternalY2 = "<<stage.habInternalY2;
 }
 
 
@@ -249,11 +254,19 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     std::cout<<"\n running updateSavedMetaData";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
+
+    for(int i =0; i<TOTAL_SAVES;i++)
+    {
+        //freeing textures before reloading them.
+        savedDateTexture[i].free();
+        savedPlayTimeTexture[i].free();
+    }
+
     time_t saved = data[1];
     char* sdt = ctime(&saved);
     savedDate[fileNum] << "Last Saved: " << sdt;
     std::cout<<"\n savedDate["<<fileNum<<"]: "<<savedDate[fileNum].str();
-
+    std::cout<<"\n data[2] (playedTime) = "<<data[2];
             int hours,minutes,seconds;
             if(data[2]/1000 < 0)
             {
