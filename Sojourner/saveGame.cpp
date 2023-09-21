@@ -48,6 +48,7 @@ void saveGame::readSaveFile(int fileNum)
 {//load's saved data, if it exists, else it creates a new file filled with default values for data.
     //data[0] is used in pregameui for the buttons in loadgame gamestate, data[1] is time that file was written.
     //data[2] through data[4] are currently stage variables (player coords, hab bg coords).
+    std::cout<<"\n running readSaveFile, chosenSave/fileNum = "<<fileNum;
     saveFile = SDL_RWFromFile(saveLocation[fileNum], "r+b" );
     if( saveFile == NULL )
     {

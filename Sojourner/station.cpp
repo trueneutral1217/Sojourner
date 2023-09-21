@@ -278,6 +278,7 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 
 void station::free()
 {
+    std::cout<<"\n running station.free() (from stage.free())";
 	bedTexture.free();
 	waterTankTexture.free();
 	waterLevelTexture.free();

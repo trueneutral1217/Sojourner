@@ -173,10 +173,12 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 
 void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
 {
+    /*
     for(int i =0; i<TOTAL_LOADGAME_BUTTONS;i++)
     {
         loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    */
     //below is for when mouseover buttons are added to this screen
 
     for(int i=0;i<TOTAL_LOADGAME_BUTTONS;i++)

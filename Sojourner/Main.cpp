@@ -323,6 +323,16 @@ int main( int argc, char* args[] )
                                 //load main scene buttons
                                 pregameui.loadMainButtons(renderer);
                                 //probably should free up stage resources here
+
+                                //free stage resources!
+                                stage.free();
+                                pregameui.loadMainButtons(renderer);
+                                //
+
+                                //
+
+                                //
+                                //
                             }
                         }
                         //Handle button events when in main screen
@@ -331,49 +341,11 @@ int main( int argc, char* args[] )
                             //handles button presses / mouseover from pregame scenes.
 
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
-                            /*
-                            int oldGameState = gameState;
-                            for( int i = 0; i < TOTAL_MAIN_BUTTONS; ++i )
-                            {//handlePGUIEvent needs to be broken up into 5 parts
-                                gameState = pregameui.mainButtons[ i ].handlePGUIEvent(gameState,pregameui.mainButtons[i].buttonName, &e, window,renderer );
-                            }
-                            if(gameState != oldGameState)
-                            {//user clicked a button
-                                pregameui.loadState(oldGameState,gameState,renderer);
-                                int newGameState = gameState;
-                                gameState = oldGameState;
-                                fade=true;
-                                fade=fadeOut(countedFrames,fade);
-                                gameState=newGameState;
-                            }
-                            */
                         }
                         if(gameState==1)
                         {//newgame screen - handles button clicks and gamestate change
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
 
-
-                            /*
-                            int oldGameState = gameState;
-                            bool clickedSave = false;
-                            for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
-                            {//poll for mouse clicks on buttons
-
-                                gameState = pregameui.newgameButtons[ i ].handlePGUIEvent(gameState,pregameui.newgameButtons[i].buttonName, &e, window,renderer );
-                                if(gameState==5 && !clickedSave)
-                                {
-                                    chosenSave = pregameui.newgameButtons[i].chosenSave;
-                                    std::cout<<"\n main chosenSave: "<<chosenSave;
-                                    clickedSave=true;
-                                    playedTime.restartPlayedTime();
-
-                                }
-
-                            }
-                            if(gameState==0)
-                            {//user clicked back button
-                                pregameui.loadState(oldGameState,gameState,renderer);
-                            }*/
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 chosenSave = pregameui.chosenSave;
@@ -381,43 +353,13 @@ int main( int argc, char* args[] )
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
                                 playedTime.start();
-                            }/*
-                            if(gameState != oldGameState)
-                            {
-                                int newGameState = gameState;
-                                gameState = oldGameState;
-                                fade=true;
-                                fade=fadeOut(countedFrames,fade);
-                                gameState=newGameState;
-                            }*/
+                            }
                         }
                         if(gameState==2)
                         {//loadgame gamestate button click / gamestate change handling
 
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
-                            //int oldGameState = gameState;
-                            //bool clickedSave = false;
-                            /*
-                            for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
-                            {
-                                gameState = pregameui.loadgameButtons[ i ].handlePGUIEvent(gameState,pregameui.loadgameButtons[i].buttonName, &e, window,renderer );
-                                if(gameState==5 && !clickedSave)
-                                {
-                                    //chosenSave
-                                    chosenSave = pregameui.loadgameButtons[i].chosenSave;
-                                    std::cout<<"\n main chosenSave: "<<chosenSave;
-                                    clickedSave=true;
-                                    savegame.readSaveFile(chosenSave);
-                                    //updates timePlayed for file write at exit
-                                    playedTime.loadSavedPlayedTimeData(savegame.data[2]);
 
-                                }
-                            }
-
-                            if(gameState==0)
-                            {//user clicked back button
-                                pregameui.loadState(oldGameState,gameState,renderer);
-                            }*/
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
                                 chosenSave = pregameui.chosenSave;
@@ -427,6 +369,7 @@ int main( int argc, char* args[] )
                                 stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
 
                                 pregameui.freeLoadgameButtons();
+                                stage.loadStage(renderer,true);
                                 std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                 Uint32 previouslyPlayed = savegame.data[2];
                                 std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
@@ -444,35 +387,12 @@ int main( int argc, char* args[] )
                                     playedTime.start();
                                 }
                                 //pregameui.loadLoadgameButtons(renderer);
-                            }/*
-                            if(gameState != oldGameState)
-                            {
-                                int newGameState = gameState;
-                                gameState = oldGameState;
-                                fade=true;
-                                fade=fadeOut(countedFrames,fade);
-                                gameState=newGameState;
-                            }*/
+                            }
                         }
                         if(gameState==3)
                         {//options screen button handling /gamestate change handing
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
-                            //int oldGameState = gameState;
-                            /*
-                            for( int i = 0; i < TOTAL_OPTIONS_BUTTONS; ++i )
-                            {//handlePGUIEvent needs to be broken up into 5 parts
-                                gameState = pregameui.optionsButtons[ i ].handlePGUIEvent(gameState,pregameui.optionsButtons[i].buttonName, &e, window,renderer );
-                            }
 
-                            if(gameState==0)
-                            {//user clicked back button
-                                pregameui.loadState(oldGameState,gameState,renderer);
-                            }*/
-                            //if(gameState==3)
-                            //{//user clicked one of the toggle buttons
-                                //refresh the buttons to reflect the new toggled status of the one clicked
-                                //pregameui.loadState(oldGameState,gameState,renderer);
-                                //user toggles music on or off
                                 if(pregameui.optionsButtons[2].musicToggle)
                                 {
                                     music.musicToggle = true;
@@ -497,36 +417,12 @@ int main( int argc, char* args[] )
                                 {
                                     //chapter.voice.voiceOn = false;
                                 }
-                            //}
-                            /*
-                            if(gameState != oldGameState)
-                            {
-                                int newGameState = gameState;
-                                gameState = oldGameState;
-                                fade=true;
-                                fade=fadeOut(countedFrames,fade);
-                                gameState=newGameState;
-                            }*/
+
                         }
                         if(gameState==4)
                         {
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
-                            /*
-                            int oldGameState = gameState;
-                            for( int i = 0; i < TOTAL_CREDITS_BUTTONS; ++i )
-                            {//handlePGUIEvent needs to be broken up into 5 parts
-                                gameState = pregameui.creditsButtons[ i ].handlePGUIEvent(gameState,pregameui.creditsButtons[i].buttonName, &e, window,renderer );
-                            }
-                            if(gameState != oldGameState)
-                            {
-                                pregameui.loadState(oldGameState,gameState,renderer);
-                                int newGameState = gameState;
-                                gameState = oldGameState;
-                                fade=true;
-                                fade=fadeOut(countedFrames,fade);
-                                gameState=newGameState;
-                            }
-                            */
+
                         }
                     }
 					//Handle key press

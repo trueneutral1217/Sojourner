@@ -16,6 +16,7 @@ stage::~stage()
 
 void stage::freeButtons()
 {//free button textures
+    std::cout<<"\n running stage.freeButtons()";
     for(int i = 0; i < TOTAL_STAGE_BUTTONS; i++)
     {
         buttons[i].buttonTexture.free();
@@ -85,6 +86,7 @@ void stage::setFileNames()
 
 void stage::freeBGTextures()
 {//free resources
+    std::cout<<"\n running stage.freeBGTextures()";
     for(int i = 0; i<TOTAL_STAGE_BACKGROUNDS;i++)
     {
         stage1BG[i].free();
@@ -118,9 +120,11 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
 
 void stage::free()
 {//free resources
+    std::cout<<"\n running stage.free()";
     freeButtons();
     freeBGTextures();
     player1.freePlayer();
+    station.free();
 }
 
 void stage::handleStageButtonPresses(int buttonClicked)
@@ -290,6 +294,7 @@ void stage::setNewgameVars()
 
 void stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)
 {
+    std::cout<<"\n running stage.loadSavedGameData";
     player1.setX(d1);
     player1.setY(d2);
     //load habitat Y1 and Y2 coords from safe file
