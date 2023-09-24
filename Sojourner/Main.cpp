@@ -68,6 +68,7 @@ bool fadeIn(int countedFrames,bool fade);
 //reduces opacity of blackground texture (blackground is a foreground texture)
 bool fadeIn(int countedFrames, bool fade)
 {
+    std::cout<<"\n running fadeIn(int countedFrames, bool fade)";
     Uint32 alpha = 255-(countedFrames%256);
     blackGround.setAlpha(alpha);
     if(countedFrames%256>254)
@@ -79,6 +80,7 @@ bool fadeIn(int countedFrames, bool fade)
 //increases opacity of blackground texture
 bool fadeOut(int countedFrames, bool fade)
 {
+    std::cout<<"\n running fadeOut(int countedFrames, bool fade)";
    if(countedFrames%256 < 255)
     {  //fades in the go homeless title
         blackGround.setAlpha(countedFrames);
@@ -92,6 +94,7 @@ return fade;
 
 bool init()
 {
+    std::cout<<"\n running init()";
 	//Initialization flag
 	bool success = true;
 	gameState = 0;
@@ -150,6 +153,7 @@ bool init()
 
 bool loadSounds()
 {
+    std::cout<<"\n running loadSounds()";
     bool success = true;
     //prep the vector
     for(int i = 0; i < TOTAL_SOUNDS; i++)
@@ -166,6 +170,7 @@ bool loadSounds()
 
 bool loadMedia()
 {
+    std::cout<<"\n running loadMedia()";
 	bool success = true;
     //load saved preferences
     preferences.readPrefsFile();
@@ -188,7 +193,7 @@ bool loadMedia()
     //sets up pregame ui button names, button textures, and bg textures.
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
-    success = stage.loadStage(renderer,success);
+    //success = stage.loadStage(renderer,success);
 
 
 	//load sound effects
@@ -224,6 +229,7 @@ bool loadMedia()
 
 void close()
 {
+    std::cout<<"\n running close()";
     //save progress
     //this needs to be written when player exits stage1, probably needs to be multithread
     std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
@@ -267,6 +273,7 @@ void close()
 
 int main( int argc, char* args[] )
 {
+    std::cout<<"\n running main( int argc, char* args[] )";
 	//Start up SDL and create window
 	if( !init() )
 	{

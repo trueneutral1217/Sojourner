@@ -134,6 +134,7 @@ void pregameui::renderCreditsButtons(SDL_Renderer* renderer)
 
 void pregameui::freeCreditsButtons()
 {
+    std::cout<<"\n running pregameui::freeCreditsButtons()";
     for(int i = 0; i<TOTAL_CREDITS_BUTTONS;i++)
     {
         creditsButtons[i].buttonTexture.free();
@@ -143,12 +144,14 @@ void pregameui::freeCreditsButtons()
 
 void pregameui::handleCreditsScreenRendering(SDL_Renderer* renderer)
 {
+
     creditsTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderCreditsButtons(renderer);
 }
 
 void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running pregameui::loadLoadgameButtons(SDL_Renderer* renderer)";
     loadgameButtonNames[0]="back";
 	loadgameButtonNames[1]="save1";
 	loadgameButtonNames[2]="save2";
@@ -173,6 +176,7 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 
 void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
 {
+    //std::cout<<"\n running pregameui::renderLoadgameButtons(SDL_Renderer* renderer)";
     /*
     for(int i =0; i<TOTAL_LOADGAME_BUTTONS;i++)
     {
@@ -195,6 +199,7 @@ void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
 
 void pregameui::freeLoadgameButtons()
 {
+    std::cout<<"\n running pregameui::freeLoadgameButtons()";
     for(int i = 0; i<TOTAL_LOADGAME_BUTTONS;i++)
     {
         loadgameButtons[i].buttonTexture.free();
@@ -205,6 +210,7 @@ void pregameui::freeLoadgameButtons()
 
 void pregameui::handleLoadGameScreenRendering(SDL_Renderer* renderer)
 {
+
     //chapter select screen
     chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderLoadgameButtons(renderer);
@@ -212,6 +218,7 @@ void pregameui::handleLoadGameScreenRendering(SDL_Renderer* renderer)
 
 void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running pregameui::loadNewgameButtons(SDL_Renderer* renderer)";
     newgameButtonNames[0]="back";
 	newgameButtonNames[1]="save1";
 	newgameButtonNames[2]="save2";
@@ -237,6 +244,7 @@ void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 
 void pregameui::renderNewgameButtons(SDL_Renderer* renderer)
 {
+    //std::cout<<"\n running pregameui::renderNewgameButtons(SDL_Renderer* renderer)";
     for(int i =0; i<TOTAL_NEWGAME_BUTTONS;i++)
     {
         newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -257,6 +265,7 @@ void pregameui::renderNewgameButtons(SDL_Renderer* renderer)
 
 void pregameui::freeNewgameButtons()
 {
+    std::cout<<"\n running pregameui::freeNewgameButtons()";
     for(int i = 0; i<TOTAL_NEWGAME_BUTTONS;i++)
     {
         newgameButtons[i].buttonTexture.free();
@@ -267,6 +276,7 @@ void pregameui::freeNewgameButtons()
 
 void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 {
+
     //rendering bg for newgame screen
     chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
     renderNewgameButtons(renderer);
@@ -274,6 +284,7 @@ void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 
 void pregameui::renderParticles(SDL_Renderer* renderer)
 {
+
     //Go through particles
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
@@ -292,6 +303,7 @@ void pregameui::renderParticles(SDL_Renderer* renderer)
 
 void pregameui::loadMainButtons(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running pregameui::loadMainButtons(SDL_Renderer* renderer)";
     mainButtonNames[0]="new";
 	mainButtonNames[1]="load";
 	mainButtonNames[2]="options";
@@ -314,6 +326,7 @@ void pregameui::loadMainButtons(SDL_Renderer* renderer)
 
 void pregameui::renderMainButtons(SDL_Renderer* renderer)
 {
+
     for(int i=0;i<TOTAL_MAIN_BUTTONS;i++)
     {
         if(mainButtons[i].mouseOver == false){
@@ -328,6 +341,7 @@ void pregameui::renderMainButtons(SDL_Renderer* renderer)
 
 void pregameui::freeMainButtons()
 {
+    std::cout<<"\n running pregameui::freeMainButtons()";
     for(int i = 0; i<TOTAL_MAIN_BUTTONS;i++)
     {
         mainButtons[i].buttonTexture.free();
@@ -338,6 +352,7 @@ void pregameui::freeMainButtons()
 
 void pregameui::handleTitleScreenRendering(SDL_Renderer* renderer)
 {
+
     PGUIBlackGround.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderParticles(renderer);
     titleTexture.render( 0, 0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
@@ -349,6 +364,7 @@ void pregameui::handleTitleScreenRendering(SDL_Renderer* renderer)
 
 void pregameui::createParticles(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running pregameui::createParticles(SDL_Renderer* renderer)";
     for(int i=0;i<TOTAL_PARTICLES;i++){
         particles[i].createParticle(renderer);
     }
@@ -356,6 +372,7 @@ void pregameui::createParticles(SDL_Renderer* renderer)
 
 bool pregameui::setPGUITextures(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running pregameui::setPGUITextures(SDL_Renderer* renderer)";
     bool success = true;
     //game title image
 	success = title.loadFromFile( "images/title.png",renderer );
@@ -377,7 +394,9 @@ bool pregameui::setPGUITextures(SDL_Renderer* renderer)
 }
 
 void pregameui::freePGUITextures()
-{//frees background images
+{
+    std::cout<<"\n running pregameui::freePGUITextures()";
+    //frees background images
      //free the title image
     title.free();
     //free the background textures
@@ -392,6 +411,7 @@ void pregameui::freePGUITextures()
 
 bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
 {
+    std::cout<<"\n running pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)";
     //set button names
     //setButtonNames();
     loadMainButtons(renderer);
@@ -403,7 +423,9 @@ bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
 }
 
 void pregameui::free()
-{//frees everything
+{
+    std::cout<<"\n running pregameui::free()";
+    //frees everything
     //freeButtons();
     freeMainButtons();
     freeNewgameButtons();
@@ -415,7 +437,9 @@ void pregameui::free()
 }
 
 int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer )
-{//user clicks a button in the pregameui scenes
+{
+    //std::cout<<"\n running pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer )";
+    //user clicks a button in the pregameui scenes
     //backing up gamestate
     int oldGameState = gameState;
     //handles buttons by gamestate.
@@ -496,7 +520,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
 
 void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)
 {
-    std::cout<<"\n running loadState, old: "<<oldGameState<<" new: "<<newGameState;
+    std::cout<<"\n running pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)";
+    std::cout<<"\n  oldGameState: "<<oldGameState<<" newGameState: "<<newGameState;
     switch( oldGameState )
     {
         case 0: freeMainButtons();

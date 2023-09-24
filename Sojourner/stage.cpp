@@ -15,8 +15,9 @@ stage::~stage()
 }
 
 void stage::freeButtons()
-{//free button textures
-    std::cout<<"\n running stage.freeButtons()";
+{
+    std::cout<<"\n running stage::freeButtons()";
+    //free button textures
     for(int i = 0; i < TOTAL_STAGE_BUTTONS; i++)
     {
         buttons[i].buttonTexture.free();
@@ -25,7 +26,9 @@ void stage::freeButtons()
 }
 
 bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
-{//stage button textures get loaded into array from array of string names, button positions set after.
+{
+    std::cout<<"\n running stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)";
+    //stage button textures get loaded into array from array of string names, button positions set after.
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
         std::stringstream ss;
@@ -44,7 +47,9 @@ bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
 }
 
 void stage::setButtonNames()
-{//array of buttons filled by button names from function in button class.
+{
+    std::cout<<"\n running stage::setButtonNames()";
+    //array of buttons filled by button names from function in button class.
     for(int i = 0; i < TOTAL_STAGE_BUTTONS; i++)
     {
         buttons[i].setStageButtonName(i);
@@ -52,7 +57,9 @@ void stage::setButtonNames()
 }
 
 bool stage::setStageTextures(SDL_Renderer* renderer)
-{  //stage background textures loaded from bgFileName array.
+{
+    std::cout<<"\n running stage::setStageTextures(SDL_Renderer* renderer)";
+    //stage background textures loaded from bgFileName array.
     bool success = true;
     setFileNames();
     for(int i = 0; i<TOTAL_STAGE_BACKGROUNDS;i++)
@@ -76,7 +83,9 @@ bool stage::setStageTextures(SDL_Renderer* renderer)
 }
 
 void stage::setFileNames()
-{  //filenames being specified
+{
+    std::cout<<"\n running stage::setFileNames()";
+    //filenames being specified
     bgFileName[0] = "images/blackground.png";
     bgFileName[1] = "images/outerShip1.png";
     bgFileName[2] = "images/habitation1.png";
@@ -85,8 +94,9 @@ void stage::setFileNames()
 }
 
 void stage::freeBGTextures()
-{//free resources
-    std::cout<<"\n running stage.freeBGTextures()";
+{
+    std::cout<<"\n running stage::freeBGTextures()";
+    //free resources
     for(int i = 0; i<TOTAL_STAGE_BACKGROUNDS;i++)
     {
         stage1BG[i].free();
@@ -99,12 +109,15 @@ void stage::freeBGTextures()
 
 void stage::loadFont()
 {
+    std::cout<<"\n running stage::loadFont()";
     //load the font
 	font = TTF_OpenFont( "fonts/NemoyMedium.ttf", 16 );
 }
 
 bool stage::loadStage(SDL_Renderer* renderer, bool success)
-{//stage file names get set and loaded into texture arrays, player gets loaded from player class.
+{
+    std::cout<<"\n running stage::loadStage(SDL_Renderer* renderer, bool success)";
+    //stage file names get set and loaded into texture arrays, player gets loaded from player class.
     setButtonNames();
     //updates font to stage font.
     loadFont();
@@ -119,8 +132,9 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
 }
 
 void stage::free()
-{//free resources
-    std::cout<<"\n running stage.free()";
+{
+    std::cout<<"\n running stage::free()";
+    //free resources
     freeButtons();
     freeBGTextures();
     player1.freePlayer();
@@ -129,6 +143,7 @@ void stage::free()
 
 void stage::handleStageButtonPresses(int buttonClicked)
 {
+    //std::cout<<"\n running stage::handleStageButtonPresses(int buttonClicked)";
     if(buttonClicked==1)
     {//player clicked save & exit
         //voice.stopVoice();
@@ -146,6 +161,7 @@ void stage::handleStageButtonPresses(int buttonClicked)
 
 int stage::handleButtons( SDL_Event* e )
 {
+    //std::cout<<"\n running stage::handleButtons( SDL_Event* e )";
     //player clicks mouse inside stage
     int buttonClicked = 0;
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
@@ -243,6 +259,7 @@ void stage::habInternalHandleParallax(SDL_Renderer* renderer)
 
 void stage::move(int countedFrames)
 {
+    //std::cout<<"\n running stage::move(int countedFrames)";
     if( player1.getY() == 360 && player1.getPVelY() > 0 )
     {//player is heading down after hitting lower threshold.
 
@@ -284,6 +301,7 @@ void stage::move(int countedFrames)
 
 void stage::setNewgameVars()
 {
+    std::cout<<"\n running stage::setNewgameVars()";
     player1.setX(380);
     player1.setY(260);
     habInternalY1 = 0;
@@ -294,7 +312,7 @@ void stage::setNewgameVars()
 
 void stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)
 {
-    std::cout<<"\n running stage.loadSavedGameData";
+    std::cout<<"\n running stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)";
     player1.setX(d1);
     player1.setY(d2);
     //load habitat Y1 and Y2 coords from safe file

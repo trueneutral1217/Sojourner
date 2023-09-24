@@ -1,7 +1,9 @@
 #include "saveGame.h"
 
 void saveGame::readPrefsFile()
-{//load's saved data, if it exists, else it creates a new file filled with default values for data.
+{
+    std::cout<<"\n running saveGame::readPrefsFile()";
+    //load's saved data, if it exists, else it creates a new file filled with default values for data.
     if( prefsFile == NULL )
     {
         printf( "\n Warning: Unable to open preferences file! SDL Error: %s\n", SDL_GetError() );
@@ -45,10 +47,12 @@ void saveGame::readPrefsFile()
 }
 
 void saveGame::readSaveFile(int fileNum)
-{//load's saved data, if it exists, else it creates a new file filled with default values for data.
+{
+    std::cout<<"\n running saveGame::readSaveFile(int fileNum)";
+    //load's saved data, if it exists, else it creates a new file filled with default values for data.
     //data[0] is used in pregameui for the buttons in loadgame gamestate, data[1] is time that file was written.
     //data[2] through data[4] are currently stage variables (player coords, hab bg coords).
-    std::cout<<"\n running readSaveFile, chosenSave/fileNum = "<<fileNum;
+    std::cout<<"\n chosenSave/fileNum = "<<fileNum;
     saveFile = SDL_RWFromFile(saveLocation[fileNum], "r+b" );
     if( saveFile == NULL )
     {
@@ -132,7 +136,9 @@ void saveGame::readSaveFile(int fileNum)
 }
 
 void saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime)
-{//saves the game, depending on fileNum to save1.ssf, save2.ssf, and save3.ssf
+{
+    std::cout<<"\n running saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime)";
+    //saves the game, depending on fileNum to save1.ssf, save2.ssf, and save3.ssf
 
     SDL_RWops* saveFile = SDL_RWFromFile( saveLocation[fileNum], "w+b" );
     if( saveFile != NULL )
@@ -167,7 +173,7 @@ void saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 
 
 void saveGame::updateSaveData(stage stage,Uint32 playedTime)
 {
-    std::cout<<"\n running updateSaveData";
+    std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
     time_t now = time(0);
     char* dt = ctime(&now);
     std::cout<<"\n now = "<<now;
@@ -189,7 +195,9 @@ void saveGame::updateSaveData(stage stage,Uint32 playedTime)
 
 
 void saveGame::writePrefsFile(pregameui pregameui)
-{//save user preferences to prefs.ssf
+{
+    std::cout<<"\n running saveGame::writePrefsFile(pregameui pregameui)";
+    //save user preferences to prefs.ssf
     //Save data
     prefsData[0] = pregameui.optionsButtons[1].fullScreenToggle;
     prefsData[1] = pregameui.optionsButtons[2].musicToggle;
@@ -221,7 +229,7 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
 {
-    std::cout<<"\n running loadSavedMetaData";
+    std::cout<<"\n running saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)";
     SDL_Color textColor = {0,0,0};//black
     //textColor = {255,255,0};//ochre?
     //textColor = {0,255,0};//green
@@ -252,7 +260,7 @@ void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
 
 void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)
 {
-    std::cout<<"\n running updateSavedMetaData";
+    std::cout<<"\n running saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
 

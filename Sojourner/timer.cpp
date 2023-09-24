@@ -12,6 +12,7 @@ timer::timer()
 
 void timer::start()
 {
+    std::cout<<"\n running timer::start()";
     //Start the timer
     started = true;
 
@@ -25,6 +26,7 @@ void timer::start()
 
 void timer::restart()
 {
+    std::cout<<"\n running timer::restart()";
     //Stop the timer
     started = false;
 
@@ -47,6 +49,7 @@ void timer::restart()
 
 void timer::stop()
 {
+    std::cout<<"\n running timer::stop()";
     //Stop the timer
     started = false;
 
@@ -60,6 +63,7 @@ void timer::stop()
 
 void timer::pause()
 {
+    std::cout<<"\n running timer::pause()";
     //If the timer is running and isn't already paused
     if( started && !paused )
     {
@@ -80,6 +84,7 @@ void timer::pause()
 
 void timer::unpause()
 {
+    std::cout<<"\n running timer::unpause()";
     //If the timer is !running and paused
     if( !started && paused )
     {
@@ -107,6 +112,7 @@ void timer::unpause()
 
 Uint32 timer::getTicks()
 {
+    //std::cout<<"\n running timer::getTicks()";
 	//The actual timer time
 	Uint32 time = 0;
 
@@ -128,8 +134,10 @@ Uint32 timer::getTicks()
 
     return time;
 }
+
 void timer::setTicks(Uint32 x)
 {
+    std::cout<<"\n running timer::setTicks(Uint32 x)";
 	if(started)
     {
         startTicks += x;
@@ -144,25 +152,28 @@ void timer::setTicks(Uint32 x)
 
 bool timer::isStarted()
 {
+    std::cout<<"\n running timer::isStarted()";
 	//Timer is running and paused or unpaused
     return started;
 }
 
 bool timer::isPaused()
 {
+    std::cout<<"\n running timer::isPaused()";
 	//Timer is running and paused
     return paused && started;
 }
 
 void timer::setPaused()
 {
+    std::cout<<"\n running timer::setPaused()";
     paused = true;
     started = false;
 }
 
 void timer::updatePlayedTime()
 {
-    std::cout<<"\n running updatePlayedTime()";
+    std::cout<<"\n running timer::updatePlayedTime()";
     timePlayed += getTicks();
     std::cout<<"\n timePlayed = "<<timePlayed;
     pause();
@@ -170,13 +181,14 @@ void timer::updatePlayedTime()
 
 void timer::restartPlayedTime()
 {
+    std::cout<<"\n running timer::restartPlayedTime()";
     timePlayed=0;
     start();
 }
 
 void timer::loadSavedPlayedTimeData(Uint32 saved)
 {
-    std::cout<<"\n running loadSavedPlayedTimeData";
+    std::cout<<"\n running timer::loadSavedPlayedTimeData(Uint32 saved)";
     std::cout<<"\n timePlayed before loading: "<<timePlayed;
     timePlayed=saved;
     std::cout<<"\n timePlayed after loading: "<<timePlayed;
