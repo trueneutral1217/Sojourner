@@ -21,6 +21,7 @@ audio::~audio()
 
 void audio::loadMusic()
 {
+    std::cout<<"\n running audio::loadMusic()";
     //music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" );
 
     switch( rand() % 7 )
@@ -59,21 +60,28 @@ void audio::loadMusic()
 
 void audio::loadChapter1Music()
 {
+    //this is an artifact
+    std::cout<<"\n running audio::loadChapter1Music()";
     music = Mix_LoadMUS("music/Meadow March.mp3");
 }
 
 void audio::loadChapter2Music()
 {
+    //this is an artifact
+    std::cout<<"\n running audio::loadChapter2Music()";
     music = Mix_LoadMUS("music/Tiki Jungle.mp3");
 }
 
 void audio::loadChapter3Music()
 {
+    //this is an artifact
+    std::cout<<"\n running audio::loadChapter3Music()";
     music = Mix_LoadMUS("music/Radioactive Rain.mp3");
 }
 
 void audio::loadSound(int soundNum)
 {
+    std::cout<<"\n running audio::loadSound(int soundNum)";
     switch(soundNum)
     {
         case 0:
@@ -99,18 +107,22 @@ void audio::loadSound(int soundNum)
 
 void audio::loadVoice(int chapter,int page,int line)
 {
+    //this is an artifact
+    std::cout<<"\n running audio::loadVoice(int chapter,int page,int line)";
     std::string voiceString = "sounds/voice acting/chapter"+std::to_string(chapter + 1)+"/c"+std::to_string(chapter+1)+"p"+std::to_string(page+1)+"l"+std::to_string(line+1)+".mp3";
     voice = Mix_LoadWAV( voiceString.c_str() );
 }
 
 void audio::stopVoice()
 {
+    std::cout<<"\n running audio::stopVoice()";
     //Mix_PlayChannel(-1,voice,0);
     Mix_HaltChannel(-1);
 }
 
 void audio::freeAudio()
 {
+    std::cout<<"\n running audio::freeAudio()";
     Mix_FreeChunk( sound );
     sound = NULL;
     Mix_FreeChunk( voice );
@@ -121,11 +133,13 @@ void audio::freeAudio()
 
 void audio::playSound()
 {
+    std::cout<<"\n running audio::playSound()";
     Mix_PlayChannel( -1, sound, 0 );
 }
 
 void audio::playVoice()
 {
+    std::cout<<"\n running audio::playVoice()";
     if(voiceToggle)
     {
         Mix_PlayChannel(-1,voice,0);
@@ -134,6 +148,7 @@ void audio::playVoice()
 
 void audio::playMusic()
 {
+    std::cout<<"\n running audio::playMusic()";
     if(musicToggle)
     {
         if( Mix_PlayingMusic() == 0 )
@@ -163,11 +178,13 @@ void audio::playMusic()
 
 void audio::pauseMusic()
 {
+    std::cout<<"\n running audio::pauseMusic()";
     Mix_PauseMusic();
 }
 
 void audio::resumeMusic()
 {
+    std::cout<<"\n running audio::resumeMusic()";
     if(musicToggle)
     {
         Mix_ResumeMusic();
@@ -176,12 +193,14 @@ void audio::resumeMusic()
 
 void audio::stopMusic()
 {
+    std::cout<<"\n running audio::stopMusic()";
     Mix_HaltMusic();
     loadMusic();
 }
 
 void audio::resetMusic()
 {
+    std::cout<<"\n running audio::resetMusic()";
     stopMusic();
     loadMusic();
     playMusic();
@@ -189,6 +208,7 @@ void audio::resetMusic()
 
 bool audio::isPlaying()
 {
+    std::cout<<"\n running audio::isPlaying()";
     return Mix_PlayingMusic();
 }
 /*

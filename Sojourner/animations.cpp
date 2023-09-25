@@ -52,6 +52,7 @@ animations::~animations()
 
 bool animations::setAnimationTextures(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running animations::setAnimationTextures(SDL_Renderer* renderer)";
     bool success = true;
     //load tao animation images
     for(int i = 0; i<TAO_ANIMATION_FRAMES;i++)
@@ -115,6 +116,7 @@ bool animations::setAnimationTextures(SDL_Renderer* renderer)
 
 void animations::freeAnimationTextures()
 {
+    std::cout<<"\n running animations::freeAnimationTextures()";
         //free the tao animation textures
     for(int i=0;i<TAO_ANIMATION_FRAMES;i++)
     {

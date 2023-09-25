@@ -2,7 +2,6 @@
 
 void Particle::createParticle(SDL_Renderer* renderer)
 {
-
     //Set offsets
     partX = 20 +  (rand() % 740) ;
     partY = 20 +  (rand() % 540) ;

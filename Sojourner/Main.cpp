@@ -251,8 +251,11 @@ void close()
 	text.free();
 	//audio destructor frees audio
 	music.freeAudio();
+
 	//frees the sound resources
-	sound.freeAudio();
+	//sound.freeAudio();
+	//freeAudio only needs to be called once.
+
 	//frees the elements in the sounds vector
 	while(!sounds.empty()){
         sounds.pop_back();
@@ -301,11 +304,12 @@ int main( int argc, char* args[] )
 			//Event handler
 			SDL_Event e;
 
+            capTimer.start();
 			//While application is running
 			while( !quit )
 			{
 			    //Start cap timer
-				capTimer.start();
+
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
@@ -328,7 +332,7 @@ int main( int argc, char* args[] )
                                 savegame.updateSaveData(stage,playedTime.timePlayed);
                                 savegame.updateSavedMetaData(chosenSave,renderer,text.font);
                                 //load main scene buttons
-                                pregameui.loadMainButtons(renderer);
+                                //pregameui.loadMainButtons(renderer);
                                 //probably should free up stage resources here
 
                                 //free stage resources!
@@ -360,6 +364,7 @@ int main( int argc, char* args[] )
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
                                 playedTime.start();
+
                             }
                         }
                         if(gameState==2)
@@ -375,7 +380,7 @@ int main( int argc, char* args[] )
                                 //set player coords on screen and location in habitat (since it parallaxes vertically)
                                 stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
 
-                                pregameui.freeLoadgameButtons();
+                                //pregameui.freeLoadgameButtons();
                                 stage.loadStage(renderer,true);
                                 std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                 Uint32 previouslyPlayed = savegame.data[2];
@@ -391,6 +396,7 @@ int main( int argc, char* args[] )
                                 }
                                 else
                                 {
+
                                     playedTime.start();
                                 }
                                 //pregameui.loadLoadgameButtons(renderer);
@@ -511,6 +517,8 @@ int main( int argc, char* args[] )
                     pregameui.handleCreditsScreenRendering(renderer);
                     //robot animation
                     animations.renderToaster(renderer);
+                    animations.toasterAnimationProgress();
+                    animations.cycleAnimations();
                     //animations.renderToaster2(renderer);
                 }
                 else if(gameState == 5)
@@ -538,7 +546,7 @@ int main( int argc, char* args[] )
 					SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
 				}
 				//increments frames for animations
-				animations.progress();
+				//animations.progress();
 			}
 			//Disable text input
 			SDL_StopTextInput();

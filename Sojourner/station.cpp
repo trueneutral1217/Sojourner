@@ -66,6 +66,7 @@ station::~station()
 
 void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
 {
+    std::cout<<"\n running station::loadStation(SDL_Renderer* renderer,TTF_Font* font)";
     bedTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
     waterTankTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     planterTexture.loadFromFile("images/sprites/planter.png",renderer);
@@ -79,6 +80,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
 {
+    std::cout<<"\n running station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     foodTime = "Not Hungry";
     //test if water tank interaction function is running
@@ -92,6 +94,7 @@ void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
 {
+    std::cout<<"\n running station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for planter interaction
     plant="Plant";
     waterPlants = "Water Plants";
@@ -149,6 +152,7 @@ void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
 {
+    std::cout<<"\n running station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     waterLevel = "100L";
     //test if water tank interaction function is running
@@ -162,6 +166,7 @@ void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)
 {
+    std::cout<<"\n running station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     sleepyTime = "Not Tired";
     //test if water tank interaction function is running
@@ -278,7 +283,7 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 
 void station::free()
 {
-    std::cout<<"\n running station.free() (from stage.free())";
+    std::cout<<"\n running station::free()";
 	bedTexture.free();
 	waterTankTexture.free();
 	waterLevelTexture.free();

@@ -17,6 +17,8 @@ Texture::~Texture()
 
 bool Texture::initTexture(int SCREEN_WIDTH,int SCREEN_HEIGHT,SDL_Window* window,SDL_Renderer* renderer)
 {
+    //this may be able to be removed.  possible artifact.
+
     bool success = true;
 
 		//Create window
@@ -161,6 +163,7 @@ int Texture::getHeight()
 
 SDL_Texture* loadTexture( std::string path,SDL_Renderer* renderer )
 {
+
 	//The final texture
 	SDL_Texture* newTexture = NULL;
 
