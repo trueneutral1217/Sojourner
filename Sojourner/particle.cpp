@@ -48,6 +48,6 @@ void Particle::render(SDL_Renderer* renderer, int renderColor)
 
 bool Particle::isDead()
 {
-    return frame > 60;
+    return frame > 200;
 }
 

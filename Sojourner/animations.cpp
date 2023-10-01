@@ -12,7 +12,7 @@ animations::animations()
     aniFrame8=0;
     aniFrame9=0;
     aniFrame10=0;
-    aniCountUp=true;
+    aniCountUp=true;/*
     animationTimer.start();
     animationTimer2.start();
     animationTimer3.start();
@@ -22,7 +22,7 @@ animations::animations()
     animationTimer7.start();
     animationTimer9.start();
     animationTimer10.start();
-    //animationTimer8.start();
+    //animationTimer8.start();*/
 
     //initialize x & y of blackstar animations 1 - 4.
     bsX1=rand() % 200;
@@ -498,7 +498,7 @@ void animations::toasterAnimationProgress()
     if(animationTimer2.getTicks() / 60 > 1)
     {
         oscillateCount();
-        animationTimer2.restart();
+        //animationTimer2.restart();
     }
 }
 

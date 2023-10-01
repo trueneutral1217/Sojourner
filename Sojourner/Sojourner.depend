@@ -1553,7 +1553,7 @@
 	"text.h"
 	"text.h"
 
-1695683051 source:c:\sojourner\sojourner\animations.cpp
+1696194553 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
 1678578922 c:\sojourner\sojourner\animations.h
@@ -1600,7 +1600,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1695684105 source:c:\sojourner\sojourner\main.cpp
+1696197621 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1661,10 +1661,10 @@
 	"parallax.h"
 	"parallax.h"
 
-1695681351 source:c:\sojourner\sojourner\particle.cpp
+1696194574 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1689628298 source:c:\sojourner\sojourner\player.cpp
+1696195320 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1695595570 source:c:\sojourner\sojourner\savegame.cpp
@@ -1679,10 +1679,10 @@
 1695681460 source:c:\sojourner\sojourner\texture.cpp
 	"Texture.h"
 
-1695680562 source:c:\sojourner\sojourner\timer.cpp
+1696197043 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1690144972 source:c:\sojourner\sojourner\button.cpp
+1696197621 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682120724 source:c:\sojourner\sojourner\chapter.cpp
@@ -1691,10 +1691,10 @@
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1695594995 source:c:\sojourner\sojourner\pregameui.cpp
+1696198382 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1695680776 source:c:\sojourner\sojourner\station.cpp
+1696195320 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
 1687122874 c:\sojourner\sojourner\station.h

@@ -477,6 +477,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             //user clicked a button, escape for loop.
             if(gameState!=-1)
             {
+                chosenSave = loadgameButtons[i].chosenSave;
                 i+=TOTAL_LOADGAME_BUTTONS;
             }
         }

@@ -1,4 +1,4 @@
-cscope 15 /c/Sojourner/Sojourner               0000127201
+cscope 15 /c/Sojourner/Sojourner               0000127434
 	@C:\Sojourner\Sojourner\Main.cpp
 
 2 
@@ -791,13 +791,23 @@ cout
 	`gëTicks
 ();
 
-236 if(
+236 
+°d
+::
+cout
+<<"\¿∂ayedTime.timePœyed: "<<
+∂ayedTime
+.
+timePœyed
+;
+
+237 if(
 ∂ayedTime
 .
 	`gëTicks
 () > 0)
 
-238 
+239 
 ßvegame
 .
 	`wrôeSaveFûe
@@ -813,7 +823,7 @@ cho£nSave
 timePœyed
 );
 
-241 
+242 
 ¥e„ªn˚s
 .
 	`wrôePªfsFûe
@@ -821,99 +831,93 @@ timePœyed
 ¥egameui
 );
 
-243 
+244 
 ¥egameui
 .
 	`‰ì
 ();
 
-245 
-°age
-.
-	`‰ì
-();
-
-247 
+248 
 ™im©i⁄s
 .
 	`‰ìAnim©i⁄Textuªs
 ();
 
-249 
+250 
 bœckGround
 .
 	`‰ì
 ();
 
-251 
+252 
 ãxt
 .
 	`‰ì
 ();
 
-253 
+254 
 music
 .
 	`‰ìAudio
 ();
 
-260 !
+261 !
 sounds
 .
 	`em±y
 ()){
 
-261 
+262 
 sounds
 .
 	`p›_back
 ();
 
-264 
+265 
 	`SDL_De°royRídîî
 –
 ªndîî
  );
 
-265 
+266 
 	`SDL_De°royWödow
 –
 wödow
  );
 
-266 
+267 
 wödow
  = 
 NULL
 ;
 
-267 
+268 
 ªndîî
  = 
 NULL
 ;
 
-271 
+272 
 	`TTF_Quô
 ();
 
-272 
+273 
 	`Mix_Quô
 ();
 
-273 
+274 
 	`IMG_Quô
 ();
 
-274 
+275 
 	`SDL_Quô
 ();
 
-275 
+276 
 	}
 }
 
-277 
+278 
 	$maö
 –
 ¨gc
@@ -921,29 +925,29 @@ NULL
 ¨gs
 [] )
 
-279 
+280 
 °d
 ::
 cout
 <<"\nÑunning main( intárgc, char*árgs[] )";
 
-281 if–!
+282 if–!
 	`öô
 () )
 
-283 
+284 
 	`¥ötf
 ( "FailedÅo initialize!\n" );
 
-288 if–!
+289 if–!
 	`lﬂdMedü
 () )
 
-290 
+291 
 	`¥ötf
 ( "FailedÅoÜoad media!\n" );
 
-295 
+296 
 boﬁ
  
 quô
@@ -951,7 +955,7 @@ quô
 Ál£
 ;
 
-296 
+297 
 boﬁ
  
 Áde
@@ -959,51 +963,51 @@ boﬁ
 Ál£
 ;
 
-298 
+299 
 music
 .
 	`lﬂdMusic
 ();
 
-299 
+300 
 music
 .
 	`∂ayMusic
 ();
 
-301 
+302 
 timî
  
 ˇpTimî
 ;
 
-303 
+304 
 cou¡edFømes
  = 0;
 
-305 
+306 
 SDL_Evít
  
 e
 ;
 
-307 
+308 
 ˇpTimî
 .
 	`°¨t
 ();
 
-309  !
+310  !
 quô
  )
 
-314  
+315  
 	`SDL_PﬁlEvít
 –&
 e
  ) != 0 )
 
-317 if–
+318 if–
 e
 .
 ty≥
@@ -1011,13 +1015,13 @@ ty≥
 SDL_QUIT
  )
 
-319 
+320 
 quô
  = 
 åue
 ;
 
-321 if(
+322 if(
 e
 .
 ty≥
@@ -1027,11 +1031,11 @@ SDL_MOUSEBUTTONDOWN
 SDL_MOUSEMOTION
 )
 
-323 if(
+324 if(
 gameSèã
  == 5){
 
-324 
+325 
 gameSèã
  = 
 °age
@@ -1041,17 +1045,75 @@ gameSèã
 e
 );
 
-325 if(
+326 if(
 gameSèã
 != 5)
 
-329 
+330 
+°d
+::
+cout
+<<"\n beforeÖlayedTime.updatePlayedTime()Ñuns...";
+
+331 
+°d
+::
+cout
+<<"\¿∂ayedTime.gëTicks(): "<<
+∂ayedTime
+.
+	`gëTicks
+();
+
+332 
+°d
+::
+cout
+<<"\¿∂ayedTime.timePœyed: "<<
+∂ayedTime
+.
+timePœyed
+;
+
+333 
 ∂ayedTime
 .
 	`upd©ePœyedTime
 ();
 
-332 
+334 
+°d
+::
+cout
+<<"\náfterÖlayedTime.updatePlayedTime()Ñuns...";
+
+335 
+°d
+::
+cout
+<<"\¿∂ayedTime.gëTicks(): "<<
+∂ayedTime
+.
+	`gëTicks
+();
+
+336 
+°d
+::
+cout
+<<"\¿∂ayedTime.timePœyed: "<<
+∂ayedTime
+.
+timePœyed
+;
+
+338 
+∂ayedTime
+.
+	`∑u£
+();
+
+342 
 ßvegame
 .
 	`upd©eSaveD©a
@@ -1063,7 +1125,7 @@ gameSèã
 timePœyed
 );
 
-333 
+343 
 ßvegame
 .
 	`upd©eSavedMëaD©a
@@ -1077,21 +1139,13 @@ cho£nSave
 f⁄t
 );
 
-335 
-¥egameui
-.
-	`lﬂdMaöBuâ⁄s
-(
-ªndîî
-);
-
-339 
+349 
 °age
 .
 	`‰ì
 ();
 
-340 
+350 
 ¥egameui
 .
 	`lﬂdMaöBuâ⁄s
@@ -1099,11 +1153,11 @@ f⁄t
 ªndîî
 );
 
-350 if(
+355 if(
 gameSèã
  == 0)
 
-354 
+359 
 gameSèã
  = 
 ¥egameui
@@ -1117,11 +1171,11 @@ wödow
 ªndîî
 );
 
-356 if(
+361 if(
 gameSèã
 ==1)
 
-358 
+363 
 gameSèã
  = 
 ¥egameui
@@ -1135,89 +1189,29 @@ wödow
 ªndîî
 );
 
-360 if(
+365 if(
 gameSèã
 ==5)
 
-362 
+367 
 cho£nSave
  = 
 ¥egameui
 .chosenSave;
 
-363 
-¥egameui
-.
-	`‰ìNewgameBuâ⁄s
-();
-
-365 
+370 
 °age
 .
 	`£tNewgameV¨s
 ();
 
-366 
+371 
 ∂ayedTime
 .
 	`°¨t
 ();
 
-370 if(
-gameSèã
-==2)
-
-373 
-gameSèã
- = 
-¥egameui
-.
-	`h™dÀBuâ⁄s
-(gameSèã,&
-e
-, 
-wödow
-,
-ªndîî
-);
-
-375 if(
-gameSèã
-==5)
-
-377 
-cho£nSave
- = 
-¥egameui
-.chosenSave;
-
-378 
-°d
-::
-cout
-<<"\¿cho£nSave: "<<
-cho£nSave
-;
-
-379 
-ßvegame
-.
-	`ªadSaveFûe
-(
-cho£nSave
-);
-
-381 
-°age
-.
-	`lﬂdSavedGameD©a
-(
-ßvegame
-.
-d©a
-[3],savegame.data[4],savegame.data[5],savegame.data[6]);
-
-384 
+372 
 °age
 .
 	`lﬂdSège
@@ -1227,7 +1221,71 @@ d©a
 åue
 );
 
+376 if(
+gameSèã
+==2)
+
+379 
+gameSèã
+ = 
+¥egameui
+.
+	`h™dÀBuâ⁄s
+(gameSèã,&
+e
+, 
+wödow
+,
+ªndîî
+);
+
+381 if(
+gameSèã
+==5)
+
+383 
+cho£nSave
+ = 
+¥egameui
+.chosenSave;
+
+384 
+°d
+::
+cout
+<<"\¿cho£nSave: "<<
+cho£nSave
+;
+
 385 
+ßvegame
+.
+	`ªadSaveFûe
+(
+cho£nSave
+);
+
+387 
+°age
+.
+	`lﬂdSavedGameD©a
+(
+ßvegame
+.
+d©a
+[3],savegame.data[4],savegame.data[5],savegame.data[6]);
+
+390 
+°age
+.
+	`lﬂdSège
+(
+ªndîî
+,
+åue
+);
+
+391 
 °d
 ::
 cout
@@ -1237,7 +1295,7 @@ cout
 d©a
 [2];
 
-386 
+392 
 Uöt32
  
 ¥eviou¶yPœyed
@@ -1247,7 +1305,7 @@ Uöt32
 d©a
 [2];
 
-387 
+393 
 °d
 ::
 cout
@@ -1255,17 +1313,17 @@ cout
 ¥eviou¶yPœyed
 ;
 
-388 if(
+394 if(
 ¥eviou¶yPœyed
  > 0)
 
-391 
+397 
 ∂ayedTime
 .
 	`£tPau£d
 ();
 
-393 
+399 
 ∂ayedTime
 .
 	`£tTicks
@@ -1273,23 +1331,23 @@ cout
 ¥eviou¶yPœyed
 );
 
-395 
+401 
 ∂ayedTime
 .
 	`u≈au£
 ();
 
-400 
+406 
 ∂ayedTime
 .
 	`°¨t
 ();
 
-405 if(
+411 if(
 gameSèã
 ==3)
 
-407 
+413 
 gameSèã
  = 
 ¥egameui
@@ -1303,7 +1361,7 @@ wödow
 ªndîî
 );
 
-409 if(
+415 if(
 ¥egameui
 .
 ›ti⁄sBuâ⁄s
@@ -1311,7 +1369,7 @@ wödow
 musicToggÀ
 )
 
-411 
+417 
 music
 .
 musicToggÀ
@@ -1319,19 +1377,19 @@ musicToggÀ
 åue
 ;
 
-412 if(!
+418 if(!
 music
 .
 	`isPœyög
 ())
 
-414 
+420 
 music
 .
 	`∂ayMusic
 ();
 
-419 
+425 
 music
 .
 musicToggÀ
@@ -1339,19 +1397,19 @@ musicToggÀ
 Ál£
 ;
 
-420 if(
+426 if(
 music
 .
 	`isPœyög
 ())
 
-422 
+428 
 music
 .
 	`°›Music
 ();
 
-425 if(
+431 if(
 ¥egameui
 .
 ›ti⁄sBuâ⁄s
@@ -1359,11 +1417,11 @@ music
 voi˚ToggÀ
 )
 
-435 if(
+441 if(
 gameSèã
 ==4)
 
-437 
+443 
 gameSèã
  = 
 ¥egameui
@@ -1377,7 +1435,23 @@ wödow
 ªndîî
 );
 
-442 if–
+444 if(!
+™im©i⁄s
+.
+™im©i⁄Timî2
+.
+	`isSèπed
+())
+
+446 
+™im©i⁄s
+.
+™im©i⁄Timî2
+.
+	`°¨t
+();
+
+452 if–
 e
 .
 ty≥
@@ -1385,7 +1459,7 @@ ty≥
 SDL_KEYDOWN
  )
 
-444  
+454  
 e
 .
 key
@@ -1395,81 +1469,81 @@ keysym
 sym
  )
 
-446 
+456 
 SDLK_SPACE
 :
 
-450 
+460 
 SDLK_ESCAPE
 :
 
-451 if(
+461 if(
 gameSèã
 ==0)
 
-453 
+463 
 quô
 =
 åue
 ;
 
-457 
+467 
 SDLK_1
 :
 
-458 
+468 
 sounds
 [0].
 	`∂aySound
 ();
 
-460 
+470 
 SDLK_2
 :
 
-461 
+471 
 sounds
 [1].
 	`∂aySound
 ();
 
-463 
+473 
 SDLK_3
 :
 
-464 
+474 
 sounds
 [2].
 	`∂aySound
 ();
 
-466 
+476 
 SDLK_4
 :
 
-467 
+477 
 sounds
 [3].
 	`∂aySound
 ();
 
-469 
+479 
 SDLK_9
 :
 
-471 
+481 
 music
 .
 	`∂ayMusic
 ();
 
-477 if(
+487 if(
 °age
 .
 öã∫ÆVõw
 )
 
-479 
+489 
 °age
 .
 ∂ayî1
@@ -1479,13 +1553,13 @@ music
 e
 );
 
-484 if(
+494 if(
 °age
 .
 öã∫ÆVõw
 )
 
-486 
+496 
 °age
 .
 	`move
@@ -1493,23 +1567,23 @@ e
 cou¡edFømes
 );
 
-490 
+500 
 	`SDL_SëRídîDøwCﬁ‹
 –
 ªndîî
 , 0xFF, 0xFF, 0xFF, 0xFF );
 
-491 
+501 
 	`SDL_RídîCÀ¨
 –
 ªndîî
  );
 
-493 if(
+503 if(
 gameSèã
  == 0)
 
-496 
+506 
 ¥egameui
 .
 	`h™dÀTôÀS¸ìnRídîög
@@ -1517,11 +1591,11 @@ gameSèã
 ªndîî
 );
 
-498 if(
+508 if(
 gameSèã
  == 1)
 
-500 
+510 
 ¥egameui
 .
 	`h™dÀNewGameS¸ìnRídîög
@@ -1529,7 +1603,7 @@ gameSèã
 ªndîî
 );
 
-501 
+511 
 ßvegame
 .
 	`h™dÀSavedMëaD©aRídîög
@@ -1537,11 +1611,11 @@ gameSèã
 ªndîî
 );
 
-503 if(
+513 if(
 gameSèã
  == 2)
 
-506 
+516 
 ¥egameui
 .
 	`h™dÀLﬂdGameS¸ìnRídîög
@@ -1549,7 +1623,7 @@ gameSèã
 ªndîî
 );
 
-507 
+517 
 ßvegame
 .
 	`h™dÀSavedMëaD©aRídîög
@@ -1557,11 +1631,11 @@ gameSèã
 ªndîî
 );
 
-509 if(
+519 if(
 gameSèã
  == 3)
 
-512 
+522 
 ¥egameui
 .
 	`h™dÀO±i⁄sS¸ìnRídîög
@@ -1569,11 +1643,11 @@ gameSèã
 ªndîî
 );
 
-514 if(
+524 if(
 gameSèã
  == 4)
 
-517 
+527 
 ¥egameui
 .
 	`h™dÀCªdôsS¸ìnRídîög
@@ -1581,7 +1655,7 @@ gameSèã
 ªndîî
 );
 
-519 
+529 
 ™im©i⁄s
 .
 	`ªndîTﬂ°î
@@ -1589,23 +1663,23 @@ gameSèã
 ªndîî
 );
 
-520 
+530 
 ™im©i⁄s
 .
 	`tﬂ°îAnim©i⁄Progªss
 ();
 
-521 
+531 
 ™im©i⁄s
 .
 	`cy˛eAnim©i⁄s
 ();
 
-524 if(
+534 if(
 gameSèã
  == 5)
 
-527 
+537 
 °age
 .
 	`ªndîSège1
@@ -1613,11 +1687,11 @@ gameSèã
 ªndîî
 );
 
-529 if(
+539 if(
 Áde
 )
 
-531 
+541 
 Áde
  = 
 	`ÁdeIn
@@ -1625,7 +1699,7 @@ gameSèã
 cou¡edFømes
 ,fade);
 
-532 
+542 
 bœckGround
 .
 	`ªndî
@@ -1637,23 +1711,23 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-535 
+545 
 	`SDL_RídîPª£¡
 –
 ªndîî
  );
 
-536 ++
+546 ++
 cou¡edFømes
 ;
 
-537 if(
+547 if(
 cou¡edFømes
 >0 && cou¡edFøme†< 255 && 
 gameSèã
 ==0)
 
-539 
+549 
 ¥egameui
 .
 tôÀ
@@ -1663,7 +1737,7 @@ tôÀ
 cou¡edFømes
 );
 
-542 
+552 
 ‰ameTicks
  = 
 ˇpTimî
@@ -1671,13 +1745,13 @@ cou¡edFømes
 	`gëTicks
 ();
 
-543 if–
+553 if–
 ‰ameTicks
  < 
 SCREEN_TICK_PER_FRAME
  )
 
-546 
+556 
 	`SDL_Dñay
 –
 SCREEN_TICK_PER_FRAME
@@ -1685,15 +1759,15 @@ SCREEN_TICK_PER_FRAME
 ‰ameTicks
  );
 
-552 
+562 
 	`SDL_St›TextI≈ut
 ();
 
-556 
+566 
 	`˛o£
 ();
 
-558 
+568 
 	}
 }
 
@@ -1754,60 +1828,6 @@ SCREEN_TICK_PER_FRAME
 =
 åue
 ;
-
-16 
-™im©i⁄Timî
-.
-	`°¨t
-();
-
-17 
-™im©i⁄Timî2
-.
-	`°¨t
-();
-
-18 
-™im©i⁄Timî3
-.
-	`°¨t
-();
-
-19 
-™im©i⁄Timî4
-.
-	`°¨t
-();
-
-20 
-™im©i⁄Timî5
-.
-	`°¨t
-();
-
-21 
-™im©i⁄Timî6
-.
-	`°¨t
-();
-
-22 
-™im©i⁄Timî7
-.
-	`°¨t
-();
-
-23 
-™im©i⁄Timî9
-.
-	`°¨t
-();
-
-24 
-™im©i⁄Timî10
-.
-	`°¨t
-();
 
 28 
 bsX1
@@ -4239,12 +4259,6 @@ TRAILER_ANIMATION_FRAMES
 	`oscûœãCou¡
 ();
 
-501 
-™im©i⁄Timî2
-.
-	`ª°¨t
-();
-
 503 
 	}
 }
@@ -6369,7 +6383,7 @@ buâ⁄Name
 
 237 
 	`¥ötf
-("\n \n back buttonÖressed fromÇewgame \n \n");
+("\n \n back buttonÖressed \n \n");
 
 238 
 gameSèã
@@ -6381,7 +6395,7 @@ buâ⁄Name
 
 242 
 	`¥ötf
-("\n \n save 1 buttonÖressed fromÇewgame \n \n");
+("\n \n save 1 buttonÖressed from \n \n");
 
 243 
 cho£nSave
@@ -6405,7 +6419,7 @@ buâ⁄Name
 
 249 
 	`¥ötf
-("\n \n save 2 buttonÖressed fromÇewgame \n \n");
+("\n \n save 2 buttonÖressed \n \n");
 
 250 
 cho£nSave
@@ -6429,7 +6443,7 @@ buâ⁄Name
 
 256 
 	`¥ötf
-("\n \n save 3 buttonÖressed fromÇewgame \n \n");
+("\n \n save 3 buttonÖressed \n \n");
 
 257 
 cho£nSave
@@ -7689,7 +7703,7 @@ boﬁ
 
 51  
 ‰ame
- > 60;
+ > 200;
 
 52 
 	}
@@ -8791,7 +8805,13 @@ SDL_Rídîî
 ªndîî
 )
 
-359 
+358 
+°d
+::
+cout
+<<"\nÑunningÖlayer::loadPlayer(SDL_Renderer*Ñenderer)";
+
+360 
 ∂ayîCﬁlisi⁄Box
 .
 x
@@ -8799,7 +8819,7 @@ x
 ∂ayîX
 +5;
 
-360 
+361 
 ∂ayîCﬁlisi⁄Box
 .
 y
@@ -8807,19 +8827,19 @@ y
 ∂ayîY
 +60;
 
-361 
+362 
 ∂ayîCﬁlisi⁄Box
 .
 w
 =30;
 
-362 
+363 
 ∂ayîCﬁlisi⁄Box
 .
 h
 =20;
 
-365 
+366 
 °d
 ::
 °rög°ªam
@@ -8831,19 +8851,19 @@ ss2
 ss3
 ;
 
-366 
+367 
 ss3
 .
 	`°r
 ("");
 
-367 
+368 
 ss3
 .
 	`˛ór
 ();
 
-368 
+369 
 °d
 ::
 °rög
@@ -8855,47 +8875,47 @@ ss3
 	`°r
 ();
 
-369 
+370 
 i
  = 0; i<
 MOVE_STATES
 ;i++)
 
-371 if(
+372 if(
 i
 ==
 IDLE
 )
 
-373 if(
+374 if(
 öS∑˚
 )
 
-375 
+376 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterSpaceDown1");
 
-379 
+380 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterDown1");
 
-381 
+382 
 ss2
 .
 	`°r
 (".png");
 
-383 
+384 
 j
  = 0; j<
 IDLE_TEXTURES
 ;j++)
 
-385 
+386 
 ss3
  << 
 ss
@@ -8903,7 +8923,7 @@ ss
 	`°r
 ();
 
-387 
+388 
 ss3
  << 
 ss2
@@ -8911,7 +8931,7 @@ ss2
 	`°r
 ();
 
-388 
+389 
 °r
  = 
 ss3
@@ -8919,7 +8939,7 @@ ss3
 	`°r
 ();
 
-389 
+390 
 ∂ayîTextuª
 [
 i
@@ -8933,53 +8953,53 @@ j
 ªndîî
  );
 
-390 
+391 
 ss3
 .
 	`°r
 ( "" );
 
-391 
+392 
 ss3
 .
 	`˛ór
 ();
 
-394 if(
+395 if(
 i
 ==
 WALK_LR
 )
 
-396 if(
+397 if(
 öS∑˚
 )
 
-398 
+399 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterSpaceRight");
 
-402 
+403 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterRight");
 
-405 
+406 
 ss2
 .
 	`°r
 (".png");
 
-406 
+407 
 k
  = 0; k<
 LR_TEXTURES
 ;k++)
 
-408 
+409 
 ss3
  << 
 ss
@@ -8987,29 +9007,29 @@ ss
 	`°r
 ();
 
-409 
+410 
 ss3
  << (
 k
 +1);
 
-410 
+411 
 ss3
  << 
 ss2
-.
-	`°r
-();
-
-411 
-°r
- = 
-ss3
 .
 	`°r
 ();
 
 412 
+°r
+ = 
+ss3
+.
+	`°r
+();
+
+413 
 ∂ayîTextuª
 [
 i
@@ -9023,53 +9043,53 @@ k
 ªndîî
  );
 
-413 
+414 
 ss3
 .
 	`°r
 ("");
 
-414 
+415 
 ss3
 .
 	`˛ór
 ();
 
-417 if(
+418 if(
 i
 ==
 WALK_DLDR
 )
 
-419 if(
+420 if(
 öS∑˚
 )
 
-421 
+422 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterSpaceRightDown");
 
-425 
+426 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterRightDown");
 
-428 
+429 
 ss2
 .
 	`°r
 (".png");
 
-429 
+430 
 k
  = 0; k<
 DLDR_TEXTURES
 ;k++)
 
-431 
+432 
 ss3
  << 
 ss
@@ -9077,29 +9097,29 @@ ss
 	`°r
 ();
 
-432 
+433 
 ss3
  << (
 k
 +1);
 
-433 
+434 
 ss3
  << 
 ss2
-.
-	`°r
-();
-
-434 
-°r
- = 
-ss3
 .
 	`°r
 ();
 
 435 
+°r
+ = 
+ss3
+.
+	`°r
+();
+
+436 
 ∂ayîTextuª
 [
 i
@@ -9113,53 +9133,53 @@ k
 ªndîî
  );
 
-436 
+437 
 ss3
 .
 	`°r
 ("");
 
-437 
+438 
 ss3
 .
 	`˛ór
 ();
 
-440 if(
+441 if(
 i
 ==
 WALK_ULUR
 )
 
-442 if(
+443 if(
 öS∑˚
 )
 
-444 
+445 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterSpaceRightUp");
 
-448 
+449 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterRightUp");
 
-451 
+452 
 ss2
 .
 	`°r
 (".png");
 
-452 
+453 
 k
  = 0; k<
 ULUR_TEXTURES
 ;k++)
 
-454 
+455 
 ss3
  << 
 ss
@@ -9167,29 +9187,29 @@ ss
 	`°r
 ();
 
-455 
+456 
 ss3
  << (
 k
 +1);
 
-456 
+457 
 ss3
  << 
 ss2
-.
-	`°r
-();
-
-457 
-°r
- = 
-ss3
 .
 	`°r
 ();
 
 458 
+°r
+ = 
+ss3
+.
+	`°r
+();
+
+459 
 ∂ayîTextuª
 [
 i
@@ -9203,53 +9223,53 @@ k
 ªndîî
  );
 
-459 
+460 
 ss3
 .
 	`°r
 ("");
 
-460 
+461 
 ss3
 .
 	`˛ór
 ();
 
-463 if(
+464 if(
 i
 ==
 WALK_D
 )
 
-465 if(
+466 if(
 öS∑˚
 )
 
-467 
+468 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterSpaceDown");
 
-471 
+472 
 ss
 .
 	`°r
 ("images/sprites/PlayerCharacterDown");
 
-474 
+475 
 ss2
 .
 	`°r
 (".png");
 
-475 
+476 
 k
  = 0; k<
 D_TEXTURES
 ;k++)
 
-477 
+478 
 ss3
  << 
 ss
@@ -9257,111 +9277,21 @@ ss
 	`°r
 ();
 
-478 
+479 
 ss3
  << (
 k
 +1);
 
-479 
+480 
 ss3
  << 
 ss2
-.
-	`°r
-();
-
-480 
-°r
- = 
-ss3
 .
 	`°r
 ();
 
 481 
-∂ayîTextuª
-[
-i
-][
-k
-].
-	`lﬂdFromFûe
-–
-°r
-,
-ªndîî
- );
-
-482 
-ss3
-.
-	`°r
-("");
-
-483 
-ss3
-.
-	`˛ór
-();
-
-486 if(
-i
-==
-WALK_U
-)
-
-488 if(
-öS∑˚
-)
-
-490 
-ss
-.
-	`°r
-("images/sprites/PlayerCharacterSpaceUp");
-
-494 
-ss
-.
-	`°r
-("images/sprites/PlayerCharacterUp");
-
-497 
-ss2
-.
-	`°r
-(".png");
-
-498 
-k
- = 0; k<
-U_TEXTURES
-;k++)
-
-500 
-ss3
- << 
-ss
-.
-	`°r
-();
-
-501 
-ss3
- << (
-k
-+1);
-
-502 
-ss3
- << 
-ss2
-.
-	`°r
-();
-
-503 
 °r
  = 
 ss3
@@ -9369,7 +9299,7 @@ ss3
 	`°r
 ();
 
-504 
+482 
 ∂ayîTextuª
 [
 i
@@ -9383,19 +9313,109 @@ k
 ªndîî
  );
 
-505 
+483 
 ss3
 .
 	`°r
 ("");
 
-506 
+484 
 ss3
 .
 	`˛ór
 ();
 
-510 
+487 if(
+i
+==
+WALK_U
+)
+
+489 if(
+öS∑˚
+)
+
+491 
+ss
+.
+	`°r
+("images/sprites/PlayerCharacterSpaceUp");
+
+495 
+ss
+.
+	`°r
+("images/sprites/PlayerCharacterUp");
+
+498 
+ss2
+.
+	`°r
+(".png");
+
+499 
+k
+ = 0; k<
+U_TEXTURES
+;k++)
+
+501 
+ss3
+ << 
+ss
+.
+	`°r
+();
+
+502 
+ss3
+ << (
+k
++1);
+
+503 
+ss3
+ << 
+ss2
+.
+	`°r
+();
+
+504 
+°r
+ = 
+ss3
+.
+	`°r
+();
+
+505 
+∂ayîTextuª
+[
+i
+][
+k
+].
+	`lﬂdFromFûe
+–
+°r
+,
+ªndîî
+ );
+
+506 
+ss3
+.
+	`°r
+("");
+
+507 
+ss3
+.
+	`˛ór
+();
+
+511 
 cuºítTextuª
  = 
 ∂ayîTextuª
@@ -9405,11 +9425,11 @@ moveSèã
 wÆkFøme
 ];
 
-511 
+512 
 	}
 }
 
-513 
+514 
 	g∂ayî
 ::
 	$ªndî
@@ -9419,11 +9439,11 @@ SDL_Rídîî
 ªndîî
 )
 
-515 if(
+516 if(
 ÊùH‹iz⁄èl
 )
 
-517 
+518 
 cuºítTextuª
 .
 	`ªndî
@@ -9439,7 +9459,7 @@ SDL_FLIP_HORIZONTAL
 ªndîî
 );
 
-521 
+522 
 cuºítTextuª
 .
 	`ªndî
@@ -9455,35 +9475,41 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-524 
+525 
 	}
 }
 
-526 
+527 
 	g∂ayî
 ::
 	$‰ìPœyî
 ()
 
-528 
+529 
+°d
+::
+cout
+<<"\nÑunningÖlayer::freePlayer()";
+
+530 
 i
  = 0; i<
 MOVE_STATES
 ;i++)
 
-530 if(
+532 if(
 i
 ==
 IDLE
 )
 
-532 
+534 
 j
  = 0; j<
 IDLE_TEXTURES
 ;j++)
 
-534 
+536 
 ∂ayîTextuª
 [
 i
@@ -9493,19 +9519,19 @@ j
 	`‰ì
 ();
 
-537 if(
+539 if(
 i
 ==
 WALK_LR
 )
 
-539 
+541 
 k
  = 0; k<
 LR_TEXTURES
 ;k++)
 
-541 
+543 
 ∂ayîTextuª
 [
 i
@@ -9515,19 +9541,19 @@ k
 	`‰ì
 ();
 
-544 if(
+546 if(
 i
 ==
 WALK_DLDR
 )
 
-546 
+548 
 k
  = 0; k<
 DLDR_TEXTURES
 ;k++)
 
-548 
+550 
 ∂ayîTextuª
 [
 i
@@ -9537,19 +9563,19 @@ k
 	`‰ì
 ();
 
-551 if(
+553 if(
 i
 ==
 WALK_ULUR
 )
 
-553 
+555 
 k
  = 0; k<
 ULUR_TEXTURES
 ;k++)
 
-555 
+557 
 ∂ayîTextuª
 [
 i
@@ -9559,19 +9585,19 @@ k
 	`‰ì
 ();
 
-558 if(
+560 if(
 i
 ==
 WALK_D
 )
 
-560 
+562 
 k
  = 0; k<
 D_TEXTURES
 ;k++)
 
-562 
+564 
 ∂ayîTextuª
 [
 i
@@ -9581,19 +9607,19 @@ k
 	`‰ì
 ();
 
-565 if(
+567 if(
 i
 ==
 WALK_U
 )
 
-567 
+569 
 k
  = 0; k<
 U_TEXTURES
 ;k++)
 
-569 
+571 
 ∂ayîTextuª
 [
 i
@@ -9603,17 +9629,17 @@ k
 	`‰ì
 ();
 
-573 
+575 
 cuºítTextuª
 .
 	`‰ì
 ();
 
-574 
+576 
 	}
 }
 
-576 
+578 
 	g∂ayî
 ::
 	$£tCamîa
@@ -9623,7 +9649,13 @@ SDL_Re˘
 ˇmîa
 )
 
-578 
+580 
+°d
+::
+cout
+<<"\nÑunningÖlayer::setCamera(SDL_Rect& camera)";
+
+581 
 ˇmîa
 .
 x
@@ -9635,7 +9667,7 @@ PLAYER_WIDTH
 SCREEN_WIDTH
 /2;
 
-579 
+582 
 ˇmîa
 .
 y
@@ -9647,31 +9679,31 @@ PLAYER_HEIGHT
 SCREEN_HEIGHT
 /2;
 
-581 if(
+584 if(
 ˇmîa
 .
 x
  < 0)
 
-583 
+586 
 ˇmîa
 .
 x
  = 0;
 
-585 if(
+588 if(
 ˇmîa
 .
 y
  < 0)
 
-587 
+590 
 ˇmîa
 .
 y
 =0;
 
-590 if(
+593 if(
 ˇmîa
 .
 x
@@ -9681,7 +9713,7 @@ SCREEN_WIDTH
 w
 )
 
-592 
+595 
 ˇmîa
 .
 x
@@ -9691,7 +9723,7 @@ SCREEN_WIDTH
 w
 ;
 
-594 if(
+597 if(
 ˇmîa
 .
 y
@@ -9701,7 +9733,7 @@ SCREEN_HEIGHT
 h
 )
 
-596 
+599 
 ˇmîa
 .
 y
@@ -9711,67 +9743,67 @@ SCREEN_HEIGHT
 h
 ;
 
-598 
+601 
 	}
 }
 
-600 
+603 
 	g∂ayî
 ::
 	$gëX
 ()
 
-602  
+605  
 ∂ayîX
 ;
 
-603 
+606 
 	}
 }
 
-605 
+608 
 	g∂ayî
 ::
 	$gëY
 ()
 
-607  
+610  
 ∂ayîY
 ;
 
-608 
+611 
 	}
 }
 
-610 
+613 
 	g∂ayî
 ::
 	$gëPVñX
 ()
 
-612  
+615  
 pVñX
 ;
 
-613 
+616 
 	}
 }
 
-615 
+618 
 	g∂ayî
 ::
 	$gëPVñY
 ()
 
-617  
+620  
 pVñY
 ;
 
-618 
+621 
 	}
 }
 
-620 
+623 
 	g∂ayî
 ::
 	$£tX
@@ -9779,17 +9811,17 @@ pVñY
 x
 )
 
-622 
+625 
 ∂ayîX
  = 
 x
 ;
 
-623 
+626 
 	}
 }
 
-625 
+628 
 	g∂ayî
 ::
 	$£tY
@@ -9797,17 +9829,17 @@ x
 y
 )
 
-627 
+630 
 ∂ayîY
  = 
 y
 ;
 
-628 
+631 
 	}
 }
 
-630 
+633 
 boﬁ
  
 	g∂ayî
@@ -9819,31 +9851,31 @@ SDL_Re˘
 cﬁlidabÀ
 )
 
-632 
+636 
 ∂ayîLe·
 , 
 cﬁlidabÀLe·
 ;
 
-633 
+637 
 ∂ayîRight
 , 
 cﬁlidabÀRight
 ;
 
-634 
+638 
 ∂ayîT›
 , 
 cﬁlidabÀT›
 ;
 
-635 
+639 
 ∂ayîBŸtom
 , 
 cﬁlidabÀBŸtom
 ;
 
-637 
+641 
 ∂ayîLe·
  = 
 ∂ayîCﬁlisi⁄Box
@@ -9851,7 +9883,7 @@ cﬁlidabÀBŸtom
 x
 ;
 
-638 
+642 
 ∂ayîRight
  = 
 ∂ayîCﬁlisi⁄Box
@@ -9861,7 +9893,7 @@ x
 w
 ;
 
-639 
+643 
 ∂ayîT›
  = 
 ∂ayîCﬁlisi⁄Box
@@ -9869,7 +9901,7 @@ w
 y
 ;
 
-640 
+644 
 ∂ayîBŸtom
  = 
 ∂ayîCﬁlisi⁄Box
@@ -9879,7 +9911,7 @@ y
 h
 ;
 
-642 
+646 
 cﬁlidabÀLe·
  = 
 cﬁlidabÀ
@@ -9887,7 +9919,7 @@ cﬁlidabÀ
 x
 ;
 
-643 
+647 
 cﬁlidabÀRight
  = 
 cﬁlidabÀ
@@ -9897,7 +9929,7 @@ x
 w
 ;
 
-644 
+648 
 cﬁlidabÀT›
  = 
 cﬁlidabÀ
@@ -9905,7 +9937,7 @@ cﬁlidabÀ
 y
 ;
 
-645 
+649 
 cﬁlidabÀBŸtom
  = 
 cﬁlidabÀ
@@ -9915,51 +9947,51 @@ y
 h
 ;
 
-647 if–
+651 if–
 ∂ayîBŸtom
  <
 cﬁlidabÀT›
  )
 
-649  
+653  
 Ál£
 ;
 
-652 if–
+656 if–
 ∂ayîT›
  >
 cﬁlidabÀBŸtom
  )
 
-654  
+658  
 Ál£
 ;
 
-657 if–
+661 if–
 ∂ayîRight
  <
 cﬁlidabÀLe·
  )
 
-659  
+663  
 Ál£
 ;
 
-662 if–
+666 if–
 ∂ayîLe·
  >
 cﬁlidabÀRight
  )
 
-664  
+668  
 Ál£
 ;
 
-667  
+671  
 åue
 ;
 
-668 
+672 
 	}
 }
 
@@ -16713,19 +16745,13 @@ cout
 foodTime
  = "Not Hungry";
 
-87 
-°d
-::
-cout
-<<"\nÜoadInteractKitchen functionÉxecuted";
-
-88 
+86 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {0,0,0};
 
-89 if(!
+87 if(!
 foodTimeTextuª
 .
 	`lﬂdFromRídîedText
@@ -16741,17 +16767,17 @@ f⁄t
 ªndîî
 ))
 
-91 
+89 
 °d
 ::
 cout
 <<"\n unableÅoÑender foodTime stringÅo foodTimeTexture!";
 
-93 
+91 
 	}
 }
 
-95 
+93 
 	g°©i⁄
 ::
 	$lﬂdI¡îa˘Pœ¡î
@@ -16765,47 +16791,41 @@ TTF_F⁄t
 f⁄t
 )
 
-97 
+95 
 °d
 ::
 cout
 <<"\nÑunning station::loadInteractPlanter(SDL_Renderer*Ñenderer,TTF_Font* font)";
 
-99 
+97 
 ∂™t
 ="Plant";
 
-100 
+98 
 w©îPœ¡s
  = "Water Plants";
 
-101 
+99 
 h¨ve°
  = "Harvest";
 
-104 
-°d
-::
-cout
-<<"\nÜoadInteractPlanter functionÉxecuted";
-
-105 
+101 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {255,255,255};
 
-106 
+102 
 SDL_Cﬁ‹
  
 u«vaûabÀ
  = {0,0,0};
 
-108 if(
+104 if(
 ∂™tOkay
 )
 
-110 if(!
+106 if(!
 ∂™tTextuª
 .
 	`lﬂdFromRídîedText
@@ -16821,13 +16841,13 @@ f⁄t
 ªndîî
 ))
 
-112 
+108 
 °d
 ::
 cout
 <<"\n unableÅoÑenderÖlant stringÅoÖlantTexture!";
 
-117 if(!
+113 if(!
 ∂™tTextuª
 .
 	`lﬂdFromRídîedText
@@ -16843,17 +16863,17 @@ f⁄t
 ªndîî
 ))
 
-119 
+115 
 °d
 ::
 cout
 <<"\n unableÅoÑenderÖlant stringÅoÖlantTexture!";
 
-122 if(
+118 if(
 w©îPœ¡sOkay
 )
 
-124 if(!
+120 if(!
 w©îPœ¡sTextuª
 .
 	`lﬂdFromRídîedText
@@ -16869,13 +16889,13 @@ f⁄t
 ªndîî
 ))
 
-126 
+122 
 °d
 ::
 cout
 <<"\n unableÅoÑender waterPlants stringÅo waterPlantsTexture!";
 
-131 if(!
+127 if(!
 w©îPœ¡sTextuª
 .
 	`lﬂdFromRídîedText
@@ -16891,17 +16911,17 @@ f⁄t
 ªndîî
 ))
 
-133 
+129 
 °d
 ::
 cout
 <<"\n unableÅoÑender waterPlants stringÅo waterPlantsTexture!";
 
-136 if(
+132 if(
 h¨ve°Okay
 )
 
-138 if(!
+134 if(!
 h¨ve°Textuª
 .
 	`lﬂdFromRídîedText
@@ -16917,13 +16937,13 @@ f⁄t
 ªndîî
 ))
 
-140 
+136 
 °d
 ::
 cout
 <<"\n unableÅoÑender harvest stringÅo harvestTexture!";
 
-145 if(!
+141 if(!
 h¨ve°Textuª
 .
 	`lﬂdFromRídîedText
@@ -16939,17 +16959,17 @@ f⁄t
 ªndîî
 ))
 
-147 
+143 
 °d
 ::
 cout
 <<"\n unableÅoÑender harvest stringÅo harvestTexture!";
 
-151 
+147 
 	}
 }
 
-153 
+149 
 	g°©i⁄
 ::
 	$lﬂdI¡îa˘W©îT™k
@@ -16963,29 +16983,23 @@ TTF_F⁄t
 f⁄t
 )
 
-155 
+151 
 °d
 ::
 cout
 <<"\nÑunning station::loadInteractWaterTank(SDL_Renderer*Ñenderer,TTF_Font* font)";
 
-157 
+153 
 w©îLevñ
  = "100L";
 
-159 
-°d
-::
-cout
-<<"\n interactWaterTank functionÉxecuted";
-
-160 
+154 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {0,0,0};
 
-161 if(!
+155 if(!
 w©îLevñTextuª
 .
 	`lﬂdFromRídîedText
@@ -17001,17 +17015,17 @@ f⁄t
 ªndîî
 ))
 
-163 
+157 
 °d
 ::
 cout
 <<"\n unableÅoÑenderÜaterLevel stringÅo waterLevelTexture!";
 
-165 
+159 
 	}
 }
 
-167 
+161 
 	g°©i⁄
 ::
 	$lﬂdI¡îa˘Bed
@@ -17025,29 +17039,23 @@ TTF_F⁄t
 f⁄t
 )
 
-169 
+163 
 °d
 ::
 cout
 <<"\nÑunning station::loadInteractBed(SDL_Renderer*Ñenderer,TTF_Font* font)";
 
-171 
+165 
 ¶ìpyTime
  = "Not Tired";
 
-173 
-°d
-::
-cout
-<<"\nÜoadInteractBed functionÉxecuted";
-
-174 
+166 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {0,0,0};
 
-175 if(!
+167 if(!
 ¶ìpyTimeTextuª
 .
 	`lﬂdFromRídîedText
@@ -17063,17 +17071,17 @@ f⁄t
 ªndîî
 ))
 
-177 
+169 
 °d
 ::
 cout
 <<"\n unableÅoÑender sleepyTime stringÅo sleepyTimeTexture!";
 
-179 
+171 
 	}
 }
 
-181 
+173 
 	g°©i⁄
 ::
 	$upd©ePosôi⁄
@@ -17081,13 +17089,13 @@ cout
 y
 )
 
-184 
+176 
 bedY
  = 
 y
 +300;
 
-185 
+177 
 bedBŸ
  = 
 bedY
@@ -17095,7 +17103,7 @@ bedY
 bedH
 ;
 
-186 
+178 
 cﬁlidabÀ
 [0].
 y
@@ -17105,7 +17113,7 @@ bedY
 bedH
 /2);
 
-187 
+179 
 öãø˘abÀ
 [0].
 y
@@ -17113,13 +17121,13 @@ y
 cﬁlidabÀ
 [0].y-4;
 
-189 
+181 
 w©îT™kY
  = 
 y
 +100;
 
-190 
+182 
 w©îT™kBŸ
  = 
 w©îT™kY
@@ -17127,7 +17135,7 @@ w©îT™kY
 w©îT™kH
 ;
 
-191 
+183 
 cﬁlidabÀ
 [1].
 y
@@ -17137,7 +17145,7 @@ w©îT™kY
 w©îT™kH
 /2);
 
-192 
+184 
 öãø˘abÀ
 [1].
 y
@@ -17145,13 +17153,13 @@ y
 cﬁlidabÀ
 [1].y-4;
 
-194 
+186 
 ∂™ãrY
  = 
 y
 +200;
 
-195 
+187 
 ∂™ãrBŸ
  = 
 ∂™ãrY
@@ -17159,7 +17167,7 @@ y
 ∂™ãrH
 ;
 
-196 
+188 
 cﬁlidabÀ
 [2].
 y
@@ -17169,7 +17177,7 @@ y
 ∂™ãrH
 /2);
 
-197 
+189 
 öãø˘abÀ
 [2].
 y
@@ -17177,13 +17185,13 @@ y
 cﬁlidabÀ
 [2].y-2;
 
-199 
+191 
 kôchíY
  = 
 y
 +400;
 
-200 
+192 
 kôchíBŸ
  = 
 kôchíY
@@ -17191,7 +17199,7 @@ kôchíY
 kôchíH
 ;
 
-201 
+193 
 cﬁlidabÀ
 [3].
 y
@@ -17201,7 +17209,7 @@ kôchíY
 kôchíH
 /2);
 
-202 
+194 
 öãø˘abÀ
 [3].
 y
@@ -17209,11 +17217,11 @@ y
 cﬁlidabÀ
 [3].y-2;
 
-205 
+197 
 	}
 }
 
-207 
+199 
 	g°©i⁄
 ::
 	$ªndîI¡îa˘Kôchí
@@ -17227,11 +17235,11 @@ x
 y
 )
 
-210 
+202 
 y
 -=20;
 
-211 
+203 
 foodTimeTextuª
 .
 	`ªndî
@@ -17247,11 +17255,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-212 
+204 
 	}
 }
 
-214 
+206 
 	g°©i⁄
 ::
 	$ªndîI¡îa˘W©îT™k
@@ -17265,11 +17273,11 @@ x
 y
 )
 
-217 
+209 
 y
 -=20;
 
-218 
+210 
 w©îLevñTextuª
 .
 	`ªndî
@@ -17285,11 +17293,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-219 
+211 
 	}
 }
 
-221 
+213 
 	g°©i⁄
 ::
 	$ªndîI¡îa˘Bed
@@ -17303,11 +17311,11 @@ x
 y
 )
 
-224 
+216 
 y
 -=20;
 
-225 
+217 
 ¶ìpyTimeTextuª
 .
 	`ªndî
@@ -17323,11 +17331,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-226 
+218 
 	}
 }
 
-228 
+220 
 	g°©i⁄
 ::
 	$ªndîI¡îa˘Pœ¡î
@@ -17341,15 +17349,15 @@ x
 y
 )
 
-231 
+223 
 x
 +=50;
 
-233 
+225 
 y
 -=20;
 
-234 
+226 
 ∂™tTextuª
 .
 	`ªndî
@@ -17365,11 +17373,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-236 
+228 
 y
 +=20;
 
-237 
+229 
 w©îPœ¡sTextuª
 .
 	`ªndî
@@ -17385,11 +17393,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-239 
+231 
 y
 +=20;
 
-240 
+232 
 h¨ve°Textuª
 .
 	`ªndî
@@ -17405,11 +17413,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-241 
+233 
 	}
 }
 
-243 
+235 
 	g°©i⁄
 ::
 	$ªndîSèti⁄BehödPœyî
@@ -17421,13 +17429,13 @@ SDL_Rídîî
 ∂ayîBŸ
 )
 
-246 if(
+238 if(
 ∂ayîBŸ
 >
 bedBŸ
 )
 
-248 
+240 
 bedTextuª
 .
 	`ªndî
@@ -17435,6 +17443,50 @@ bedTextuª
 bedX
 ,
 bedY
+,
+NULL
+,0.0,NULL,
+SDL_FLIP_NONE
+,
+ªndîî
+);
+
+242 if(
+∂ayîBŸ
+>
+w©îT™kBŸ
+)
+
+244 
+w©îT™kTextuª
+.
+	`ªndî
+(
+w©îT™kX
+,
+w©îT™kY
+,
+NULL
+,0.0,NULL,
+SDL_FLIP_NONE
+,
+ªndîî
+);
+
+246 if(
+∂ayîBŸ
+>
+∂™ãrBŸ
+)
+
+248 
+∂™ãrTextuª
+.
+	`ªndî
+(
+∂™ãrX
+,
+∂™ãrY
 ,
 NULL
 ,0.0,NULL,
@@ -17446,54 +17498,10 @@ SDL_FLIP_NONE
 250 if(
 ∂ayîBŸ
 >
-w©îT™kBŸ
-)
-
-252 
-w©îT™kTextuª
-.
-	`ªndî
-(
-w©îT™kX
-,
-w©îT™kY
-,
-NULL
-,0.0,NULL,
-SDL_FLIP_NONE
-,
-ªndîî
-);
-
-254 if(
-∂ayîBŸ
->
-∂™ãrBŸ
-)
-
-256 
-∂™ãrTextuª
-.
-	`ªndî
-(
-∂™ãrX
-,
-∂™ãrY
-,
-NULL
-,0.0,NULL,
-SDL_FLIP_NONE
-,
-ªndîî
-);
-
-258 if(
-∂ayîBŸ
->
 kôchíBŸ
 )
 
-260 
+252 
 kôchíTextuª
 .
 	`ªndî
@@ -17509,11 +17517,11 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-262 
+254 
 	}
 }
 
-264 
+256 
 	g°©i⁄
 ::
 	$ªndîSèti⁄Fr⁄tPœyî
@@ -17525,13 +17533,13 @@ SDL_Rídîî
 ∂ayîBŸ
 )
 
-266 if(
+258 if(
 ∂ayîBŸ
 <=
 bedBŸ
 )
 
-268 
+260 
 bedTextuª
 .
 	`ªndî
@@ -17547,13 +17555,13 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-270 if(
+262 if(
 ∂ayîBŸ
 <=
 w©îT™kBŸ
 )
 
-272 
+264 
 w©îT™kTextuª
 .
 	`ªndî
@@ -17569,13 +17577,13 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-274 if(
+266 if(
 ∂ayîBŸ
 <=
 ∂™ãrBŸ
 )
 
-276 
+268 
 ∂™ãrTextuª
 .
 	`ªndî
@@ -17591,13 +17599,13 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-278 if(
+270 if(
 ∂ayîBŸ
 <=
 kôchíBŸ
 )
 
-280 
+272 
 kôchíTextuª
 .
 	`ªndî
@@ -17613,83 +17621,83 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-282 
+274 
 	}
 }
 
-284 
+276 
 	g°©i⁄
 ::
 	$‰ì
 ()
 
-286 
+278 
 °d
 ::
 cout
 <<"\nÑunning station::free()";
 
-287 
+279 
 bedTextuª
 .
 	`‰ì
 ();
 
-288 
+280 
 w©îT™kTextuª
 .
 	`‰ì
 ();
 
-289 
+281 
 w©îLevñTextuª
 .
 	`‰ì
 ();
 
-290 
+282 
 ¶ìpyTimeTextuª
 .
 	`‰ì
 ();
 
-291 
+283 
 ∂™ãrTextuª
 .
 	`‰ì
 ();
 
-292 
+284 
 kôchíTextuª
 .
 	`‰ì
 ();
 
-293 
+285 
 foodTimeTextuª
 .
 	`‰ì
 ();
 
-294 
+286 
 ∂™tTextuª
 .
 	`‰ì
 ();
 
-295 
+287 
 w©îPœ¡sTextuª
 .
 	`‰ì
 ();
 
-296 
+288 
 h¨ve°Textuª
 .
 	`‰ì
 ();
 
-297 
+289 
 	}
 }
 
@@ -19287,17 +19295,11 @@ cout
 °d
 ::
 cout
-<<"\nÖause";
-
-73 
-°d
-::
-cout
 <<"\¿∑u£dTick†bef‹ê›î©ög = "<<
 ∑u£dTicks
 ;
 
-74 
+73 
 °d
 ::
 cout
@@ -19305,7 +19307,7 @@ cout
 	`SDL_GëTicks
 ();
 
-75 
+74 
 °d
 ::
 cout
@@ -19313,15 +19315,15 @@ cout
 °¨tTicks
 ;
 
-77 
+76 
 ∑u£dTicks
  = 
 	`SDL_GëTicks
-(Ë- 
+(Ë+ 
 °¨tTicks
 ;
 
-78 
+77 
 °d
 ::
 cout
@@ -19329,51 +19331,51 @@ cout
 ∑u£dTicks
 ;
 
-79 
+78 
 °d
 ::
 cout
 <<"\nÉndÖause function";
 
-80 
+79 
 °¨tTicks
  = 0;
 
-83 
+82 
 	}
 }
 
-85 
+84 
 	gtimî
 ::
 	$u≈au£
 ()
 
-87 
+86 
 °d
 ::
 cout
 <<"\nÑunningÅimer::unpause()";
 
-89 if–!
+88 if–!
 °¨ãd
  && 
 ∑u£d
  )
 
-92 
+91 
 ∑u£d
  = 
 Ál£
 ;
 
-94 
+93 
 °d
 ::
 cout
 <<"\n unpause";
 
-95 
+94 
 °d
 ::
 cout
@@ -19381,7 +19383,7 @@ cout
 ∑u£dTicks
 ;
 
-96 
+95 
 °d
 ::
 cout
@@ -19389,7 +19391,7 @@ cout
 °¨tTicks
 ;
 
-97 
+96 
 °d
 ::
 cout
@@ -19397,13 +19399,13 @@ cout
 	`SDL_GëTicks
 ();
 
-102 
+101 
 °¨tTicks
  = 
 ∑u£dTicks
 ;
 
-104 
+103 
 °d
 ::
 cout
@@ -19411,27 +19413,27 @@ cout
 °¨tTicks
 ;
 
-105 
+104 
 °d
 ::
 cout
 <<"\nÉnd unpause function";
 
-107 
+106 
 ∑u£dTicks
  = 0;
 
-109 
+108 
 °¨ãd
  = 
 åue
 ;
 
-111 
+110 
 	}
 }
 
-113 
+112 
 Uöt32
  
 	gtimî
@@ -19439,27 +19441,27 @@ Uöt32
 	$gëTicks
 ()
 
-117 
+116 
 Uöt32
  
 time
  = 0;
 
-120 if–
+119 if–
 °¨ãd
  )
 
-123 if–
+122 if–
 ∑u£d
  )
 
-126 
+125 
 time
  = 
 ∑u£dTicks
 ;
 
-131 
+130 
 time
  = 
 	`SDL_GëTicks
@@ -19467,15 +19469,15 @@ time
 °¨tTicks
 ;
 
-135  
+134  
 time
 ;
 
-136 
+135 
 	}
 }
 
-138 
+137 
 	gtimî
 ::
 	$£tTicks
@@ -19485,37 +19487,37 @@ Uöt32
 x
 )
 
-140 
+139 
 °d
 ::
 cout
 <<"\nÑunningÅimer::setTicks(Uint32 x)";
 
-141 if(
+140 if(
 °¨ãd
 )
 
-143 
+142 
 °¨tTicks
  +
 x
 ;
 
-146 if(
+145 if(
 ∑u£d
 )
 
-148 
+147 
 ∑u£dTicks
  +
 x
 ;
 
-151 
+150 
 	}
 }
 
-153 
+152 
 boﬁ
  
 	gtimî
@@ -19523,21 +19525,21 @@ boﬁ
 	$isSèπed
 ()
 
-155 
+154 
 °d
 ::
 cout
 <<"\nÑunningÅimer::isStarted()";
 
-157  
+156  
 °¨ãd
 ;
 
-158 
+157 
 	}
 }
 
-160 
+159 
 boﬁ
  
 	gtimî
@@ -19545,109 +19547,113 @@ boﬁ
 	$isPau£d
 ()
 
-162 
+161 
 °d
 ::
 cout
 <<"\nÑunningÅimer::isPaused()";
 
-164  
+163  
 ∑u£d
  && 
 °¨ãd
 ;
 
-165 
+164 
 	}
 }
 
-167 
+166 
 	gtimî
 ::
 	$£tPau£d
 ()
 
-169 
+168 
 °d
 ::
 cout
 <<"\nÑunningÅimer::setPaused()";
 
-170 
+169 
 ∑u£d
  = 
 åue
 ;
 
-171 
+170 
 °¨ãd
  = 
 Ál£
 ;
 
-172 
+171 
 	}
 }
 
-174 
+173 
 	gtimî
 ::
 	$upd©ePœyedTime
 ()
 
-176 
+177 
 °d
 ::
 cout
 <<"\nÑunningÅimer::updatePlayedTime()";
 
-177 
+178 
+°d
+::
+cout
+<<"\¿timePœyed: "<<
+timePœyed
+<<" beforeÅimePlayed+=getTicks()";
+
+179 
 timePœyed
  +
 	`gëTicks
 ();
 
-178 
+180 
 °d
 ::
 cout
 <<"\¿timePœyed = "<<
 timePœyed
-;
+<<"áfterÅimePlayed+=getTicks()";
 
-179 
-	`∑u£
-();
-
-180 
+182 
 	}
 }
 
-182 
+184 
 	gtimî
 ::
 	$ª°¨tPœyedTime
 ()
 
-184 
+186 
 °d
 ::
 cout
 <<"\nÑunningÅimer::restartPlayedTime()";
 
-185 
+187 
 timePœyed
 =0;
 
-186 
+188 
 	`°¨t
 ();
 
-187 
+189 
 	}
 }
 
-189 
+191 
 	gtimî
 ::
 	$lﬂdSavedPœyedTimeD©a
@@ -19657,13 +19663,13 @@ Uöt32
 ßved
 )
 
-191 
+193 
 °d
 ::
 cout
 <<"\nÑunningÅimer::loadSavedPlayedTimeData(Uint32 saved)";
 
-192 
+194 
 °d
 ::
 cout
@@ -19671,13 +19677,13 @@ cout
 timePœyed
 ;
 
-193 
+195 
 timePœyed
 =
 ßved
 ;
 
-194 
+196 
 °d
 ::
 cout
@@ -19685,11 +19691,11 @@ cout
 timePœyed
 ;
 
-195 
+197 
 	`°¨t
 ();
 
-196 
+198 
 	}
 }
 

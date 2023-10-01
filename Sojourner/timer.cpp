@@ -69,12 +69,11 @@ void timer::pause()
     {
         //Pause the timer
         paused = true;
-        std::cout<<"\n pause";
         std::cout<<"\n pausedTicks before operating = "<<pausedTicks;
         std::cout<<"\n SDL_GetTicks() before operating = "<<SDL_GetTicks();
         std::cout<<"\n startTicks before operating = "<<startTicks;
         //Calculate the paused ticks
-        pausedTicks = SDL_GetTicks() - startTicks;
+        pausedTicks = SDL_GetTicks() + startTicks;
         std::cout<<"\n pausedTicks after operating = "<<pausedTicks;
         std::cout<<"\n end pause function";
 		startTicks = 0;
@@ -173,10 +172,13 @@ void timer::setPaused()
 
 void timer::updatePlayedTime()
 {
+    //this function should take the saved time played before playing and add the ticks from
+    //the amount of time played after playing (gamestate 5 ticks)
     std::cout<<"\n running timer::updatePlayedTime()";
+    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks()";
     timePlayed += getTicks();
-    std::cout<<"\n timePlayed = "<<timePlayed;
-    pause();
+    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks()";
+    //pause();
 }
 
 void timer::restartPlayedTime()

@@ -83,8 +83,6 @@ void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     foodTime = "Not Hungry";
-    //test if water tank interaction function is running
-    std::cout<<"\n loadInteractKitchen function executed";
     SDL_Color textColor = {0,0,0};//black
     if(!foodTimeTexture.loadFromRenderedText(foodTime.c_str(), textColor,font,renderer))
     {
@@ -100,8 +98,6 @@ void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
     waterPlants = "Water Plants";
     harvest = "Harvest";
     //cancel = "cancel";
-    //test if water tank interaction function is running
-    std::cout<<"\n loadInteractPlanter function executed";
     SDL_Color textColor = {255,255,255};//white
     SDL_Color unavailable = {0,0,0};//black
 
@@ -155,8 +151,6 @@ void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     waterLevel = "100L";
-    //test if water tank interaction function is running
-    std::cout<<"\n interactWaterTank function executed";
     SDL_Color textColor = {0,0,0};//black
     if(!waterLevelTexture.loadFromRenderedText(waterLevel.c_str(), textColor,font,renderer))
     {
@@ -169,8 +163,6 @@ void station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     sleepyTime = "Not Tired";
-    //test if water tank interaction function is running
-    std::cout<<"\n loadInteractBed function executed";
     SDL_Color textColor = {0,0,0};//black
     if(!sleepyTimeTexture.loadFromRenderedText(sleepyTime.c_str(), textColor,font,renderer))
     {

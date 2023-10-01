@@ -233,6 +233,7 @@ void close()
     //save progress
     //this needs to be written when player exits stage1, probably needs to be multithread
     std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+    std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
     if(playedTime.getTicks() > 0)
     {
         savegame.writeSaveFile(chosenSave,pregameui,stage,playedTime.timePlayed);
@@ -242,7 +243,7 @@ void close()
     //free pregame ui resouces
     pregameui.free();
     //free stage resources
-    stage.free();
+    //stage.free();
     //free animation textures
     animations.freeAnimationTextures();
     //free the background used to fade in / out from black
@@ -326,7 +327,16 @@ int main( int argc, char* args[] )
                             {//player clicked save and exit button
                                 //player is going back to the main scene
                                 //playedTime needs to be updated because player was in game
+                                std::cout<<"\n before playedTime.updatePlayedTime() runs...";
+                                std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+                                std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
                                 playedTime.updatePlayedTime();
+                                std::cout<<"\n after playedTime.updatePlayedTime() runs...";
+                                std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+                                std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
+
+                                playedTime.pause();
+
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
                                 savegame.updateSaveData(stage,playedTime.timePlayed);
@@ -338,12 +348,7 @@ int main( int argc, char* args[] )
                                 //free stage resources!
                                 stage.free();
                                 pregameui.loadMainButtons(renderer);
-                                //
 
-                                //
-
-                                //
-                                //
                             }
                         }
                         //Handle button events when in main screen
@@ -360,10 +365,11 @@ int main( int argc, char* args[] )
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 chosenSave = pregameui.chosenSave;
-                                pregameui.freeNewgameButtons();
+                                //pregameui.freeNewgameButtons();
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
                                 playedTime.start();
+                                stage.loadStage(renderer,true);
 
                             }
                         }
@@ -435,6 +441,10 @@ int main( int argc, char* args[] )
                         if(gameState==4)
                         {
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            if(!animations.animationTimer2.isStarted())
+                            {
+                                animations.animationTimer2.start();
+                            }
 
                         }
                     }

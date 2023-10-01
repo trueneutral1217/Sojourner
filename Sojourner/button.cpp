@@ -234,26 +234,26 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                         */
                             else if(buttonName=="back")
                             {
-                                printf("\n \n back button pressed from newgame \n \n");
+                                printf("\n \n back button pressed \n \n");
                                 gameState = 0;
                             }
                             else if(buttonName=="save1")
                             {
-                                printf("\n \n save 1 button pressed from newgame \n \n");
+                                printf("\n \n save 1 button pressed from \n \n");
                                 chosenSave=0;
                                 std::cout<<"\n chosen save: "<<chosenSave;
                                 gameState = 5;
                             }
                             else if(buttonName=="save2")
                             {
-                                printf("\n \n save 2 button pressed from newgame \n \n");
+                                printf("\n \n save 2 button pressed \n \n");
                                 chosenSave=1;
                                 std::cout<<"\n chosen save: "<<chosenSave;
                                 gameState = 5;
                             }
                             else if(buttonName=="save3")
                             {
-                                printf("\n \n save 3 button pressed from newgame \n \n");
+                                printf("\n \n save 3 button pressed \n \n");
                                 chosenSave=2;
                                 std::cout<<"\n chosen save: "<<chosenSave;
                                 gameState = 5;

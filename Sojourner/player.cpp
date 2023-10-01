@@ -355,6 +355,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
 
 void player::loadPlayer(SDL_Renderer* renderer)
 {
+    std::cout<<"\n running player::loadPlayer(SDL_Renderer* renderer)";
     //set up player collision box dimensions (lower quarter of player texture is the size of the collision box.
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
@@ -525,6 +526,7 @@ void player::render(SDL_Renderer* renderer)
 
 void player::freePlayer()
 {
+    std::cout<<"\n running player::freePlayer()";
     for(int i = 0; i<MOVE_STATES;i++)
     {
         if(i==IDLE)
@@ -575,6 +577,7 @@ void player::freePlayer()
 
 void player::setCamera(SDL_Rect& camera)
 {
+    std::cout<<"\n running player::setCamera(SDL_Rect& camera)";
     camera.x = (playerCollisionBox.x + PLAYER_WIDTH/2) - SCREEN_WIDTH/2;
     camera.y = (playerCollisionBox.y + PLAYER_HEIGHT/2) - SCREEN_HEIGHT/2;
     //make sure player doesn't leave top or left side of screen
@@ -629,6 +632,7 @@ void player::setY(int y)
 
 bool player::collisionDetector(SDL_Rect collidable)
 {
+    //std::cout<<"\n running player::collisionDetector(SDL_Rect collidable)";
     int playerLeft, collidableLeft;
     int playerRight, collidableRight;
     int playerTop, collidableTop;
