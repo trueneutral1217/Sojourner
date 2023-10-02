@@ -208,7 +208,7 @@ void audio::resetMusic()
 
 bool audio::isPlaying()
 {
-    std::cout<<"\n running audio::isPlaying()";
+   // std::cout<<"\n running audio::isPlaying()";
     return Mix_PlayingMusic();
 }
 /*

@@ -370,22 +370,31 @@ void pregameui::createParticles(SDL_Renderer* renderer)
     }
 }
 
-bool pregameui::setPGUITextures(SDL_Renderer* renderer)
+
+bool pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)
 {
-    std::cout<<"\n running pregameui::setPGUITextures(SDL_Renderer* renderer)";
+    std::cout<<"\n running pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)";
     bool success = true;
     //game title image
-	success = title.loadFromFile( "images/title.png",renderer );
+	success = title.loadFromFile( "images/title.png",renderer ); //used in main screen
 	//load background image files for non-chapter1 backgrounds
-	success = titleTexture.loadFromFile( "images/EarthMoon2.png",renderer );
-	success = loadGameTexture.loadFromFile( "images/AsteroidMoon.png",renderer );
-	success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer );
-	success = creditsTexture.loadFromFile( "images/cockpit.png",renderer );
-	success = optionsTexture.loadFromFile("images/docking.png",renderer );
-	success = PGUIBlackGround.loadFromFile("images/blackground.png",renderer);
+	success = titleTexture.loadFromFile( "images/EarthMoon2.png",renderer );  //used in background of main screen
+	success = PGUIBlackGround.loadFromFile("images/blackground.png",renderer); //used in main screen behind particles
+	//success = loadGameTexture.loadFromFile( "images/AsteroidMoon.png",renderer ); //currently unused
 	//success = thanksTexture.loadFromFile("images/thanks.png",renderer);
-
 	if(!success)
+    {
+        printf("\n \n there was a problem loading pregame UI textures. \n \n");
+    }
+	return success;
+}
+
+bool pregameui::loadLoadGameTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running pregameui::loadLoadGameTextures(SDL_Renderer* renderer)";
+    bool success = true;
+    success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer ); //used in new/loadgame screens
+    if(!success)
     {
         printf("\n \n there was a problem loading pregame UI textures. \n \n");
     }
@@ -393,20 +402,40 @@ bool pregameui::setPGUITextures(SDL_Renderer* renderer)
 	return success;
 }
 
-void pregameui::freePGUITextures()
+bool pregameui::loadNewGameTextures(SDL_Renderer* renderer)
 {
-    std::cout<<"\n running pregameui::freePGUITextures()";
-    //frees background images
-     //free the title image
-    title.free();
-    //free the background textures
-	titleTexture.free();
-	chapterSelectTexture.free();
-	loadGameTexture.free();
-	optionsTexture.free();
-	creditsTexture.free();
-	PGUIBlackGround.free();
-    //thanksTexture.free();
+    std::cout<<"\n running pregameui::loadNewGameTextures(SDL_Renderer* renderer)";
+    bool success = true;
+    success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer ); //used in new/loadgame screens
+    if(!success)
+    {
+        printf("\n \n there was a problem loading pregame UI textures. \n \n");
+    }
+	return success;
+}
+
+bool pregameui::loadCreditsTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running pregameui::loadCreditsTextures(SDL_Renderer* renderer)";
+    bool success = true;
+    success = creditsTexture.loadFromFile( "images/cockpit.png",renderer ); //used in credits screen
+    if(!success)
+    {
+        printf("\n \n there was a problem loading pregame UI textures. \n \n");
+    }
+	return success;
+}
+
+bool pregameui::loadOptionsTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running pregameui::loadOptionsTextures(SDL_Renderer* renderer)";
+    bool success = true;
+    success = optionsTexture.loadFromFile("images/docking.png",renderer );  //used in options screen
+    if(!success)
+    {
+        printf("\n \n there was a problem loading pregame UI textures. \n \n");
+    }
+	return success;
 }
 
 bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
@@ -418,7 +447,8 @@ bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
     //set button positions & image textures
     //success = setPreGameButtonTextures(renderer, success);
     //load titlescreen textures, credit screen textures, etc.
-    success = setPGUITextures(renderer);
+    success = loadTitleScreenTextures(renderer);
+    //success = setPGUITextures(renderer);
     return success;
 }
 
@@ -433,7 +463,48 @@ void pregameui::free()
     freeOptionsButtons();
     freeCreditsButtons();
     //free pregame ui textures
-    freePGUITextures();
+
+    //freePGUITextures(); //deprecated
+
+    freeTitleScreenTextures();
+    freeNewGameTextures();
+    freeLoadGameTextures();
+    freeOptionsTextures();
+    freeCreditsTextures();
+}
+
+void pregameui::freeTitleScreenTextures()
+{
+    std::cout<<"\n running pregameui::freeTitleScreenTextures()";
+    //title image "Sojourner"
+    title.free();
+    //free the background textures
+	titleTexture.free();
+	PGUIBlackGround.free();
+}
+
+void pregameui::freeNewGameTextures()
+{
+     std::cout<<"\n running pregameui::freeNewGameTextures()";
+    chapterSelectTexture.free();
+}
+
+void pregameui::freeLoadGameTextures()
+{
+    std::cout<<"\n running pregameui::freeLoadGameTextures()";
+    chapterSelectTexture.free();
+}
+
+void pregameui::freeOptionsTextures()
+{
+    std::cout<<"\n running pregameui::freeOptionsTextures()";
+	optionsTexture.free();
+}
+
+void pregameui::freeCreditsTextures()
+{
+    std::cout<<"\n running pregameui::freeCreditsTextures()";
+    creditsTexture.free();
 }
 
 int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer )
@@ -521,32 +592,43 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
 
 void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)
 {
+    //when player changes state, this frees the old and loads the new
     std::cout<<"\n running pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* renderer)";
     std::cout<<"\n  oldGameState: "<<oldGameState<<" newGameState: "<<newGameState;
     switch( oldGameState )
     {
-        case 0: freeMainButtons();
+        case 0:  freeTitleScreenTextures();
+            freeMainButtons();
             break;
-        case 1: freeNewgameButtons();
+        case 1: freeNewGameTextures();
+            freeNewgameButtons();
             break;
-        case 2: freeLoadgameButtons();
+        case 2: freeLoadGameTextures();
+            freeLoadgameButtons();
             break;
-        case 3: freeOptionsButtons();
+        case 3: freeOptionsTextures();
+            freeOptionsButtons();
             break;
-        case 4: freeCreditsButtons();
+        case 4: freeCreditsTextures();
+            freeCreditsButtons();
             break;
     }
     switch( newGameState )
     {
-        case 0: loadMainButtons(renderer);
+        case 0: loadTitleScreenTextures(renderer);
+            loadMainButtons(renderer);
             break;
-        case 1: loadNewgameButtons(renderer);
+        case 1: loadNewGameTextures(renderer);
+            loadNewgameButtons(renderer);
             break;
-        case 2: loadLoadgameButtons(renderer);
+        case 2: loadLoadGameTextures(renderer);
+            loadLoadgameButtons(renderer);
             break;
-        case 3: loadOptionsButtons(renderer);
+        case 3: loadOptionsTextures(renderer);
+            loadOptionsButtons(renderer);
             break;
-        case 4: loadCreditsButtons(renderer);
+        case 4: loadCreditsTextures(renderer);
+            loadCreditsButtons(renderer);
             break;
     }
 }

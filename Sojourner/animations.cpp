@@ -50,6 +50,21 @@ animations::~animations()
 
 }
 
+bool animations::loadCreditsAnimationTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running animations::loadCreditsAnimationTextures(SDL_Renderer* renderer)";
+    bool success = true;
+    for(int i = 0; i<TOASTER_ANIMATION_FRAMES;i++)
+    {
+        int a = i;
+        std::stringstream ss;
+        ss << "images/animations/toaster/toaster" << a << ".png";
+        std::string str = ss.str();
+        success = toaster[i].loadFromFile(str,renderer);
+    }
+    return success;
+}
+/*
 bool animations::setAnimationTextures(SDL_Renderer* renderer)
 {
     std::cout<<"\n running animations::setAnimationTextures(SDL_Renderer* renderer)";
@@ -113,7 +128,17 @@ bool animations::setAnimationTextures(SDL_Renderer* renderer)
     }
     return success;
 }
+*/
 
+void animations::freeCreditsAnimationTextures()
+{
+    std::cout<<"\n running animations::freeCreditsAnimationTextures()";
+    for(int i=0;i<TOASTER_ANIMATION_FRAMES;i++)
+    {
+        toaster[i].free();
+    }
+}
+/*
 void animations::freeAnimationTextures()
 {
     std::cout<<"\n running animations::freeAnimationTextures()";
@@ -147,7 +172,9 @@ void animations::freeAnimationTextures()
         trailer[i].free();
     }
 }
+*/
 
+/*
 void animations::renderTao(SDL_Renderer* renderer)
 {
     switch(aniFrame){
@@ -169,6 +196,7 @@ void animations::renderTao(SDL_Renderer* renderer)
     break;
     }
 }
+*/
 
 void animations::renderToaster(SDL_Renderer* renderer)
 {
@@ -193,6 +221,7 @@ void animations::renderToaster(SDL_Renderer* renderer)
     }
 }
 
+/*
 void animations::renderToaster2(SDL_Renderer* renderer)
 {
     if(!animationTimer3.isStarted())
@@ -209,8 +238,9 @@ void animations::renderToaster2(SDL_Renderer* renderer)
         break;
 
     }
-}
+}*/
 
+/*
 void animations::renderBlackstar(SDL_Renderer* renderer)
 {
     switch(aniFrame4){
@@ -293,8 +323,9 @@ void animations::renderBlackstar(SDL_Renderer* renderer)
         case 8:blackstar[8].render(bsX4,bsY4,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     break;
     }
-}
+}*/
 
+/*
 void animations::renderPortal(SDL_Renderer* renderer)
 {
     if(!animationTimer8.isStarted())
@@ -345,8 +376,9 @@ void animations::renderPortal(SDL_Renderer* renderer)
         case 20:portal[19].render(350,portalY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     break;
     }
-}
+}*/
 
+/*
 void animations::renderRat(SDL_Renderer* renderer)
 {
     switch(aniFrame9){
@@ -373,8 +405,9 @@ void animations::renderRat(SDL_Renderer* renderer)
         case 10:rat[10].render(750,555,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     break;
     }
-}
+}*/
 
+/*
 void animations::renderTrailer(SDL_Renderer* renderer)
 {
     switch(aniFrame10){
@@ -411,7 +444,7 @@ void animations::renderTrailer(SDL_Renderer* renderer)
         case 15:trailer[15].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     break;
     }
-}
+}*/
 
 void animations::cycleAnimations()
 {
@@ -477,13 +510,16 @@ void animations::oscillateCount()
     if(aniCountUp)
     {
         aniFrame2++;
+        SDL_Delay(50);//slow that shit down
     }
     else
     {
         aniFrame2--;
+        SDL_Delay(50);
     }
 }
 
+/*
 void animations::taoAnimationProgress()
 {
     if(animationTimer.getTicks() / 500 > 1)
@@ -491,7 +527,7 @@ void animations::taoAnimationProgress()
         ++aniFrame;
         animationTimer.restart();
     }
-}
+}*/
 
 void animations::toasterAnimationProgress()
 {
@@ -502,6 +538,7 @@ void animations::toasterAnimationProgress()
     }
 }
 
+/*
 void animations::toaster2AnimationProgress()
 {
     if(animationTimer3.getTicks() / 60 > 1)
@@ -520,8 +557,9 @@ void animations::toaster2AnimationProgress()
         }
         animationTimer3.restart();
     }
-}
+}*/
 
+/*
 void animations::blackstarAnimationProgress()
 {
 
@@ -545,8 +583,9 @@ void animations::blackstarAnimationProgress()
         aniFrame7++;
         animationTimer7.restart();
     }
-}
+}*/
 
+/*
 void animations::portalAnimationProgress()
 {
 
@@ -558,8 +597,9 @@ void animations::portalAnimationProgress()
             portalY-=10;
         animationTimer8.restart();
     }
-}
+}*/
 
+/*
 void animations::ratAnimationProgress()
 {
     if(animationTimer9.getTicks() / 100 > 1)
@@ -567,8 +607,9 @@ void animations::ratAnimationProgress()
         ++aniFrame9;
         animationTimer9.restart();
     }
-}
+}*/
 
+/*
 void animations::trailerAnimationProgress()
 {
     if(animationTimer10.getTicks() / 16 > 1)
@@ -576,38 +617,40 @@ void animations::trailerAnimationProgress()
         ++aniFrame10;
         animationTimer10.restart();
     }
-}
+}*/
 
+/*
 void animations::resetPortal()
 {
     animationTimer8.stop();
     aniFrame8 = 0;
     portalY = 30;
-}
+}*/
 
+/*
 void animations::resetToaster2()
 {
     animationTimer3.stop();
     aniFrame3 = 0;
     toaster2X = -50;
-}
+}*/
 
 void animations::progress()
-{
+{ //this function should probably be renamed to progressToaster in refactor
     //the tao animation timer
-    taoAnimationProgress();
+    //taoAnimationProgress();
     //the timer for toaster the robot's animation
     toasterAnimationProgress();
 
-    toaster2AnimationProgress();
+    //toaster2AnimationProgress();
 
-    blackstarAnimationProgress();
+    //blackstarAnimationProgress();
 
-    portalAnimationProgress();
+    //portalAnimationProgress();
 
-    ratAnimationProgress();
+    //ratAnimationProgress();
 
-    trailerAnimationProgress();
+    //trailerAnimationProgress();
     //Cycle animation
     cycleAnimations();
 }

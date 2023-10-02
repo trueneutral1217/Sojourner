@@ -189,7 +189,8 @@ bool loadMedia()
         std::cout<<"\n amount of time played: "<<savegame.data[2];
     }
 	//load animations textures
-    success = animations.setAnimationTextures(renderer);
+    //success = animations.setAnimationTextures(renderer); //loading by scene now.
+
     //sets up pregame ui button names, button textures, and bg textures.
     success = pregameui.loadPregameUI(renderer,success);
     //loads stage textures, button names, and button textures
@@ -236,7 +237,7 @@ void close()
     std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
     if(playedTime.getTicks() > 0)
     {
-        savegame.writeSaveFile(chosenSave,pregameui,stage,playedTime.timePlayed);
+        //savegame.writeSaveFile(chosenSave,stage,playedTime.timePlayed);
     }
     //save preferences
     preferences.writePrefsFile(pregameui);
@@ -245,7 +246,7 @@ void close()
     //free stage resources
     //stage.free();
     //free animation textures
-    animations.freeAnimationTextures();
+//    animations.freeAnimationTextures();
     //free the background used to fade in / out from black
 	blackGround.free();
 	//free text resources
@@ -339,7 +340,7 @@ int main( int argc, char* args[] )
 
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
-                                savegame.updateSaveData(stage,playedTime.timePlayed);
+                                savegame.updateSaveData(chosenSave,stage,playedTime.timePlayed);
                                 savegame.updateSavedMetaData(chosenSave,renderer,text.font);
                                 //load main scene buttons
                                 //pregameui.loadMainButtons(renderer);
@@ -357,6 +358,12 @@ int main( int argc, char* args[] )
                             //handles button presses / mouseover from pregame scenes.
 
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+
+                            if(gameState==4)
+                            {
+                                animations.loadCreditsAnimationTextures(renderer);
+                            }
+
                         }
                         if(gameState==1)
                         {//newgame screen - handles button clicks and gamestate change
@@ -411,39 +418,43 @@ int main( int argc, char* args[] )
                         if(gameState==3)
                         {//options screen button handling /gamestate change handing
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            if(pregameui.optionsButtons[2].musicToggle)
+                            {
+                                music.musicToggle = true;
+                                if(!music.isPlaying())
+                                {
+                                    music.playMusic();
+                                }
+                            }
+                            else
+                            {
+                                music.musicToggle = false;
+                                if(music.isPlaying())
+                                {
+                                    music.stopMusic();
+                                }
+                            }
 
-                                if(pregameui.optionsButtons[2].musicToggle)
-                                {
-                                    music.musicToggle = true;
-                                    if(!music.isPlaying())
-                                    {
-                                        music.playMusic();
-                                    }
-                                }
-                                else
-                                {
-                                    music.musicToggle = false;
-                                    if(music.isPlaying())
-                                    {
-                                        music.stopMusic();
-                                    }
-                                }
-                                if(pregameui.optionsButtons[3].voiceToggle)
-                                {
-                                    //chapter.voice.voiceOn = true;
-                                }
-                                else
-                                {
-                                    //chapter.voice.voiceOn = false;
-                                }
-
+                            if(pregameui.optionsButtons[3].voiceToggle)
+                            {
+                                //chapter.voice.voiceOn = true;
+                            }
+                            else
+                            {
+                                //chapter.voice.voiceOn = false;
+                            }
                         }
                         if(gameState==4)
-                        {
+                        { // credits screen
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+
                             if(!animations.animationTimer2.isStarted())
                             {
                                 animations.animationTimer2.start();
+                            }
+                            if(gameState == 0)
+                            {
+                                animations.freeCreditsAnimationTextures();
                             }
 
                         }

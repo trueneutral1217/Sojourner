@@ -77,35 +77,39 @@ class animations
         Texture rat[RAT_ANIMATION_FRAMES];
         Texture trailer[TRAILER_ANIMATION_FRAMES];
 
-        bool setAnimationTextures(SDL_Renderer* renderer);
-        void freeAnimationTextures();
+        //bool setAnimationTextures(SDL_Renderer* renderer);
+        bool loadCreditsAnimationTextures(SDL_Renderer* renderer);
 
-        void renderTao(SDL_Renderer* renderer);
+        void freeCreditsAnimationTextures();
+
+        //void freeAnimationTextures();
+
+        //void renderTao(SDL_Renderer* renderer);
         void renderToaster(SDL_Renderer* renderer);
-        void renderToaster2(SDL_Renderer* renderer);
-        void renderBlackstar(SDL_Renderer* renderer);
-        void renderPortal(SDL_Renderer* renderer);
-        void renderRat(SDL_Renderer* renderer);
-        void renderTrailer(SDL_Renderer* renderer);
+        //void renderToaster2(SDL_Renderer* renderer);
+        //void renderBlackstar(SDL_Renderer* renderer);
+        //void renderPortal(SDL_Renderer* renderer);
+        //void renderRat(SDL_Renderer* renderer);
+        //void renderTrailer(SDL_Renderer* renderer);
 
         void cycleAnimations();
         void oscillateCount();
 
 
-        void taoAnimationProgress();
+        //void taoAnimationProgress();
         void toasterAnimationProgress();
-        void toaster2AnimationProgress();
-        void blackstarAnimationProgress();
-        void portalAnimationProgress();
-        void ratAnimationProgress();
-        void trailerAnimationProgress();
+        //void toaster2AnimationProgress();
+        //void blackstarAnimationProgress();
+        //void portalAnimationProgress();
+        //void ratAnimationProgress();
+        //void trailerAnimationProgress();
 
         //consolidates executing progress & cycle animations functions
         void progress();
 
         //reset animations when player leaves the page that animation is on.
-        void resetPortal();
-        void resetToaster2();
+        //void resetPortal();
+        //void resetToaster2();
 
     private:
 

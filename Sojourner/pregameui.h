@@ -73,8 +73,21 @@ public:
     void loadState(int oldGameState, int newGameState, SDL_Renderer* renderer);
 
 
-    bool setPGUITextures(SDL_Renderer* renderer);
-    void freePGUITextures();
+    //bool setPGUITextures(SDL_Renderer* renderer); //deprecated
+
+    bool loadTitleScreenTextures(SDL_Renderer* renderer);
+    bool loadLoadGameTextures(SDL_Renderer* renderer);
+    bool loadNewGameTextures(SDL_Renderer* renderer);
+    bool loadOptionsTextures(SDL_Renderer* renderer);
+    bool loadCreditsTextures(SDL_Renderer* renderer);
+
+    //void freePGUITextures(); //deprecated
+
+    void freeTitleScreenTextures();
+    void freeNewGameTextures();
+    void freeLoadGameTextures();
+    void freeOptionsTextures();
+    void freeCreditsTextures();
 
     //sets up the textures by button name and sets positions of the pregame buttons.
     bool setPreGameButtonTextures(SDL_Renderer* renderer, bool success);

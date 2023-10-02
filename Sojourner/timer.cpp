@@ -151,7 +151,7 @@ void timer::setTicks(Uint32 x)
 
 bool timer::isStarted()
 {
-    std::cout<<"\n running timer::isStarted()";
+    //std::cout<<"\n running timer::isStarted()";
 	//Timer is running and paused or unpaused
     return started;
 }
@@ -175,6 +175,7 @@ void timer::updatePlayedTime()
     //this function should take the saved time played before playing and add the ticks from
     //the amount of time played after playing (gamestate 5 ticks)
     std::cout<<"\n running timer::updatePlayedTime()";
+    std::cout<<"\n getTicks(): "<<getTicks();
     std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks()";
     timePlayed += getTicks();
     std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks()";

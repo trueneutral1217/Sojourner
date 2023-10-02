@@ -1,4 +1,4 @@
-cscope 15 /c/Sojourner/Sojourner               0000127434
+cscope 15 /c/Sojourner/Sojourner               0000127692
 	@C:\Sojourner\Sojourner\Main.cpp
 
 2 
@@ -807,22 +807,6 @@ timePœyed
 	`gëTicks
 () > 0)
 
-239 
-ßvegame
-.
-	`wrôeSaveFûe
-(
-cho£nSave
-,
-¥egameui
-,
-°age
-,
-∂ayedTime
-.
-timePœyed
-);
-
 242 
 ¥e„ªn˚s
 .
@@ -1118,6 +1102,8 @@ timePœyed
 .
 	`upd©eSaveD©a
 (
+cho£nSave
+,
 °age
 ,
 ∂ayedTime
@@ -12452,22 +12438,30 @@ gameSèã
 !=-1)
 
 480 
+cho£nSave
+ = 
+lﬂdgameBuâ⁄s
+[
+i
+].chosenSave;
+
+481 
 i
 +=
 TOTAL_LOADGAME_BUTTONS
 ;
 
-484 if(
+485 if(
 gameSèã
 ==3)
 
-486  
+487  
 i
  = 0; i < 
 TOTAL_OPTIONS_BUTTONS
 ; ++i )
 
-488 
+489 
 gameSèã
  = 
 ›ti⁄sBuâ⁄s
@@ -12483,27 +12477,27 @@ wödow
 ªndîî
  );
 
-490 if(
+491 if(
 gameSèã
 !=-1)
 
-492 
+493 
 i
 +=
 TOTAL_OPTIONS_BUTTONS
 ;
 
-496 if(
+497 if(
 gameSèã
 ==4)
 
-498  
+499  
 i
  = 0; i < 
 TOTAL_CREDITS_BUTTONS
 ; ++i )
 
-500 
+501 
 gameSèã
  = 
 ¸edôsBuâ⁄s
@@ -12519,39 +12513,39 @@ wödow
 ªndîî
  );
 
-502 if(
+503 if(
 gameSèã
 !=-1)
 
-504 
+505 
 i
 +=
 TOTAL_CREDITS_BUTTONS
 ;
 
-508 if(
+509 if(
 gameSèã
 <0)
 
-510 
+511 
 gameSèã
 =
 ﬁdGameSèã
 ;
 
-512 
+513 
 √wGameSèã
  = 
 gameSèã
 ;
 
-514 if(
+515 if(
 ﬁdGameSèã
  !
 √wGameSèã
 )
 
-516 
+517 
 	`lﬂdSèã
 (
 ﬁdGameSèã
@@ -12561,15 +12555,15 @@ gameSèã
 ªndîî
 );
 
-518  
+519  
 √wGameSèã
 ;
 
-519 
+520 
 	}
 }
 
-521 
+522 
 	g¥egameui
 ::
 	$lﬂdSèã
@@ -12583,13 +12577,13 @@ SDL_Rídîî
 ªndîî
 )
 
-523 
+524 
 °d
 ::
 cout
 <<"\nÑunningÖregameui::loadState(int oldGameState, intÇewGameState, SDL_Renderer*Ñenderer)";
 
-524 
+525 
 °d
 ::
 cout
@@ -12599,65 +12593,65 @@ cout
 √wGameSèã
 ;
 
-525  
+526  
 ﬁdGameSèã
  )
 
-527 0: 
+528 0: 
 	`‰ìMaöBuâ⁄s
 ();
 
-529 1: 
+530 1: 
 	`‰ìNewgameBuâ⁄s
 ();
 
-531 2: 
+532 2: 
 	`‰ìLﬂdgameBuâ⁄s
 ();
 
-533 3: 
+534 3: 
 	`‰ìO±i⁄sBuâ⁄s
 ();
 
-535 4: 
+536 4: 
 	`‰ìCªdôsBuâ⁄s
 ();
 
-538  
+539  
 √wGameSèã
  )
 
-540 0: 
+541 0: 
 	`lﬂdMaöBuâ⁄s
 (
 ªndîî
 );
 
-542 1: 
+543 1: 
 	`lﬂdNewgameBuâ⁄s
 (
 ªndîî
 );
 
-544 2: 
+545 2: 
 	`lﬂdLﬂdgameBuâ⁄s
 (
 ªndîî
 );
 
-546 3: 
+547 3: 
 	`lﬂdO±i⁄sBuâ⁄s
 (
 ªndîî
 );
 
-548 4: 
+549 4: 
 	`lﬂdCªdôsBuâ⁄s
 (
 ªndîî
 );
 
-551 
+552 
 	}
 }
 
@@ -13536,8 +13530,6 @@ fûeNum
 (
 fûeNum
 ,
-¥egameui
-Öªgameui,
 °age
  sège,
 Uöt32
@@ -13549,7 +13541,7 @@ Uöt32
 °d
 ::
 cout
-<<"\nÑunning saveGame::writeSaveFile(int fileNum,pregameuiÖregameui,stage stage,Uint32ÖlayedTime)";
+<<"\nÑunning saveGame::writeSaveFile(int fileNum,stage stage,Uint32ÖlayedTime)";
 
 143 
 SDL_RW›s
@@ -13707,7 +13699,9 @@ fûeNum
 	gßveGame
 ::
 	$upd©eSaveD©a
-(
+(
+fûeNum
+,
 °age
  sège,
 Uöt32
@@ -13859,11 +13853,59 @@ cout
 habI¡î«lY2
 ;
 
-194 
+195 
+SDL_RW›s
+* 
+ßveFûe
+ = 
+	`SDL_RWFromFûe
+(
+ßveLoˇti⁄
+[
+fûeNum
+], "w+b");
+
+196  
+i
+ = 0; i < 
+TOTAL_DATA
+; ++i )
+
+198 
+	`SDL_RWwrôe
+–
+ßveFûe
+, &
+d©a
+[ 
+i
+ ], (
+Söt32
+), 1 );
+
+199 
+°d
+::
+cout
+<<"\¿wrôög "<<
+d©a
+[
+i
+]<<"ÅÿfûeNum "<<
+fûeNum
+;
+
+202 
+	`SDL_RW˛o£
+–
+ßveFûe
+ );
+
+204 
 	}
 }
 
-197 
+207 
 	gßveGame
 ::
 	$wrôePªfsFûe
@@ -13871,13 +13913,13 @@ habI¡î«lY2
 ¥egameui
 Öregameui)
 
-199 
+209 
 °d
 ::
 cout
 <<"\nÑunning saveGame::writePrefsFile(pregameuiÖregameui)";
 
-202 
+212 
 ¥efsD©a
 [0] = 
 ¥egameui
@@ -13887,7 +13929,7 @@ cout
 fuŒS¸ìnToggÀ
 ;
 
-203 
+213 
 ¥efsD©a
 [1] = 
 ¥egameui
@@ -13897,7 +13939,7 @@ fuŒS¸ìnToggÀ
 musicToggÀ
 ;
 
-204 
+214 
 ¥efsD©a
 [2] = 
 ¥egameui
@@ -13907,7 +13949,7 @@ musicToggÀ
 voi˚ToggÀ
 ;
 
-208 
+218 
 SDL_RW›s
 * 
 ¥efsFûe
@@ -13915,19 +13957,19 @@ SDL_RW›s
 	`SDL_RWFromFûe
 ( "savegame/prefs.ssf", "w+b" );
 
-209 if–
+219 if–
 ¥efsFûe
  !
 NULL
  )
 
-212  
+222  
 i
  = 0; i < 
 TOTAL_PREFS_DATA
 ; ++i )
 
-214 
+224 
 	`SDL_RWwrôe
 –
 ¥efsFûe
@@ -13939,7 +13981,7 @@ i
 boﬁ
 ), 1 );
 
-215 
+225 
 °d
 ::
 cout
@@ -13949,29 +13991,29 @@ cout
 i
 ];
 
-219 
+229 
 	`SDL_RW˛o£
 –
 ¥efsFûe
  );
 
-224 
+234 
 	`¥ötf
 –"Eº‹: U«bÀÅÿßvêfûe! %s\n", 
 	`SDL_GëEº‹
 () );
 
-226 
+236 
 °d
 ::
 cout
 <<"\n writeÖrefs function complete";
 
-228 
+238 
 	}
 }
 
-230 
+240 
 	gßveGame
 ::
 	$lﬂdSavedMëaD©a
@@ -13985,29 +14027,29 @@ TTF_F⁄t
 f⁄t
 )
 
-232 
+242 
 °d
 ::
 cout
 <<"\nÑunning saveGame::loadSavedMetaData(SDL_Renderer*Ñenderer,TTF_Font* font)";
 
-233 
+243 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {0,0,0};
 
-238 
+248 
 ãxtCﬁ‹
  = {0,128,200};
 
-239 
+249 
 i
 ; i<
 TOTAL_SAVES
 ;i++)
 
-241 
+251 
 °d
 ::
 cout
@@ -14021,7 +14063,7 @@ i
 	`c_°r
 ();
 
-242 if(
+252 if(
 ßvedD©e
 [
 i
@@ -14029,7 +14071,7 @@ i
 	`°r
 () == "")
 
-244 
+254 
 ßvedD©e
 [
 i
@@ -14037,7 +14079,7 @@ i
 	`°r
 ("Empty");
 
-246 if(!
+256 if(!
 ßvedD©eTextuª
 [
 i
@@ -14057,7 +14099,7 @@ f⁄t
 ªndîî
 ))
 
-248 
+258 
 °d
 ::
 cout
@@ -14065,7 +14107,7 @@ cout
 i
 <<"] streamstringÅo savedDateTexture["<<i<<"]";
 
-250 if(
+260 if(
 ßvedPœyTime
 [
 i
@@ -14073,7 +14115,7 @@ i
 	`°r
 () == "")
 
-252 
+262 
 ßvedPœyTime
 [
 i
@@ -14081,7 +14123,7 @@ i
 	`°r
 ("Empty");
 
-254 if(!
+264 if(!
 ßvedPœyTimeTextuª
 [
 i
@@ -14101,7 +14143,7 @@ f⁄t
 ªndîî
 ))
 
-256 
+266 
 °d
 ::
 cout
@@ -14109,11 +14151,11 @@ cout
 i
 <<"] streamstringÅo savedPlayTimeTexture["<<i<<"]";
 
-259 
+269 
 	}
 }
 
-261 
+271 
 	gßveGame
 ::
 	$upd©eSavedMëaD©a
@@ -14129,13 +14171,13 @@ TTF_F⁄t
 f⁄t
 )
 
-263 
+273 
 °d
 ::
 cout
 <<"\nÑunning saveGame::updateSavedMetaData(int fileNum, SDL_Renderer*Ñenderer,TTF_Font* font)";
 
-264 
+274 
 ßvedD©e
 [
 fûeNum
@@ -14143,7 +14185,7 @@ fûeNum
 	`°r
 ("");
 
-265 
+275 
 ßvedD©e
 [
 fûeNum
@@ -14151,13 +14193,13 @@ fûeNum
 	`˛ór
 ();
 
-267 
+277 
 i
  =0; i<
 TOTAL_SAVES
 ;i++)
 
-270 
+280 
 ßvedD©eTextuª
 [
 i
@@ -14165,7 +14207,7 @@ i
 	`‰ì
 ();
 
-271 
+281 
 ßvedPœyTimeTextuª
 [
 i
@@ -14173,7 +14215,7 @@ i
 	`‰ì
 ();
 
-274 
+284 
 time_t
  
 ßved
@@ -14181,7 +14223,7 @@ time_t
 d©a
 [1];
 
-275 * 
+285 * 
 sdt
  = 
 	`˘ime
@@ -14189,7 +14231,7 @@ sdt
 ßved
 );
 
-276 
+286 
 ßvedD©e
 [
 fûeNum
@@ -14197,7 +14239,7 @@ fûeNum
 sdt
 ;
 
-277 
+287 
 °d
 ::
 cout
@@ -14209,7 +14251,7 @@ fûeNum
 	`°r
 ();
 
-278 
+288 
 °d
 ::
 cout
@@ -14217,7 +14259,7 @@ cout
 d©a
 [2];
 
-279 
+289 
 hours
 ,
 möuãs
@@ -14225,49 +14267,49 @@ möuãs
 £c⁄ds
 ;
 
-280 if(
+290 if(
 d©a
 [2]/1000 < 0)
 
-282 
+292 
 £c⁄ds
  = 0;
 
-286 
+296 
 £c⁄ds
  = 
 d©a
 [2]/1000;
 
-289 if–(
+299 if–(
 d©a
 [2]/1000)/60 < 0 )
 
-291 
+301 
 möuãs
  = 0;
 
-295 
+305 
 möuãs
  = (
 d©a
 [2]/1000)/60;
 
-298 if––(
+308 if––(
 d©a
 [2]/1000)/60 )/60 < 0 )
 
-300 
+310 
 hours
  = 0;
 
-304 
+314 
 hours
  = ((
 d©a
 [2]/1000)/60)/60;
 
-307 
+317 
 ßvedPœyTime
 [
 fûeNum
@@ -14275,7 +14317,7 @@ fûeNum
 	`°r
 ("");
 
-308 
+318 
 ßvedPœyTime
 [
 fûeNum
@@ -14283,7 +14325,7 @@ fûeNum
 	`˛ór
 ();
 
-309 
+319 
 ßvedPœyTime
 [
 fûeNum
@@ -14295,7 +14337,7 @@ möuãs
 £c⁄ds
 %60)<<" secs";
 
-311 
+321 
 °d
 ::
 cout
@@ -14307,23 +14349,23 @@ fûeNum
 	`°r
 ();
 
-314 
+324 
 SDL_Cﬁ‹
  
 ãxtCﬁ‹
  = {0,0,0};
 
-319 
+329 
 ãxtCﬁ‹
  = {0,128,200};
 
-320 
+330 
 i
 ; i<
 TOTAL_SAVES
 ;i++)
 
-322 
+332 
 °d
 ::
 cout
@@ -14337,7 +14379,7 @@ i
 	`c_°r
 ();
 
-323 if(
+333 if(
 ßvedD©e
 [
 i
@@ -14345,7 +14387,7 @@ i
 	`°r
 () == "")
 
-325 
+335 
 °d
 ::
 cout
@@ -14353,7 +14395,7 @@ cout
 i
 <<".str() = \"\"";
 
-326 
+336 
 ßvedD©e
 [
 i
@@ -14361,7 +14403,7 @@ i
 	`°r
 ("Empty");
 
-328 if(!
+338 if(!
 ßvedD©eTextuª
 [
 i
@@ -14381,7 +14423,7 @@ f⁄t
 ªndîî
 ))
 
-330 
+340 
 °d
 ::
 cout
@@ -14389,7 +14431,7 @@ cout
 i
 <<"] streamstringÅo savedDateTexture["<<i<<"]";
 
-332 if(
+342 if(
 ßvedPœyTime
 [
 i
@@ -14397,7 +14439,7 @@ i
 	`°r
 () == "")
 
-334 
+344 
 ßvedPœyTime
 [
 i
@@ -14405,7 +14447,7 @@ i
 	`°r
 ("Empty");
 
-336 if(!
+346 if(!
 ßvedPœyTimeTextuª
 [
 i
@@ -14425,7 +14467,7 @@ f⁄t
 ªndîî
 ))
 
-338 
+348 
 °d
 ::
 cout
@@ -14433,11 +14475,11 @@ cout
 i
 <<"] streamstringÅo savedPlayTimeTexture["<<i<<"]";
 
-341 
+351 
 	}
 }
 
-343 
+353 
 	gßveGame
 ::
 	$h™dÀSavedMëaD©aRídîög
@@ -14447,13 +14489,13 @@ SDL_Rídîî
 ªndîî
 )
 
-345 
+355 
 i
 ; i<
 TOTAL_SAVES
 ;i++)
 
-347 
+357 
 ßvedPœyTimeTextuª
 [
 i
@@ -14467,7 +14509,7 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-348 
+358 
 ßvedD©eTextuª
 [
 i
@@ -14481,7 +14523,7 @@ SDL_FLIP_NONE
 ªndîî
 );
 
-350 
+360 
 	}
 }
 
@@ -14646,8 +14688,6 @@ wrôeSaveFûe
 (
 fûeNum
 ,
-¥egameui
-Öªgameui,
 °age
  sège,
 Uöt32
@@ -14657,7 +14697,9 @@ Uöt32
 
 51 
 upd©eSaveD©a
-(
+(
+fûeNum
+,
 °age
  sège, 
 Uöt32
@@ -19607,17 +19649,25 @@ cout
 °d
 ::
 cout
+<<"\¿gëTicks(): "<<
+	`gëTicks
+();
+
+179 
+°d
+::
+cout
 <<"\¿timePœyed: "<<
 timePœyed
 <<" beforeÅimePlayed+=getTicks()";
 
-179 
+180 
 timePœyed
  +
 	`gëTicks
 ();
 
-180 
+181 
 °d
 ::
 cout
@@ -19625,35 +19675,35 @@ cout
 timePœyed
 <<"áfterÅimePlayed+=getTicks()";
 
-182 
+183 
 	}
 }
 
-184 
+185 
 	gtimî
 ::
 	$ª°¨tPœyedTime
 ()
 
-186 
+187 
 °d
 ::
 cout
 <<"\nÑunningÅimer::restartPlayedTime()";
 
-187 
+188 
 timePœyed
 =0;
 
-188 
+189 
 	`°¨t
 ();
 
-189 
+190 
 	}
 }
 
-191 
+192 
 	gtimî
 ::
 	$lﬂdSavedPœyedTimeD©a
@@ -19663,13 +19713,13 @@ Uöt32
 ßved
 )
 
-193 
+194 
 °d
 ::
 cout
 <<"\nÑunningÅimer::loadSavedPlayedTimeData(Uint32 saved)";
 
-194 
+195 
 °d
 ::
 cout
@@ -19677,13 +19727,13 @@ cout
 timePœyed
 ;
 
-195 
+196 
 timePœyed
 =
 ßved
 ;
 
-196 
+197 
 °d
 ::
 cout
@@ -19691,11 +19741,11 @@ cout
 timePœyed
 ;
 
-197 
+198 
 	`°¨t
 ();
 
-198 
+199 
 	}
 }
 
@@ -21970,8 +22020,6 @@ wrôeSaveFûe
 (
 fûeNum
 ,
-¥egameui
-Öªgameui,
 °age
  sège,
 Uöt32
@@ -21981,7 +22029,9 @@ Uöt32
 
 51 
 upd©eSaveD©a
-(
+(
+fûeNum
+,
 °age
  sège, 
 Uöt32

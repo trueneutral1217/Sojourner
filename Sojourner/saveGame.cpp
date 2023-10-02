@@ -135,9 +135,9 @@ void saveGame::readSaveFile(int fileNum)
     }
 }
 
-void saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime)
+void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
 {
-    std::cout<<"\n running saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 playedTime)";
+    std::cout<<"\n running saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)";
     //saves the game, depending on fileNum to save1.ssf, save2.ssf, and save3.ssf
 
     SDL_RWops* saveFile = SDL_RWFromFile( saveLocation[fileNum], "w+b" );
@@ -171,7 +171,7 @@ void saveGame::writeSaveFile(int fileNum,pregameui pregameui,stage stage,Uint32 
 
 }
 
-void saveGame::updateSaveData(stage stage,Uint32 playedTime)
+void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 {
     std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
     time_t now = time(0);
@@ -191,6 +191,16 @@ void saveGame::updateSaveData(stage stage,Uint32 playedTime)
     std::cout<<"\n stage.habInternalY1 = "<<stage.habInternalY1;
     data[6] = stage.habInternalY2;
     std::cout<<"\n stage.habInternalY2 = "<<stage.habInternalY2;
+
+    SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
+    for( int i = 0; i < TOTAL_DATA; ++i )
+    {
+        SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
+        std::cout<<"\n writing "<<data[i]<<" to fileNum "<<fileNum;
+    }
+    //Close file handler
+    SDL_RWclose( saveFile );
+
 }
 
 
