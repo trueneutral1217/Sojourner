@@ -171,39 +171,6 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
 
 }
 
-void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
-{
-    std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
-    time_t now = time(0);
-    char* dt = ctime(&now);
-    std::cout<<"\n now = "<<now;
-    std::cout<<"\n current date & time: "<<dt;
-    //Save data
-    data[0] = true;
-    data[1] = now;
-    data[2] = playedTime;
-    std::cout<<"\n playedTime = "<<playedTime;
-    data[3] = stage.player1.getX();
-    std::cout<<"\n stage.player1.getX() = "<<stage.player1.getX();
-    data[4] = stage.player1.getY();
-    std::cout<<"\n stage.player1.getY() = "<<stage.player1.getY();
-    data[5] = stage.habInternalY1;
-    std::cout<<"\n stage.habInternalY1 = "<<stage.habInternalY1;
-    data[6] = stage.habInternalY2;
-    std::cout<<"\n stage.habInternalY2 = "<<stage.habInternalY2;
-
-    SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
-    for( int i = 0; i < TOTAL_DATA; ++i )
-    {
-        SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
-        std::cout<<"\n writing "<<data[i]<<" to fileNum "<<fileNum;
-    }
-    //Close file handler
-    SDL_RWclose( saveFile );
-
-}
-
-
 void saveGame::writePrefsFile(pregameui pregameui)
 {
     std::cout<<"\n running saveGame::writePrefsFile(pregameui pregameui)";
@@ -263,64 +230,106 @@ void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
         }
         if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
         {
-            std::cout<<"\n unable to render savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
+            std::cout<<"\n unable to load savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
         }
     }
 }
 
-void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)
+void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 {
+    std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    std::cout<<"\n now = "<<now;
+    std::cout<<"\n current date & time: "<<dt;
+    //Save data
+    data[0] = true;
+    data[1] = now;
+    data[2] = playedTime;
+    std::cout<<"\n playedTime = "<<playedTime;
+    data[3] = stage.player1.getX();
+    std::cout<<"\n stage.player1.getX() = "<<stage.player1.getX();
+    data[4] = stage.player1.getY();
+    std::cout<<"\n stage.player1.getY() = "<<stage.player1.getY();
+    data[5] = stage.habInternalY1;
+    std::cout<<"\n stage.habInternalY1 = "<<stage.habInternalY1;
+    data[6] = stage.habInternalY2;
+    std::cout<<"\n stage.habInternalY2 = "<<stage.habInternalY2;
+
+    SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
+    for( int i = 0; i < TOTAL_DATA; ++i )
+    {
+        SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
+        std::cout<<"\n writing "<<data[i]<<" to fileNum "<<fileNum;
+    }
+    //Close file handler
+    SDL_RWclose( saveFile );
+}
+
+void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)
+{//by using filenum instead of iterating through all the save files some efficiency might be gained.
     std::cout<<"\n running saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
-
     for(int i =0; i<TOTAL_SAVES;i++)
     {
         //freeing textures before reloading them.
         savedDateTexture[i].free();
         savedPlayTimeTexture[i].free();
     }
-
     time_t saved = data[1];
     char* sdt = ctime(&saved);
+    std::cout<<"\n sdt: "<<sdt;
     savedDate[fileNum] << "Last Saved: " << sdt;
+    //erases weird character at end of string (hopefully)
+    //savedDate[fileNum].str().erase(savedDate[fileNum].str().end());
+    //savedDate[fileNum].str().pop_back();
+    //savedDate[fileNum].str().resize(35);
+
+    //std::cout<<"\n savedDate["<<fileNum<<"].str().back(): "<<savedDate[fileNum].str().back();
+    //std::cout<<"\n savedDate["<<fileNum<<"].str().at(35): "<<savedDate[fileNum].str().at(35);
+    std::string s = savedDate[fileNum].str();
+    s.erase(36,2);
+    //std::cout<<"\n s: "<<s;
+    //std::cout<<"\n s.size(): "<<s.size();
+    //replaces savedDate string with the version that had the extra characters popped out.
+    savedDate[fileNum].str(s);
+    //savedDate[fileNum].str().erase(35,2);
+    //std::cout<<"\n savedDate["<<fileNum<<"].str().size(): "<<savedDate[fileNum].str().size();
+
+
     std::cout<<"\n savedDate["<<fileNum<<"]: "<<savedDate[fileNum].str();
     std::cout<<"\n data[2] (playedTime) = "<<data[2];
-            int hours,minutes,seconds;
-            if(data[2]/1000 < 0)
-            {
-                seconds = 0;
-            }
-            else
-            {
-                seconds = data[2]/1000;
-            }
-
-            if( (data[2]/1000)/60 < 0 )
-            {
-                minutes = 0;
-            }
-            else
-            {
-                minutes = (data[2]/1000)/60;
-            }
-
-            if( ( (data[2]/1000)/60 )/60 < 0 )
-            {
-                hours = 0;
-            }
-            else
-            {
-                hours = ((data[2]/1000)/60)/60;
-            }
-
-            savedPlayTime[fileNum].str("");
-            savedPlayTime[fileNum].clear();
-            savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<(minutes%60)<<" mins, "<<(seconds%60)<<" secs";
-
-            std::cout<<"\n savedPlayTime["<<fileNum<<"]: "<<savedPlayTime[fileNum].str();
-
-
+    int hours,minutes,seconds;
+    if(data[2]/1000 < 0)
+    {
+        seconds = 0;
+    }
+    else
+    {
+        seconds = data[2]/1000;
+    }
+    if( (data[2]/1000)/60 < 0 )
+    {
+        minutes = 0;
+    }
+    else
+    {
+        minutes = (data[2]/1000)/60;
+    }
+    if( ( (data[2]/1000)/60 )/60 < 0 )
+    {
+        hours = 0;
+    }
+    else
+    {
+        hours = ((data[2]/1000)/60)/60;
+    }
+    savedPlayTime[fileNum].str("");
+    savedPlayTime[fileNum].clear();
+    savedPlayTime[fileNum] << "Time Played: " << hours << " hrs, "<<(minutes%60)<<" mins, "<<(seconds%60)<<" secs";
+    std::cout<<"\n savedPlayTime["<<fileNum<<"]: "<<savedPlayTime[fileNum].str();
+    std::cout<<"\n";
     SDL_Color textColor = {0,0,0};//black
     //textColor = {255,255,0};//ochre?
     //textColor = {0,255,0};//green
@@ -329,7 +338,7 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     textColor = {0,128,200};
     for(int i; i<TOTAL_SAVES;i++)
     {
-        std::cout<<"\n"<<savedDate[i].str().c_str();
+        std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str().c_str();
         if(savedDate[i].str() == "")
         {
             std::cout<<"\n savedDate["<<i<<".str() = \"\"";
@@ -337,7 +346,12 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
         }
         if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
         {
-            std::cout<<"\n unable to render savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
+            std::cout<<"\n unable to load savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
+        }
+        else
+        {
+            std::cout<<"\n savedDateTexture["<<i<<"] is loaded from streamstring";
+            std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str();
         }
         if(savedPlayTime[i].str() == "")
         {
@@ -346,6 +360,11 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
         if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
         {
             std::cout<<"\n unable to render savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
+        }
+        else
+        {
+            std::cout<<"\n savedPlayTimeTexture["<<i<<"] is loaded from streamstring";
+            std::cout<<"\n savedPlayTime["<<i<<"]: "<<savedPlayTime[i].str();
         }
     }
 }

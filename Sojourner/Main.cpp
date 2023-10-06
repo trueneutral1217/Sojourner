@@ -348,6 +348,7 @@ int main( int argc, char* args[] )
 
                                 //free stage resources!
                                 stage.free();
+                                pregameui.loadTitleScreenTextures(renderer);
                                 pregameui.loadMainButtons(renderer);
 
                             }
