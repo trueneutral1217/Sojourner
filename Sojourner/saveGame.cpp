@@ -204,8 +204,10 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 }
 
+/*
 void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
 {
+    //this function may be deprecated.  it's called at the wrong time, and is redundant to loadSaveTextTextures function
     std::cout<<"\n running saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)";
     SDL_Color textColor = {0,0,0};//black
     //textColor = {255,255,0};//ochre?
@@ -233,7 +235,7 @@ void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
             std::cout<<"\n unable to load savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
         }
     }
-}
+}*/
 
 void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 {
@@ -271,12 +273,13 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     std::cout<<"\n running saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
+    /*
     for(int i =0; i<TOTAL_SAVES;i++)
     {
         //freeing textures before reloading them.
         savedDateTexture[i].free();
         savedPlayTimeTexture[i].free();
-    }
+    }*/
     time_t saved = data[1];
     char* sdt = ctime(&saved);
     std::cout<<"\n sdt: "<<sdt;
@@ -336,6 +339,51 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     //textColor = {255,0,255};//pink
     //textColor = {255,0,0};//red
     textColor = {0,128,200};
+    /*
+    for(int i; i<TOTAL_SAVES;i++)
+    {
+        std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str().c_str();
+        if(savedDate[i].str() == "")
+        {
+            std::cout<<"\n savedDate["<<i<<".str() = \"\"";
+            savedDate[i].str("Empty");
+        }
+        if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to load savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
+        }
+        else
+        {
+            std::cout<<"\n savedDateTexture["<<i<<"] is loaded from streamstring";
+            std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str();
+        }
+        if(savedPlayTime[i].str() == "")
+        {
+            savedPlayTime[i].str("Empty");
+        }
+        if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
+        }
+        else
+        {
+            std::cout<<"\n savedPlayTimeTexture["<<i<<"] is loaded from streamstring";
+            std::cout<<"\n savedPlayTime["<<i<<"]: "<<savedPlayTime[i].str();
+        }
+    }*/
+}
+
+void saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)";
+    for(int i =0; i<TOTAL_SAVES;i++)
+    {
+        //freeing textures before reloading them.
+        savedDateTexture[i].free();
+        savedPlayTimeTexture[i].free();
+    }
+
+    SDL_Color textColor = {0,128,200};
     for(int i; i<TOTAL_SAVES;i++)
     {
         std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str().c_str();

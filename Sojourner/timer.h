@@ -38,6 +38,7 @@ class timer
 		void loadSavedPlayedTimeData(Uint32 saved);
 
 		void setPaused();
+		void setUnpaused();
 
 
     private:

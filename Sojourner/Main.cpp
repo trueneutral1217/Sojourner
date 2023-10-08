@@ -178,6 +178,7 @@ bool loadMedia()
     for(int i = 0; i<TOTAL_SAVES;i++)
     {
         savegame.readSaveFile(i);
+
         pregameui.existingSave[i] = savegame.data[0];
         //time gets typecasted to an sint32 at save time (before converting it to string)
         //I typecast it back to time_t, then convert to string after loading, sdt (saved date time)
@@ -219,7 +220,7 @@ bool loadMedia()
     //loads the font
     text.loadText(renderer);
     //creates text textures for new/load game screens to display time of save by filenumber, as well as time played
-    savegame.loadSavedMetaData(renderer,text.font);
+//    savegame.loadSavedMetaData(renderer,text.font);
     //for debugging
     if(success == false)
     {
@@ -336,8 +337,8 @@ int main( int argc, char* args[] )
                                 std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
                                 std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
 
-                                playedTime.pause();
-
+                                //playedTime.pause();
+                                playedTime.setPaused();
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
                                 savegame.updateSaveData(chosenSave,stage,playedTime.timePlayed);
@@ -363,6 +364,10 @@ int main( int argc, char* args[] )
                             if(gameState==4)
                             {
                                 animations.loadCreditsAnimationTextures(renderer);
+                            }
+                            if(gameState==1 || gameState == 2)
+                            {
+                                savegame.loadSaveTextTextures(renderer,text.font);
                             }
 
                         }
@@ -403,10 +408,15 @@ int main( int argc, char* args[] )
                                 {
                                     //setting started = false, paused = true
                                     playedTime.setPaused();
+
                                     //setting the pausedTicks to saved ticks
+                                    std::cout<<"\n playedTime.getTicks before setTicks(previouslyPlayed): "<<playedTime.getTicks();
+                                    std::cout<<"\n playedTime.timePlayed before setTicks(previouslyPlayed): "<<playedTime.timePlayed;
                                     playedTime.setTicks(previouslyPlayed);
+                                    std::cout<<"\n playedTime.getTicks after setTicks(previouslyPlayed): "<<playedTime.getTicks();
+                                    std::cout<<"\n playedTime.timePlayed after setTicks(previouslyPlayed): "<<playedTime.timePlayed;
                                     //might have an error in this function, need to check if it's used elsewhere
-                                    playedTime.unpause();
+                                    playedTime.setUnpaused();
                                 }
                                 else
                                 {

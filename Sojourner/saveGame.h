@@ -27,7 +27,7 @@ class saveGame
 
     bool exists[TOTAL_SAVES];
 
-    void loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font);
+    //void loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font);
 
     int fileNum;
 
@@ -53,6 +53,8 @@ class saveGame
     void updateSavedMetaData(int fileNum,SDL_Renderer* renderer,TTF_Font* font);
 
     void handleSavedMetaDataRendering(SDL_Renderer* renderer);
+
+    void loadSaveTextTextures(SDL_Renderer* renderer,TTF_Font* font);
 
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.

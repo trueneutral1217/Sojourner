@@ -137,6 +137,8 @@ Uint32 timer::getTicks()
 void timer::setTicks(Uint32 x)
 {
     std::cout<<"\n running timer::setTicks(Uint32 x)";
+    std::cout<<"\n started: "<<started;
+    std::cout<<"\n startTicks: "<<startTicks<<" pausedTicks: "<<pausedTicks;
 	if(started)
     {
         startTicks += x;
@@ -168,6 +170,13 @@ void timer::setPaused()
     std::cout<<"\n running timer::setPaused()";
     paused = true;
     started = false;
+}
+
+void timer::setUnpaused()
+{
+    std::cout<<"\n running timer::setUnpaused()";
+    paused = false;
+    started = true;
 }
 
 void timer::updatePlayedTime()
