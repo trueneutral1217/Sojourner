@@ -73,10 +73,12 @@ void timer::pause()
         std::cout<<"\n SDL_GetTicks() before operating = "<<SDL_GetTicks();
         std::cout<<"\n startTicks before operating = "<<startTicks;
         //Calculate the paused ticks
-        pausedTicks = SDL_GetTicks() + startTicks;
+        //pausedTicks = SDL_GetTicks() + startTicks;
+        pausedTicks = startTicks;
         std::cout<<"\n pausedTicks after operating = "<<pausedTicks;
         std::cout<<"\n end pause function";
 		startTicks = 0;
+		started = false;
 		//std::cout<<"\n pause: startTicks = 0, pausedTicks = "<<pausedTicks;
     }
 }
@@ -121,11 +123,13 @@ Uint32 timer::getTicks()
         //If the timer is paused
         if( paused )
         {
+            //std::cout<<"\n pausedTicks: "<<pausedTicks;
             //Return the number of ticks when the timer was paused
             time = pausedTicks;
         }
         else
         {
+            //std::cout<<"\n SDL_GetTicks() - startTicks = "<<time;
             //Return the current time minus the start time
             time = SDL_GetTicks() - startTicks;
         }
@@ -137,18 +141,19 @@ Uint32 timer::getTicks()
 void timer::setTicks(Uint32 x)
 {
     std::cout<<"\n running timer::setTicks(Uint32 x)";
-    std::cout<<"\n started: "<<started;
+    std::cout<<"\n x: "<<x;
+    std::cout<<"\n paused: "<<paused<<" started: "<<started;
     std::cout<<"\n startTicks: "<<startTicks<<" pausedTicks: "<<pausedTicks;
 	if(started)
     {
-        startTicks += x;
+        startTicks = x;
     }
 
     if(paused)
     {
-        pausedTicks += x;
+        pausedTicks = x;
     }
-
+    std::cout<<"\n after setting ticks: startTicks: "<<startTicks<<" pausedTicks: "<<pausedTicks;
 }
 
 bool timer::isStarted()
@@ -184,10 +189,15 @@ void timer::updatePlayedTime()
     //this function should take the saved time played before playing and add the ticks from
     //the amount of time played after playing (gamestate 5 ticks)
     std::cout<<"\n running timer::updatePlayedTime()";
+    std::cout<<"\n paused: "<<paused<<" started: "<<started;
     std::cout<<"\n getTicks(): "<<getTicks();
     std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks()";
-    timePlayed += getTicks();
+    //timePlayed += getTicks();
+    timePlayed += startTicks;
+    //resetting startTicks to 0
+    //setTicks(0);
     std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks()";
+    stop();
     //pause();
 }
 

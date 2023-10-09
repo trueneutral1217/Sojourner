@@ -236,10 +236,10 @@ void close()
     //this needs to be written when player exits stage1, probably needs to be multithread
     std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
     std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
-    if(playedTime.getTicks() > 0)
-    {
+//    if(playedTime.getTicks() > 0)
+  //  {
         //savegame.writeSaveFile(chosenSave,stage,playedTime.timePlayed);
-    }
+  //  }
     //save preferences
     preferences.writePrefsFile(pregameui);
     //free pregame ui resouces
@@ -338,7 +338,8 @@ int main( int argc, char* args[] )
                                 std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
 
                                 //playedTime.pause();
-                                playedTime.setPaused();
+                                //playedTime.setPaused();
+                                playedTime.stop();
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
                                 savegame.updateSaveData(chosenSave,stage,playedTime.timePlayed);
@@ -381,7 +382,9 @@ int main( int argc, char* args[] )
                                 //pregameui.freeNewgameButtons();
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
-                                playedTime.start();
+                                playedTime.timePlayed = 0;
+                                playedTime.restart();
+
                                 stage.loadStage(renderer,true);
 
                             }
@@ -393,6 +396,7 @@ int main( int argc, char* args[] )
 
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
+
                                 chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
                                 savegame.readSaveFile(chosenSave);
@@ -407,8 +411,8 @@ int main( int argc, char* args[] )
                                 if(previouslyPlayed > 0)
                                 {
                                     //setting started = false, paused = true
-                                    playedTime.setPaused();
-
+                                    //playedTime.setPaused();
+                                    playedTime.start();
                                     //setting the pausedTicks to saved ticks
                                     std::cout<<"\n playedTime.getTicks before setTicks(previouslyPlayed): "<<playedTime.getTicks();
                                     std::cout<<"\n playedTime.timePlayed before setTicks(previouslyPlayed): "<<playedTime.timePlayed;
@@ -416,12 +420,12 @@ int main( int argc, char* args[] )
                                     std::cout<<"\n playedTime.getTicks after setTicks(previouslyPlayed): "<<playedTime.getTicks();
                                     std::cout<<"\n playedTime.timePlayed after setTicks(previouslyPlayed): "<<playedTime.timePlayed;
                                     //might have an error in this function, need to check if it's used elsewhere
-                                    playedTime.setUnpaused();
+                                    //playedTime.setUnpaused();
                                 }
                                 else
                                 {
 
-                                    playedTime.start();
+                                    playedTime.restart();
                                 }
                                 //pregameui.loadLoadgameButtons(renderer);
                             }
