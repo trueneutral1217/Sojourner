@@ -4,7 +4,7 @@ station::station()
 {
     //Setup coords & collision box for bed
     bedX = 100;
-    bedY = 300;
+    bedY = 500;
     bedH = 37;
     bedBot = bedY + bedH;
     collidable[0].x = bedX;
@@ -16,8 +16,8 @@ station::station()
     interactable[0].w=collidable[0].w+4;
     interactable[0].h=collidable[0].h+10;
     //setup coords & collision box for water Tank
-    waterTankX = 200;
-    waterTankY = 100;
+    waterTankX = 100;
+    waterTankY = 25;
     waterTankH = 34;
     waterTankBot = waterTankY + waterTankH;
     collidable[1].x = waterTankX;
@@ -29,8 +29,8 @@ station::station()
     interactable[1].w=collidable[1].w+6;
     interactable[1].h = collidable[1].h+6;
     //setup coords for planter + it's collision box, plus it's interaction box.
-    planterX = 400;
-    planterY = 200;
+    planterX = 600;
+    planterY = 25;
     planterH = 50;
     planterBot = planterY+planterH;
     collidable[2].x = planterX;
@@ -45,8 +45,8 @@ station::station()
     waterPlantsOkay = true;
     harvestOkay = false;
     //setup coords for kitchen + it's collision box, plus it's interaction box.
-    kitchenX = 300;
-    kitchenY = 400;
+    kitchenX = 100;
+    kitchenY = 250;
     kitchenH = 100;
     kitchenBot = kitchenY+kitchenH;
     collidable[3].x = kitchenX;
@@ -173,22 +173,23 @@ void station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)
 void station::updatePosition(int y)
 {
     //when player moves, background parallaxes, this makes sure the stations stay in their places.
-    bedY = y+300;
+    //bedY = y+300;
+    bedY = y+500;
     bedBot = bedY + bedH;
     collidable[0].y=bedY+(bedH/2);
     interactable[0].y=collidable[0].y-4;
 
-    waterTankY = y+100;
+    waterTankY = y+25;
     waterTankBot = waterTankY+waterTankH;
     collidable[1].y=waterTankY + (waterTankH/2);
     interactable[1].y=collidable[1].y-4;
 
-    planterY = y+200;
+    planterY = y+25;
     planterBot = planterY + planterH;
     collidable[2].y=planterY+(planterH/2);
     interactable[2].y=collidable[2].y-2;
 
-    kitchenY = y+400;
+    kitchenY = y+250;
     kitchenBot = kitchenY+kitchenH;
     collidable[3].y=kitchenY+(kitchenH/2);
     interactable[3].y=collidable[3].y-2;

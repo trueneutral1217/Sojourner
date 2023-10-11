@@ -333,6 +333,7 @@ int main( int argc, char* args[] )
                                 std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
                                 std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
                                 playedTime.updatePlayedTime();
+                                playedTime.stop();
                                 std::cout<<"\n after playedTime.updatePlayedTime() runs...";
                                 std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
                                 std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
@@ -382,9 +383,10 @@ int main( int argc, char* args[] )
                                 //pregameui.freeNewgameButtons();
                                 //pregameui.existingSave=true;
                                 stage.setNewgameVars();
-                                playedTime.timePlayed = 0;
-                                playedTime.restart();
 
+                                playedTime.timePlayed = 0;
+                                playedTime.stop();
+                                playedTime.start();
                                 stage.loadStage(renderer,true);
 
                             }

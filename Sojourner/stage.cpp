@@ -195,14 +195,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
     {//renders the interior of the ship (supposed to parallax as player walks up or down.
         habInternalHandleParallax(renderer);
     }
-    if(buttons[0].mouseOver==false)
-    {
-        buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    else
-    {
-        buttons[0].buttonMOTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
+
     //this set up always keeps player in front of station, considering setting up a system to display station in
     //front of player if station's y coord is greater than player's.  might be complicated with vertical parallax/loop
     if(internalView)
@@ -234,6 +227,14 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
             }
         }
+    }
+    if(buttons[0].mouseOver==false)
+    {
+        buttons[0].buttonTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else
+    {
+        buttons[0].buttonMOTexture.render(buttons[0].getPositionX(),buttons[0].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
 }
 

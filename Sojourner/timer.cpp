@@ -190,14 +190,17 @@ void timer::updatePlayedTime()
     //the amount of time played after playing (gamestate 5 ticks)
     std::cout<<"\n running timer::updatePlayedTime()";
     std::cout<<"\n paused: "<<paused<<" started: "<<started;
+    std::cout<<"\n startTicks: "<<startTicks;
+    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=startTicks";
     std::cout<<"\n getTicks(): "<<getTicks();
-    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks()";
     //timePlayed += getTicks();
-    timePlayed += startTicks;
+    //startTicks = getTicks();
+    timePlayed += (getTicks() - startTicks);
     //resetting startTicks to 0
     //setTicks(0);
-    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks()";
-    stop();
+    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=startTicks";
+
+    //stop();
     //pause();
 }
 
