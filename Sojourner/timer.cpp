@@ -165,7 +165,7 @@ bool timer::isStarted()
 
 bool timer::isPaused()
 {
-    std::cout<<"\n running timer::isPaused()";
+    //std::cout<<"\n running timer::isPaused()";
 	//Timer is running and paused
     return paused && started;
 }
@@ -191,14 +191,15 @@ void timer::updatePlayedTime()
     std::cout<<"\n running timer::updatePlayedTime()";
     std::cout<<"\n paused: "<<paused<<" started: "<<started;
     std::cout<<"\n startTicks: "<<startTicks;
-    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=startTicks";
+    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks-pausedTicks";
     std::cout<<"\n getTicks(): "<<getTicks();
+    std::cout<<"\n pausedTicks: "<<pausedTicks;
     //timePlayed += getTicks();
     //startTicks = getTicks();
-    timePlayed += (getTicks() - startTicks);
+    timePlayed += getTicks()-pausedTicks;
     //resetting startTicks to 0
     //setTicks(0);
-    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=startTicks";
+    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks - pausedTicks";
 
     //stop();
     //pause();

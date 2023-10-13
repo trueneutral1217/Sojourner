@@ -329,18 +329,20 @@ int main( int argc, char* args[] )
                             {//player clicked save and exit button
                                 //player is going back to the main scene
                                 //playedTime needs to be updated because player was in game
-                                std::cout<<"\n before playedTime.updatePlayedTime() runs...";
-                                std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
-                                std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
+                                //std::cout<<"\n before playedTime.updatePlayedTime() runs...";
+                                //std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+                                //std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
                                 playedTime.updatePlayedTime();
-                                playedTime.stop();
-                                std::cout<<"\n after playedTime.updatePlayedTime() runs...";
-                                std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
-                                std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
+                                playedTime.pause();
+                                std::cout<<"\n playedTime started: "<<playedTime.isStarted()<<", playedTime paused: "<<playedTime.isPaused();
+                                std::cout<<"\n SDL_getTicks(): "<<SDL_GetTicks()<<", playedTime.getTicks(): "<<playedTime.getTicks();
+                                //std::cout<<"\n after playedTime.updatePlayedTime() runs...";
+                                //std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
+                                //std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
 
                                 //playedTime.pause();
                                 //playedTime.setPaused();
-                                playedTime.stop();
+                                //playedTime.stop();
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
                                 savegame.updateSaveData(chosenSave,stage,playedTime.timePlayed);
@@ -385,8 +387,9 @@ int main( int argc, char* args[] )
                                 stage.setNewgameVars();
 
                                 playedTime.timePlayed = 0;
-                                playedTime.stop();
-                                playedTime.start();
+                                playedTime.restart();
+                                //playedTime.pause();
+                                //playedTime.unpause();
                                 stage.loadStage(renderer,true);
 
                             }
@@ -414,13 +417,13 @@ int main( int argc, char* args[] )
                                 {
                                     //setting started = false, paused = true
                                     //playedTime.setPaused();
-                                    playedTime.start();
+                                    playedTime.restart();
                                     //setting the pausedTicks to saved ticks
-                                    std::cout<<"\n playedTime.getTicks before setTicks(previouslyPlayed): "<<playedTime.getTicks();
-                                    std::cout<<"\n playedTime.timePlayed before setTicks(previouslyPlayed): "<<playedTime.timePlayed;
-                                    playedTime.setTicks(previouslyPlayed);
-                                    std::cout<<"\n playedTime.getTicks after setTicks(previouslyPlayed): "<<playedTime.getTicks();
-                                    std::cout<<"\n playedTime.timePlayed after setTicks(previouslyPlayed): "<<playedTime.timePlayed;
+                                    //std::cout<<"\n playedTime.getTicks before setTicks(previouslyPlayed): "<<playedTime.getTicks();
+                                    //std::cout<<"\n playedTime.timePlayed before setTicks(previouslyPlayed): "<<playedTime.timePlayed;
+                                    //playedTime.setTicks(previouslyPlayed);
+                                    //std::cout<<"\n playedTime.getTicks after setTicks(previouslyPlayed): "<<playedTime.getTicks();
+                                    //std::cout<<"\n playedTime.timePlayed after setTicks(previouslyPlayed): "<<playedTime.timePlayed;
                                     //might have an error in this function, need to check if it's used elsewhere
                                     //playedTime.setUnpaused();
                                 }
