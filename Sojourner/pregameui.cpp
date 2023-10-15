@@ -6,6 +6,9 @@ pregameui::pregameui()
     {
         existingSave[i] = false;
     }
+    promptDelete=false;
+    triggerDelete = false;
+    deleteCandidate = 0;
 }
 
 pregameui::~pregameui()
@@ -156,44 +159,65 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
 	loadgameButtonNames[1]="save1";
 	loadgameButtonNames[2]="save2";
 	loadgameButtonNames[3]="save3";
+	loadgameButtonNames[4]="trash1";
+	loadgameButtonNames[5]="trash2";
+	loadgameButtonNames[6]="trash3";
+	loadgameButtonNames[7]="yes";
+	loadgameButtonNames[8]="no";
 	for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
     {
         loadgameButtons[i].buttonName = loadgameButtonNames[i];
         std::stringstream ss;
-        std::stringstream ssMO;
+        if(i<4)
+        {
+            std::stringstream ssMO;
+            ssMO << "images/buttons/" << loadgameButtons[i].buttonName << "MO.png";
+            std::string str2 = ssMO.str();
+            loadgameButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
+        }
         ss << "images/buttons/" << loadgameButtons[i].buttonName << ".png";
-        ssMO << "images/buttons/" << loadgameButtons[i].buttonName << "MO.png";
         std::string str = ss.str();
-        std::string str2 = ssMO.str();
         /*success = */loadgameButtons[i].buttonTexture.loadFromFile( str,renderer );
-        loadgameButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
     }
     loadgameButtons[0].setPosition(600,20);
     loadgameButtons[1].setPosition(40,100);
     loadgameButtons[2].setPosition(40,200);
     loadgameButtons[3].setPosition(40,300);
+    loadgameButtons[4].setPosition(14,125);
+    loadgameButtons[5].setPosition(14,225);
+    loadgameButtons[6].setPosition(14,325);
+    loadgameButtons[7].setPosition(320,250);
+    loadgameButtons[8].setPosition(420,250);
 }
 
 void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
 {
-    //std::cout<<"\n running pregameui::renderLoadgameButtons(SDL_Renderer* renderer)";
-    /*
-    for(int i =0; i<TOTAL_LOADGAME_BUTTONS;i++)
-    {
-        loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    */
-    //below is for when mouseover buttons are added to this screen
-
+    //first 4 loadgame buttons have mouseover textures, the last 3 are the trashcan image to delete a save.
     for(int i=0;i<TOTAL_LOADGAME_BUTTONS;i++)
     {
-        if(loadgameButtons[i].mouseOver == false){
+        if(i<4)
+        {
+            if(loadgameButtons[i].mouseOver == false)
+            {
+                loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            else
+            {
+                loadgameButtons[i].buttonMOTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(i<7)//load trashcan buttons
+        {
             loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else
+        else//load yes/no buttons for prompting deletion of a save.
         {
-            loadgameButtons[i].buttonMOTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            if(promptDelete)
+            {
+                loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
+
     }
 }
 
@@ -202,17 +226,28 @@ void pregameui::freeLoadgameButtons()
     std::cout<<"\n running pregameui::freeLoadgameButtons()";
     for(int i = 0; i<TOTAL_LOADGAME_BUTTONS;i++)
     {
-        loadgameButtons[i].buttonTexture.free();
-        loadgameButtons[i].buttonMOTexture.free();
-        loadgameButtons[i].mouseOver = false;
+        if(i<4)
+        {
+            loadgameButtons[i].buttonTexture.free();
+            loadgameButtons[i].buttonMOTexture.free();
+            loadgameButtons[i].mouseOver = false;
+        }
+        else
+        {
+            loadgameButtons[i].buttonTexture.free();
+            loadgameButtons[i].mouseOver = false;
+        }
     }
 }
 
 void pregameui::handleLoadGameScreenRendering(SDL_Renderer* renderer)
 {
-
-    //chapter select screen
+    //loadgame screen
     chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    if(promptDelete)
+    {
+        promptDeleteBG.render(300,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
     renderLoadgameButtons(renderer);
 }
 
@@ -223,42 +258,73 @@ void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 	newgameButtonNames[1]="save1";
 	newgameButtonNames[2]="save2";
 	newgameButtonNames[3]="save3";
-
+	newgameButtonNames[4]="trash1";
+	newgameButtonNames[5]="trash2";
+	newgameButtonNames[6]="trash3";
+	newgameButtonNames[7]="yes";
+    newgameButtonNames[8]="no";
 	for( int i = 0; i < TOTAL_NEWGAME_BUTTONS; ++i )
     {
         newgameButtons[i].buttonName = newgameButtonNames[i];
         std::stringstream ss;
-        std::stringstream ssMO;
+        if(i<4)
+        {
+            std::stringstream ssMO;
+            ssMO << "images/buttons/" << newgameButtons[i].buttonName << "MO.png";
+            std::string str2 = ssMO.str();
+            newgameButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
+        }
+
         ss << "images/buttons/" << newgameButtons[i].buttonName << ".png";
-        ssMO << "images/buttons/" << newgameButtons[i].buttonName << "MO.png";
         std::string str = ss.str();
-        std::string str2 = ssMO.str();
         /*success = */newgameButtons[i].buttonTexture.loadFromFile( str,renderer );
-        newgameButtons[i].buttonMOTexture.loadFromFile(str2,renderer);
+
     }
     newgameButtons[0].setPosition(600,20);
     newgameButtons[1].setPosition(40,100);
     newgameButtons[2].setPosition(40,200);
     newgameButtons[3].setPosition(40,300);
+    newgameButtons[4].setPosition(14,125);
+    newgameButtons[5].setPosition(14,225);
+    newgameButtons[6].setPosition(14,325);
+    newgameButtons[7].setPosition(320,250);
+    newgameButtons[8].setPosition(420,250);
 }
 
 void pregameui::renderNewgameButtons(SDL_Renderer* renderer)
 {
-    //std::cout<<"\n running pregameui::renderNewgameButtons(SDL_Renderer* renderer)";
+    //below deprecated?
+    /*
     for(int i =0; i<TOTAL_NEWGAME_BUTTONS;i++)
     {
         newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-    //below is for when mouseover buttons are added to this screen
+    */
 
+    //below is for when mouseover buttons are added to this screen
     for(int i=0;i<TOTAL_NEWGAME_BUTTONS;i++)
     {
-        if(newgameButtons[i].mouseOver == false){
+        if(i<4)//renders the mouseover or default version of the save1,2,3, and back buttons.
+        {
+            if(newgameButtons[i].mouseOver == false)
+            {
+                newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            else
+            {
+                newgameButtons[i].buttonMOTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(i<7)//render the trashcan buttons in the newgame screen
+        {
             newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else
+        else//render yes/no buttons to delete a save
         {
-            newgameButtons[i].buttonMOTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            if(promptDelete)
+            {
+                newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
     }
 }
@@ -268,23 +334,33 @@ void pregameui::freeNewgameButtons()
     std::cout<<"\n running pregameui::freeNewgameButtons()";
     for(int i = 0; i<TOTAL_NEWGAME_BUTTONS;i++)
     {
-        newgameButtons[i].buttonTexture.free();
-        newgameButtons[i].buttonMOTexture.free();
-        newgameButtons[i].mouseOver = false;
+        if(i<4)
+        {
+            newgameButtons[i].buttonTexture.free();
+            newgameButtons[i].buttonMOTexture.free();
+            newgameButtons[i].mouseOver = false;
+        }
+        else
+        {
+            newgameButtons[i].buttonTexture.free();
+            newgameButtons[i].mouseOver = false;
+        }
     }
 }
 
 void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 {
-
     //rendering bg for newgame screen
     chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
+    if(promptDelete)
+    {
+        promptDeleteBG.render(300,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
     renderNewgameButtons(renderer);
 }
 
 void pregameui::renderParticles(SDL_Renderer* renderer)
 {
-
     //Go through particles
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
@@ -377,11 +453,8 @@ bool pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)
     bool success = true;
     //game title image
 	success = title.loadFromFile( "images/title.png",renderer ); //used in main screen
-	//load background image files for non-chapter1 backgrounds
 	success = titleTexture.loadFromFile( "images/EarthMoon2.png",renderer );  //used in background of main screen
 	success = PGUIBlackGround.loadFromFile("images/blackground.png",renderer); //used in main screen behind particles
-	//success = loadGameTexture.loadFromFile( "images/AsteroidMoon.png",renderer ); //currently unused
-	//success = thanksTexture.loadFromFile("images/thanks.png",renderer);
 	if(!success)
     {
         printf("\n \n there was a problem loading pregame UI textures. \n \n");
@@ -393,12 +466,14 @@ bool pregameui::loadLoadGameTextures(SDL_Renderer* renderer)
 {
     std::cout<<"\n running pregameui::loadLoadGameTextures(SDL_Renderer* renderer)";
     bool success = true;
+    success = promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
+
+
     success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer ); //used in new/loadgame screens
     if(!success)
     {
         printf("\n \n there was a problem loading pregame UI textures. \n \n");
     }
-
 	return success;
 }
 
@@ -406,6 +481,7 @@ bool pregameui::loadNewGameTextures(SDL_Renderer* renderer)
 {
     std::cout<<"\n running pregameui::loadNewGameTextures(SDL_Renderer* renderer)";
     bool success = true;
+    success = promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
     success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer ); //used in new/loadgame screens
     if(!success)
     {
@@ -441,14 +517,9 @@ bool pregameui::loadOptionsTextures(SDL_Renderer* renderer)
 bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
 {
     std::cout<<"\n running pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)";
-    //set button names
-    //setButtonNames();
+    //set button names and button positions & image textures
     loadMainButtons(renderer);
-    //set button positions & image textures
-    //success = setPreGameButtonTextures(renderer, success);
-    //load titlescreen textures, credit screen textures, etc.
     success = loadTitleScreenTextures(renderer);
-    //success = setPGUITextures(renderer);
     return success;
 }
 
@@ -456,16 +527,12 @@ void pregameui::free()
 {
     std::cout<<"\n running pregameui::free()";
     //frees everything
-    //freeButtons();
     freeMainButtons();
     freeNewgameButtons();
     freeLoadgameButtons();
     freeOptionsButtons();
     freeCreditsButtons();
     //free pregame ui textures
-
-    //freePGUITextures(); //deprecated
-
     freeTitleScreenTextures();
     freeNewGameTextures();
     freeLoadGameTextures();
@@ -487,12 +554,14 @@ void pregameui::freeNewGameTextures()
 {
      std::cout<<"\n running pregameui::freeNewGameTextures()";
     chapterSelectTexture.free();
+    promptDeleteBG.free();
 }
 
 void pregameui::freeLoadGameTextures()
 {
     std::cout<<"\n running pregameui::freeLoadGameTextures()";
     chapterSelectTexture.free();
+    promptDeleteBG.free();
 }
 
 void pregameui::freeOptionsTextures()
@@ -537,6 +606,30 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             {
                 chosenSave = newgameButtons[i].chosenSave;
                 i+=TOTAL_NEWGAME_BUTTONS;
+                if(gameState == 1 || gameState == 2 || gameState == 3)
+                {
+                    if(!promptDelete)
+                    {
+                        promptDelete = true;
+                        std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                    }
+                    deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
+                    gameState=-1;
+                }
+                if(gameState==4)
+                {
+                    promptDelete=false;
+                    std::cout<<"\n promptDelete was true, now it's false (yes was clicked)";
+                    triggerDelete = true;
+                    std::cout<<"\n trigger delete is now true";
+                    gameState=-1;
+                }
+                if(gameState == 6)
+                {
+                    promptDelete=false;
+                    std::cout<<"\n promptDelete was true, now it's false (no was clicked)";
+                    gameState=-1;
+                }
             }
         }
     }
@@ -550,6 +643,30 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             {
                 chosenSave = loadgameButtons[i].chosenSave;
                 i+=TOTAL_LOADGAME_BUTTONS;
+                if(gameState == 1 || gameState == 2 || gameState == 3)
+                {
+                    if(!promptDelete)
+                    {
+                        promptDelete = true;
+                        std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                    }
+                    deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
+                    gameState=-1;
+                }
+                if(gameState==4)
+                {
+                    promptDelete=false;
+                    std::cout<<"\n promptDelete was true, now it's false (yes was clicked)";
+                    triggerDelete = true;
+                    std::cout<<"\n trigger delete is now true";
+                    gameState=-1;
+                }
+                if(gameState == 6)
+                {
+                    promptDelete=false;
+                    std::cout<<"\n promptDelete was true, now it's false (no was clicked)";
+                    gameState=-1;
+                }
             }
         }
     }
@@ -629,6 +746,6 @@ void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* rend
             break;
         case 4: loadCreditsTextures(renderer);
             loadCreditsButtons(renderer);
-            break;
+        break;
     }
 }

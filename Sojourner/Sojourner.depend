@@ -1553,7 +1553,7 @@
 	"text.h"
 	"text.h"
 
-1696287656 source:c:\sojourner\sojourner\animations.cpp
+1697404447 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
 1696287442 c:\sojourner\sojourner\animations.h
@@ -1589,7 +1589,7 @@
 1696803268 c:\sojourner\sojourner\timer.h
 	"Texture.h"
 
-1696286533 source:c:\sojourner\sojourner\audio.cpp
+1697404467 source:c:\sojourner\sojourner\audio.cpp
 	"audio.h"
 
 1682139294 c:\sojourner\sojourner\audio.h
@@ -1598,7 +1598,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1697328278 source:c:\sojourner\sojourner\main.cpp
+1697412178 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1610,7 +1610,7 @@
 	"stage.h"
 	"text.h"
 
-1689967383 c:\sojourner\sojourner\button.h
+1697406052 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
 1658541873 c:\sojourner\sojourner\particle.h
@@ -1631,13 +1631,13 @@
 	"Texture.h"
 	"Texture.h"
 
-1697328278 c:\sojourner\sojourner\savegame.h
+1697410672 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 	"pregameui.h"
 	"stage.h"
 	<ctime>
 
-1696285752 c:\sojourner\sojourner\pregameui.h
+1697411553 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
@@ -1662,10 +1662,10 @@
 1696194574 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1696195320 source:c:\sojourner\sojourner\player.cpp
+1697401916 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
-1697328346 source:c:\sojourner\sojourner\savegame.cpp
+1697410747 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
 1697060982 source:c:\sojourner\sojourner\stage.cpp
@@ -1677,10 +1677,10 @@
 1695681460 source:c:\sojourner\sojourner\texture.cpp
 	"Texture.h"
 
-1697155533 source:c:\sojourner\sojourner\timer.cpp
+1697401803 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1697327202 source:c:\sojourner\sojourner\button.cpp
+1697411553 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682120724 source:c:\sojourner\sojourner\chapter.cpp
@@ -1689,7 +1689,7 @@
 
 1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1696285831 source:c:\sojourner\sojourner\pregameui.cpp
+1697412596 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
 1697060262 source:c:\sojourner\sojourner\station.cpp

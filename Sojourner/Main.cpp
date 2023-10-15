@@ -20,6 +20,7 @@ const int TOTAL_STATES = 6;
 //gameState = 4 credits
 //gameState = 5 stage 1
 
+
 //Starts up SDL and creates window
 bool init();
 //Loads media
@@ -329,28 +330,14 @@ int main( int argc, char* args[] )
                             {//player clicked save and exit button
                                 //player is going back to the main scene
                                 //playedTime needs to be updated because player was in game
-                                //std::cout<<"\n before playedTime.updatePlayedTime() runs...";
-                                //std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
-                                //std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
                                 playedTime.updatePlayedTime();
                                 playedTime.pause();
                                 std::cout<<"\n playedTime started: "<<playedTime.isStarted()<<", playedTime paused: "<<playedTime.isPaused();
                                 std::cout<<"\n SDL_getTicks(): "<<SDL_GetTicks()<<", playedTime.getTicks(): "<<playedTime.getTicks();
-                                //std::cout<<"\n after playedTime.updatePlayedTime() runs...";
-                                //std::cout<<"\n playedTime.getTicks(): "<<playedTime.getTicks();
-                                //std::cout<<"\n playedTime.timePlayed: "<<playedTime.timePlayed;
-
-                                //playedTime.pause();
-                                //playedTime.setPaused();
-                                //playedTime.stop();
                                 //player position, background y, and played amount of time, and the date of last save
                                 //are updated by these two functions
                                 savegame.updateSaveData(chosenSave,stage,playedTime.timePlayed);
                                 savegame.updateSavedMetaData(chosenSave,renderer,text.font);
-                                //load main scene buttons
-                                //pregameui.loadMainButtons(renderer);
-                                //probably should free up stage resources here
-
                                 //free stage resources!
                                 stage.free();
                                 pregameui.loadTitleScreenTextures(renderer);
@@ -382,14 +369,9 @@ int main( int argc, char* args[] )
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 chosenSave = pregameui.chosenSave;
-                                //pregameui.freeNewgameButtons();
-                                //pregameui.existingSave=true;
                                 stage.setNewgameVars();
-
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
-                                //playedTime.pause();
-                                //playedTime.unpause();
                                 stage.loadStage(renderer,true);
                                 savegame.freeTextTextures();
                             }
@@ -397,6 +379,12 @@ int main( int argc, char* args[] )
                             else if(gameState == 0)
                             {
                                 savegame.freeTextTextures();
+                            }
+                            if(pregameui.triggerDelete)
+                            {
+                                pregameui.triggerDelete = false;
+                                savegame.deleteSave(pregameui.deleteCandidate);
+                                std::cout<<"\n deleteSave called from newgame screen";
                             }
                         }
                         if(gameState==2)
@@ -415,7 +403,6 @@ int main( int argc, char* args[] )
                                 {
                                     //set player coords on screen and location in habitat (since it parallaxes vertically)
                                     stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
-                                    //pregameui.freeLoadgameButtons();
                                     stage.loadStage(renderer,true);
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                     Uint32 previouslyPlayed = savegame.data[2];
@@ -424,13 +411,18 @@ int main( int argc, char* args[] )
                                     playedTime.restart();
                                 }
                                 //if the save doesn't exist, gameState goes back to 2
-                                else
+                                if(gameState==0)
                                 {
                                     pregameui.loadLoadGameTextures(renderer);
                                     pregameui.loadLoadgameButtons(renderer);
                                     gameState = 2;
                                 }
-
+                            }
+                            if(pregameui.triggerDelete)//going to need to refresh new/loadgame screens & text textures
+                            {//after a save deletion.
+                                pregameui.triggerDelete = false;
+                                savegame.deleteSave(pregameui.deleteCandidate);
+                                std::cout<<"\n deleteSave called from loadgame screen";
                             }
                             //player clicked back button.
                             else if(gameState == 0)
@@ -457,7 +449,6 @@ int main( int argc, char* args[] )
                                     music.stopMusic();
                                 }
                             }
-
                             if(pregameui.optionsButtons[3].voiceToggle)
                             {
                                 //chapter.voice.voiceOn = true;

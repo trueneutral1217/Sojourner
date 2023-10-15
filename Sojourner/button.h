@@ -15,8 +15,8 @@ const int BUTTON_HEIGHT = 57;
 const static int TOTAL_PREGAME_BUTTONS = 9;
 //going to switch over to having each page load it's buttons at open, and free at close
 const static int TOTAL_MAIN_BUTTONS = 4;
-const static int TOTAL_NEWGAME_BUTTONS = 4;
-const static int TOTAL_LOADGAME_BUTTONS = 4;
+const static int TOTAL_NEWGAME_BUTTONS = 9;
+const static int TOTAL_LOADGAME_BUTTONS = 9;
 const static int TOTAL_OPTIONS_BUTTONS = 4;
 const static int TOTAL_CREDITS_BUTTONS = 1;
 //gamestate=6, stage1 buttons

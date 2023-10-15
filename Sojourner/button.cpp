@@ -9,41 +9,13 @@ button::button()
     musicToggle=true;
     voiceToggle=true;
     mouseOver=false;
-    //move buttons 0-7 to pregameui
-/*    pregameButtonNames[0]="back";
-	pregameButtonNames[1]="new";
-	pregameButtonNames[2]="load";
-	pregameButtonNames[3]="options";
-	pregameButtonNames[4]="credits";
-	//pregameButtonNames[5]="chapter1";
-	pregameButtonNames[5]="fullScreenToggle";
-	pregameButtonNames[6]="stage1";
-	//pregameButtonNames[8]="chapter2";
-	//pregameButtonNames[9]="chapter3";
-	pregameButtonNames[7]="musicToggle";
-	pregameButtonNames[8]="voiceToggle*/
-
-	//move buttons 8-15 to chapter
-/*	chapterButtonNames[0]="backPage";
-	chapterButtonNames[1]="backLine";
-	chapterButtonNames[2]="autoOn";
-	chapterButtonNames[3]="autoOff";
-	chapterButtonNames[4]="autoSpeed1";
-	chapterButtonNames[5]="autoSpeed2";
-	chapterButtonNames[6]="autoSpeed3";
-    chapterButtonNames[7]="saveAndExit";
-    chapterButtonNames[8]="nextPage";
-*/
     stageButtonNames[0]="saveAndExit";
-    //buttonTexture=NULL;
 }
 
 button::~button()
 {
     buttonTexture.free();
 }
-
-
 
 void button::fullScreenButtonTextureToggle(SDL_Renderer* renderer)
 {
@@ -56,7 +28,6 @@ void button::fullScreenButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/fullScreenToggle.png", renderer);
     }
-    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::musicButtonTextureToggle(SDL_Renderer* renderer)
@@ -70,7 +41,6 @@ void button::musicButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/musicOff.png", renderer);
     }
-    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::voiceButtonTextureToggle(SDL_Renderer* renderer)
@@ -84,7 +54,6 @@ void button::voiceButtonTextureToggle(SDL_Renderer* renderer)
     {
         buttonTexture.loadFromFile("images/buttons/voiceOff.png", renderer);
     }
-    //buttonTexture.render(getPositionX(),getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void button::setPosition( int x, int y )
@@ -139,16 +108,6 @@ void button::setVoiceOff(SDL_Renderer* renderer)
     voiceToggle = false;
     voiceButtonTextureToggle(renderer);
 }
-/*
-void button::setChapterButtonName(int i)
-{
-    buttonName=chapterButtonNames[i];
-}*/
-/*
-void button::setPregameButtonName(int i)
-{
-    buttonName=pregameButtonNames[i];
-}*/
 
 void button::setStageButtonName(int i)
 {
@@ -202,85 +161,111 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                 std::cout<<"\n \n mouseOver = true, buttonName: "<<buttonName;
                 mouseOver=true;
 		    }
-                switch( e->type )
-                {
-                    case SDL_MOUSEBUTTONDOWN:
-                            if(buttonName=="new")
-                            {
-                                printf("\n \n new game button pressed \n \n");
-                                gameState = 1;
-                            }
-                            else if(buttonName=="load")
-                            {
-                                printf("\n \n load game button pressed \n \n");
-                                gameState = 2;
-                            }
-                            else if(buttonName=="options")
-                            {
-                                printf("\n \n options button pressed \n \n");
-                                gameState = 3;
-                            }
-                            else if(buttonName=="credits")
-                            {
-                                printf("\n \n credits button pressed \n \n");
-                                gameState = 4;
-                            }
-                            else if(buttonName=="back")
-                            {
-                                printf("\n \n back button pressed \n \n");
-                                gameState = 0;
-                            }
-                            else if(buttonName=="save1")
-                            {
-                                printf("\n \n save 1 button pressed \n \n");
-                                chosenSave=0;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                            else if(buttonName=="save2")
-                            {
-                                printf("\n \n save 2 button pressed \n \n");
-                                chosenSave=1;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                            else if(buttonName=="save3")
-                            {
-                                printf("\n \n save 3 button pressed \n \n");
-                                chosenSave=2;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                            else if(buttonName=="fullScreenToggle")
-                            {
-                                printf("\n \n fullScreen toggle button pressed \n \n");
-                                if(!fullScreenToggle)
-                                    setFullScreenOn(window,renderer);
-                                else
-                                    setFullScreenOff(window,renderer);
-                                gameState = 3;
-                            }
-                            else if(buttonName=="musicToggle")
-                            {
-                                printf("\n \n music toggle button pressed \n \n");
-                                if(!musicToggle)
-                                    setMusicOn(renderer);
-                                else
-                                    setMusicOff(renderer);
-                                gameState = 3;
-                            }
-                            else if(buttonName=="voiceToggle")
-                            {
-                                printf("\n \n voice toggle button pressed \n \n");
-                                if(!voiceToggle)
-                                    setVoiceOn(renderer);
-                                else
-                                    setVoiceOff(renderer);
-                                gameState = 3;
-                            }
-                        break;
-                }
-
+            switch( e->type )
+            {
+                case SDL_MOUSEBUTTONDOWN:
+                        if(buttonName=="new")
+                        {
+                            printf("\n \n new game button pressed \n \n");
+                            gameState = 1;
+                        }
+                        else if(buttonName=="load")
+                        {
+                            printf("\n \n load game button pressed \n \n");
+                            gameState = 2;
+                        }
+                        else if(buttonName=="options")
+                        {
+                            printf("\n \n options button pressed \n \n");
+                            gameState = 3;
+                        }
+                        else if(buttonName=="credits")
+                        {
+                            printf("\n \n credits button pressed \n \n");
+                            gameState = 4;
+                        }
+                        else if(buttonName=="back")
+                        {
+                            printf("\n \n back button pressed \n \n");
+                            gameState = 0;
+                        }
+                        else if(buttonName=="save1")
+                        {
+                            printf("\n \n save 1 button pressed \n \n");
+                            chosenSave=0;
+                            std::cout<<"\n chosen save: "<<chosenSave;
+                            gameState = 5;
+                        }
+                        else if(buttonName=="save2")
+                        {
+                            printf("\n \n save 2 button pressed \n \n");
+                            chosenSave=1;
+                            std::cout<<"\n chosen save: "<<chosenSave;
+                            gameState = 5;
+                        }
+                        else if(buttonName=="save3")
+                        {
+                            printf("\n \n save 3 button pressed \n \n");
+                            chosenSave=2;
+                            std::cout<<"\n chosen save: "<<chosenSave;
+                            gameState = 5;
+                        }
+                        else if(buttonName=="trash1")
+                        {
+                            printf("\n \n trash1 button pressed \n \n");
+                            gameState = 1;
+                        }
+                        else if(buttonName=="trash2")
+                        {
+                            printf("\n \n trash2 button pressed \n \n");
+                            gameState = 2;
+                        }
+                        else if(buttonName=="trash3")
+                        {
+                            printf("\n \n trash3 button pressed \n \n");
+                            gameState = 3;
+                        }
+                        else if(buttonName=="yes")
+                        {
+                            printf("\n \n yes button pressed \n \n");
+                            gameState = 4;
+                            //this button needs a way to delete the save data for the savegame that corresponds to
+                            //the trashcan that was clicked.
+                        }
+                        else if(buttonName=="no")
+                        {
+                            printf("\n \n no button pressed \n \n");
+                            gameState = 6;
+                        }
+                        else if(buttonName=="fullScreenToggle")
+                        {
+                            printf("\n \n fullScreen toggle button pressed \n \n");
+                            if(!fullScreenToggle)
+                                setFullScreenOn(window,renderer);
+                            else
+                                setFullScreenOff(window,renderer);
+                            gameState = 3;
+                        }
+                        else if(buttonName=="musicToggle")
+                        {
+                            printf("\n \n music toggle button pressed \n \n");
+                            if(!musicToggle)
+                                setMusicOn(renderer);
+                            else
+                                setMusicOff(renderer);
+                            gameState = 3;
+                        }
+                        else if(buttonName=="voiceToggle")
+                        {
+                            printf("\n \n voice toggle button pressed \n \n");
+                            if(!voiceToggle)
+                                setVoiceOn(renderer);
+                            else
+                                setVoiceOff(renderer);
+                            gameState = 3;
+                        }
+                    break;
+            }
 		}
 	}
 	return gameState;
@@ -347,8 +332,6 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e )
                             printf("\n \n saveAndExit button pressed \n \n");
                             buttonClicked=1;
                         }
-
-
                     break;
                 }
 		}

@@ -300,9 +300,6 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
         //check if player is in range of interacting with a station
         if(collisionDetector(interactable[i]))
         {
-            //std::cout<<"\n player.interactBed: "<<interactBed;
-            //std::cout<<"\n player.interactWaterTank: "<<interactWaterTank;
-            //std::cout<<"\n player.interactPlanter: "<<interactPlanter;
 
             if(i==0)
             {

@@ -16,6 +16,9 @@ public:
     ~pregameui();
 
     bool existingSave[TOTAL_SAVES];
+    bool promptDelete;
+    int deleteCandidate;
+    bool triggerDelete;
 
     //declaring textures (title, backgrounds, etc
     Texture title;
@@ -24,6 +27,7 @@ public:
     Texture optionsTexture;
     Texture loadGameTexture;
     Texture chapterSelectTexture;
+    Texture promptDeleteBG;
     //behind background images that have transparency and need black background instead of default white.
     Texture PGUIBlackGround;
 

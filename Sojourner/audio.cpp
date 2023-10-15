@@ -28,31 +28,31 @@ void audio::loadMusic()
     {
         case 0:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - Blitz-Nevrosis.mp3" );
-            std::cout<<"\n\n playing blitz-nevrosis.mp3";
+            std::cout<<"\n\n loaded blitz-nevrosis.mp3";
         break;
         case 1:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - Empsykoun.mp3" );
-            std::cout<<"\n\n playing empsykoun.mp3";
+            std::cout<<"\n\n loaded empsykoun.mp3";
             break;
         case 2:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - Polylove.mp3" );
-            std::cout<<"\n\n playing polylove.mp3";
+            std::cout<<"\n\n loaded polylove.mp3";
             break;
         case 3:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - Rouge-haine-les-9-ames.mp3" );
-            std::cout<<"\n\n playing rouge-haine-les-9-ames.mp3";
+            std::cout<<"\n\n loaded rouge-haine-les-9-ames.mp3";
             break;
         case 4:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - The lost cyborg.mp3" );
-            std::cout<<"\n\n playing the lost cyborg.mp3";
+            std::cout<<"\n\n loaded the lost cyborg.mp3";
             break;
         case 5:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - There-is-someone.mp3" );
-            std::cout<<"\n\n playing there-is-someone.mp3";
+            std::cout<<"\n\n loaded there-is-someone.mp3";
             break;
         case 6:
             music = Mix_LoadMUS( "music/koi/Koi-discovery - Vortex-temporalis.mp3" );
-            std::cout<<"\n\n playing vortex-temporalis.mp3";
+            std::cout<<"\n\n loaded vortex-temporalis.mp3";
             break;
 
     }
@@ -218,20 +218,7 @@ void audio::resetChapter1Music()
     loadChapter1Music();
     playMusic();
 }
-
-void audio::resetChapter2Music()
-{
-    stopMusic();
-    loadChapter2Music();
-    playMusic();
-}
-
-void audio::resetChapter3Music()
-{
-    stopMusic();
-    loadChapter3Music();
-    playMusic();
-}*/
+*/
 
 
 

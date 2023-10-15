@@ -69,14 +69,18 @@ void timer::pause()
     {
         //Pause the timer
         paused = true;
+        /*
         std::cout<<"\n pausedTicks before operating = "<<pausedTicks;
         std::cout<<"\n SDL_GetTicks() before operating = "<<SDL_GetTicks();
         std::cout<<"\n startTicks before operating = "<<startTicks;
+        */
         //Calculate the paused ticks
         //pausedTicks = SDL_GetTicks() + startTicks;
         pausedTicks = startTicks;
+        /*
         std::cout<<"\n pausedTicks after operating = "<<pausedTicks;
         std::cout<<"\n end pause function";
+        */
 		startTicks = 0;
 		started = false;
 		//std::cout<<"\n pause: startTicks = 0, pausedTicks = "<<pausedTicks;
@@ -91,19 +95,17 @@ void timer::unpause()
     {
         //Unpause the timer
         paused = false;
-
+/*
         std::cout<<"\n unpause";
         std::cout<<"\n pausedTicks (before set to 0) = "<<pausedTicks;
         std::cout<<"\n startTicks (before operating) = "<<startTicks;
         std::cout<<"\n SDL_GetTicks() (before operating) = "<<SDL_GetTicks();
-        //Reset the starting ticks
-        //startTicks = SDL_GetTicks() - pausedTicks;
-
-
+        */
         startTicks = pausedTicks;
-
+        /*
         std::cout<<"\n startTicks (after startTicks = pausedTicks) = "<<startTicks;
         std::cout<<"\n end unpause function";
+        */
         //Reset the paused ticks
         pausedTicks = 0;
 
@@ -113,7 +115,6 @@ void timer::unpause()
 
 Uint32 timer::getTicks()
 {
-    //std::cout<<"\n running timer::getTicks()";
 	//The actual timer time
 	Uint32 time = 0;
 
@@ -123,13 +124,11 @@ Uint32 timer::getTicks()
         //If the timer is paused
         if( paused )
         {
-            //std::cout<<"\n pausedTicks: "<<pausedTicks;
             //Return the number of ticks when the timer was paused
             time = pausedTicks;
         }
         else
         {
-            //std::cout<<"\n SDL_GetTicks() - startTicks = "<<time;
             //Return the current time minus the start time
             time = SDL_GetTicks() - startTicks;
         }
@@ -158,15 +157,13 @@ void timer::setTicks(Uint32 x)
 
 bool timer::isStarted()
 {
-    //std::cout<<"\n running timer::isStarted()";
 	//Timer is running and paused or unpaused
     return started;
 }
 
 bool timer::isPaused()
 {
-    //std::cout<<"\n running timer::isPaused()";
-	//Timer is running and paused
+	//Timer is running and paused if both are true, returns true, else false
     return paused && started;
 }
 
@@ -188,21 +185,7 @@ void timer::updatePlayedTime()
 {
     //this function should take the saved time played before playing and add the ticks from
     //the amount of time played after playing (gamestate 5 ticks)
-    std::cout<<"\n running timer::updatePlayedTime()";
-    std::cout<<"\n paused: "<<paused<<" started: "<<started;
-    std::cout<<"\n startTicks: "<<startTicks;
-    std::cout<<"\n timePlayed: "<<timePlayed<<" before timePlayed+=getTicks-pausedTicks";
-    std::cout<<"\n getTicks(): "<<getTicks();
-    std::cout<<"\n pausedTicks: "<<pausedTicks;
-    //timePlayed += getTicks();
-    //startTicks = getTicks();
     timePlayed += getTicks()-pausedTicks;
-    //resetting startTicks to 0
-    //setTicks(0);
-    std::cout<<"\n timePlayed = "<<timePlayed<<" after timePlayed+=getTicks - pausedTicks";
-
-    //stop();
-    //pause();
 }
 
 void timer::restartPlayedTime()

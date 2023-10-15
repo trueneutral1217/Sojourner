@@ -168,7 +168,25 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
     {
         printf( "Error: Unable to save file %d! %s\n",fileNum, SDL_GetError() );
     }
+}
 
+void saveGame::deleteSave(int fileNum)
+{
+    std::cout<<"\n running saveGame::deleteSave(int fileNum)";
+    //restores game data to default values, depending on fileNum: save1.ssf, save2.ssf, and save3.ssf
+    saveFile = SDL_RWFromFile(saveLocation[fileNum], "r+b" );
+    if( saveFile != NULL )
+    {
+        printf( "\n Reformatting savefile %d", fileNum );
+        //write savegame defaults as 0.
+        for( int i = 0; i < TOTAL_DATA; ++i )
+        {
+            data[ i ] = 0;
+            SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
+        }
+        //Close file handler
+        SDL_RWclose( saveFile );
+    }
 }
 
 void saveGame::writePrefsFile(pregameui pregameui)
@@ -240,34 +258,15 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     std::cout<<"\n running saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
-    /*
-    for(int i =0; i<TOTAL_SAVES;i++)
-    {
-        //freeing textures before reloading them.
-        savedDateTexture[i].free();
-        savedPlayTimeTexture[i].free();
-    }*/
     time_t saved = data[1];
     char* sdt = ctime(&saved);
     std::cout<<"\n sdt: "<<sdt;
     savedDate[fileNum] << "Last Saved: " << sdt;
-    //erases weird character at end of string (hopefully)
-    //savedDate[fileNum].str().erase(savedDate[fileNum].str().end());
-    //savedDate[fileNum].str().pop_back();
-    //savedDate[fileNum].str().resize(35);
-
-    //std::cout<<"\n savedDate["<<fileNum<<"].str().back(): "<<savedDate[fileNum].str().back();
-    //std::cout<<"\n savedDate["<<fileNum<<"].str().at(35): "<<savedDate[fileNum].str().at(35);
+    //in order to strip out the extra couple characters that come with ctime, I pull the string out of
+    //the stringstream and do the operation to concatenate the extra couple characters.
     std::string s = savedDate[fileNum].str();
     s.erase(36,2);
-    //std::cout<<"\n s: "<<s;
-    //std::cout<<"\n s.size(): "<<s.size();
-    //replaces savedDate string with the version that had the extra characters popped out.
     savedDate[fileNum].str(s);
-    //savedDate[fileNum].str().erase(35,2);
-    //std::cout<<"\n savedDate["<<fileNum<<"].str().size(): "<<savedDate[fileNum].str().size();
-
-
     std::cout<<"\n savedDate["<<fileNum<<"]: "<<savedDate[fileNum].str();
     std::cout<<"\n data[2] (playedTime) = "<<data[2];
     int hours,minutes,seconds;
@@ -306,38 +305,6 @@ void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font*
     //textColor = {255,0,255};//pink
     //textColor = {255,0,0};//red
     textColor = {0,128,200};
-    /*
-    for(int i; i<TOTAL_SAVES;i++)
-    {
-        std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str().c_str();
-        if(savedDate[i].str() == "")
-        {
-            std::cout<<"\n savedDate["<<i<<".str() = \"\"";
-            savedDate[i].str("Empty");
-        }
-        if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
-        {
-            std::cout<<"\n unable to load savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
-        }
-        else
-        {
-            std::cout<<"\n savedDateTexture["<<i<<"] is loaded from streamstring";
-            std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str();
-        }
-        if(savedPlayTime[i].str() == "")
-        {
-            savedPlayTime[i].str("Empty");
-        }
-        if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
-        {
-            std::cout<<"\n unable to render savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
-        }
-        else
-        {
-            std::cout<<"\n savedPlayTimeTexture["<<i<<"] is loaded from streamstring";
-            std::cout<<"\n savedPlayTime["<<i<<"]: "<<savedPlayTime[i].str();
-        }
-    }*/
 }
 
 void saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)
