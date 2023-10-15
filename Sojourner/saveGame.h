@@ -56,6 +56,7 @@ class saveGame
 
     void loadSaveTextTextures(SDL_Renderer* renderer,TTF_Font* font);
 
+    void freeTextTextures();
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.
 

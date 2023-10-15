@@ -204,39 +204,6 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 }
 
-/*
-void saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)
-{
-    //this function may be deprecated.  it's called at the wrong time, and is redundant to loadSaveTextTextures function
-    std::cout<<"\n running saveGame::loadSavedMetaData(SDL_Renderer* renderer,TTF_Font* font)";
-    SDL_Color textColor = {0,0,0};//black
-    //textColor = {255,255,0};//ochre?
-    //textColor = {0,255,0};//green
-    //textColor = {255,0,255};//pink
-    //textColor = {255,0,0};//red
-    textColor = {0,128,200};
-    for(int i; i<TOTAL_SAVES;i++)
-    {
-        std::cout<<"\n"<<savedDate[i].str().c_str();
-        if(savedDate[i].str() == "")
-        {
-            savedDate[i].str("Empty");
-        }
-        if(!savedDateTexture[i].loadFromRenderedText(savedDate[i].str().c_str(), textColor,font,renderer))
-        {
-            std::cout<<"\n unable to render savedDate["<<i<<"] streamstring to savedDateTexture["<<i<<"]";
-        }
-        if(savedPlayTime[i].str() == "")
-        {
-            savedPlayTime[i].str("Empty");
-        }
-        if(!savedPlayTimeTexture[i].loadFromRenderedText(savedPlayTime[i].str().c_str(), textColor,font,renderer))
-        {
-            std::cout<<"\n unable to load savedPlayTime["<<i<<"] streamstring to savedPlayTimeTexture["<<i<<"]";
-        }
-    }
-}*/
-
 void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 {
     std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
@@ -423,5 +390,15 @@ void saveGame::handleSavedMetaDataRendering(SDL_Renderer* renderer)
     {
         savedPlayTimeTexture[i].render(160,(110+(i*100)),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         savedDateTexture[i].render(160,(130+(i*100)),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
+
+void saveGame::freeTextTextures()
+{
+    std::cout<<"\n freeing savedMetaDataTextTextures";
+    for(int i; i<TOTAL_SAVES; i++)
+    {
+        savedPlayTimeTexture[i].free();
+        savedDateTexture[i].free();
     }
 }

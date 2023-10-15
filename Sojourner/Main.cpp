@@ -391,7 +391,12 @@ int main( int argc, char* args[] )
                                 //playedTime.pause();
                                 //playedTime.unpause();
                                 stage.loadStage(renderer,true);
-
+                                savegame.freeTextTextures();
+                            }
+                            //player clicked back button.
+                            else if(gameState == 0)
+                            {
+                                savegame.freeTextTextures();
                             }
                         }
                         if(gameState==2)
@@ -405,34 +410,32 @@ int main( int argc, char* args[] )
                                 chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
                                 savegame.readSaveFile(chosenSave);
-                                //set player coords on screen and location in habitat (since it parallaxes vertically)
-                                stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
-
-                                //pregameui.freeLoadgameButtons();
-                                stage.loadStage(renderer,true);
-                                std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
-                                Uint32 previouslyPlayed = savegame.data[2];
-                                std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
-                                if(previouslyPlayed > 0)
+                                //if the save exists load the saved data
+                                if(savegame.data[0])
                                 {
-                                    //setting started = false, paused = true
-                                    //playedTime.setPaused();
+                                    //set player coords on screen and location in habitat (since it parallaxes vertically)
+                                    stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
+                                    //pregameui.freeLoadgameButtons();
+                                    stage.loadStage(renderer,true);
+                                    std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
+                                    Uint32 previouslyPlayed = savegame.data[2];
+                                    std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
+                                    savegame.freeTextTextures();
                                     playedTime.restart();
-                                    //setting the pausedTicks to saved ticks
-                                    //std::cout<<"\n playedTime.getTicks before setTicks(previouslyPlayed): "<<playedTime.getTicks();
-                                    //std::cout<<"\n playedTime.timePlayed before setTicks(previouslyPlayed): "<<playedTime.timePlayed;
-                                    //playedTime.setTicks(previouslyPlayed);
-                                    //std::cout<<"\n playedTime.getTicks after setTicks(previouslyPlayed): "<<playedTime.getTicks();
-                                    //std::cout<<"\n playedTime.timePlayed after setTicks(previouslyPlayed): "<<playedTime.timePlayed;
-                                    //might have an error in this function, need to check if it's used elsewhere
-                                    //playedTime.setUnpaused();
                                 }
+                                //if the save doesn't exist, gameState goes back to 2
                                 else
                                 {
-
-                                    playedTime.restart();
+                                    pregameui.loadLoadGameTextures(renderer);
+                                    pregameui.loadLoadgameButtons(renderer);
+                                    gameState = 2;
                                 }
-                                //pregameui.loadLoadgameButtons(renderer);
+
+                            }
+                            //player clicked back button.
+                            else if(gameState == 0)
+                            {
+                                savegame.freeTextTextures();
                             }
                         }
                         if(gameState==3)

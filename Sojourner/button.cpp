@@ -202,12 +202,9 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                 std::cout<<"\n \n mouseOver = true, buttonName: "<<buttonName;
                 mouseOver=true;
 		    }
-
                 switch( e->type )
                 {
                     case SDL_MOUSEBUTTONDOWN:
-                        //if(gameState==0)
-                        //{//button pressed in main screen
                             if(buttonName=="new")
                             {
                                 printf("\n \n new game button pressed \n \n");
@@ -228,10 +225,6 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                                 printf("\n \n credits button pressed \n \n");
                                 gameState = 4;
                             }
-                        //}
-                        /*else if(gameState==1)
-                        {//button pressed in newgame screen
-                        */
                             else if(buttonName=="back")
                             {
                                 printf("\n \n back button pressed \n \n");
@@ -239,7 +232,7 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                             }
                             else if(buttonName=="save1")
                             {
-                                printf("\n \n save 1 button pressed from \n \n");
+                                printf("\n \n save 1 button pressed \n \n");
                                 chosenSave=0;
                                 std::cout<<"\n chosen save: "<<chosenSave;
                                 gameState = 5;
@@ -258,45 +251,6 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                                 std::cout<<"\n chosen save: "<<chosenSave;
                                 gameState = 5;
                             }
-                            /*
-                        }
-                        else if(gameState==2)
-                        {//button pressed in loadgame screen
-                            if(buttonName=="back")
-                            {
-                                printf("\n \n back button pressed from loadgame \n \n");
-                                gameState = 0;
-                            }
-                            else if(buttonName=="save1")
-                            {
-                                printf("\n \n save 1 button pressed from loadgame \n \n");
-                                chosenSave=0;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                            else if(buttonName=="save2")
-                            {
-                                printf("\n \n save 2 button pressed from loadgame \n \n");
-                                chosenSave=1;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                            else if(buttonName=="save3")
-                            {
-                                printf("\n \n save 3 button pressed from loadgame \n \n");
-                                chosenSave=2;
-                                std::cout<<"\n chosen save: "<<chosenSave;
-                                gameState = 5;
-                            }
-                        }
-                        else if(gameState==3)
-                        {
-                            if(buttonName=="back")
-                            {
-                                printf("\n \n back button pressed from options \n \n");
-                                gameState = 0;
-                            }
-                            */
                             else if(buttonName=="fullScreenToggle")
                             {
                                 printf("\n \n fullScreen toggle button pressed \n \n");
@@ -323,130 +277,14 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                                 else
                                     setVoiceOff(renderer);
                                 gameState = 3;
-                            }/*
-                        }
-                        else if(gameState==4)
-                        {
-                            if(buttonName=="back")
-                            {
-                                printf("\n \n back button pressed from credits \n \n");
-                                gameState = 0;
                             }
-                        }
-                        */
                         break;
                 }
 
 		}
 	}
-	//std::cout<<"\n Gamestate: "<<gameState;
 	return gameState;
 }
-/*
-int button::handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window* window, SDL_Renderer* renderer )
-{
-    int buttonClicked = 0;
-	//If mouse event happened
-	if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
-	{
-		//Get mouse position
-		int x, y;
-		SDL_GetMouseState( &x, &y );
-
-		//Check if mouse is in button
-		bool inside = true;
-
-		//Mouse is left of the button
-		if( x < position.x )
-		{
-			inside = false;
-		}
-		//Mouse is right of the button
-		else if( x > position.x + buttonTexture.getWidth() )
-		{
-			inside = false;
-		}
-		//Mouse above the button
-		else if( y < position.y )
-		{
-			inside = false;
-		}
-		//Mouse below the button
-		else if( y > position.y + buttonTexture.getHeight() )
-		{
-			inside = false;
-		}
-
-		//Mouse is outside button
-		if( !inside )
-		{
-            buttonClicked=0;
-		}
-		//Mouse is inside button
-		else
-		{
-                switch( e->type )
-                {
-                    case SDL_MOUSEBUTTONDOWN:
-
-                        //stage 1 not currently implemented
-
-                        else if(buttonName=="stage1" && gameState==2)
-                        {
-                            printf("\n \n Stage 1 button pressed \n \n");
-                            gameState = 6;
-                        }
-                        if(buttonName=="saveAndExit")
-                        {
-                            printf("\n \n saveAndExit button pressed \n \n");
-                            buttonClicked=1;
-                        }
-                        else if(buttonName=="backPage")
-                        {
-                            printf("\n \n backPage button pressed \n \n");
-                            buttonClicked=2;
-                        }
-                        else if(buttonName=="backLine")
-                        {
-                            printf("\n \n backLine button pressed \n \n");
-                            buttonClicked=3;
-                        }
-                        else if(buttonName=="autoOn")
-                        {
-                            printf("\n \n autotexton button pressed \n \n");
-                            buttonClicked=4;
-                        }
-                        else if(buttonName=="autoOff")
-                        {
-                            printf("\n \n autotextoff button pressed \n \n");
-                            buttonClicked=5;
-                        }
-                        else if(buttonName=="autoSpeed1")
-                        {
-                            printf("\n \n autospeed1 button pressed \n \n");
-                            buttonClicked=6;
-                        }
-                        else if(buttonName=="autoSpeed2")
-                        {
-                            printf("\n \n autospeed2 button pressed \n \n");
-                            buttonClicked=7;
-                        }
-                        else if(buttonName=="autoSpeed3")
-                        {
-                            printf("\n \n autospeed3 button pressed \n \n");
-                            buttonClicked=8;
-                        }
-                        else if(buttonName=="nextPage")
-                        {
-                            printf("\n \n nextPage button pressed \n \n");
-                            buttonClicked=9;
-                        }
-                    break;
-                }
-		}
-	}
-	return buttonClicked;
-}*/
 
 int button::handleStageEvent(std::string buttonName, SDL_Event* e )
 {
