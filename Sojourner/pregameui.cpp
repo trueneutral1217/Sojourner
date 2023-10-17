@@ -177,7 +177,11 @@ void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
         }
         ss << "images/buttons/" << loadgameButtons[i].buttonName << ".png";
         std::string str = ss.str();
-        /*success = */loadgameButtons[i].buttonTexture.loadFromFile( str,renderer );
+        if(i!= 7 && i!= 8)
+        {
+            /*success = */loadgameButtons[i].buttonTexture.loadFromFile( str,renderer );
+        }
+
     }
     loadgameButtons[0].setPosition(600,20);
     loadgameButtons[1].setPosition(40,100);
@@ -242,8 +246,7 @@ void pregameui::freeLoadgameButtons()
 
 void pregameui::handleLoadGameScreenRendering(SDL_Renderer* renderer)
 {
-    //loadgame screen
-    chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //this function renders the buttons and the prompt to delete a save
     if(promptDelete)
     {
         promptDeleteBG.render(300,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -277,7 +280,11 @@ void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 
         ss << "images/buttons/" << newgameButtons[i].buttonName << ".png";
         std::string str = ss.str();
-        /*success = */newgameButtons[i].buttonTexture.loadFromFile( str,renderer );
+        if(i!= 7 && i !=8)
+        {
+            /*success = */newgameButtons[i].buttonTexture.loadFromFile( str,renderer );
+        }
+
 
     }
     newgameButtons[0].setPosition(600,20);
@@ -293,15 +300,6 @@ void pregameui::loadNewgameButtons(SDL_Renderer* renderer)
 
 void pregameui::renderNewgameButtons(SDL_Renderer* renderer)
 {
-    //below deprecated?
-    /*
-    for(int i =0; i<TOTAL_NEWGAME_BUTTONS;i++)
-    {
-        newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    */
-
-    //below is for when mouseover buttons are added to this screen
     for(int i=0;i<TOTAL_NEWGAME_BUTTONS;i++)
     {
         if(i<4)//renders the mouseover or default version of the save1,2,3, and back buttons.
@@ -350,8 +348,7 @@ void pregameui::freeNewgameButtons()
 
 void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 {
-    //rendering bg for newgame screen
-    chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
+    //this function renders the buttons and the prompt to delete a save
     if(promptDelete)
     {
         promptDeleteBG.render(300,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -604,31 +601,52 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             //user clicked a button, escape for loop.
             if(gameState!=-1)
             {
-                chosenSave = newgameButtons[i].chosenSave;
-                i+=TOTAL_NEWGAME_BUTTONS;
+                if(!existingSave[i-1])//this may need more debugging
+                {
+                    chosenSave = newgameButtons[i].chosenSave;
+                    i+=TOTAL_NEWGAME_BUTTONS;
+                }
+
                 if(gameState == 1 || gameState == 2 || gameState == 3)
                 {
-                    if(!promptDelete)
+                    if(existingSave[gameState-1])
                     {
-                        promptDelete = true;
-                        std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                        if(!promptDelete)
+                        {
+                            promptDelete = true;
+                            std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                            promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
+                            newgameButtons[7].buttonTexture.loadFromFile( "images/buttons/yes.png",renderer );
+                            newgameButtons[8].buttonTexture.loadFromFile("images/buttons/no.png",renderer);
+                        }
+                        deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
+                        chosenSave = deleteCandidate;
                     }
-                    deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
                     gameState=-1;
+
+
                 }
                 if(gameState==4)
                 {
+                    //user clicked yes to delete save file
                     promptDelete=false;
                     std::cout<<"\n promptDelete was true, now it's false (yes was clicked)";
                     triggerDelete = true;
                     std::cout<<"\n trigger delete is now true";
                     gameState=-1;
+                    promptDeleteBG.free();
+                    newgameButtons[7].buttonTexture.free();
+                    newgameButtons[8].buttonTexture.free();
+
                 }
                 if(gameState == 6)
-                {
+                {//user clicked no to delete save file
                     promptDelete=false;
                     std::cout<<"\n promptDelete was true, now it's false (no was clicked)";
                     gameState=-1;
+                    promptDeleteBG.free();
+                    newgameButtons[7].buttonTexture.free();
+                    newgameButtons[8].buttonTexture.free();
                 }
             }
         }
@@ -641,31 +659,48 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             //user clicked a button, escape for loop.
             if(gameState!=-1)
             {
-                chosenSave = loadgameButtons[i].chosenSave;
-                i+=TOTAL_LOADGAME_BUTTONS;
+                if(existingSave[i-1])
+                {
+                    chosenSave = loadgameButtons[i].chosenSave;
+                    i+=TOTAL_LOADGAME_BUTTONS;
+                }
                 if(gameState == 1 || gameState == 2 || gameState == 3)
                 {
-                    if(!promptDelete)
+                    if(existingSave[gameState-1])
                     {
-                        promptDelete = true;
-                        std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                        if(!promptDelete)
+                        {
+                            promptDelete = true;
+                            std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
+                            promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
+
+                            loadgameButtons[7].buttonTexture.loadFromFile( "images/buttons/yes.png",renderer );
+                            loadgameButtons[8].buttonTexture.loadFromFile("images/buttons/no.png",renderer);
+                        }
+                        deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
+                        chosenSave = deleteCandidate;
                     }
-                    deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
                     gameState=-1;
                 }
                 if(gameState==4)
-                {
+                {//user clicked yes to delete save file
                     promptDelete=false;
                     std::cout<<"\n promptDelete was true, now it's false (yes was clicked)";
                     triggerDelete = true;
                     std::cout<<"\n trigger delete is now true";
                     gameState=-1;
+                    promptDeleteBG.free();
+                    loadgameButtons[7].buttonTexture.free();
+                    loadgameButtons[8].buttonTexture.free();
                 }
                 if(gameState == 6)
-                {
+                {//user clicked no to delete save file
                     promptDelete=false;
                     std::cout<<"\n promptDelete was true, now it's false (no was clicked)";
                     gameState=-1;
+                    promptDeleteBG.free();
+                    loadgameButtons[7].buttonTexture.free();
+                    loadgameButtons[8].buttonTexture.free();
                 }
             }
         }

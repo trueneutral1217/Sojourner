@@ -385,6 +385,9 @@ int main( int argc, char* args[] )
                                 pregameui.triggerDelete = false;
                                 savegame.deleteSave(pregameui.deleteCandidate);
                                 std::cout<<"\n deleteSave called from newgame screen";
+                                pregameui.existingSave[pregameui.deleteCandidate] = false;
+                                //savegame.freeTextTextures();
+                                //savegame.loadSaveTextTextures(renderer, text.font);
                             }
                         }
                         if(gameState==2)
@@ -394,7 +397,7 @@ int main( int argc, char* args[] )
 
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
-
+                                std::cout<<"\n chosenSave: "<<chosenSave<<"\n pregameui.chosenSave: "<<pregameui.chosenSave<<"\n pregameui.deleteCandidate: "<<pregameui.deleteCandidate;
                                 chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
                                 savegame.readSaveFile(chosenSave);
@@ -423,6 +426,9 @@ int main( int argc, char* args[] )
                                 pregameui.triggerDelete = false;
                                 savegame.deleteSave(pregameui.deleteCandidate);
                                 std::cout<<"\n deleteSave called from loadgame screen";
+                                pregameui.existingSave[pregameui.deleteCandidate] = false;
+                                //savegame.freeTextTextures();
+                                //savegame.loadSaveTextTextures(renderer,text.font);
                             }
                             //player clicked back button.
                             else if(gameState == 0)
@@ -531,15 +537,27 @@ int main( int argc, char* args[] )
                     pregameui.handleTitleScreenRendering(renderer);
                 }
                 else if(gameState == 1)
-                {//new game chapter select screen
-                    pregameui.handleNewGameScreenRendering(renderer);
+                {//new game screen
+                    //new/loadgame bg screen
+                    pregameui.chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    //weirdly, bg image renders after savedmetadata without this delay.
+                    SDL_Delay(1);
+                    //renders the text textures of existing saves' saved date and playedtime
                     savegame.handleSavedMetaDataRendering(renderer);
+                    //renders the delete save prompt if conditions call for it, and the buttons.
+                    pregameui.handleNewGameScreenRendering(renderer);
+
                 }
                 else if(gameState == 2)
-                {//load game chapter/stage select screen
-                    //handles the buttons and background rendering
-                    pregameui.handleLoadGameScreenRendering(renderer);
+                {//load game save select screen
+                    //new/loadgame bg screen
+                    pregameui.chapterSelectTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    //weirdly, bg image renders after savedmetadata without this delay.
+                    SDL_Delay(1);
+                    //renders the text textures of existing saves' saved date and playedtime
                     savegame.handleSavedMetaDataRendering(renderer);
+                    //renders the delete save prompt if conditions call for it, and the buttons.
+                    pregameui.handleLoadGameScreenRendering(renderer);
                 }
                 else if(gameState == 3)
                 {
