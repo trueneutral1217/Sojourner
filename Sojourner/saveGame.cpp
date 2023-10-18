@@ -321,7 +321,7 @@ void saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)
     }
 
     SDL_Color textColor = {0,128,200};
-    for(int i; i<TOTAL_SAVES;i++)
+    for(int i=0; i<TOTAL_SAVES;i++)
     {
         std::cout<<"\n savedDate["<<i<<"]: "<<savedDate[i].str().c_str();
         if(savedDate[i].str() == "")

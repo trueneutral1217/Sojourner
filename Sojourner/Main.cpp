@@ -330,7 +330,9 @@ int main( int argc, char* args[] )
                             {//player clicked save and exit button
                                 //player is going back to the main scene
                                 //playedTime needs to be updated because player was in game
+                                std::cout<<"\n playedTime.timePlayed before running playedTime.updatePlayedTime(): "<<playedTime.timePlayed;
                                 playedTime.updatePlayedTime();
+                                std::cout<<"\n playedTime.timePlayed after running playedTime.updatePlayedTime(): "<<playedTime.timePlayed;
                                 playedTime.pause();
                                 std::cout<<"\n playedTime started: "<<playedTime.isStarted()<<", playedTime paused: "<<playedTime.isPaused();
                                 std::cout<<"\n SDL_getTicks(): "<<SDL_GetTicks()<<", playedTime.getTicks(): "<<playedTime.getTicks();
@@ -401,6 +403,8 @@ int main( int argc, char* args[] )
 
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
+
+
                                 std::cout<<"\n chosenSave: "<<chosenSave<<"\n pregameui.chosenSave: "<<pregameui.chosenSave<<"\n pregameui.deleteCandidate: "<<pregameui.deleteCandidate;
                                 chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
@@ -414,6 +418,7 @@ int main( int argc, char* args[] )
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                     Uint32 previouslyPlayed = savegame.data[2];
                                     std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
+                                    playedTime.timePlayed = savegame.data[2];
                                     //savegame.freeTextTextures();
                                     playedTime.restart();
                                 }

@@ -610,6 +610,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     if(!existingSave[newgameButtons[i].chosenSave])
                     {//if there is not an existing save in that slot.
                        chosenSave = newgameButtons[i].chosenSave;
+                       existingSave[chosenSave] = true;
                         i+=TOTAL_NEWGAME_BUTTONS;
                     }
                 }
