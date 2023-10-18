@@ -601,12 +601,18 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             //user clicked a button, escape for loop.
             if(gameState!=-1)
             {
-                if(!existingSave[i-1])//this may need more debugging
-                {
-                    chosenSave = newgameButtons[i].chosenSave;
+                if(gameState==0)
+                { //user clicked back button, exit for loop.
                     i+=TOTAL_NEWGAME_BUTTONS;
                 }
-
+                if(gameState==5)
+                {//user clicked either save1, 2 , or 3.
+                    if(!existingSave[newgameButtons[i].chosenSave])
+                    {//if there is not an existing save in that slot.
+                       chosenSave = newgameButtons[i].chosenSave;
+                        i+=TOTAL_NEWGAME_BUTTONS;
+                    }
+                }
                 if(gameState == 1 || gameState == 2 || gameState == 3)
                 {
                     if(existingSave[gameState-1])
@@ -659,10 +665,17 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             //user clicked a button, escape for loop.
             if(gameState!=-1)
             {
-                if(existingSave[i-1])
+                if(gameState==0)
                 {
-                    chosenSave = loadgameButtons[i].chosenSave;
                     i+=TOTAL_LOADGAME_BUTTONS;
+                }
+                if(gameState==5)
+                {//user clicked either save1, 2 , or 3.
+                    if(existingSave[loadgameButtons[i].chosenSave])
+                    {//if there is an existing save in that slot.
+                       chosenSave = loadgameButtons[i].chosenSave;
+                        i+=TOTAL_LOADGAME_BUTTONS;
+                    }
                 }
                 if(gameState == 1 || gameState == 2 || gameState == 3)
                 {
@@ -673,7 +686,6 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                             promptDelete = true;
                             std::cout<<"\n PromptDelete was false, now it's true (trashcan was clicked)";
                             promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
-
                             loadgameButtons[7].buttonTexture.loadFromFile( "images/buttons/yes.png",renderer );
                             loadgameButtons[8].buttonTexture.loadFromFile("images/buttons/no.png",renderer);
                         }

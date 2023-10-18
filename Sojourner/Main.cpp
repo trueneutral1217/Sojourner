@@ -373,21 +373,25 @@ int main( int argc, char* args[] )
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
                                 stage.loadStage(renderer,true);
-                                savegame.freeTextTextures();
+                                //savegame.freeTextTextures();
                             }
                             //player clicked back button.
                             else if(gameState == 0)
                             {
-                                savegame.freeTextTextures();
+                                //savegame.freeTextTextures();
                             }
                             if(pregameui.triggerDelete)
                             {
                                 pregameui.triggerDelete = false;
                                 savegame.deleteSave(pregameui.deleteCandidate);
+                                //savegame.readSaveFile(pregameui.deleteCandidate);
                                 std::cout<<"\n deleteSave called from newgame screen";
                                 pregameui.existingSave[pregameui.deleteCandidate] = false;
-                                //savegame.freeTextTextures();
-                                //savegame.loadSaveTextTextures(renderer, text.font);
+                                savegame.updateSavedMetaData(pregameui.deleteCandidate,renderer,text.font);
+                                savegame.savedDate[pregameui.deleteCandidate].str("");
+                                savegame.savedPlayTime[pregameui.deleteCandidate].str("");
+                                //savegame.readSaveFile(pregameui.deleteCandidate);
+                                savegame.loadSaveTextTextures(renderer, text.font);
                             }
                         }
                         if(gameState==2)
@@ -410,7 +414,7 @@ int main( int argc, char* args[] )
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                     Uint32 previouslyPlayed = savegame.data[2];
                                     std::cout<<"\n previouslyPlayed: "<<previouslyPlayed;
-                                    savegame.freeTextTextures();
+                                    //savegame.freeTextTextures();
                                     playedTime.restart();
                                 }
                                 //if the save doesn't exist, gameState goes back to 2
@@ -425,15 +429,21 @@ int main( int argc, char* args[] )
                             {//after a save deletion.
                                 pregameui.triggerDelete = false;
                                 savegame.deleteSave(pregameui.deleteCandidate);
+
+                                //savegame.readSaveFile(pregameui.deleteCandidate);
+
                                 std::cout<<"\n deleteSave called from loadgame screen";
                                 pregameui.existingSave[pregameui.deleteCandidate] = false;
-                                //savegame.freeTextTextures();
-                                //savegame.loadSaveTextTextures(renderer,text.font);
+                                savegame.updateSavedMetaData(pregameui.deleteCandidate,renderer,text.font);
+                                savegame.savedDate[pregameui.deleteCandidate].str("");
+                                savegame.savedPlayTime[pregameui.deleteCandidate].str("");
+                                //savegame.readSaveFile(pregameui.deleteCandidate);
+                                savegame.loadSaveTextTextures(renderer, text.font);
                             }
                             //player clicked back button.
                             else if(gameState == 0)
                             {
-                                savegame.freeTextTextures();
+                                //savegame.freeTextTextures();
                             }
                         }
                         if(gameState==3)

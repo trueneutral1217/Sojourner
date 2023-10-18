@@ -187,6 +187,8 @@ void saveGame::deleteSave(int fileNum)
         //Close file handler
         SDL_RWclose( saveFile );
     }
+    savedPlayTime[fileNum].str() = "";
+    savedDate[fileNum].str() = "";
 }
 
 void saveGame::writePrefsFile(pregameui pregameui)
@@ -254,7 +256,8 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 }
 
 void saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)
-{//by using filenum instead of iterating through all the save files some efficiency might be gained.
+{//this function updates the savedDate & playtime of a savefile (fileNum) after player exits stage.
+    //by using filenum instead of iterating through all the save files some efficiency might be gained.
     std::cout<<"\n running saveGame::updateSavedMetaData(int fileNum, SDL_Renderer* renderer,TTF_Font* font)";
     savedDate[fileNum].str("");
     savedDate[fileNum].clear();
