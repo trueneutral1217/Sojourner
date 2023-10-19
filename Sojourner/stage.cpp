@@ -42,7 +42,7 @@ bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
         //buttons[ i ].setPosition( ((i*160)-80), SCREEN_HEIGHT - 140 );
     }
     //save and exit
-    buttons[0].setPosition(600,20);
+    buttons[0].setPosition(600,80);
     return success;
 }
 
@@ -65,6 +65,10 @@ bool stage::setStageTextures(SDL_Renderer* renderer)
     for(int i = 0; i<TOTAL_STAGE_BACKGROUNDS;i++)
     {
         success = stage1BG[i].loadFromFile( bgFileName[i],renderer );
+    }
+    for(int i = 0; i < TOTAL_STAGE_UI; i++)
+    {
+        success = UI[i].loadFromFile(uiFileName[i],renderer);
     }
     success = starsFore.parallaxTexture.loadFromFile("images/starlaxfore.png",renderer);
     success = starsMid.parallaxTexture.loadFromFile("images/starlaxmid.png",renderer);
@@ -91,6 +95,8 @@ void stage::setFileNames()
     bgFileName[2] = "images/habitation1.png";
     bgFileName[3] = "images/habitation2.png";
 
+    uiFileName[0] = "images/UI.png";
+
 }
 
 void stage::freeBGTextures()
@@ -105,6 +111,15 @@ void stage::freeBGTextures()
     starsFore.freeParallaxTexture();
     starsMid.freeParallaxTexture();
     starsBack.freeParallaxTexture();
+}
+
+void stage::freeUITextures()
+{
+    std::cout<<"\n running stage::freeUITextures()";
+    for(int i = 0; i < TOTAL_STAGE_UI; i++)
+    {
+        UI[i].free();
+    }
 }
 
 void stage::loadFont()
@@ -137,6 +152,7 @@ void stage::free()
     //free resources
     freeButtons();
     freeBGTextures();
+    freeUITextures();
     player1.freePlayer();
     station.free();
 }
@@ -196,8 +212,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         habInternalHandleParallax(renderer);
     }
 
-    //this set up always keeps player in front of station, considering setting up a system to display station in
-    //front of player if station's y coord is greater than player's.  might be complicated with vertical parallax/loop
+    //renders station, then renders player, because station is in front of player (station closer to bottom screen)
     if(internalView)
     {
         station.renderStationBehindPlayer(renderer,player1.playerBot);
@@ -227,6 +242,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
             }
         }
+    }
+    if(internalView)
+    {
+        UI[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
     if(buttons[0].mouseOver==false)
     {

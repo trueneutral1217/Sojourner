@@ -10,6 +10,7 @@
 #include "station.h"
 
 const static int TOTAL_STAGE_BACKGROUNDS = 4;
+const static int TOTAL_STAGE_UI = 1;
 
 class stage
 {
@@ -47,9 +48,14 @@ class stage
         std::string bgFileName[TOTAL_STAGE_BACKGROUNDS];
         //array of background images for stage1
         Texture stage1BG[TOTAL_STAGE_BACKGROUNDS];
+        //UI image names
+        std::string uiFileName[TOTAL_STAGE_UI];
+        //UI for stage
+        Texture UI[TOTAL_STAGE_UI];
         //free resources
         void freeButtons();
         void freeBGTextures();
+        void freeUITextures();
         //handles movement and rendering for parallax images
         void starsHandleParallax(SDL_Renderer* renderer);
         //button textures are applied via button names from button class
