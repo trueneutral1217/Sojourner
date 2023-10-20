@@ -9,8 +9,10 @@
 //#include "saveGame.h"
 #include "station.h"
 
+//these are the parallax images used for the bg's.
 const static int TOTAL_STAGE_BACKGROUNDS = 4;
-const static int TOTAL_STAGE_UI = 1;
+//number of UI images
+const int TOTAL_STAGE_UI = 1;
 
 class stage
 {
@@ -50,7 +52,7 @@ class stage
         Texture stage1BG[TOTAL_STAGE_BACKGROUNDS];
         //UI image names
         std::string uiFileName[TOTAL_STAGE_UI];
-        //UI for stage
+        //UI texture(s) for stage
         Texture UI[TOTAL_STAGE_UI];
         //free resources
         void freeButtons();

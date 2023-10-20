@@ -65,6 +65,8 @@
 		<Unit filename="pregameui.h" />
 		<Unit filename="saveGame.cpp" />
 		<Unit filename="saveGame.h" />
+		<Unit filename="ship.cpp" />
+		<Unit filename="ship.h" />
 		<Unit filename="stage.cpp" />
 		<Unit filename="stage.h" />
 		<Unit filename="station.cpp" />

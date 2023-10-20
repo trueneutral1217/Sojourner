@@ -35,6 +35,8 @@ const int WALK_ULUR = 3;
 const int WALK_D = 4;
 //movestate 5 is player is walking up
 const int WALK_U = 5;
+//used when iterating though the text textures displayed in the UI
+const int TOTAL_PLAYER_NEEDS = 5;
 
 class player
 {
@@ -72,6 +74,16 @@ class player
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.
         Texture playerTexture[MOVE_STATES][LR_TEXTURES];
+        //strings for the player needs note: index 0 correlates with health, 1 = hunger, 2 = physique, 3 = slumber, 4 = morale
+        std::string playerNeeds[TOTAL_PLAYER_NEEDS];
+        //text textures for the UI, displays percent of health, hunger, physique, slumber, and morale.
+        Texture needsTexture[TOTAL_PLAYER_NEEDS];
+        //loads the needs textures
+        //void loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font);
+        //renders the needs text textures
+        //void renderNeedsTextures(SDL_Renderer* renderer);
+        //frees the text textures of the player's needs.
+        //void freeNeedsTextures();
         //loads player resources
         void loadPlayer(SDL_Renderer* renderer);
         //if user presses wasd, this update's player velocity
@@ -103,6 +115,9 @@ class player
         int pVelX,pVelY;
         //necessary for many operations, from walking to potentially fighting.
         SDL_Rect playerCollisionBox;
+        //player needs (0-100 percent); health hunger physique slumber morale
+        int need[TOTAL_PLAYER_NEEDS];
+
 };
 #endif // PLAYER_H
 

@@ -1642,14 +1642,14 @@
 	"button.h"
 	"particle.h"
 
-1697751737 c:\sojourner\sojourner\stage.h
+1697761149 c:\sojourner\sojourner\stage.h
 	"Texture.h"
 	"button.h"
 	"player.h"
 	"parallax.h"
 	"station.h"
 
-1686957331 c:\sojourner\sojourner\player.h
+1697761793 c:\sojourner\sojourner\player.h
 	"texture.h"
 
 1685578234 c:\sojourner\sojourner\text.h
@@ -1662,13 +1662,13 @@
 1696194574 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1697401916 source:c:\sojourner\sojourner\player.cpp
+1697761521 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1697669049 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1697752345 source:c:\sojourner\sojourner\stage.cpp
+1697761545 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1685578234 source:c:\sojourner\sojourner\text.cpp
@@ -1698,4 +1698,10 @@
 1687122874 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
+
+1697757629 source:c:\sojourner\sojourner\ship.cpp
+	"ship.h"
+
+1697757629 c:\sojourner\sojourner\ship.h
+	"texture.h"
 

@@ -20,7 +20,11 @@ player::player()
     playerCollisionBox.y = playerY+60;
     playerCollisionBox.w = 30;
     playerCollisionBox.h = PLAYER_HEIGHT/4;
-
+/*
+    for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
+    {
+        need[i] = 100;
+    }*/
 }
 player::~player()
 {
@@ -70,6 +74,7 @@ player::~player()
         }
     }
     currentTexture.free();
+//    freeNeedsTextures();
 }
 
 void player::handleEvent(SDL_Event& e)
@@ -570,6 +575,8 @@ void player::freePlayer()
         }
     }
     currentTexture.free();
+    //frees text textures for player's needs in UI.
+//    freeNeedsTextures();
 }
 
 void player::setCamera(SDL_Rect& camera)
@@ -667,3 +674,37 @@ bool player::collisionDetector(SDL_Rect collidable)
 
     return true;
 }
+/*
+void player::freeNeedsTextures()
+{
+    std::cout<<"\n running player::freeNeedsTextures()";
+    for(int i = 0; i < TOTAL_PLAYER_NEEDS; i++)
+    {
+        needsTexture[i].free();
+    }
+}
+
+void player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)";
+    SDL_Color textColor = {0,128,200};
+    for (int i = 0; i< TOTAL_PLAYER_NEEDS; i++)
+    {
+        /*
+        playerNeeds[i].str("");
+        needsTexture[i].free();
+        playerNeeds[i]<<""<<need[i];
+        if(!needsTexture[i].loadFromRenderedText(playerNeeds[i].str().c_str(), textColor,font,renderer))
+        {
+            std::cout<<"\n unable to load playerNeeds["<<i<<"] streamstring to needsTexture["<<i<<"]";
+        }*/
+//    }
+//}
+/*
+void player::renderNeedsTextures(SDL_Renderer* renderer)
+{
+    for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
+    {
+        needsTexture[i].render(i*20,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}*/

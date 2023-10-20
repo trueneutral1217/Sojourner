@@ -142,6 +142,8 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     success = setStageTextures(renderer);
     //load player texture
     player1.loadPlayer(renderer);
+    //loads needs text textures for UI.
+ //   player1.loadNeedsTextures(renderer,font);
     station.loadStation(renderer,font);
     return success;
 }
@@ -246,6 +248,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(internalView)
     {
         UI[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+//        player1.renderNeedsTextures(renderer);
     }
     if(buttons[0].mouseOver==false)
     {
