@@ -33,7 +33,7 @@ void saveGame::readPrefsFile()
     }//File exists
     else
     {
-        printf( "Loading Saved Preferences Data...!\n" );
+        printf( "\n Loading Saved Preferences Data...!\n" );
         for( int i = 0; i < TOTAL_PREFS_DATA; ++i )
         {
             SDL_RWread( prefsFile, &prefsData[ i ], sizeof(bool), 1 );

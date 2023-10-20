@@ -76,14 +76,18 @@ class player
         Texture playerTexture[MOVE_STATES][LR_TEXTURES];
         //strings for the player needs note: index 0 correlates with health, 1 = hunger, 2 = physique, 3 = slumber, 4 = morale
         std::string playerNeeds[TOTAL_PLAYER_NEEDS];
+        //updates player's needs values (typically after interacting with a station)
+        void modifyNeeds(int modNeedValues[]);
         //text textures for the UI, displays percent of health, hunger, physique, slumber, and morale.
         Texture needsTexture[TOTAL_PLAYER_NEEDS];
         //loads the needs textures
-        //void loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font);
+        void loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font);
+        //reloads the needs textures (ideally after one of the values of needs changes)
+        void reloadNeedsTextures(SDL_Renderer* renderer,TTF_Font* font);
         //renders the needs text textures
-        //void renderNeedsTextures(SDL_Renderer* renderer);
+        void renderNeedsTextures(SDL_Renderer* renderer);
         //frees the text textures of the player's needs.
-        //void freeNeedsTextures();
+        void freeNeedsTextures();
         //loads player resources
         void loadPlayer(SDL_Renderer* renderer);
         //if user presses wasd, this update's player velocity
@@ -107,6 +111,8 @@ class player
         void setY(int y);
         //checks for collisions between collidable objects and player
         bool collisionDetector(SDL_Rect collidable);
+        //player needs (0-100 percent); health hunger physique slumber morale
+        int need[TOTAL_PLAYER_NEEDS];
 
     private:
         //player coordinates
@@ -115,8 +121,7 @@ class player
         int pVelX,pVelY;
         //necessary for many operations, from walking to potentially fighting.
         SDL_Rect playerCollisionBox;
-        //player needs (0-100 percent); health hunger physique slumber morale
-        int need[TOTAL_PLAYER_NEEDS];
+
 
 };
 #endif // PLAYER_H

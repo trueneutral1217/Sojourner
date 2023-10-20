@@ -143,7 +143,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     //load player texture
     player1.loadPlayer(renderer);
     //loads needs text textures for UI.
- //   player1.loadNeedsTextures(renderer,font);
+    player1.loadNeedsTextures(renderer,font);
     station.loadStation(renderer,font);
     return success;
 }
@@ -233,7 +233,16 @@ void stage::renderStage1(SDL_Renderer* renderer)
             }
             if(player1.interactBed)
             {
-                station.renderInteractBed(renderer,player1.getX(),player1.getY());
+                if(player1.need[3]<100)
+                {
+                    int slumberBag[TOTAL_PLAYER_NEEDS] = {20,-10,-20,100,0};
+                    player1.modifyNeeds(slumberBag);
+                    player1.reloadNeedsTextures(renderer,font);
+                }
+                else
+                {
+                    station.renderInteractBed(renderer,player1.getX(),player1.getY());
+                }
             }
             if(player1.interactPlanter)
             {
@@ -248,7 +257,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(internalView)
     {
         UI[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-//        player1.renderNeedsTextures(renderer);
+        player1.renderNeedsTextures(renderer);
     }
     if(buttons[0].mouseOver==false)
     {

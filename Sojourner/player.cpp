@@ -20,11 +20,11 @@ player::player()
     playerCollisionBox.y = playerY+60;
     playerCollisionBox.w = 30;
     playerCollisionBox.h = PLAYER_HEIGHT/4;
-/*
+
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {
         need[i] = 100;
-    }*/
+    }
 }
 player::~player()
 {
@@ -74,7 +74,7 @@ player::~player()
         }
     }
     currentTexture.free();
-//    freeNeedsTextures();
+    freeNeedsTextures();
 }
 
 void player::handleEvent(SDL_Event& e)
@@ -576,7 +576,7 @@ void player::freePlayer()
     }
     currentTexture.free();
     //frees text textures for player's needs in UI.
-//    freeNeedsTextures();
+    freeNeedsTextures();
 }
 
 void player::setCamera(SDL_Rect& camera)
@@ -674,7 +674,24 @@ bool player::collisionDetector(SDL_Rect collidable)
 
     return true;
 }
-/*
+
+void player::modifyNeeds(int modNeedValues[])
+{
+    std::cout<<"\n running player::modifyNeeds(int modNeedValues[])";
+    for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
+    {
+        need[i] += modNeedValues[i];
+        if(need[i] > 100)
+        {
+            need[i] = 100;
+        }
+        else if(need[i] < 0)
+        {
+            need[i] = 0;
+        }
+    }
+}
+
 void player::freeNeedsTextures()
 {
     std::cout<<"\n running player::freeNeedsTextures()";
@@ -685,26 +702,46 @@ void player::freeNeedsTextures()
 }
 
 void player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
-{
+{//stage gets copied when it gets sent into a savegame function, can't do that with stringstream
     std::cout<<"\n running player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)";
     SDL_Color textColor = {0,128,200};
     for (int i = 0; i< TOTAL_PLAYER_NEEDS; i++)
     {
-        /*
-        playerNeeds[i].str("");
-        needsTexture[i].free();
-        playerNeeds[i]<<""<<need[i];
-        if(!needsTexture[i].loadFromRenderedText(playerNeeds[i].str().c_str(), textColor,font,renderer))
+        need[i] = 5+(i*15);
+
+        //playerNeeds[i].str("");
+        //needsTexture[i].free();
+        playerNeeds[i] = std::to_string(need[i]);// << need[i];
+        if(!needsTexture[i].loadFromRenderedText(playerNeeds[i], textColor,font,renderer))
         {
-            std::cout<<"\n unable to load playerNeeds["<<i<<"] streamstring to needsTexture["<<i<<"]";
-        }*/
-//    }
-//}
-/*
+            std::cout<<"\n unable to load playerNeeds["<<i<<"] string to needsTexture["<<i<<"]";
+        }
+    }
+}
+
+void player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
+{//when something happens that affects the players needs, the text texture for that
+    //need needs to be reloaded before being rendered again
+    std::cout<<"\n running player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)";
+    SDL_Color textColor = {0,128,200};
+    for (int i = 0; i< TOTAL_PLAYER_NEEDS; i++)
+    {
+        //need[i] = 10+(i*15);
+
+        //playerNeeds[i].str("");
+        needsTexture[i].free();
+        playerNeeds[i] = std::to_string(need[i]);// << need[i];
+        if(!needsTexture[i].loadFromRenderedText(playerNeeds[i], textColor,font,renderer))
+        {
+            std::cout<<"\n unable to load playerNeeds["<<i<<"] string to needsTexture["<<i<<"]";
+        }
+    }
+}
+
 void player::renderNeedsTextures(SDL_Renderer* renderer)
 {
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {
-        needsTexture[i].render(i*20,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        needsTexture[i].render(20+(i*70),40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-}*/
+}
