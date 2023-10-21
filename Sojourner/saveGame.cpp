@@ -155,6 +155,12 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
         data[4] = stage.player1.getY();
         data[5] = stage.habInternalY1;
         data[6] = stage.habInternalY2;
+        //iterates through the player's needs and records them.
+        for(int i = 0; i < TOTAL_PLAYER_NEEDS; i++)
+        {
+            data[i+7] = stage.player1.need[i];
+        }
+
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -244,6 +250,12 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
     std::cout<<"\n stage.habInternalY1 = "<<stage.habInternalY1;
     data[6] = stage.habInternalY2;
     std::cout<<"\n stage.habInternalY2 = "<<stage.habInternalY2;
+
+    //iterates through the player's needs and records them.
+    for(int i = 0; i < TOTAL_PLAYER_NEEDS; i++)
+    {
+        data[i+7] = stage.player1.need[i];
+    }
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )

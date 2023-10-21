@@ -338,6 +338,11 @@ void stage::setNewgameVars()
     player1.setY(260);
     habInternalY1 = 0;
     habInternalY2 = -600;
+    //sets players starting needs at 100
+    for(int i = 0; i < TOTAL_PLAYER_NEEDS; i++)
+    {
+        player1.need[i] = 100;
+    }
     //externalView=true;
 }
 

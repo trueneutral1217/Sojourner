@@ -414,6 +414,7 @@ int main( int argc, char* args[] )
                                 {
                                     //set player coords on screen and location in habitat (since it parallaxes vertically)
                                     stage.loadSavedGameData(savegame.data[3],savegame.data[4],savegame.data[5],savegame.data[6]);
+                                    stage.player1.loadSavedPlayerData(savegame.data[7],savegame.data[8],savegame.data[9],savegame.data[10],savegame.data[11]);
                                     stage.loadStage(renderer,true);
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                     Uint32 previouslyPlayed = savegame.data[2];

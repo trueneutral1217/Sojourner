@@ -678,6 +678,8 @@ bool player::collisionDetector(SDL_Rect collidable)
 void player::modifyNeeds(int modNeedValues[])
 {
     std::cout<<"\n running player::modifyNeeds(int modNeedValues[])";
+    //sends in an array (shouldn't be larger than TOTAL_PLAYER_NEEDS), gives the sum of the need before and after mod,
+    //adjusts for a need going under 0 or over 100
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {
         need[i] += modNeedValues[i];
@@ -707,7 +709,7 @@ void player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
     SDL_Color textColor = {0,128,200};
     for (int i = 0; i< TOTAL_PLAYER_NEEDS; i++)
     {
-        need[i] = 5+(i*15);
+        //need[i] = 5+(i*15);
 
         //playerNeeds[i].str("");
         //needsTexture[i].free();
@@ -744,4 +746,15 @@ void player::renderNeedsTextures(SDL_Renderer* renderer)
     {
         needsTexture[i].render(20+(i*70),40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+}
+
+void player::loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5)
+{
+    std::cout<<"\n running player::loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5)";
+    //load character needs from save
+    need[0] = d1;
+    need[1] = d2;
+    need[2] = d3;
+    need[3] = d4;
+    need[4] = d5;
 }

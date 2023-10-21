@@ -113,6 +113,8 @@ class player
         bool collisionDetector(SDL_Rect collidable);
         //player needs (0-100 percent); health hunger physique slumber morale
         int need[TOTAL_PLAYER_NEEDS];
+        //loads needs from saved game file into working variables
+        void loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5);
 
     private:
         //player coordinates
