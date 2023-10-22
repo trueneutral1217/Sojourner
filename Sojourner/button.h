@@ -20,7 +20,7 @@ const static int TOTAL_LOADGAME_BUTTONS = 9;
 const static int TOTAL_OPTIONS_BUTTONS = 4;
 const static int TOTAL_CREDITS_BUTTONS = 1;
 //gamestate=6, stage1 buttons
-const static int TOTAL_STAGE_BUTTONS = 1;
+const static int TOTAL_STAGE_BUTTONS = 2;
 
 class button
 {

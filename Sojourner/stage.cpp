@@ -31,18 +31,21 @@ bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
     //stage button textures get loaded into array from array of string names, button positions set after.
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
-        std::stringstream ss;
-        std::stringstream ssMO;
-        ss << "images/buttons/" << buttons[i].buttonName << ".png";
-        ssMO << "images/buttons/" << buttons[i].buttonName << "MO.png";
-        std::string str = ss.str();
-        std::string str2 = ssMO.str();
-        success = buttons[i].buttonTexture.loadFromFile( str,renderer );
-        success = buttons[i].buttonMOTexture.loadFromFile( str2,renderer );
-        //buttons[ i ].setPosition( ((i*160)-80), SCREEN_HEIGHT - 140 );
+        if(i!=1)
+        {
+            std::stringstream ss;
+            std::stringstream ssMO;
+            ss << "images/buttons/" << buttons[i].buttonName << ".png";
+            ssMO << "images/buttons/" << buttons[i].buttonName << "MO.png";
+            std::string str = ss.str();
+            std::string str2 = ssMO.str();
+            success = buttons[i].buttonTexture.loadFromFile( str,renderer );
+            success = buttons[i].buttonMOTexture.loadFromFile( str2,renderer );
+        }
     }
     //save and exit
     buttons[0].setPosition(600,80);
+
     return success;
 }
 
@@ -175,6 +178,12 @@ void stage::handleStageButtonPresses(int buttonClicked)
         showPlayer=true;
         externalView=false;
     }
+    else if(buttonClicked == 3)
+    {//player clicked 'plant' under planter interactions
+        //this is where the texture for the planter station should update to show plants have been planted
+        //it should also take some time and lower players' needs (ie: player's slumber need)
+        std::cout<<"\n planter 'plant' button pressed";
+    }
 }
 
 int stage::handleButtons( SDL_Event* e )
@@ -182,11 +191,19 @@ int stage::handleButtons( SDL_Event* e )
     //std::cout<<"\n running stage::handleButtons( SDL_Event* e )";
     //player clicks mouse inside stage
     int buttonClicked = 0;
+
+    //planter's plant button needs to be updated based on the planter's X,Y coords
+    //attempting to create a button using a textTexture. this might not work right if plant texture has moved.
+    buttons[1].buttonTexture = station.plantTexture;
+    buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
+
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
         buttonClicked = buttons[ i ].handleStageEvent(buttons[i].buttonName, e );
     }
+
+
     handleStageButtonPresses(buttonClicked);
 
     if(buttonClicked == 1)
@@ -347,13 +364,13 @@ void stage::setNewgameVars()
 }
 
 
-void stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)
+void stage::loadSavedGameData(Uint32 dataValues[])
 {
-    std::cout<<"\n running stage::loadSavedGameData(Uint32 d1,Uint32 d2, Uint32 d3, Uint32 d4)";
-    player1.setX(d1);
-    player1.setY(d2);
+    std::cout<<"\n running stage::loadSavedGameData(Uint32 dataValues[])";
+    player1.setX(dataValues[0]);
+    player1.setY(dataValues[1]);
     //load habitat Y1 and Y2 coords from safe file
-    habInternalY1 = d3;
-    habInternalY2 = d4;
+    habInternalY1 = dataValues[2];
+    habInternalY2 = dataValues[3];
 }
 

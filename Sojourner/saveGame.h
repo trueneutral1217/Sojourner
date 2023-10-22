@@ -37,8 +37,6 @@ class saveGame
 
     SDL_RWops* saveFile;
 
-
-
     void readPrefsFile();
 
     //reads save file, specified by fileNum, creates a new one if none exists.
@@ -62,6 +60,10 @@ class saveGame
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.
 
+    Uint32 dataValues1[4];
+    Uint32 dataValues2[5];
+
+    void setDataValues();
 
 
     private:

@@ -384,3 +384,17 @@ void saveGame::freeTextTextures()
         savedDateTexture[i].free();
     }
 }
+
+void saveGame::setDataValues()
+{//used for loading saved data values for saved games
+    //player coords / parallax bg coords
+    for(int i = 0; i < 4; i++)
+    {
+        dataValues1[i] = data[i+3];
+    }
+    //player needs values
+    for(int j = 0; j < TOTAL_PLAYER_NEEDS; j++)
+    {
+        dataValues2[j] = data[j+7];
+    }
+}

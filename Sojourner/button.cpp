@@ -10,6 +10,7 @@ button::button()
     voiceToggle=true;
     mouseOver=false;
     stageButtonNames[0]="saveAndExit";
+    stageButtonNames[1]="plant";
 }
 
 button::~button()
@@ -304,7 +305,7 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e )
 		{
 			inside = false;
 		}
-
+        //std::cout<<"\n mouse X: "<<x<<" mouse Y: "<<y;
 		//Mouse is outside button
 		if( !inside )
 		{
@@ -329,8 +330,13 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e )
 
                         if(buttonName=="saveAndExit")
                         {
-                            printf("\n \n saveAndExit button pressed \n \n");
+                            printf("\n \n saveAndExit button pressed");
                             buttonClicked=1;
+                        }
+                        else if(buttonName == "plant")
+                        {
+                            std::cout<<"\n user clicked 'plant' button";
+                            buttonClicked = 3;
                         }
                     break;
                 }

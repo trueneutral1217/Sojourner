@@ -92,7 +92,8 @@ class stage
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
         //loads saved data from savesfile (player coords, location in habitat)
-        void loadSavedGameData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4);
+        //void loadSavedGameData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4);
+        void loadSavedGameData(Uint32 dataValues[]);
 
     private:
 

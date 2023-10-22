@@ -83,7 +83,7 @@ void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     foodTime = "Not Hungry";
-    SDL_Color textColor = {0,0,0};//black
+    SDL_Color textColor = {255,255,255};//white
     if(!foodTimeTexture.loadFromRenderedText(foodTime.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render foodTime string to foodTimeTexture!";
@@ -151,7 +151,7 @@ void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     waterLevel = "100L";
-    SDL_Color textColor = {0,0,0};//black
+    SDL_Color textColor = {255,255,255};//white
     if(!waterLevelTexture.loadFromRenderedText(waterLevel.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render laterLevel string to waterLevelTexture!";
@@ -163,7 +163,7 @@ void station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
     sleepyTime = "Not Tired";
-    SDL_Color textColor = {0,0,0};//black
+    SDL_Color textColor = {255,255,255};//white
     if(!sleepyTimeTexture.loadFromRenderedText(sleepyTime.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render sleepyTime string to sleepyTimeTexture!";
