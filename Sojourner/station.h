@@ -35,6 +35,13 @@ class station
         bool plantOkay;
         bool waterPlantsOkay;
         bool harvestOkay;
+        bool planterOptionsLoaded;
+        bool planterOptionsFreed;
+
+        bool planterSown;
+        bool planterWatered;
+
+        bool interacted;
         //the texture for the waterLevel stringstream
         Texture waterLevelTexture;
         Texture sleepyTimeTexture;
@@ -51,6 +58,8 @@ class station
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
         Texture waterTankTexture;
         Texture planterTexture;
+        Texture planterSownTexture;
+        Texture planterSownWateredTexture;
         Texture kitchenTexture;
         //the impassable area of the station
         SDL_Rect collidable[STATIONS];
@@ -81,6 +90,8 @@ class station
         void renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
         //renders the textures that belong in front of the player
         void renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
+        //player is no longer interacting with the planter.
+        void freePlanterOptions();
         //frees the resources
         void free();
 

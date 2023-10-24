@@ -42,8 +42,14 @@ station::station()
     interactable[2].w=collidable[2].w+4;
     interactable[2].h=collidable[2].h+4;
     plantOkay = true;
-    waterPlantsOkay = true;
+    waterPlantsOkay = false;
     harvestOkay = false;
+
+    planterSown = false;
+    planterWatered = false;
+    planterOptionsLoaded=false;
+    //flag the interact buttons to reload.
+    interacted = false;
     //setup coords for kitchen + it's collision box, plus it's interaction box.
     kitchenX = 100;
     kitchenY = 250;
@@ -71,10 +77,12 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     waterTankTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     planterTexture.loadFromFile("images/sprites/planter.png",renderer);
     kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
+    planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
+    planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
 
     loadInteractWaterTank(renderer,font);
     loadInteractBed(renderer,font);
-    loadInteractPlanter(renderer,font);
+    //loadInteractPlanter(renderer,font);
     loadInteractKitchen(renderer,font);
 }
 
@@ -143,7 +151,17 @@ void station::loadInteractPlanter(SDL_Renderer* renderer,TTF_Font* font)
             std::cout<<"\n unable to render harvest string to harvestTexture!";
         }
     }
+planterOptionsLoaded = true;
+planterOptionsFreed = false;
+}
 
+void station::freePlanterOptions()
+{
+    plantTexture.free();
+    waterPlantsTexture.free();
+    harvestTexture.free();
+    planterOptionsFreed = true;
+    planterOptionsLoaded=false;
 }
 
 void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
@@ -219,7 +237,7 @@ void station::renderInteractBed(SDL_Renderer* renderer,int x, int y)
 }
 
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
-{
+{//these are the buttons that pop up when player is next to the planter and presses 'e'
     //displays textures to the right of player texture
     x+=50;
     //displays texture above player's head
@@ -246,7 +264,18 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     }
     if(playerBot>planterBot)
     {
-        planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(planterSown && !planterWatered)
+        {
+            planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else if(planterSown && planterWatered)
+        {
+            planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else if(!planterSown && !planterWatered)
+        {
+            planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
     }
     if(playerBot>kitchenBot)
     {
@@ -266,7 +295,18 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     }
     if(playerBot<=planterBot)
     {
-        planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(planterSown && !planterWatered)
+        {
+            planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else if(planterSown && planterWatered)
+        {
+            planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else if(!planterSown && !planterWatered)
+        {
+            planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
     }
     if(playerBot<=kitchenBot)
     {

@@ -20,7 +20,7 @@ const static int TOTAL_LOADGAME_BUTTONS = 9;
 const static int TOTAL_OPTIONS_BUTTONS = 4;
 const static int TOTAL_CREDITS_BUTTONS = 1;
 //gamestate=6, stage1 buttons
-const static int TOTAL_STAGE_BUTTONS = 2;
+const static int TOTAL_STAGE_BUTTONS = 3;
 
 class button
 {
@@ -48,7 +48,7 @@ class button
         //handles buttons while player is in a chapter (menu bar buttons like backline, backpage, auto text speed, auto text toggle, and save + exit button
 		//int handleChapterEvent( std::string buttonName, SDL_Event* e, SDL_Window* window,SDL_Renderer* renderer );
         //handles mouse events in stages (currently not in use.
-		int handleStageEvent( std::string buttonName, SDL_Event* e );
+		int handleStageEvent( bool internalView, std::string buttonName, SDL_Event* e );
 
 
         Texture buttonTexture;

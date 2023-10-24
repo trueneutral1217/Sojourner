@@ -31,7 +31,7 @@ bool stage::setStageButtonTextures(SDL_Renderer* renderer, bool success)
     //stage button textures get loaded into array from array of string names, button positions set after.
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
-        if(i!=1)
+        if(i<1)
         {
             std::stringstream ss;
             std::stringstream ssMO;
@@ -129,7 +129,8 @@ void stage::loadFont()
 {
     std::cout<<"\n running stage::loadFont()";
     //load the font
-	font = TTF_OpenFont( "fonts/NemoyMedium.ttf", 16 );
+	font = TTF_OpenFont( "fonts/PublicPixel-z84yD.ttf", 12 );
+
 }
 
 bool stage::loadStage(SDL_Renderer* renderer, bool success)
@@ -182,7 +183,29 @@ void stage::handleStageButtonPresses(int buttonClicked)
     {//player clicked 'plant' under planter interactions
         //this is where the texture for the planter station should update to show plants have been planted
         //it should also take some time and lower players' needs (ie: player's slumber need)
-        std::cout<<"\n planter 'plant' button pressed";
+        //std::cout<<"\n planter 'plant' button pressed";
+        if(!station.planterSown)
+        {
+            station.planterSown = true;
+            station.waterPlantsOkay = true;
+            station.plantOkay = false;
+            station.interacted = true;
+            std::cout<<"\n planterSown: "<<station.planterSown;
+        }
+
+        //station.planterTexture=station.planterSownTexture;
+    }
+    else if(buttonClicked == 4)
+    {
+        if(station.planterSown && !station.planterWatered)
+        {
+            station.planterWatered = true;
+            station.waterPlantsOkay = false;
+            station.interacted = true;
+            std::cout<<"\n planterWatered: "<<station.planterWatered;
+            //image needs to be refreshed with new texture.
+            //station.planterTexture = station.planterSownWateredTexture;
+        }
     }
 }
 
@@ -197,12 +220,22 @@ int stage::handleButtons( SDL_Event* e )
     buttons[1].buttonTexture = station.plantTexture;
     buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
 
+    buttons[2].buttonTexture = station.waterPlantsTexture;
+    buttons[2].setPosition(player1.getX()+50,player1.getY());
+
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
     {
-        buttonClicked = buttons[ i ].handleStageEvent(buttons[i].buttonName, e );
+        buttonClicked = buttons[ i ].handleStageEvent(internalView,buttons[i].buttonName, e );
+        if(buttonClicked != 0)
+        {
+            i+=TOTAL_STAGE_BUTTONS;
+        }
     }
 
+
+
+    //std::cout<<"\n buttonClicked: "<<buttonClicked;
 
     handleStageButtonPresses(buttonClicked);
 
@@ -251,18 +284,24 @@ void stage::renderStage1(SDL_Renderer* renderer)
             if(player1.interactBed)
             {
                 if(player1.need[3]<100)
-                {
+                {//if player's slumber value is less than 100, modify and refresh needs from bed use.
                     int slumberBag[TOTAL_PLAYER_NEEDS] = {20,-10,-20,100,0};
                     player1.modifyNeeds(slumberBag);
                     player1.reloadNeedsTextures(renderer,font);
                 }
                 else
-                {
+                {//else just render 'not tired'
                     station.renderInteractBed(renderer,player1.getX(),player1.getY());
                 }
             }
             if(player1.interactPlanter)
             {
+                /*if(!station.planterOptionsLoaded)
+                {
+                    station.planterOptionsLoaded = true;
+                    station.loadInteractPlanter(renderer,text.font2);
+                }*/
+
                 station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
             }
             if(player1.interactKitchen)

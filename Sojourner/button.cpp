@@ -11,6 +11,7 @@ button::button()
     mouseOver=false;
     stageButtonNames[0]="saveAndExit";
     stageButtonNames[1]="plant";
+    stageButtonNames[2]="waterPlants";
 }
 
 button::~button()
@@ -272,7 +273,7 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
 	return gameState;
 }
 
-int button::handleStageEvent(std::string buttonName, SDL_Event* e )
+int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event* e )
 {
     int buttonClicked = 0;
 	//If mouse event happened
@@ -305,13 +306,14 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e )
 		{
 			inside = false;
 		}
+		//std::cout<<"\n inside: "<<inside;
         //std::cout<<"\n mouse X: "<<x<<" mouse Y: "<<y;
 		//Mouse is outside button
 		if( !inside )
 		{
 		    mouseOver=false;
             buttonClicked=0;
-            if(e->type == SDL_MOUSEBUTTONDOWN)
+            if(e->type == SDL_MOUSEBUTTONDOWN && !internalView)
             {
                 buttonClicked=2;
             }
@@ -337,6 +339,11 @@ int button::handleStageEvent(std::string buttonName, SDL_Event* e )
                         {
                             std::cout<<"\n user clicked 'plant' button";
                             buttonClicked = 3;
+                        }
+                        else if(buttonName == "waterPlants")
+                        {
+                            std::cout<<"\n user clicked 'waterPlants' button";
+                            buttonClicked = 4;
                         }
                     break;
                 }

@@ -11,9 +11,14 @@ class text
         //destructor
         ~text();
 
+        //16pt public pixel
         TTF_Font* font;
+        //12pt public pixel
+        TTF_Font* font2;
 
         void loadText(SDL_Renderer* renderer);
+
+        void loadNemoy(SDL_Renderer* renderer);
 
         void free();
 

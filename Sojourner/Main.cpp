@@ -326,6 +326,12 @@ int main( int argc, char* args[] )
                     {
                         if(gameState == 5){
                             gameState = stage.handleButtons(&e);
+                            /*if(stage.station.interacted)
+                            {
+                                stage.station.loadInteractPlanter(renderer,text.font2);
+                                stage.station.interacted = false;
+                            }*/
+
                             if(gameState!= 5)
                             {//player clicked save and exit button
                                 //player is going back to the main scene
@@ -537,6 +543,20 @@ int main( int argc, char* args[] )
                     {
                         stage.player1.handleEvent(e);
 					}
+                    if(stage.station.planterOptionsLoaded && !stage.player1.interact)
+                    {//the player is no longer interacting with the planter,freeing the buttons
+                        stage.station.freePlanterOptions();
+                    }
+                    if(!stage.station.planterOptionsLoaded && stage.player1.interact)
+                    {//player is interacting with the planter, loading the buttons
+                        stage.station.loadInteractPlanter(renderer,text.font2);
+                    }
+                    if(stage.station.planterOptionsLoaded && stage.player1.interact && stage.station.interacted)
+                    {
+                        stage.station.freePlanterOptions();
+                        stage.station.loadInteractPlanter(renderer,text.font2);
+                        stage.station.interacted = false;
+                    }
 				}
 
 				//process player movement, updates hab internal background as well
