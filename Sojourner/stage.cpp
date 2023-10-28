@@ -413,3 +413,20 @@ void stage::loadSavedGameData(Uint32 dataValues[])
     habInternalY2 = dataValues[3];
 }
 
+void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
+{
+    if(station.planterOptionsLoaded && !player1.interact)
+    {//the player is no longer interacting with the planter,freeing the buttons
+        station.freePlanterOptions();
+    }
+    if(!station.planterOptionsLoaded && player1.interact)
+    {//player is interacting with the planter, loading the buttons
+        station.loadInteractPlanter(renderer,font);
+    }
+    if(station.planterOptionsLoaded && player1.interact && station.interacted)
+    {//player interacted with the planter, update the available options, planter texture.
+        station.freePlanterOptions();
+        station.loadInteractPlanter(renderer,font);
+        station.interacted = false;
+    }
+}

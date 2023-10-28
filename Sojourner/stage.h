@@ -94,6 +94,8 @@ class stage
         //loads saved data from savesfile (player coords, location in habitat)
         //void loadSavedGameData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4);
         void loadSavedGameData(Uint32 dataValues[]);
+        //handles planter interaction textures and updates planter texture
+        void handlePlanter(SDL_Renderer* renderer, TTF_Font* font);
 
     private:
 

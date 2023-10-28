@@ -1642,7 +1642,7 @@
 	"button.h"
 	"particle.h"
 
-1698005796 c:\sojourner\sojourner\stage.h
+1698537051 c:\sojourner\sojourner\stage.h
 	"Texture.h"
 	"button.h"
 	"player.h"
@@ -1668,7 +1668,7 @@
 1698007576 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1698108322 source:c:\sojourner\sojourner\stage.cpp
+1698537051 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698105983 source:c:\sojourner\sojourner\text.cpp
