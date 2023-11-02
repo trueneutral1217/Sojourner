@@ -14,6 +14,7 @@ player::player()
     interactWaterTank=false;
     interactPlanter=false;
     interactKitchen=false;
+    interactInfirmary = false;
 
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
@@ -327,6 +328,10 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
                 //flag stage to render kitchen foodTime text texture
                 interactKitchen = true;
             }
+            if(i==4)
+            {
+                interactInfirmary = true;
+            }
         }
         else
         {
@@ -349,6 +354,10 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             {
                 //flag stage to render kitchen foodTime text texture
                 interactKitchen = false;
+            }
+            if(i==4)
+            {
+                interactInfirmary = false;
             }
         }
     }

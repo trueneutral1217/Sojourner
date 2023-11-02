@@ -63,6 +63,19 @@ station::station()
     interactable[3].y=collidable[3].y-2;
     interactable[3].w=collidable[3].w+4;
     interactable[3].h=collidable[3].h+4;
+
+    infirmX = 500;
+    infirmY = 250;
+    infirmH = 100;
+    infirmBot = infirmY+infirmH;
+    collidable[4].x = infirmX+40;
+    collidable[4].y = infirmY+(infirmH/2);
+    collidable[4].w = 105;
+    collidable[4].h = infirmH/2;
+    interactable[4].x = collidable[4].x-2;
+    interactable[4].y = collidable[4].y-2;
+    interactable[4].w = collidable[4].w+4;
+    interactable[4].h = collidable[4].h+4;
 }
 
 station::~station()
@@ -77,6 +90,8 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     waterTankTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     planterTexture.loadFromFile("images/sprites/planter.png",renderer);
     kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
+    infirmaryTexture.loadFromFile("images/sprites/infirmary.png",renderer);
+
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
 
@@ -84,6 +99,19 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     loadInteractBed(renderer,font);
     //loadInteractPlanter(renderer,font);
     loadInteractKitchen(renderer,font);
+    loadInteractInfirmary(renderer,font);
+}
+
+void station::loadInteractInfirmary(SDL_Renderer* renderer,TTF_Font* font)
+{
+    std::cout<<"\n running station::loadInteractInfirmary(SDL_Renderer* renderer,TTF_Font* font)";
+    //setting text for waterTank interaction
+    infirmDefault = "Healthy";
+    SDL_Color textColor = {255,255,255};//white
+    if(!infirmDefaultTexture.loadFromRenderedText(infirmDefault.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render infirmDefault string to infirmDefaultTexture!";
+    }
 }
 
 void station::loadInteractKitchen(SDL_Renderer* renderer,TTF_Font* font)
@@ -212,7 +240,18 @@ void station::updatePosition(int y)
     collidable[3].y=kitchenY+(kitchenH/2);
     interactable[3].y=collidable[3].y-2;
 
+    infirmY = y+250;
+    infirmBot = infirmY + infirmH;
+    collidable[4].y = infirmY + (infirmH/2);
+    interactable[4].y = collidable[4].y-2;
+
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
+}
+
+void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    infirmDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractKitchen(SDL_Renderer* renderer,int x, int y)
@@ -281,6 +320,10 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     {
         kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot>infirmBot)
+    {
+        infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
@@ -312,6 +355,10 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     {
         kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot<=infirmBot)
+    {
+        infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::free()
@@ -327,4 +374,6 @@ void station::free()
 	plantTexture.free();
 	waterPlantsTexture.free();
 	harvestTexture.free();
+	infirmaryTexture.free();
+	infirmDefaultTexture.free();
 }

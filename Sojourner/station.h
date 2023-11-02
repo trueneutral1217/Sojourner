@@ -20,10 +20,15 @@ class station
         //kitchen coords
         int kitchenX,kitchenY,kitchenH,kitchenBot;
         //current number of stations
-        const static int STATIONS = 4;
+        int infirmX, infirmY,infirmH,infirmBot;
+
+        const static int STATIONS = 5;
+        std::string infirmDefault;
         //string for water level interaction of water tank station
         std::string waterLevel;
+        //currently 'not tired'
         std::string sleepyTime;
+
         std::string plantStatus;
         std::string foodTime;
         //strings to be used to determine interaction type for planter
@@ -42,7 +47,10 @@ class station
         bool planterWatered;
 
         bool interacted;
-        //the texture for the waterLevel stringstream
+
+
+        Texture infirmDefaultTexture;
+        //the texture for the waterLevel string
         Texture waterLevelTexture;
         Texture sleepyTimeTexture;
         //Texture plantStatusTexture;
@@ -56,6 +64,7 @@ class station
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
+        Texture infirmaryTexture;
         Texture waterTankTexture;
         Texture planterTexture;
         Texture planterSownTexture;
@@ -65,6 +74,9 @@ class station
         SDL_Rect collidable[STATIONS];
         //the interactable area of the station
         SDL_Rect interactable[STATIONS];
+
+        void loadInteractInfirmary(SDL_Renderer* renderer, TTF_Font* font);
+        void renderInteractInfirmary(SDL_Renderer* renderer, int x, int y);
         //loads the water tank interaction text texture with the current waterlevel (currently just using a
         //stringstream hard coded with "100L"
         void loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font);

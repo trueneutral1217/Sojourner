@@ -543,7 +543,7 @@ int main( int argc, char* args[] )
                     {
                         stage.player1.handleEvent(e);
 					}
-
+                    //handles the interactions with the planter.
 					stage.handlePlanter(renderer,text.font2);
 
 

@@ -308,6 +308,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
             {
                 station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
             }
+            if(player1.interactInfirmary)
+            {
+                station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
+            }
         }
     }
     if(internalView)
