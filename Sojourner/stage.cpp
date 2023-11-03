@@ -312,6 +312,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
             {
                 station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
             }
+            if(player1.interactBike)
+            {
+                station.renderInteractBike(renderer,player1.getX(),player1.getY());
+            }
         }
     }
     if(internalView)
@@ -386,6 +390,7 @@ void stage::move(int countedFrames)
         habInternalY1-=player1.getPVelY();
         habInternalY2-=player1.getPVelY();
         std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
+        //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
     player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);
     station.updatePosition(habInternalY1);

@@ -72,6 +72,8 @@ class player
         bool interactKitchen;
         //render infirmary text texture
         bool interactInfirmary;
+        //render bike text texture?
+        bool interactBike;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.

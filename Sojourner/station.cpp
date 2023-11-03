@@ -64,6 +64,7 @@ station::station()
     interactable[3].w=collidable[3].w+4;
     interactable[3].h=collidable[3].h+4;
 
+    //collidable & interactable for infirm & bike may need some small adjustments to wrap the station better.
     infirmX = 500;
     infirmY = 250;
     infirmH = 100;
@@ -76,6 +77,19 @@ station::station()
     interactable[4].y = collidable[4].y-2;
     interactable[4].w = collidable[4].w+4;
     interactable[4].h = collidable[4].h+4;
+
+    bikeX = 100;
+    bikeY = 850;
+    bikeH = 100;
+    bikeBot = bikeY+bikeH;
+    collidable[5].x = bikeX + 40;
+    collidable[5].y = bikeY+(bikeH/2);
+    collidable[5].w = 100;
+    collidable[5].h = bikeH/2;
+    interactable[5].x = collidable[5].x-2;
+    interactable[5].y = collidable[5].y-2;
+    interactable[5].w = collidable[5].w+4;
+    interactable[5].h = collidable[5].h+4;
 }
 
 station::~station()
@@ -91,6 +105,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     planterTexture.loadFromFile("images/sprites/planter.png",renderer);
     kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     infirmaryTexture.loadFromFile("images/sprites/infirmary.png",renderer);
+    bikeTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
@@ -100,6 +115,19 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     //loadInteractPlanter(renderer,font);
     loadInteractKitchen(renderer,font);
     loadInteractInfirmary(renderer,font);
+    loadInteractBike(renderer,font);
+}
+
+void station::loadInteractBike(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadInteractBike(SDL_Renderer* renderer, TTF_Font* font)";
+    //setting text for waterTank interaction
+    bikeDefault = "Stronk";
+    SDL_Color textColor = {255,255,255};//white
+    if(!bikeDefaultTexture.loadFromRenderedText(bikeDefault.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render bikeDefault string to bikeDefaultTexture!";
+    }
 }
 
 void station::loadInteractInfirmary(SDL_Renderer* renderer,TTF_Font* font)
@@ -245,7 +273,20 @@ void station::updatePosition(int y)
     collidable[4].y = infirmY + (infirmH/2);
     interactable[4].y = collidable[4].y-2;
 
+    //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
+    //std::cout<<"\n y: "<<y;
+    bikeY = y+850;
+    bikeBot = bikeY+bikeH;
+    collidable[5].y = bikeY + (bikeH/2);
+    interactable[5].y = collidable[5].y-2;
+
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
+}
+
+void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    bikeDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
@@ -324,6 +365,11 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     {
         infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot>bikeBot)
+    {
+        //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
+        bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
@@ -359,6 +405,11 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     {
         infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot<=bikeBot)
+    {
+        //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
+        bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::free()
@@ -376,4 +427,6 @@ void station::free()
 	harvestTexture.free();
 	infirmaryTexture.free();
 	infirmDefaultTexture.free();
+	bikeTexture.free();
+	bikeDefaultTexture.free();
 }

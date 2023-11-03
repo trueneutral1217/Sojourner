@@ -22,7 +22,11 @@ class station
         //current number of stations
         int infirmX, infirmY,infirmH,infirmBot;
 
-        const static int STATIONS = 5;
+        int bikeX,bikeY,bikeH,bikeBot;
+
+        const static int STATIONS = 6;
+
+        std::string bikeDefault;
         std::string infirmDefault;
         //string for water level interaction of water tank station
         std::string waterLevel;
@@ -48,7 +52,7 @@ class station
 
         bool interacted;
 
-
+        Texture bikeDefaultTexture;
         Texture infirmDefaultTexture;
         //the texture for the waterLevel string
         Texture waterLevelTexture;
@@ -64,6 +68,7 @@ class station
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
+        Texture bikeTexture;
         Texture infirmaryTexture;
         Texture waterTankTexture;
         Texture planterTexture;
@@ -74,6 +79,9 @@ class station
         SDL_Rect collidable[STATIONS];
         //the interactable area of the station
         SDL_Rect interactable[STATIONS];
+
+        void loadInteractBike(SDL_Renderer* renderer, TTF_Font* font);
+        void renderInteractBike(SDL_Renderer* renderer, int x, int y);
 
         void loadInteractInfirmary(SDL_Renderer* renderer, TTF_Font* font);
         void renderInteractInfirmary(SDL_Renderer* renderer, int x, int y);
