@@ -106,6 +106,8 @@ class station
         void loadStation(SDL_Renderer* renderer,TTF_Font* font);
         //when player walks around, the stations move with the background.
         void updatePosition(int y);
+        //for the stations that are rendered on the second hab bg.
+        void updatePositionHab2(int y);
         //renders the textures that belong behind player
         void renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
         //renders the textures that belong in front of the player

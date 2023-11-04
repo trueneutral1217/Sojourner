@@ -273,14 +273,19 @@ void station::updatePosition(int y)
     collidable[4].y = infirmY + (infirmH/2);
     interactable[4].y = collidable[4].y-2;
 
+
+
+    //std::cout<<"\n \n collidable.y: "<<collidable.y;
+}
+
+void station::updatePositionHab2(int y)
+{
     //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
     //std::cout<<"\n y: "<<y;
-    bikeY = y+850;
+    bikeY = y+250;
     bikeBot = bikeY+bikeH;
     collidable[5].y = bikeY + (bikeH/2);
     interactable[5].y = collidable[5].y-2;
-
-    //std::cout<<"\n \n collidable.y: "<<collidable.y;
 }
 
 void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)

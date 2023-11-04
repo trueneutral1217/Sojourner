@@ -394,6 +394,7 @@ void stage::move(int countedFrames)
     }
     player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);
     station.updatePosition(habInternalY1);
+    station.updatePositionHab2(habInternalY2);
 }
 
 void stage::setNewgameVars()
