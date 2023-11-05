@@ -54,6 +54,8 @@ class player
         int moveState;
         //tracks current player animation frame
         int walkFrame;
+        //player needs (0-100 percent); health hunger physique slumber morale
+        int need[TOTAL_PLAYER_NEEDS];
         //used for player frame animation when walking left
         bool flipHorizontal;
         //is player is in space, load space outfit textures, else earth textures
@@ -115,8 +117,7 @@ class player
         void setY(int y);
         //checks for collisions between collidable objects and player
         bool collisionDetector(SDL_Rect collidable);
-        //player needs (0-100 percent); health hunger physique slumber morale
-        int need[TOTAL_PLAYER_NEEDS];
+
         //loads needs from saved game file into working variables
         //void loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5);
         void loadSavedPlayerData(Uint32 dataValues[]);

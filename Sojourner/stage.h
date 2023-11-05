@@ -8,6 +8,7 @@
 #include "parallax.h"
 //#include "saveGame.h"
 #include "station.h"
+#include "ship.h"
 
 //these are the parallax images used for the bg's.
 const static int TOTAL_STAGE_BACKGROUNDS = 4;
@@ -31,6 +32,14 @@ class stage
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
         int habInternalY1;
         int habInternalY2;
+
+        int timeSurvived;
+
+        Texture daysSurvived;
+        Texture hoursSurvived;
+        Texture minutesSurvived;
+
+
 
         //declare font
         TTF_Font *font;
@@ -69,14 +78,16 @@ class stage
         //set button names
         void setButtonNames();
         //user clicks a button in stage
-        void handleStageButtonPresses(int gameState);
+        void handleStageButtonPresses(SDL_Renderer* renderer, int gameState);
         //handle stage button presses will be called in this function which is more over-arching
-        int handleButtons( SDL_Event* e );
+        int handleButtons(SDL_Renderer* renderer, SDL_Event* e );
 
         //declare player
         player player1;
         //declare station
         station station;
+        //declare ship
+        ship ship;
         //loads resources at opening of stages.
         bool loadStage(SDL_Renderer* renderer, bool success);
         //free resources
@@ -96,6 +107,14 @@ class stage
         void loadSavedGameData(Uint32 dataValues[]);
         //handles planter interaction textures and updates planter texture
         void handlePlanter(SDL_Renderer* renderer, TTF_Font* font);
+
+        void loadTimeSurvivedTextures(SDL_Renderer* renderer);
+
+        void renderTimeSurvivedTextTextures(SDL_Renderer* renderer);
+
+        void freeTimeSurvivedTextures();
+        //refreshes the text textures for time survived so they render the correct TS.
+        void refreshTS(SDL_Renderer* renderer);
 
     private:
 

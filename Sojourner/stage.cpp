@@ -7,6 +7,7 @@ stage::stage()
     showPlayer=false;
     habInternalY1=0;
     habInternalY2=-600;
+    timeSurvived = 0;
 }
 
 stage::~stage()
@@ -144,11 +145,14 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     success = setStageButtonTextures(renderer,success);
     //set stage bg texture
     success = setStageTextures(renderer);
+
+    loadTimeSurvivedTextures(renderer);
     //load player texture
     player1.loadPlayer(renderer);
     //loads needs text textures for UI.
     player1.loadNeedsTextures(renderer,font);
     station.loadStation(renderer,font);
+    ship.loadGaugesTextures(renderer,font);
     return success;
 }
 
@@ -156,14 +160,17 @@ void stage::free()
 {
     std::cout<<"\n running stage::free()";
     //free resources
+    freeTimeSurvivedTextures();
     freeButtons();
     freeBGTextures();
     freeUITextures();
     player1.freePlayer();
     station.free();
+    ship.free();
+
 }
 
-void stage::handleStageButtonPresses(int buttonClicked)
+void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
 {
     //std::cout<<"\n running stage::handleStageButtonPresses(int buttonClicked)";
     if(buttonClicked==1)
@@ -191,6 +198,12 @@ void stage::handleStageButtonPresses(int buttonClicked)
             station.plantOkay = false;
             station.interacted = true;
             std::cout<<"\n planterSown: "<<station.planterSown;
+            timeSurvived += 30;
+            refreshTS(renderer);
+            //see plant watering section below for notes about this.
+            int plant[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
+            player1.modifyNeeds(plant);
+            player1.reloadNeedsTextures(renderer,font);
         }
 
         //station.planterTexture=station.planterSownTexture;
@@ -203,13 +216,27 @@ void stage::handleStageButtonPresses(int buttonClicked)
             station.waterPlantsOkay = false;
             station.interacted = true;
             std::cout<<"\n planterWatered: "<<station.planterWatered;
+            //player watered the plants, which takes 30 minutes
+            timeSurvived +=30;
+            refreshTS(renderer);
+            //update players needs to reflect the half hour they spent watering.
+            //at some point, watering will have to track the how long it's been since last watering,
+            //which I'll probably set up to need watering again after 24 hours.
+            //health physique slumber hunger morale
+            //it might be better to send a certain number of minutes to a function in player class
+            //to modify the player's needs, but that would need to take into account strenuousness of an activity,
+            //or other factors.
+            //temporary numbers
+            int water[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
+            player1.modifyNeeds(water);
+            player1.reloadNeedsTextures(renderer,font);
             //image needs to be refreshed with new texture.
             //station.planterTexture = station.planterSownWateredTexture;
         }
     }
 }
 
-int stage::handleButtons( SDL_Event* e )
+int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
 {
     //std::cout<<"\n running stage::handleButtons( SDL_Event* e )";
     //player clicks mouse inside stage
@@ -237,7 +264,7 @@ int stage::handleButtons( SDL_Event* e )
 
     //std::cout<<"\n buttonClicked: "<<buttonClicked;
 
-    handleStageButtonPresses(buttonClicked);
+    handleStageButtonPresses(renderer,buttonClicked);
 
     if(buttonClicked == 1)
     {
@@ -284,10 +311,14 @@ void stage::renderStage1(SDL_Renderer* renderer)
             if(player1.interactBed)
             {
                 if(player1.need[3]<100)
-                {//if player's slumber value is less than 100, modify and refresh needs from bed use.
-                    int slumberBag[TOTAL_PLAYER_NEEDS] = {20,-10,-20,100,0};
+                {
+                    //if player's slumber value is less than 100, modify and refresh needs from bed use.
+                    int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
                     player1.modifyNeeds(slumberBag);
                     player1.reloadNeedsTextures(renderer,font);
+                    //8 hours passed from sleeping
+                    timeSurvived +=480;
+                    refreshTS(renderer);
                 }
                 else
                 {//else just render 'not tired'
@@ -321,7 +352,9 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(internalView)
     {
         UI[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        renderTimeSurvivedTextTextures(renderer);
         player1.renderNeedsTextures(renderer);
+        ship.renderGaugesTextures(renderer);
     }
     if(buttons[0].mouseOver==false)
     {
@@ -438,5 +471,76 @@ void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
         station.freePlanterOptions();
         station.loadInteractPlanter(renderer,font);
         station.interacted = false;
+    }
+}
+
+void stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)";
+
+    int mS,hS,dS;
+    mS = timeSurvived%60;
+    hS = (timeSurvived/60)%24;
+    dS = ((timeSurvived/60)/24);
+
+    std::string mSurvived = std::to_string(mS);
+    std::string hSurvived = std::to_string(hS);
+    std::string dSurvived = std::to_string(dS);
+
+    SDL_Color textColor = {255,255,255};//white
+    if(!minutesSurvived.loadFromRenderedText(mSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render mSurvived string to minutesSurvived Texture!";
+    }
+    if(!hoursSurvived.loadFromRenderedText(hSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render hSurvived string to hoursSurvived Texture!";
+    }
+    if(!daysSurvived.loadFromRenderedText(dSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render dSurvived string to daysSurvived Texture!";
+    }
+}
+
+void stage::renderTimeSurvivedTextTextures(SDL_Renderer* renderer)
+{
+    daysSurvived.render(420,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    hoursSurvived.render(420,25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    minutesSurvived.render(420,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void stage::freeTimeSurvivedTextures()
+{
+    daysSurvived.free();
+    hoursSurvived.free();
+    minutesSurvived.free();
+}
+
+void stage::refreshTS(SDL_Renderer* renderer)
+{
+    freeTimeSurvivedTextures();
+    std::cout<<"\n running stage::refreshTS(SDL_Renderer* renderer)";
+
+    int mS,hS,dS;
+    mS = timeSurvived%60;
+    hS = (timeSurvived/60)%24;
+    dS = ((timeSurvived/60)/24);
+
+    std::string mSurvived = std::to_string(mS);
+    std::string hSurvived = std::to_string(hS);
+    std::string dSurvived = std::to_string(dS);
+
+    SDL_Color textColor = {255,255,255};//white
+    if(!minutesSurvived.loadFromRenderedText(mSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render mSurvived string to minutesSurvived Texture!";
+    }
+    if(!hoursSurvived.loadFromRenderedText(hSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render hSurvived string to hoursSurvived Texture!";
+    }
+    if(!daysSurvived.loadFromRenderedText(dSurvived.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render dSurvived string to daysSurvived Texture!";
     }
 }

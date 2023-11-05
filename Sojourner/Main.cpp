@@ -325,7 +325,7 @@ int main( int argc, char* args[] )
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
                         if(gameState == 5){
-                            gameState = stage.handleButtons(&e);
+                            gameState = stage.handleButtons(renderer,&e);
                             /*if(stage.station.interacted)
                             {
                                 stage.station.loadInteractPlanter(renderer,text.font2);
