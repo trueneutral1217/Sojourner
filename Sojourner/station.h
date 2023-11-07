@@ -24,6 +24,8 @@ class station
 
         int bikeX,bikeY,bikeH,bikeBot;
 
+        int planterTimeWatered, planterDaysState, planterState;
+
         const static int STATIONS = 6;
 
         std::string bikeDefault;
@@ -78,6 +80,15 @@ class station
         Texture planterTexture;
         Texture planterSownTexture;
         Texture planterSownWateredTexture;
+        Texture planterSeedlingTexture;
+        Texture planterSeedlingWateredTexture;
+        Texture planterVegatativeTexture;
+        Texture planterVegatativeWateredTexture;
+        Texture planterFloweringTexture;
+        Texture planterFloweringWateredTexture;
+        Texture planterRipeTexture;
+        Texture planterRipeWateredTexture;
+
         Texture kitchenTexture;
         //the impassable area of the station
         SDL_Rect collidable[STATIONS];

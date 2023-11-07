@@ -218,7 +218,14 @@ void pregameui::renderLoadgameButtons(SDL_Renderer* renderer)
         {
             if(promptDelete)
             {
-                loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                if(loadgameButtons[i].mouseOver == false)
+                {
+                    loadgameButtons[i].buttonTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
+                else
+                {
+                    loadgameButtons[i].buttonMOTexture.render(loadgameButtons[i].getPositionX(),loadgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
             }
         }
 
@@ -321,7 +328,14 @@ void pregameui::renderNewgameButtons(SDL_Renderer* renderer)
         {
             if(promptDelete)
             {
-                newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                if(!newgameButtons[i].mouseOver)
+                {
+                    newgameButtons[i].buttonTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
+                else
+                {
+                    newgameButtons[i].buttonMOTexture.render(newgameButtons[i].getPositionX(),newgameButtons[i].getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
             }
         }
     }
@@ -332,7 +346,7 @@ void pregameui::freeNewgameButtons()
     std::cout<<"\n running pregameui::freeNewgameButtons()";
     for(int i = 0; i<TOTAL_NEWGAME_BUTTONS;i++)
     {
-        if(i<4)
+        if(i<4 || i == 7 || i == 8)
         {
             newgameButtons[i].buttonTexture.free();
             newgameButtons[i].buttonMOTexture.free();
@@ -625,6 +639,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                             promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
                             newgameButtons[7].buttonTexture.loadFromFile( "images/buttons/yes.png",renderer );
                             newgameButtons[8].buttonTexture.loadFromFile("images/buttons/no.png",renderer);
+                            newgameButtons[7].buttonMOTexture.loadFromFile("images/buttons/yesMO.png",renderer);
+                            newgameButtons[8].buttonMOTexture.loadFromFile("images/buttons/noMO.png",renderer);
                         }
                         deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
                         chosenSave = deleteCandidate;
@@ -644,6 +660,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     promptDeleteBG.free();
                     newgameButtons[7].buttonTexture.free();
                     newgameButtons[8].buttonTexture.free();
+                    newgameButtons[7].buttonMOTexture.free();
+                    newgameButtons[8].buttonMOTexture.free();
 
                 }
                 if(gameState == 6)
@@ -654,6 +672,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     promptDeleteBG.free();
                     newgameButtons[7].buttonTexture.free();
                     newgameButtons[8].buttonTexture.free();
+                    newgameButtons[7].buttonMOTexture.free();
+                    newgameButtons[8].buttonMOTexture.free();
                 }
             }
         }
@@ -689,6 +709,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                             promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
                             loadgameButtons[7].buttonTexture.loadFromFile( "images/buttons/yes.png",renderer );
                             loadgameButtons[8].buttonTexture.loadFromFile("images/buttons/no.png",renderer);
+                            loadgameButtons[7].buttonMOTexture.loadFromFile("images/buttons/yesMO.png",renderer);
+                            loadgameButtons[8].buttonMOTexture.loadFromFile("images/buttons/noMO.png",renderer);
                         }
                         deleteCandidate = gameState-1;//stores the number of the target savegame to potentially be deleted.
                         chosenSave = deleteCandidate;
@@ -705,6 +727,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     promptDeleteBG.free();
                     loadgameButtons[7].buttonTexture.free();
                     loadgameButtons[8].buttonTexture.free();
+                    loadgameButtons[7].buttonMOTexture.free();
+                    loadgameButtons[8].buttonMOTexture.free();
                 }
                 if(gameState == 6)
                 {//user clicked no to delete save file
@@ -714,6 +738,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     promptDeleteBG.free();
                     loadgameButtons[7].buttonTexture.free();
                     loadgameButtons[8].buttonTexture.free();
+                    loadgameButtons[7].buttonMOTexture.free();
+                    loadgameButtons[8].buttonMOTexture.free();
                 }
             }
         }

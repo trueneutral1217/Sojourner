@@ -426,6 +426,7 @@ int main( int argc, char* args[] )
                                     stage.ship.loadSavedShipData(savegame.dataValues3);
                                     stage.station.plantOkay = savegame.data[18];
                                     stage.station.waterPlantsOkay = savegame.data[19];
+                                    stage.timeSurvived = savegame.data[20];
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer,true);
                                     //previouslyPlayed is probably deprecated by timePlayed.

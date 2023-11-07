@@ -44,6 +44,9 @@ station::station()
     plantOkay = true;
     waterPlantsOkay = false;
     harvestOkay = false;
+    planterTimeWatered=0;
+    planterDaysState=0;
+    planterState=-1;
 
 //    planterSown = false;
     //planterWatered = false;
@@ -106,6 +109,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     infirmaryTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     bikeTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
+
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
@@ -350,16 +354,76 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     }
     if(playerBot>planterBot)
     {
-        //if player has sown the crops, but not yet watered
-        if(!plantOkay && waterPlantsOkay)
+        //planter textures going to have to change after timeSurvived - planterTimeWatered = 24hrs or greater
+        //if planterDaysState is 5 or greater, planter state (texture) will have to progress
+        //planterDaysState gets to 5 from being watered 5 times and a day passing after each of those 5 waterings
+
+        if(planterState == 0  && !plantOkay)
         {
-            planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //if player has sown the crops, but not yet watered
+            if(waterPlantsOkay)
+            {
+                planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has sown & watered
+            else if(!waterPlantsOkay)
+            {
+                planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
-        //if player has sown & watered
-        else if(!plantOkay && !waterPlantsOkay)
+        else if(planterState == 1)
         {
-            planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterSeedlingTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterSeedlingWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
+        else if(planterState == 2)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterVegatativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterVegatativeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(planterState == 3)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterFloweringTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterFloweringWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(planterState == 4)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterRipeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterRipeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+
         //if player hasn't sown or watered
         else if(plantOkay && !waterPlantsOkay)
         {

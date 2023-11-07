@@ -79,8 +79,12 @@ void saveGame::readSaveFile(int fileNum)
                 {//plantOkay = true is starting default
                     data[i] = 1;
                 }
-                else
+                else if(i<20)
                 {//waterPlantsOkay = false is starting default
+                    data[i] = 0;
+                }
+                else if(i<21)
+                {
                     data[i] = 0;
                 }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
@@ -181,6 +185,7 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
         }
         data[18] = stage.station.plantOkay;
         data[19] = stage.station.waterPlantsOkay;
+        data[20] = stage.timeSurvived;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -220,8 +225,12 @@ void saveGame::deleteSave(int fileNum)
             {//plantOkay starting value is true
                 data[i] = 1;
             }
-            else
+            else if(i<20)
             {//waterPlantsOkay starting value is false
+                data[i] = 0;
+            }
+            else if(i<21)
+            {
                 data[i] = 0;
             }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
@@ -299,7 +308,7 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
 
     data[18] = stage.station.plantOkay;
     data[19] = stage.station.waterPlantsOkay;
-
+    data[20] = stage.timeSurvived;
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )
     {

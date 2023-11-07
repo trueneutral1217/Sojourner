@@ -196,6 +196,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //station.planterSown = true;
             station.waterPlantsOkay = true;
             station.plantOkay = false;
+            station.planterDaysState = 0;
+            station.planterState = 0;
             station.interacted = true;
             std::cout<<"\n plantOkay: "<<station.plantOkay;
             timeSurvived += 30;
@@ -215,6 +217,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         {
             //station.planterWatered = true;
             station.waterPlantsOkay = false;
+            station.planterTimeWatered = timeSurvived;
             station.interacted = true;
             std::cout<<"\n waterPlantsOkay: "<<station.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
