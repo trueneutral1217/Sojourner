@@ -40,10 +40,7 @@ void ship::loadGaugesTextures(SDL_Renderer* renderer, TTF_Font* font)
     SDL_Color textColor = {0,128,200};//font blue
     for (int i = 0; i< TOTAL_SHIP_GAUGES; i++)
     {
-        //need[i] = 5+(i*15);
-
-        //playerNeeds[i].str("");
-        //needsTexture[i].free();
+        std::cout<<"\n gauge["<<i<<"] value: "<<gauge[i];
         shipGauges[i] = std::to_string(gauge[i]);// << need[i];
         if(!gaugesTexture[i].loadFromRenderedText(shipGauges[i], textColor,font,renderer))
         {
@@ -89,4 +86,15 @@ void ship::freeGaugesTextures()
 void ship::free()
 {
     freeGaugesTextures();
+}
+
+void ship::loadSavedShipData(Uint32 dataValues[])
+{
+    std::cout<<"\n running ship::loadSavedShipData(Uint32 dataValues[])";
+    //load ship gauges from save
+    for(int i = 0; i<TOTAL_SHIP_GAUGES; i++)
+    {
+        gauge[i] = dataValues[i];
+        std::cout<<"\n gauge["<<i<<"]: "<<gauge[i];
+    }
 }

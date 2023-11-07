@@ -151,7 +151,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     player1.loadPlayer(renderer);
     //loads needs text textures for UI.
     player1.loadNeedsTextures(renderer,font);
-    station.loadStation(renderer,font);
+    station.loadStation(renderer,font,ship.gauge);
     ship.loadGaugesTextures(renderer,font);
     return success;
 }
@@ -191,13 +191,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         //this is where the texture for the planter station should update to show plants have been planted
         //it should also take some time and lower players' needs (ie: player's slumber need)
         //std::cout<<"\n planter 'plant' button pressed";
-        if(!station.planterSown)
+        if(station.plantOkay)
         {
-            station.planterSown = true;
+            //station.planterSown = true;
             station.waterPlantsOkay = true;
             station.plantOkay = false;
             station.interacted = true;
-            std::cout<<"\n planterSown: "<<station.planterSown;
+            std::cout<<"\n plantOkay: "<<station.plantOkay;
             timeSurvived += 30;
             refreshTS(renderer);
             //see plant watering section below for notes about this.
@@ -210,12 +210,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 4)
     {
-        if(station.planterSown && !station.planterWatered)
+        //if  player has already planted but not watered
+        if(!station.plantOkay && station.waterPlantsOkay)
         {
-            station.planterWatered = true;
+            //station.planterWatered = true;
             station.waterPlantsOkay = false;
             station.interacted = true;
-            std::cout<<"\n planterWatered: "<<station.planterWatered;
+            std::cout<<"\n waterPlantsOkay: "<<station.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
             timeSurvived +=30;
             refreshTS(renderer);
@@ -230,6 +231,11 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             int water[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
             player1.modifyNeeds(water);
             player1.reloadNeedsTextures(renderer,font);
+            int waterDecrement[6] = {0,0,0,-2,0,0};
+            ship.modifyGauges(waterDecrement);
+            ship.reloadGaugesTextures(renderer,font);
+            //reloading text texture for water tank level
+            station.loadInteractWaterTank(renderer,font,ship.gauge[3]);
             //image needs to be refreshed with new texture.
             //station.planterTexture = station.planterSownWateredTexture;
         }

@@ -45,8 +45,8 @@ station::station()
     waterPlantsOkay = false;
     harvestOkay = false;
 
-    planterSown = false;
-    planterWatered = false;
+//    planterSown = false;
+    //planterWatered = false;
     planterOptionsLoaded=false;
     //flag the interact buttons to reload.
     interacted = false;
@@ -97,7 +97,7 @@ station::~station()
 
 }
 
-void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
+void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeValues[])
 {
     std::cout<<"\n running station::loadStation(SDL_Renderer* renderer,TTF_Font* font)";
     bedTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
@@ -110,7 +110,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font)
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
 
-    loadInteractWaterTank(renderer,font);
+    loadInteractWaterTank(renderer,font,shipGaugeValues[3]);
     loadInteractBed(renderer,font);
     //loadInteractPlanter(renderer,font);
     loadInteractKitchen(renderer,font);
@@ -220,11 +220,12 @@ void station::freePlanterOptions()
     planterOptionsLoaded=false;
 }
 
-void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)
+void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font,int waterGauge)
 {
     std::cout<<"\n running station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font)";
     //setting text for waterTank interaction
-    waterLevel = "100L";
+
+    waterLevel = std::to_string(waterGauge);
     SDL_Color textColor = {255,255,255};//white
     if(!waterLevelTexture.loadFromRenderedText(waterLevel.c_str(), textColor,font,renderer))
     {
@@ -349,15 +350,18 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     }
     if(playerBot>planterBot)
     {
-        if(planterSown && !planterWatered)
+        //if player has sown the crops, but not yet watered
+        if(!plantOkay && waterPlantsOkay)
         {
             planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else if(planterSown && planterWatered)
+        //if player has sown & watered
+        else if(!plantOkay && !waterPlantsOkay)
         {
             planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else if(!planterSown && !planterWatered)
+        //if player hasn't sown or watered
+        else if(plantOkay && !waterPlantsOkay)
         {
             planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
@@ -389,15 +393,19 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     }
     if(playerBot<=planterBot)
     {
-        if(planterSown && !planterWatered)
+        //std::cout<<"\n plantOkay: "<<plantOkay<<" waterPlantsOkay: "<<waterPlantsOkay;
+        //player has sown the planter, but not watered
+        if(!plantOkay && waterPlantsOkay)
         {
             planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else if(planterSown && planterWatered)
+        //player has sown and watered
+        else if(!plantOkay && !waterPlantsOkay)
         {
             planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
-        else if(!planterSown && !planterWatered)
+        //player has neither sown nor watered
+        else if(plantOkay && !waterPlantsOkay)
         {
             planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }

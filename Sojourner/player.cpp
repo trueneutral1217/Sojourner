@@ -768,16 +768,10 @@ void player::renderNeedsTextures(SDL_Renderer* renderer)
 
 void player::loadSavedPlayerData(Uint32 dataValues[])
 {
-    std::cout<<"\n running player::loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5)";
+    std::cout<<"\n running loadSavedPlayerData(Uint32 dataValues[])";
     //load character needs from save
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {
         need[i] = dataValues[i];
     }
-    /*
-    need[0] = d1;
-    need[1] = d2;
-    need[2] = d3;
-    need[3] = d4;
-    need[4] = d5;*/
 }

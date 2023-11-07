@@ -40,15 +40,19 @@ class station
         std::string waterPlants;
         std::string harvest;
         //std::string cancel;
-        //flags for planter options
+        //flags for planter options.  true sets font to white, false to black.
         bool plantOkay;
         bool waterPlantsOkay;
         bool harvestOkay;
+        //the two bools below are to determine whether or not to load/render text texture buttons for planting, etc.
+        //could possibly reduce to 1.
         bool planterOptionsLoaded;
         bool planterOptionsFreed;
-
-        bool planterSown;
-        bool planterWatered;
+        //these two could probably be removed as plantOkay and waterPlantsOkay probably equal opposite of these always
+//        bool planterSown;
+       // bool planterWatered;
+        //need to track time that the plants have been growing to update plant texture to show lifecycle of plant,
+        //and eventually set harvestOkay to true when the plant is fully grown.
 
         bool interacted;
 
@@ -87,7 +91,7 @@ class station
         void renderInteractInfirmary(SDL_Renderer* renderer, int x, int y);
         //loads the water tank interaction text texture with the current waterlevel (currently just using a
         //stringstream hard coded with "100L"
-        void loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font);
+        void loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
         //renders the water tank level text texture to screen
         void renderInteractWaterTank(SDL_Renderer* renderer,int x, int y);
         //loads bed interaction string and texture
@@ -103,7 +107,7 @@ class station
         //render kitchen interaction text texture
         void renderInteractKitchen(SDL_Renderer* renderer,int x, int y);
         //loads textures for stations (sleepingbag image, water tank image)
-        void loadStation(SDL_Renderer* renderer,TTF_Font* font);
+        void loadStation(SDL_Renderer* renderer,TTF_Font* font, int shipGaugeValues[]);
         //when player walks around, the stations move with the background.
         void updatePosition(int y);
         //for the stations that are rendered on the second hab bg.

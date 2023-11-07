@@ -67,7 +67,22 @@ void saveGame::readSaveFile(int fileNum)
             //write savegame defaults as 0.
             for( int i = 0; i < TOTAL_DATA; ++i )
             {
-                data[ i ] = 0;
+                if(i<7)
+                {
+                    data[ i ] = 0;
+                }
+                else if(i<18)
+                {
+                    data[i] = 100;
+                }
+                else if(i<19)
+                {//plantOkay = true is starting default
+                    data[i] = 1;
+                }
+                else
+                {//waterPlantsOkay = false is starting default
+                    data[i] = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -160,7 +175,12 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
         {
             data[i+7] = stage.player1.need[i];
         }
-
+        for( int i = 0; i<TOTAL_SHIP_GAUGES;i++)
+        {
+            data[i+12] = stage.ship.gauge[i];
+        }
+        data[18] = stage.station.plantOkay;
+        data[19] = stage.station.waterPlantsOkay;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -187,7 +207,23 @@ void saveGame::deleteSave(int fileNum)
         //write savegame defaults as 0.
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
-            data[ i ] = 0;
+            //there are 7 data points before player needs & ship gauges.
+            if(i<7)
+            {
+                data[ i ] = 0;
+            }
+            else if(i<18)
+            {//starting values for player needs & ship gauges = 100
+                data[i] = 100;
+            }
+            else if(i<19)
+            {//plantOkay starting value is true
+                data[i] = 1;
+            }
+            else
+            {//waterPlantsOkay starting value is false
+                data[i] = 0;
+            }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
         }
         //Close file handler
@@ -256,6 +292,13 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
     {
         data[i+7] = stage.player1.need[i];
     }
+    for(int i = 0; i <TOTAL_SHIP_GAUGES;i++ )
+    {
+        data[i+12] = stage.ship.gauge[i];
+    }
+
+    data[18] = stage.station.plantOkay;
+    data[19] = stage.station.waterPlantsOkay;
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )
@@ -396,5 +439,10 @@ void saveGame::setDataValues()
     for(int j = 0; j < TOTAL_PLAYER_NEEDS; j++)
     {
         dataValues2[j] = data[j+7];
+    }
+    //ship gauge values
+    for(int k = 0; k < TOTAL_SHIP_GAUGES; k++)
+    {
+        dataValues3[k] = data[k+12];
     }
 }

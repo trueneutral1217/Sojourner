@@ -8,7 +8,7 @@
 
 
 //total save game data points
-const int TOTAL_DATA = 12;
+const int TOTAL_DATA = 20;
 //total preferences data points
 const int TOTAL_PREFS_DATA = 3;
 
@@ -60,8 +60,12 @@ class saveGame
     //thinking about having multiple save files, one with preferences, 3 with game progress.
     //considering adding time played to saved game progress variables.
 
+    //stage/player variables
     Uint32 dataValues1[4];
+    //player needs
     Uint32 dataValues2[5];
+    //ship gauges
+    Uint32 dataValues3[6];
 
     void setDataValues();
 

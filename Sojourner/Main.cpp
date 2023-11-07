@@ -422,6 +422,11 @@ int main( int argc, char* args[] )
                                     savegame.setDataValues();
                                     stage.loadSavedGameData(savegame.dataValues1);
                                     stage.player1.loadSavedPlayerData(savegame.dataValues2);
+                                    //load ship gauge data from save file
+                                    stage.ship.loadSavedShipData(savegame.dataValues3);
+                                    stage.station.plantOkay = savegame.data[18];
+                                    stage.station.waterPlantsOkay = savegame.data[19];
+                                    //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer,true);
                                     //previouslyPlayed is probably deprecated by timePlayed.
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];

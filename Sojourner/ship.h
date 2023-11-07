@@ -27,8 +27,10 @@ class ship
     void renderGaugesTextures(SDL_Renderer* renderer);
     //frees the text textures of the ship's gauges.
     void freeGaugesTextures();
-    //
+    //free ship resources
     void free();
+    //load ship saved data from file
+    void loadSavedShipData(Uint32 dataValues[]);
 
     private:
 
