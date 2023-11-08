@@ -87,6 +87,18 @@ void saveGame::readSaveFile(int fileNum)
                 {
                     data[i] = 0;
                 }
+                else if(i<22)
+                {
+                    data[i] = -1;
+                }
+                else if(i<23)
+                {
+                    data[i] = 0;
+                }
+                else if(i<24)
+                {
+                    data[i] = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -186,6 +198,9 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
         data[18] = stage.station.plantOkay;
         data[19] = stage.station.waterPlantsOkay;
         data[20] = stage.timeSurvived;
+        data[21] = stage.station.planterState;
+        data[22] = stage.station.planterDaysState;
+        data[23] = stage.station.planterTimeWatered;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -230,6 +245,18 @@ void saveGame::deleteSave(int fileNum)
                 data[i] = 0;
             }
             else if(i<21)
+            {
+                data[i] = 0;
+            }
+            else if(i<22)
+            {
+                data[i] = -1;
+            }
+            else if(i<23)
+            {
+                data[i] = 0;
+            }
+            else if(i<24)
             {
                 data[i] = 0;
             }
@@ -309,6 +336,10 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
     data[18] = stage.station.plantOkay;
     data[19] = stage.station.waterPlantsOkay;
     data[20] = stage.timeSurvived;
+    data[21] = stage.station.planterState;
+    data[22] = stage.station.planterDaysState;
+    data[23] = stage.station.planterTimeWatered;
+
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )
     {

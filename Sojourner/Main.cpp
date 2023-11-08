@@ -427,6 +427,9 @@ int main( int argc, char* args[] )
                                     stage.station.plantOkay = savegame.data[18];
                                     stage.station.waterPlantsOkay = savegame.data[19];
                                     stage.timeSurvived = savegame.data[20];
+                                    stage.station.planterState = savegame.data[21];
+                                    stage.station.planterDaysState = savegame.data[22];
+                                    stage.station.planterTimeWatered = savegame.data[23];
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer,true);
                                     //previouslyPlayed is probably deprecated by timePlayed.

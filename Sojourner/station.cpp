@@ -457,18 +457,73 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     }
     if(playerBot<=planterBot)
     {
-        //std::cout<<"\n plantOkay: "<<plantOkay<<" waterPlantsOkay: "<<waterPlantsOkay;
-        //player has sown the planter, but not watered
-        if(!plantOkay && waterPlantsOkay)
+        if(planterState == 0  && !plantOkay)
         {
-            planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //if player has sown the crops, but not yet watered
+            if(waterPlantsOkay)
+            {
+                planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has sown & watered
+            else if(!waterPlantsOkay)
+            {
+                planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
-        //player has sown and watered
-        else if(!plantOkay && !waterPlantsOkay)
+        else if(planterState == 1)
         {
-            planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterSeedlingTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterSeedlingWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
-        //player has neither sown nor watered
+        else if(planterState == 2)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterVegatativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterVegatativeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(planterState == 3)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterFloweringTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterFloweringWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+        else if(planterState == 4)
+        {
+            //if player has not yet watered
+            if(waterPlantsOkay)
+            {
+                planterRipeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+            //if player has watered
+            else if(!waterPlantsOkay)
+            {
+                planterRipeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+
+        //if player hasn't sown or watered
         else if(plantOkay && !waterPlantsOkay)
         {
             planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
