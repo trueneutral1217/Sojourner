@@ -346,15 +346,71 @@ void stage::renderStage1(SDL_Renderer* renderer)
             }
             if(player1.interactKitchen)
             {
-                station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+                if(player1.need[2]<100)
+                {
+                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                    int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
+                    player1.modifyNeeds(kitchen);
+                    player1.reloadNeedsTextures(renderer,font);
+                    //8 hours passed from sleeping
+                    timeSurvived +=30;
+                    refreshTS(renderer);
+                }
+                else
+                {//else just render 'not tired'
+                    station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+                }
             }
             if(player1.interactInfirmary)
             {
-                station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
+                if(player1.need[0]<100)
+                {
+                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                    int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
+                    player1.modifyNeeds(infirm);
+                    player1.reloadNeedsTextures(renderer,font);
+                    //8 hours passed from sleeping
+                    timeSurvived +=60;
+                    refreshTS(renderer);
+                }
+                else
+                {//else just render 'not tired'
+                    station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
+                }
             }
             if(player1.interactBike)
             {
-                station.renderInteractBike(renderer,player1.getX(),player1.getY());
+                if(player1.need[1]<100)
+                {
+                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                    int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
+                    player1.modifyNeeds(bike);
+                    player1.reloadNeedsTextures(renderer,font);
+                    //8 hours passed from sleeping
+                    timeSurvived +=120;
+                    refreshTS(renderer);
+                }
+                else
+                {//else just render 'not tired'
+                    station.renderInteractBike(renderer,player1.getX(),player1.getY());
+                }
+            }
+            if(player1.interactRec)
+            {
+                if(player1.need[4]<100)
+                {
+                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                    int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
+                    player1.modifyNeeds(recreation);
+                    player1.reloadNeedsTextures(renderer,font);
+                    //8 hours passed from sleeping
+                    timeSurvived +=60;
+                    refreshTS(renderer);
+                }
+                else
+                {//else just render 'I'm Happy'
+                    station.renderInteractRec(renderer,player1.getX(),player1.getY());
+                }
             }
         }
     }

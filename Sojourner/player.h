@@ -76,11 +76,13 @@ class player
         bool interactInfirmary;
         //render bike text texture?
         bool interactBike;
+        //render recreation text texture
+        bool interactRec;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.
         Texture playerTexture[MOVE_STATES][LR_TEXTURES];
-        //strings for the player needs note: index 0 correlates with health, 1 = hunger, 2 = physique, 3 = slumber, 4 = morale
+        //strings for the player needs note: index 0 correlates with health, 1 = physique, 2 = hunger, 3 = slumber, 4 = morale
         std::string playerNeeds[TOTAL_PLAYER_NEEDS];
         //updates player's needs values (typically after interacting with a station)
         void modifyNeeds(int modNeedValues[]);

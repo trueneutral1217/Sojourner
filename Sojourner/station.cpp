@@ -93,6 +93,19 @@ station::station()
     interactable[5].y = collidable[5].y-2;
     interactable[5].w = collidable[5].w+4;
     interactable[5].h = collidable[5].h+4;
+
+    recX = 510;
+    recY = 850;
+    recH = 100;
+    recBot = recY+recH;
+    collidable[6].x = recX;
+    collidable[6].y = recY+(recH/2);
+    collidable[6].w = 120;
+    collidable[6].h = recH/2;
+    interactable[6].x = collidable[6].x-2;
+    interactable[6].y = collidable[6].y-2;
+    interactable[6].w = collidable[6].w+4;
+    interactable[6].h = collidable[6].h+4;
 }
 
 station::~station()
@@ -109,7 +122,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     kitchenTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     infirmaryTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     bikeTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
-
+    recTexture.loadFromFile("images/sprites/recreation.png",renderer);
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
@@ -120,6 +133,19 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     loadInteractKitchen(renderer,font);
     loadInteractInfirmary(renderer,font);
     loadInteractBike(renderer,font);
+    loadInteractRec(renderer,font);
+}
+
+void station::loadInteractRec(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadInteractRec(SDL_Renderer* renderer, TTF_Font* font)";
+    //setting text for waterTank interaction
+    recDefault = "I'm Happy";
+    SDL_Color textColor = {255,255,255};//white
+    if(!recDefaultTexture.loadFromRenderedText(recDefault.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render recDefault string to recDefaultTexture!";
+    }
 }
 
 void station::loadInteractBike(SDL_Renderer* renderer, TTF_Font* font)
@@ -291,6 +317,17 @@ void station::updatePositionHab2(int y)
     bikeBot = bikeY+bikeH;
     collidable[5].y = bikeY + (bikeH/2);
     interactable[5].y = collidable[5].y-2;
+
+    recY = y + 250;
+    recBot = recY + recH;
+    collidable[6].y = recY + (recH/2);
+    interactable[6].y = collidable[6].y-2;
+}
+
+void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    recDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
@@ -443,6 +480,10 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
         //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
         bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot>recBot)
+    {
+        recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
@@ -542,6 +583,10 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
         //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
         bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot<=recBot)
+    {
+        recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
 void station::free()
@@ -561,4 +606,6 @@ void station::free()
 	infirmDefaultTexture.free();
 	bikeTexture.free();
 	bikeDefaultTexture.free();
+	recTexture.free();
+	recDefaultTexture.free();
 }

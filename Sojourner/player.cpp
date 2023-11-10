@@ -16,6 +16,7 @@ player::player()
     interactKitchen=false;
     interactInfirmary = false;
     interactBike = false;
+    interactRec = false;
 
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
@@ -337,6 +338,10 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             {
                 interactBike = true;
             }
+            if(i==6)
+            {
+                interactRec = true;
+            }
         }
         else
         {
@@ -367,6 +372,10 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             if(i==5)
             {
                 interactBike = false;
+            }
+            if(i==6)
+            {
+                interactRec = false;
             }
         }
     }

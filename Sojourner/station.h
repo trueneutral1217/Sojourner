@@ -24,9 +24,13 @@ class station
 
         int bikeX,bikeY,bikeH,bikeBot;
 
+        int recX,recY,recH,recBot;
+
         int planterTimeWatered, planterDaysState, planterState;
 
-        const static int STATIONS = 6;
+        const static int STATIONS = 7;
+
+        std::string recDefault;
 
         std::string bikeDefault;
         std::string infirmDefault;
@@ -58,6 +62,8 @@ class station
 
         bool interacted;
 
+        Texture recDefaultTexture;
+
         Texture bikeDefaultTexture;
         Texture infirmDefaultTexture;
         //the texture for the waterLevel string
@@ -74,6 +80,7 @@ class station
         Texture bedTexture;
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
+        Texture recTexture;
         Texture bikeTexture;
         Texture infirmaryTexture;
         Texture waterTankTexture;
@@ -94,6 +101,9 @@ class station
         SDL_Rect collidable[STATIONS];
         //the interactable area of the station
         SDL_Rect interactable[STATIONS];
+
+        void loadInteractRec(SDL_Renderer* renderer, TTF_Font* font);
+        void renderInteractRec(SDL_Renderer* renderer, int x, int y);
 
         void loadInteractBike(SDL_Renderer* renderer, TTF_Font* font);
         void renderInteractBike(SDL_Renderer* renderer, int x, int y);
