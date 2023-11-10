@@ -187,7 +187,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             }
         }
         currentTexture = playerTexture[moveState][walkFrame];
-        std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
+        //std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
     }
     else if(pVelX < 0)//player is walking left
     {
@@ -233,7 +233,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             }
         }
         currentTexture = playerTexture[moveState][walkFrame];
-        std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
+        //std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
     }
     else
     {
@@ -301,7 +301,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
         //prevent player from walking into station
         if(collisionDetector(collidable[i]))
         {
-            std::cout<<"\n collision detected!";
+            //std::cout<<"\n collision detected!";
             playerX-=pVelX;
             playerY-=pVelY;
         }

@@ -126,6 +126,14 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
+    planterSeedlingTexture.loadFromFile("images/sprites/planterSeedling.png",renderer);
+    planterSeedlingWateredTexture.loadFromFile("images/sprites/planterSeedlingWatered.png",renderer);
+    planterVegetativeTexture.loadFromFile("images/sprites/planterVegetative.png",renderer);
+    planterVegatativeWateredTexture.loadFromFile("images/sprites/planterVegetativeWatered.png",renderer);
+    planterFloweringTexture.loadFromFile("images/sprites/planterFlowering.png",renderer);
+    planterFloweringWateredTexture.loadFromFile("images/sprites/planterFloweringWatered.png",renderer);
+    planterRipeTexture.loadFromFile("images/sprites/planterRipe.png",renderer);
+    planterRipeWateredTexture.loadFromFile("images/sprites/planterRipeWatered.png",renderer);
 
     loadInteractWaterTank(renderer,font,shipGaugeValues[3]);
     loadInteractBed(renderer,font);
@@ -426,7 +434,7 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
             //if player has not yet watered
             if(waterPlantsOkay)
             {
-                planterVegatativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                planterVegetativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             }
             //if player has watered
             else if(!waterPlantsOkay)
@@ -529,7 +537,7 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
             //if player has not yet watered
             if(waterPlantsOkay)
             {
-                planterVegatativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                planterVegetativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             }
             //if player has watered
             else if(!waterPlantsOkay)
@@ -608,4 +616,30 @@ void station::free()
 	bikeDefaultTexture.free();
 	recTexture.free();
 	recDefaultTexture.free();
+}
+
+void station::updatePlant(int timeSurvived)
+{
+    std::cout<<"\n running station::updatePlant(int timeSurvived)";
+    if(planterState<4)
+    {
+        if(timeSurvived-planterTimeWatered > 1440)
+        {
+            waterPlantsOkay = true;
+            planterDaysState += 1;
+            if(planterDaysState >= 5)
+            {
+                planterState+=1;
+                if(planterState == 4)
+                {
+                    harvestOkay = true;
+                }
+            }
+        }
+    }
+
+    std::cout<<"\n waterPlantsOkay: "<<waterPlantsOkay;
+    std::cout<<"\n planterDaysState: "<<planterDaysState;
+    std::cout<<"\n planterState: "<<planterState;
+    std::cout<<"\n harvestOkay: "<<harvestOkay;
 }

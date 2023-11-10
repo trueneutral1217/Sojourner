@@ -327,6 +327,8 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     player1.reloadNeedsTextures(renderer,font);
                     //8 hours passed from sleeping
                     timeSurvived +=480;
+                    station.updatePlant(timeSurvived);
+
                     refreshTS(renderer);
                 }
                 else
@@ -336,12 +338,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
             }
             if(player1.interactPlanter)
             {
-                /*if(!station.planterOptionsLoaded)
-                {
-                    station.planterOptionsLoaded = true;
-                    station.loadInteractPlanter(renderer,text.font2);
-                }*/
-
                 station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
             }
             if(player1.interactKitchen)
@@ -354,6 +350,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     player1.reloadNeedsTextures(renderer,font);
                     //8 hours passed from sleeping
                     timeSurvived +=30;
+                    station.updatePlant(timeSurvived);
                     refreshTS(renderer);
                 }
                 else
@@ -371,6 +368,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     player1.reloadNeedsTextures(renderer,font);
                     //8 hours passed from sleeping
                     timeSurvived +=60;
+                    station.updatePlant(timeSurvived);
                     refreshTS(renderer);
                 }
                 else
@@ -382,16 +380,17 @@ void stage::renderStage1(SDL_Renderer* renderer)
             {
                 if(player1.need[1]<100)
                 {
-                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                    //if player's physique value is less than 100, modify and refresh needs from bike use.
                     int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
                     player1.modifyNeeds(bike);
                     player1.reloadNeedsTextures(renderer,font);
-                    //8 hours passed from sleeping
+                    //2 hours passed from exercising
                     timeSurvived +=120;
+                    station.updatePlant(timeSurvived);
                     refreshTS(renderer);
                 }
                 else
-                {//else just render 'not tired'
+                {//else just render 'stronk'
                     station.renderInteractBike(renderer,player1.getX(),player1.getY());
                 }
             }
@@ -403,8 +402,9 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
                     player1.modifyNeeds(recreation);
                     player1.reloadNeedsTextures(renderer,font);
-                    //8 hours passed from sleeping
+                    //1 hours passed from R&R
                     timeSurvived +=60;
+                    station.updatePlant(timeSurvived);
                     refreshTS(renderer);
                 }
                 else
@@ -470,7 +470,7 @@ void stage::move(int countedFrames)
         habInternalY1-=player1.getPVelY();
         habInternalY2-=player1.getPVelY();
 
-        std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
+        //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
     if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
     {
@@ -487,7 +487,7 @@ void stage::move(int countedFrames)
 
         habInternalY1-=player1.getPVelY();
         habInternalY2-=player1.getPVelY();
-        std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
+        //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
         //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
     player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);

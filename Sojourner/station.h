@@ -89,7 +89,7 @@ class station
         Texture planterSownWateredTexture;
         Texture planterSeedlingTexture;
         Texture planterSeedlingWateredTexture;
-        Texture planterVegatativeTexture;
+        Texture planterVegetativeTexture;
         Texture planterVegatativeWateredTexture;
         Texture planterFloweringTexture;
         Texture planterFloweringWateredTexture;
@@ -141,6 +141,8 @@ class station
         void freePlanterOptions();
         //frees the resources
         void free();
+        //
+        void updatePlant(int timeSurvived);
 
     private:
 
