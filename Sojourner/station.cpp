@@ -623,16 +623,27 @@ void station::updatePlant(int timeSurvived)
     std::cout<<"\n running station::updatePlant(int timeSurvived)";
     if(planterState<4)
     {
-        if(timeSurvived-planterTimeWatered > 1440)
+        if(timeSurvived-planterTimeWatered > 1440 && !waterPlantsOkay && !harvestOkay)
         {
+            //1440 minutes is 24 hours... if at least that much time has passed, the plant is ready to be
+            //watered again.  If the plant is harvestable, no need to water, so let's save the player from
+            //accidentally wasting time watering.
             waterPlantsOkay = true;
-            planterDaysState += 1;
-            if(planterDaysState >= 5)
+            if(!harvestOkay)
+            {//as long as the plant isn't ready for harvest, the number of days in current state of plant life cycle
+                //increments.
+                planterDaysState++;
+            }
+            if(planterDaysState >= 5 && !harvestOkay)
             {
-                planterState+=1;
+                //if the plant has been at it's current state for 5+ days and isn't harvestable yet, increment the
+                //state, then reset days at state to 0.
+                planterState++;
+                planterDaysState = 0;
                 if(planterState == 4)
-                {
+                {//if plant is old enough, it is harvestable.
                     harvestOkay = true;
+                    waterPlantsOkay = false;
                 }
             }
         }

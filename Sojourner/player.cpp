@@ -7,7 +7,7 @@ player::player()
     playerY = 260;//also middle, considering player height.  player starts in screen center.
     playerBot = playerY+PLAYER_HEIGHT;
     flipHorizontal = false;
-    inSpace=false;
+    inSpace=true;
     inRange=false;
     interact=false;
     interactBed=false;

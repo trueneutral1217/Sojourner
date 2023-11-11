@@ -1348,13 +1348,13 @@
 1696190974 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1699657269 source:c:\sojourner\sojourner\player.cpp
+1699743262 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1699486773 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1699656906 source:c:\sojourner\sojourner\stage.cpp
+1699657338 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1377,10 +1377,10 @@
 1699397163 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1699657043 source:c:\sojourner\sojourner\station.cpp
+1699739476 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1699656906 c:\sojourner\sojourner\station.h
+1699657925 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 
