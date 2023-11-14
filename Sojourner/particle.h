@@ -2,26 +2,32 @@
 #define PARTICLE_H
 
 #include "Texture.h"
+#include "timer.h"
 
-//Particle count
-const int TOTAL_PARTICLES = 200;
+const int TOTAL_PARTICLES = 50;
 
+const static int TOTAL_FRAMES = 5;
 
 class Particle
 {
 	public:
 
+
+        timer particleTimer;
 		//Initialize position and animation
 		void createParticle(SDL_Renderer* renderer);
 
 		//~Particle();
-		//Shows the particle
+		Texture star[TOTAL_FRAMES];
+		//render particle textures to screen
 		void render(SDL_Renderer* renderer, int renderColor);
 
 		//Checks if particle is dead
 		bool isDead();
 
         int renderColor;
+
+        void incrementFrame();
 
 
 	private:
@@ -32,7 +38,7 @@ class Particle
 		int frame;
 
         //A rect to be filled
-		SDL_Rect fillRect;
+		//SDL_Rect fillRect;
 
 
 };

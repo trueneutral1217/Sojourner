@@ -12,7 +12,7 @@ timer::timer()
 
 void timer::start()
 {
-    std::cout<<"\n running timer::start()";
+    //std::cout<<"\n running timer::start()";
     //Start the timer
     started = true;
 
@@ -26,7 +26,7 @@ void timer::start()
 
 void timer::restart()
 {
-    std::cout<<"\n running timer::restart()";
+    //std::cout<<"\n running timer::restart()";
     //Stop the timer
     started = false;
 

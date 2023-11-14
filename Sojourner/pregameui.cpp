@@ -372,16 +372,15 @@ void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 
 void pregameui::renderParticles(SDL_Renderer* renderer)
 {
-    //Go through particles
+
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
-        //Delete and replace dead particles
         if( particles[i].isDead() )
         {
             particles[i].createParticle(renderer);
         }
     }
-    //Show particles
+
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
         particles[i].render(renderer,particles[i].renderColor);
@@ -452,9 +451,18 @@ void pregameui::handleTitleScreenRendering(SDL_Renderer* renderer)
 void pregameui::createParticles(SDL_Renderer* renderer)
 {
     std::cout<<"\n running pregameui::createParticles(SDL_Renderer* renderer)";
-    for(int i=0;i<TOTAL_PARTICLES;i++){
+    /*for(int i=0;i<TOTAL_PARTICLES;i++){
         particles[i].createParticle(renderer);
+    }*/
+
+    for( int i = 0; i < TOTAL_PARTICLES; ++i )
+    {
+        if( particles[i].isDead() )
+        {
+            particles[i].createParticle(renderer);
+        }
     }
+
 }
 
 

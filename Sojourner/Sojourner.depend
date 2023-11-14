@@ -1305,8 +1305,9 @@
 1698099414 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
-1658538273 c:\sojourner\sojourner\particle.h
+1700004461 c:\sojourner\sojourner\particle.h
 	"Texture.h"
+	"timer.h"
 
 1682117124 c:\sojourner\sojourner\chapter.h
 	"timer.h"
@@ -1323,7 +1324,7 @@
 	"stage.h"
 	<ctime>
 
-1697407953 c:\sojourner\sojourner\pregameui.h
+1700003650 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
@@ -1345,7 +1346,7 @@
 1677107590 source:c:\sojourner\sojourner\parallax.cpp
 	"parallax.h"
 
-1696190974 source:c:\sojourner\sojourner\particle.cpp
+1700004327 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
 1699743262 source:c:\sojourner\sojourner\player.cpp
@@ -1363,7 +1364,7 @@
 1699655024 source:c:\sojourner\sojourner\texture.cpp
 	"Texture.h"
 
-1697398203 source:c:\sojourner\sojourner\timer.cpp
+1700004430 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
 1698100251 source:c:\sojourner\sojourner\button.cpp
@@ -1374,7 +1375,7 @@
 
 1680648821 source:c:\sojourner\sojourner\myicon.rc
 
-1699397163 source:c:\sojourner\sojourner\pregameui.cpp
+1700004156 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
 1699739476 source:c:\sojourner\sojourner\station.cpp
