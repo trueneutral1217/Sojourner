@@ -11,7 +11,7 @@
 #include "ship.h"
 
 //these are the parallax images used for the bg's.
-const static int TOTAL_STAGE_BACKGROUNDS = 4;
+const static int TOTAL_STAGE_BACKGROUNDS = 6;
 //number of UI images
 const int TOTAL_STAGE_UI = 1;
 
@@ -28,10 +28,15 @@ class stage
         bool internalView;
         //player should not be displayed while in externalView
         bool showPlayer;
+        //these will likely be saved just to remember the player's location correctly.
+        bool inHab, inEng;
 
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
         int habInternalY1;
         int habInternalY2;
+        //handling it like habInternal variables currently.
+        int engInternalY1;
+        int engInternalY2;
 
         int timeSurvived;
 
@@ -98,20 +103,21 @@ class stage
         void loadFont();
         //renders the habitat internal background images.
         void habInternalHandleParallax(SDL_Renderer* renderer);
+        //renders internal engineering by bg images
+        void engInternalHandleParallax(SDL_Renderer* renderer);
         //updates the Y coords for habitat background
         void move(int countedFrames);
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
         //loads saved data from savesfile (player coords, location in habitat)
-        //void loadSavedGameData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4);
         void loadSavedGameData(Uint32 dataValues[]);
         //handles planter interaction textures and updates planter texture
         void handlePlanter(SDL_Renderer* renderer, TTF_Font* font);
-
+        //
         void loadTimeSurvivedTextures(SDL_Renderer* renderer);
-
+        //
         void renderTimeSurvivedTextTextures(SDL_Renderer* renderer);
-
+        //
         void freeTimeSurvivedTextures();
         //refreshes the text textures for time survived so they render the correct TS.
         void refreshTS(SDL_Renderer* renderer);

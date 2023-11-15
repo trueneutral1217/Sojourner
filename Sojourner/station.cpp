@@ -317,7 +317,7 @@ void station::updatePosition(int y)
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
 }
 
-void station::updatePositionHab2(int y)
+void station::updatePosition2(int y)
 {
     //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
     //std::cout<<"\n y: "<<y;

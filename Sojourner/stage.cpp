@@ -7,7 +7,13 @@ stage::stage()
     showPlayer=false;
     habInternalY1=0;
     habInternalY2=-600;
+    engInternalY1 = 0;
+    engInternalY2 = -600;
     timeSurvived = 0;
+    //player starts in habitation module
+    inHab = true;
+    //player does not start in engineering module
+    inEng = false;
 }
 
 stage::~stage()
@@ -98,6 +104,8 @@ void stage::setFileNames()
     bgFileName[1] = "images/outerShip1.png";
     bgFileName[2] = "images/habitation1.png";
     bgFileName[3] = "images/habitation2.png";
+    bgFileName[4] = "images/engineering1.png";
+    bgFileName[5] = "images/engineering2.png";
 
     uiFileName[0] = "images/UI.png";
 
@@ -223,13 +231,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //player watered the plants, which takes 30 minutes
             timeSurvived +=30;
             refreshTS(renderer);
-            //update players needs to reflect the half hour they spent watering.
-            //at some point, watering will have to track the how long it's been since last watering,
-            //which I'll probably set up to need watering again after 24 hours.
+
             //health physique slumber hunger morale
-            //it might be better to send a certain number of minutes to a function in player class
-            //to modify the player's needs, but that would need to take into account strenuousness of an activity,
-            //or other factors.
+
             //temporary numbers
             int water[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
             player1.modifyNeeds(water);
@@ -297,12 +301,20 @@ void stage::renderStage1(SDL_Renderer* renderer)
     }
     else if(internalView)
     {//renders the interior of the ship (supposed to parallax as player walks up or down.
-        habInternalHandleParallax(renderer);
+        if(inHab)
+        {
+            habInternalHandleParallax(renderer);
+        }
+        else if(inEng)
+        {
+            engInternalHandleParallax(renderer);
+        }
     }
 
     //renders station, then renders player, because station is in front of player (station closer to bottom screen)
     if(internalView)
-    {
+    {//this will have to be broken up a little, it should probably be renderHabStationBehindPlayer, but maybe I will
+        //alter it in the function.
         station.renderStationBehindPlayer(renderer,player1.playerBot);
     }
     if(showPlayer)
@@ -451,48 +463,97 @@ void stage::habInternalHandleParallax(SDL_Renderer* renderer)
     stage1BG[3].render(0,habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
+void stage::engInternalHandleParallax(SDL_Renderer* renderer)
+{
+    stage1BG[4].render(0,engInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[5].render(0,engInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
 void stage::move(int countedFrames)
 {
     //std::cout<<"\n running stage::move(int countedFrames)";
     if( player1.getY() == 360 && player1.getPVelY() > 0 )
     {//player is heading down after hitting lower threshold.
-
-        //y value of hab background continues to decrease as it moves up the screen
-        if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+        if(inHab)
         {
-            habInternalY1 = 600;
-        }
-        if(habInternalY2 < -599)
-        {
-            habInternalY2 = 600;
-        }
+            //y value of hab background continues to decrease as it moves up the screen
+            if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+            {
+                habInternalY1 = 600;
+            }
+            if(habInternalY2 < -599)
+            {
+                habInternalY2 = 600;
+            }
 
-        habInternalY1-=player1.getPVelY();
-        habInternalY2-=player1.getPVelY();
+            habInternalY1-=player1.getPVelY();
+            habInternalY2-=player1.getPVelY();
+        }
+        else if(inEng)
+        {
+            //y value of hab background continues to decrease as it moves up the screen
+            if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+            {
+                engInternalY1 = 600;
+            }
+            if(engInternalY2 < -599)
+            {
+                engInternalY2 = 600;
+            }
+
+            engInternalY1-=player1.getPVelY();
+            engInternalY2-=player1.getPVelY();
+        }
 
         //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
     }
     if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
     {
 
-
-        if(habInternalY1 > 599)
+        if(inHab)
         {
-            habInternalY1 = -600;
+            if(habInternalY1 > 599)
+            {
+                habInternalY1 = -600;
+            }
+            if(habInternalY2 > 599)
+            {
+                habInternalY2 = -600;
+            }
+
+            habInternalY1-=player1.getPVelY();
+            habInternalY2-=player1.getPVelY();
         }
-        if(habInternalY2 > 599)
+        else if(inEng)
         {
-            habInternalY2 = -600;
+            if(engInternalY1 > 599)
+            {
+                engInternalY1 = -600;
+            }
+            if(engInternalY2 > 599)
+            {
+                engInternalY2 = -600;
+            }
+
+            engInternalY1-=player1.getPVelY();
+            engInternalY2-=player1.getPVelY();
         }
 
-        habInternalY1-=player1.getPVelY();
-        habInternalY2-=player1.getPVelY();
         //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
         //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
     player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);
-    station.updatePosition(habInternalY1);
-    station.updatePositionHab2(habInternalY2);
+    if(inHab)
+    {
+        station.updatePosition(habInternalY1);
+        station.updatePosition2(habInternalY2);
+    }
+    else if(inEng)
+    {
+        station.updatePosition(engInternalY1);
+        station.updatePosition(engInternalY2);
+    }
+
 }
 
 void stage::setNewgameVars()
@@ -502,10 +563,17 @@ void stage::setNewgameVars()
     player1.setY(260);
     habInternalY1 = 0;
     habInternalY2 = -600;
+    engInternalY1 = 0;
+    engInternalY2 = -600;
     //sets players starting needs at 100
     for(int i = 0; i < TOTAL_PLAYER_NEEDS; i++)
     {
         player1.need[i] = 100;
+    }
+    //set ship's starting gauges at 100
+    for(int i=0; i<TOTAL_SHIP_GAUGES; i++)
+    {
+        ship.gauge[i] = 100;
     }
     //externalView=true;
 }
@@ -519,6 +587,9 @@ void stage::loadSavedGameData(Uint32 dataValues[])
     //load habitat Y1 and Y2 coords from safe file
     habInternalY1 = dataValues[2];
     habInternalY2 = dataValues[3];
+
+    engInternalY1 = dataValues[4];
+    engInternalY2 = dataValues[5];
 }
 
 void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
