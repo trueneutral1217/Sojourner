@@ -1337,7 +1337,7 @@
 	"station.h"
 	"ship.h"
 
-1699572493 c:\sojourner\sojourner\player.h
+1700269240 c:\sojourner\sojourner\player.h
 	"texture.h"
 
 1698102383 c:\sojourner\sojourner\text.h
@@ -1355,7 +1355,7 @@
 1700089109 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1699657338 source:c:\sojourner\sojourner\stage.cpp
+1700269240 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1378,10 +1378,10 @@
 1700004156 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1700088944 source:c:\sojourner\sojourner\station.cpp
+1700269621 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1700088944 c:\sojourner\sojourner\station.h
+1700269240 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 

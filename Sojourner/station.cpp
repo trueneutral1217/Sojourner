@@ -106,6 +106,19 @@ station::station()
     interactable[6].y = collidable[6].y-2;
     interactable[6].w = collidable[6].w+4;
     interactable[6].h = collidable[6].h+4;
+
+    habExitX = 790;
+    habExitY = 395;
+    habExitH = 10;
+    habExitBot = habExitY +habExitH;
+    collidable[7].x = habExitX;
+    collidable[7].y = habExitY + (habExitH/2);
+    collidable[7].w = 10;
+    collidable[7].h = habExitH/2;
+    interactable[7].x = collidable[7].x - 2;
+    interactable[7].y = collidable[7].y - 2;
+    interactable[7].w = collidable[7].w + 4;
+    interactable[7].h = collidable[7].h + 4;
 }
 
 station::~station()
@@ -123,6 +136,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     infirmaryTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     bikeTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
     recTexture.loadFromFile("images/sprites/recreation.png",renderer);
+    habExitTexture.loadFromFile("images/sprites/habExit.png",renderer);
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
@@ -142,6 +156,18 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     loadInteractInfirmary(renderer,font);
     loadInteractBike(renderer,font);
     loadInteractRec(renderer,font);
+    loadInteractHabExit(renderer,font);
+}
+
+void station::loadInteractHabExit(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadInteractHabExit(SDL_Renderer* renderer, TTF_Font* font)";
+    habExitDefault = "Leaving Habitation Module";
+    SDL_Color textColor = {255,255,255};
+    if(!habExitDefaultTexture.loadFromRenderedText(habExitDefault.c_str(),textColor,font,renderer))
+    {
+       std::cout<<"\n unable to render habExitDefault string to habExitDefaultTexture!";
+    }
 }
 
 void station::loadInteractRec(SDL_Renderer* renderer, TTF_Font* font)
@@ -264,6 +290,7 @@ void station::loadInteractWaterTank(SDL_Renderer* renderer,TTF_Font* font,int wa
     //setting text for waterTank interaction
 
     waterLevel = std::to_string(waterGauge);
+    waterLevel = waterLevel + " Liters";
     SDL_Color textColor = {255,255,255};//white
     if(!waterLevelTexture.loadFromRenderedText(waterLevel.c_str(), textColor,font,renderer))
     {
@@ -332,6 +359,14 @@ void station::updatePosition2(int y)
     interactable[6].y = collidable[6].y-2;
 }
 
+void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    x-=60;
+    habExitDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+}
+
 void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
@@ -386,7 +421,7 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
     harvestTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
-void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
+void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 {
 
     if(playerBot>bedBot)
@@ -492,9 +527,13 @@ void station::renderStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     {
         recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    if(playerBot>habExitBot)
+    {
+        habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 }
 
-void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
+void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 {
     if(playerBot<=bedBot)
     {
@@ -594,6 +633,10 @@ void station::renderStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     if(playerBot<=recBot)
     {
         recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(playerBot<=habExitBot)
+    {
+        habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
 }
 

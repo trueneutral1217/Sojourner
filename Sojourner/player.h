@@ -78,6 +78,8 @@ class player
         bool interactBike;
         //render recreation text texture
         bool interactRec;
+        //render hab exit interaction texture
+        bool interactHabExit;
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.

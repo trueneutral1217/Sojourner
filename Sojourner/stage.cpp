@@ -315,116 +315,139 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(internalView)
     {//this will have to be broken up a little, it should probably be renderHabStationBehindPlayer, but maybe I will
         //alter it in the function.
-        station.renderStationBehindPlayer(renderer,player1.playerBot);
+        if(inHab)
+        {
+            station.renderHabStationBehindPlayer(renderer,player1.playerBot);
+        }
+
     }
     if(showPlayer)
     {//player is shown if internalView is on.
         player1.render(renderer);
-        station.renderStationFrontPlayer(renderer,player1.playerBot);
 
-        //interact is user pressed 'e', inRange is player collision with interactable station
-        if(player1.interact)
+        if(inHab)
         {
-            if(player1.interactWaterTank)
-            {
-                station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
-            }
-            if(player1.interactBed)
-            {
-                if(player1.need[3]<100)
-                {
-                    //if player's slumber value is less than 100, modify and refresh needs from bed use.
-                    int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
-                    player1.modifyNeeds(slumberBag);
-                    player1.reloadNeedsTextures(renderer,font);
-                    //8 hours passed from sleeping
-                    timeSurvived +=480;
-                    station.updatePlant(timeSurvived);
+            station.renderHabStationFrontPlayer(renderer,player1.playerBot);
 
-                    refreshTS(renderer);
-                }
-                else
-                {//else just render 'not tired'
-                    station.renderInteractBed(renderer,player1.getX(),player1.getY());
-                }
-            }
-            if(player1.interactPlanter)
+            //interact is user pressed 'e', inRange is player collision with interactable station
+            if(player1.interact)
             {
-                station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
-            }
-            if(player1.interactKitchen)
-            {
-                if(player1.need[2]<100)
+                if(player1.interactWaterTank)
                 {
-                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                    int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
-                    player1.modifyNeeds(kitchen);
-                    player1.reloadNeedsTextures(renderer,font);
-                    //8 hours passed from sleeping
-                    timeSurvived +=30;
-                    station.updatePlant(timeSurvived);
-                    refreshTS(renderer);
+                    station.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
                 }
-                else
-                {//else just render 'not tired'
-                    station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
-                }
-            }
-            if(player1.interactInfirmary)
-            {
-                if(player1.need[0]<100)
+                if(player1.interactBed)
                 {
-                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                    int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
-                    player1.modifyNeeds(infirm);
-                    player1.reloadNeedsTextures(renderer,font);
-                    //8 hours passed from sleeping
-                    timeSurvived +=60;
-                    station.updatePlant(timeSurvived);
-                    refreshTS(renderer);
+                    if(player1.need[3]<100)
+                    {
+                        //if player's slumber value is less than 100, modify and refresh needs from bed use.
+                        int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
+                        player1.modifyNeeds(slumberBag);
+                        player1.reloadNeedsTextures(renderer,font);
+                        //8 hours passed from sleeping
+                        timeSurvived +=480;
+                        station.updatePlant(timeSurvived);
+
+                        refreshTS(renderer);
+                    }
+                    else
+                    {//else just render 'not tired'
+                        station.renderInteractBed(renderer,player1.getX(),player1.getY());
+                    }
                 }
-                else
-                {//else just render 'not tired'
-                    station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
-                }
-            }
-            if(player1.interactBike)
-            {
-                if(player1.need[1]<100)
+                if(player1.interactPlanter)
                 {
-                    //if player's physique value is less than 100, modify and refresh needs from bike use.
-                    int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
-                    player1.modifyNeeds(bike);
-                    player1.reloadNeedsTextures(renderer,font);
-                    //2 hours passed from exercising
-                    timeSurvived +=120;
-                    station.updatePlant(timeSurvived);
-                    refreshTS(renderer);
+                    station.renderInteractPlanter(renderer,player1.getX(),player1.getY());
                 }
-                else
-                {//else just render 'stronk'
-                    station.renderInteractBike(renderer,player1.getX(),player1.getY());
-                }
-            }
-            if(player1.interactRec)
-            {
-                if(player1.need[4]<100)
+                if(player1.interactKitchen)
                 {
-                    //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                    int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
-                    player1.modifyNeeds(recreation);
-                    player1.reloadNeedsTextures(renderer,font);
-                    //1 hours passed from R&R
-                    timeSurvived +=60;
-                    station.updatePlant(timeSurvived);
-                    refreshTS(renderer);
+                    if(player1.need[2]<100)
+                    {
+                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                        int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
+                        player1.modifyNeeds(kitchen);
+                        player1.reloadNeedsTextures(renderer,font);
+                        //8 hours passed from sleeping
+                        timeSurvived +=30;
+                        station.updatePlant(timeSurvived);
+                        refreshTS(renderer);
+                    }
+                    else
+                    {//else just render 'not tired'
+                        station.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+                    }
+                }
+                if(player1.interactInfirmary)
+                {
+                    if(player1.need[0]<100)
+                    {
+                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                        int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
+                        player1.modifyNeeds(infirm);
+                        player1.reloadNeedsTextures(renderer,font);
+                        //8 hours passed from sleeping
+                        timeSurvived +=60;
+                        station.updatePlant(timeSurvived);
+                        refreshTS(renderer);
+                    }
+                    else
+                    {//else just render 'not tired'
+                        station.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
+                    }
+                }
+                if(player1.interactBike)
+                {
+                    if(player1.need[1]<100)
+                    {
+                        //if player's physique value is less than 100, modify and refresh needs from bike use.
+                        int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
+                        player1.modifyNeeds(bike);
+                        player1.reloadNeedsTextures(renderer,font);
+                        //2 hours passed from exercising
+                        timeSurvived +=120;
+                        station.updatePlant(timeSurvived);
+                        refreshTS(renderer);
+                    }
+                    else
+                    {//else just render 'stronk'
+                        station.renderInteractBike(renderer,player1.getX(),player1.getY());
+                    }
+                }
+                if(player1.interactRec)
+                {
+                    if(player1.need[4]<100)
+                    {
+                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+                        int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
+                        player1.modifyNeeds(recreation);
+                        player1.reloadNeedsTextures(renderer,font);
+                        //1 hours passed from R&R
+                        timeSurvived +=60;
+                        station.updatePlant(timeSurvived);
+                        refreshTS(renderer);
+                    }
+                    else
+                    {//else just render 'I'm Happy'
+                        station.renderInteractRec(renderer,player1.getX(),player1.getY());
+                    }
+                }
+                if(player1.interactHabExit)
+                {
+                    player1.setX(0);
+                    inHab = false;
+                    inEng = true;
+                    std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
+                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                 }
                 else
-                {//else just render 'I'm Happy'
-                    station.renderInteractRec(renderer,player1.getX(),player1.getY());
+                {
+                    station.renderInteractHabExit(renderer,player1.getX(),player1.getY());
+                    std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
+                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                 }
             }
         }
+
     }
     if(internalView)
     {
