@@ -565,16 +565,16 @@ void stage::move(int countedFrames)
         //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
         //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
-    player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS);
+    player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS,inHab);
     if(inHab)
     {
-        station.updatePosition(habInternalY1);
-        station.updatePosition2(habInternalY2);
+        station.updateHabPosition(habInternalY1);
+        station.updateHabPosition2(habInternalY2);
     }
     else if(inEng)
     {
-        station.updatePosition(engInternalY1);
-        station.updatePosition(engInternalY2);
+        station.updateEngPosition(engInternalY1);
+        station.updateEngPosition2(engInternalY2);
     }
 
 }

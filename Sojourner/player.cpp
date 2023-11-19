@@ -17,6 +17,7 @@ player::player()
     interactInfirmary = false;
     interactBike = false;
     interactRec = false;
+    interactHabExit = false;
 
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
@@ -129,7 +130,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS)
+void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS,bool inHab)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -294,91 +295,102 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
 
-
-    for(int i = 0; i<STATIONS;i++)
+    if(inHab)
     {
-
-        //prevent player from walking into station
-        if(collisionDetector(collidable[i]))
-        {
-            //std::cout<<"\n collision detected!";
-            playerX-=pVelX;
-            playerY-=pVelY;
-        }
-        //check if player is in range of interacting with a station
-        if(collisionDetector(interactable[i]))
+       for(int i = 0; i<STATIONS;i++)
         {
 
-            if(i==0)
+            //prevent player from walking into station
+            if(collisionDetector(collidable[i]))
             {
-                //flag stage to render bed sleeptyTime text texture
-                interactBed = true;
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
-            //watertank is interactable[1]
-            if(i==1)
+            //check if player is in range of interacting with a station
+            if(collisionDetector(interactable[i]))
             {
-                //flag stage to render watertank waterLevel text texture
-                interactWaterTank = true;
+
+                if(i==0)
+                {
+                    //flag stage to render bed sleeptyTime text texture
+                    interactBed = true;
+                }
+                //watertank is interactable[1]
+                if(i==1)
+                {
+                    //flag stage to render watertank waterLevel text texture
+                    interactWaterTank = true;
+                }
+                if(i==2)
+                {
+                    //flag stage to render planter plantStatus text texture
+                    interactPlanter = true;
+                }
+                if(i==3)
+                {
+                    //flag stage to render kitchen foodTime text texture
+                    interactKitchen = true;
+                }
+                if(i==4)
+                {
+                    interactInfirmary = true;
+                }
+                if(i==5)
+                {
+                    interactBike = true;
+                }
+                if(i==6)
+                {
+                    interactRec = true;
+                }
+                if(i==7)
+                {
+                    interactHabExit = true;
+                }
             }
-            if(i==2)
+            else
             {
-                //flag stage to render planter plantStatus text texture
-                interactPlanter = true;
-            }
-            if(i==3)
-            {
-                //flag stage to render kitchen foodTime text texture
-                interactKitchen = true;
-            }
-            if(i==4)
-            {
-                interactInfirmary = true;
-            }
-            if(i==5)
-            {
-                interactBike = true;
-            }
-            if(i==6)
-            {
-                interactRec = true;
-            }
-        }
-        else
-        {
-            if(i==0)
-            {
-                //flag stage to render bed sleeptyTime text texture
-                interactBed = false;
-            }
-            if(i==1)
-            {
-                //flag stage to render watertank waterLevel text texture
-                interactWaterTank = false;
-            }
-            if(i==2)
-            {
-                //flag stage to render planter plantStatus text texture
-                interactPlanter = false;
-            }
-            if(i==3)
-            {
-                //flag stage to render kitchen foodTime text texture
-                interactKitchen = false;
-            }
-            if(i==4)
-            {
-                interactInfirmary = false;
-            }
-            if(i==5)
-            {
-                interactBike = false;
-            }
-            if(i==6)
-            {
-                interactRec = false;
+                if(i==0)
+                {
+                    //flag stage to render bed sleeptyTime text texture
+                    interactBed = false;
+                }
+                if(i==1)
+                {
+                    //flag stage to render watertank waterLevel text texture
+                    interactWaterTank = false;
+                }
+                if(i==2)
+                {
+                    //flag stage to render planter plantStatus text texture
+                    interactPlanter = false;
+                }
+                if(i==3)
+                {
+                    //flag stage to render kitchen foodTime text texture
+                    interactKitchen = false;
+                }
+                if(i==4)
+                {
+                    interactInfirmary = false;
+                }
+                if(i==5)
+                {
+                    interactBike = false;
+                }
+                if(i==6)
+                {
+                    interactRec = false;
+                }
+                if(i==7)
+                {
+                    interactHabExit = false;
+                }
             }
         }
     }
+
     playerBot = playerY+PLAYER_HEIGHT;
 }
 

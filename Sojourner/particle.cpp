@@ -69,6 +69,14 @@ void Particle::render(SDL_Renderer* renderer, int renderColor)
         break;
         case 4: star[4].render(partX,partY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         break;
+        case 5: star[3].render(partX,partY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
+        case 6: star[2].render(partX,partY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
+        case 7: star[1].render(partX,partY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
+        case 8: star[0].render(partX,partY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
     }
 
     if(particleTimer.getTicks() % 100 == 0)
@@ -82,7 +90,7 @@ void Particle::render(SDL_Renderer* renderer, int renderColor)
 
 bool Particle::isDead()
 {
-    return frame > 4;
+    return frame > 9;
 }
 
 void Particle::incrementFrame()

@@ -119,6 +119,19 @@ station::station()
     interactable[7].y = collidable[7].y - 2;
     interactable[7].w = collidable[7].w + 4;
     interactable[7].h = collidable[7].h + 4;
+
+    engExitX = 0;
+    engExitY = 400;
+    engExitH = 10;
+    engExitBot = engExitY + engExitH;
+    collidable[8].x = engExitX;
+    collidable[8].y = engExitY + (engExitH/2);
+    collidable[8].w = 10;
+    collidable[8].h = engExitH/2;
+    interactable[8].x = collidable[8].x-2;
+    interactable[8].y = collidable[8].y - 2;
+    interactable[8].w = collidable[8].w + 4;
+    interactable[8].h = collidable[8].h + 4;
 }
 
 station::~station()
@@ -137,6 +150,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     bikeTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
     recTexture.loadFromFile("images/sprites/recreation.png",renderer);
     habExitTexture.loadFromFile("images/sprites/habExit.png",renderer);
+    engExitTexture.loadFromFile("images/sprites/engExit.png",renderer);
 
     planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
     planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
@@ -157,6 +171,18 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     loadInteractBike(renderer,font);
     loadInteractRec(renderer,font);
     loadInteractHabExit(renderer,font);
+    loadInteractEngExit(renderer,font);
+}
+
+void station::loadInteractEngExit(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadInteractEngExit(SDL_Renderer* renderer, TTF_Font* font)";
+    engExitDefault = "Leaving Engineering Module";
+    SDL_Color textColor = {255,255,255};
+    if(!engExitDefaultTexture.loadFromRenderedText(engExitDefault.c_str(),textColor,font,renderer))
+    {
+       std::cout<<"\n unable to render engExitDefault string to engExitDefaultTexture!";
+    }
 }
 
 void station::loadInteractHabExit(SDL_Renderer* renderer, TTF_Font* font)
@@ -310,7 +336,7 @@ void station::loadInteractBed(SDL_Renderer* renderer,TTF_Font* font)
     }
 }
 
-void station::updatePosition(int y)
+void station::updateHabPosition(int y)
 {
     //when player moves, background parallaxes, this makes sure the stations stay in their places.
     //bedY = y+300;
@@ -339,12 +365,25 @@ void station::updatePosition(int y)
     collidable[4].y = infirmY + (infirmH/2);
     interactable[4].y = collidable[4].y-2;
 
+    habExitY = y+395;
+    habExitBot = habExitY + habExitH;
+    collidable[7].y = habExitY +(habExitH/2);
+    interactable[7].y = collidable[7].y-2;
+
 
 
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
 }
 
-void station::updatePosition2(int y)
+void station::updateEngPosition(int y)
+{
+    engExitY = y+395;
+    engExitBot = engExitY + engExitH;
+    collidable[8].y=engExitY+(engExitH/2);
+    interactable[8].y=collidable[8].y-4;
+}
+
+void station::updateHabPosition2(int y)
 {
     //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
     //std::cout<<"\n y: "<<y;
@@ -357,6 +396,20 @@ void station::updatePosition2(int y)
     recBot = recY + recH;
     collidable[6].y = recY + (recH/2);
     interactable[6].y = collidable[6].y-2;
+}
+
+void station::updateEngPosition2(int y)
+{
+    /*engExitY = y+395;
+    engExitBot = engExitY + engExitH;
+    collidable[8].y=engExitY+(engExitH/2);
+    interactable[8].y=collidable[8].y-4;*/
+}
+
+void station::renderInteractEngExit(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    engExitDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
@@ -643,6 +696,10 @@ void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 void station::free()
 {
     std::cout<<"\n running station::free()";
+    habExitDefaultTexture.free();
+    habExitTexture.free();
+    engExitDefaultTexture.free();
+    engExitTexture.free();
 	bedTexture.free();
 	waterTankTexture.free();
 	waterLevelTexture.free();

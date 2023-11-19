@@ -28,9 +28,13 @@ class station
 
         int habExitX, habExitY,habExitH,habExitBot;
 
+        int engExitX, engExitY,engExitH,engExitBot;
+
         int planterTimeWatered, planterDaysState, planterState;
 
-        const static int STATIONS = 8;
+        const static int STATIONS = 9;
+
+        std::string engExitDefault;
 
         std::string habExitDefault;
 
@@ -65,6 +69,8 @@ class station
         //and eventually set harvestOkay to true when the plant is fully grown.
 
         bool interacted;
+
+        Texture engExitDefaultTexture;
 
         Texture habExitDefaultTexture;
 
@@ -103,12 +109,16 @@ class station
         Texture planterRipeWateredTexture;
 
         Texture habExitTexture;//currently no texture for this, might just do a 10x10 fully transparent square/rect
+        Texture engExitTexture;
 
         Texture kitchenTexture;
         //the impassable area of the station
         SDL_Rect collidable[STATIONS];
         //the interactable area of the station
         SDL_Rect interactable[STATIONS];
+
+        void loadInteractEngExit(SDL_Renderer* renderer, TTF_Font* font);
+        void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
 
         void loadInteractHabExit(SDL_Renderer* renderer, TTF_Font* font);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
@@ -141,9 +151,13 @@ class station
         //loads textures for stations (sleepingbag image, water tank image)
         void loadStation(SDL_Renderer* renderer,TTF_Font* font, int shipGaugeValues[]);
         //when player walks around, the stations move with the background.
-        void updatePosition(int y);
+        void updateHabPosition(int y);
         //for the stations that are rendered on the second hab bg.
-        void updatePosition2(int y);
+        void updateHabPosition2(int y);
+        //
+        void updateEngPosition(int y);
+        //
+        void updateEngPosition2(int y);
         //renders the textures that belong behind player
         void renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
         //renders the textures that belong in front of the player

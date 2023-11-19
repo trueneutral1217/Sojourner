@@ -103,7 +103,7 @@ class player
         //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
         //updates player position, walk animation, station collision box, station interaction box
-        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS);
+        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS, bool inHab);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources
