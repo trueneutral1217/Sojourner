@@ -18,6 +18,7 @@ player::player()
     interactBike = false;
     interactRec = false;
     interactHabExit = false;
+    interactEngExit = false;
 
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
@@ -130,7 +131,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS,bool inHab)
+void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS,bool inHab,bool inEng)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -295,9 +296,11 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
 
+
     if(inHab)
     {
-       for(int i = 0; i<STATIONS;i++)
+        //probably going to start sending station into this function
+       for(int i = 0; i<8;i++)
         {
 
             //prevent player from walking into station
@@ -390,6 +393,36 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             }
         }
     }
+    if(inEng)
+    {//this section as well as some of station class will likely need an overhaul.
+        for(int i = 0; i<STATIONS;i++)
+        {
+
+            //prevent player from walking into station
+            if(collisionDetector(collidable[i]))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+            //check if player is in range of interacting with a station
+            if(collisionDetector(interactable[i]))
+            {
+                if(i==8)
+                {
+                    interactEngExit = true;
+                }
+            }
+            else
+            {
+                if(i==8)
+                {
+                    interactEngExit = false;
+                }
+            }
+        }
+    }
+
 
     playerBot = playerY+PLAYER_HEIGHT;
 }

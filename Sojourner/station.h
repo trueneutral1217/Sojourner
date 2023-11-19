@@ -34,6 +34,7 @@ class station
 
         const static int STATIONS = 9;
 
+
         std::string engExitDefault;
 
         std::string habExitDefault;
@@ -162,6 +163,10 @@ class station
         void renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
         //renders the textures that belong in front of the player
         void renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
+        //
+        void renderEngStationBehindPlayer(SDL_Renderer* renderer, int playerBot);
+        //
+        void renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
         //player is no longer interacting with the planter.
         void freePlanterOptions();
         //frees the resources

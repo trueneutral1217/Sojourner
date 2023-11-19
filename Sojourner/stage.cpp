@@ -319,6 +319,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             station.renderHabStationBehindPlayer(renderer,player1.playerBot);
         }
+        if(inEng)
+        {
+            station.renderEngStationBehindPlayer(renderer,player1.playerBot);
+        }
 
     }
     if(showPlayer)
@@ -445,6 +449,30 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
                     std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                 }
+
+            }
+        }
+        if(inEng)
+        {
+            station.renderHabStationFrontPlayer(renderer,player1.playerBot);
+
+            //interact is user pressed 'e', inRange is player collision with interactable station
+            if(player1.interact)
+            {
+                if(player1.interactEngExit)
+                {
+                    player1.setX(750);
+                    inHab = true;
+                    inEng = false;
+                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                }
+                else
+                {
+                    station.renderInteractEngExit(renderer,player1.getX(),player1.getY());
+                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                }
             }
         }
 
@@ -565,7 +593,7 @@ void stage::move(int countedFrames)
         //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
         //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
-    player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS,inHab);
+    player1.move(countedFrames,station.collidable,station.interactable,station.STATIONS,inHab,inEng);
     if(inHab)
     {
         station.updateHabPosition(habInternalY1);

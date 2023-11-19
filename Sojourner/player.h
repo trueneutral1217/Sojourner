@@ -80,6 +80,9 @@ class player
         bool interactRec;
         //render hab exit interaction texture
         bool interactHabExit;
+        //
+        bool interactEngExit;
+
         //used for player walk animations
         Texture currentTexture;
         //second dimension must be size of move state with largest number of textures.
@@ -103,7 +106,7 @@ class player
         //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
         //updates player position, walk animation, station collision box, station interaction box
-        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS, bool inHab);
+        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS, bool inHab,bool inEng);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources

@@ -120,7 +120,7 @@ station::station()
     interactable[7].w = collidable[7].w + 4;
     interactable[7].h = collidable[7].h + 4;
 
-    engExitX = 0;
+    engExitX = 5;
     engExitY = 400;
     engExitH = 10;
     engExitBot = engExitY + engExitH;
@@ -586,6 +586,14 @@ void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     }
 }
 
+void station::renderEngStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
+{
+    if(playerBot>engExitBot)
+    {
+        engExitTexture.render(engExitX,engExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
+
 void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 {
     if(playerBot<=bedBot)
@@ -693,6 +701,13 @@ void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     }
 }
 
+void station::renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
+{
+    if(playerBot<=engExitBot)
+    {
+        engExitTexture.render(engExitX,engExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
 void station::free()
 {
     std::cout<<"\n running station::free()";
