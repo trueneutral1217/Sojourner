@@ -553,7 +553,7 @@ int main( int argc, char* args[] )
                         stage.player1.handleEvent(e);
 					}
                     //handles the interactions with the planter.
-                    if(stage.inHab)
+                    if(stage.inHab && stage.player1.interactPlanter)
                     {
                         stage.handlePlanter(renderer,text.font2);
                     }

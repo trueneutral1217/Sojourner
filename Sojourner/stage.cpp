@@ -437,45 +437,49 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 }
                 if(player1.interactHabExit)
                 {
-                    player1.setX(0);
-                    inHab = false;
-                    inEng = true;
-                    std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
-                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    if(inHab)
+                    {
+                        player1.setX(0);
+                        inHab = false;
+                        inEng = true;
+                        std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
+                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    }
+                    else
+                    {
+                        station.renderInteractHabExit(renderer,player1.getX(),player1.getY());
+                        std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
+                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    }
                 }
-                else
-                {
-                    station.renderInteractHabExit(renderer,player1.getX(),player1.getY());
-                    std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
-                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                }
-
             }
         }
         if(inEng)
         {
-            station.renderHabStationFrontPlayer(renderer,player1.playerBot);
+            station.renderEngStationFrontPlayer(renderer,player1.playerBot);
 
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
                 if(player1.interactEngExit)
                 {
-                    player1.setX(750);
-                    inHab = true;
-                    inEng = false;
-                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
-                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                }
-                else
-                {
-                    station.renderInteractEngExit(renderer,player1.getX(),player1.getY());
-                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
-                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    if(inEng)
+                    {
+                        player1.setX(750);
+                        inHab = true;
+                        inEng = false;
+                        std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    }
+                    else
+                    {
+                        station.renderInteractEngExit(renderer,player1.getX(),player1.getY());
+                        std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    }
                 }
             }
         }
-
     }
     if(internalView)
     {

@@ -296,7 +296,6 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
 
-
     if(inHab)
     {
         //probably going to start sending station into this function
@@ -395,7 +394,7 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
     }
     if(inEng)
     {//this section as well as some of station class will likely need an overhaul.
-        for(int i = 0; i<STATIONS;i++)
+        for(int i = 8; i<STATIONS;i++)
         {
 
             //prevent player from walking into station
@@ -422,8 +421,6 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
             }
         }
     }
-
-
     playerBot = playerY+PLAYER_HEIGHT;
 }
 
