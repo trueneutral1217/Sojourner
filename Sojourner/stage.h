@@ -1,13 +1,13 @@
 #ifndef STAGE_H
 #define STAGE_H
 
-#include "Texture.h"
+//#include "Texture.h"
 //#include "timer.h"
-#include "button.h"
+//#include "button.h"
 #include "player.h"
 #include "parallax.h"
 //#include "saveGame.h"
-#include "station.h"
+//#include "station.h"
 #include "ship.h"
 
 //these are the parallax images used for the bg's.

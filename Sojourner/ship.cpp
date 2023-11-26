@@ -85,6 +85,8 @@ void ship::freeGaugesTextures()
 
 void ship::free()
 {
+    habitation.free();
+    engineering.free();
     freeGaugesTextures();
 }
 
@@ -98,3 +100,9 @@ void ship::loadSavedShipData(Uint32 dataValues[])
         std::cout<<"\n gauge["<<i<<"]: "<<gauge[i];
     }
 }
+
+void ship::loadShip(SDL_Renderer* renderer,TTF_Font* font)
+{
+    habitation.loadModule(renderer,font,gauge);
+}
+

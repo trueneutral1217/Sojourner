@@ -52,6 +52,8 @@
 		<Unit filename="button.h" />
 		<Unit filename="chapter.cpp" />
 		<Unit filename="chapter.h" />
+		<Unit filename="module.cpp" />
+		<Unit filename="module.h" />
 		<Unit filename="myicon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

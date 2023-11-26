@@ -1,7 +1,7 @@
 #ifndef SHIP_H
 #define SHIP_H
 
-#include "texture.h"
+#include "module.h"
 
 const int TOTAL_SHIP_GAUGES = 6;
 
@@ -11,6 +11,10 @@ class ship
 
     ship();
     ~ship();
+
+    module habitation;
+    module engineering;
+
     //ship guages (0-100 percent); hull, fuel, power, water, oxygen, temperature
     int gauge[TOTAL_SHIP_GAUGES];
     //strings for the ship's gauges
@@ -31,6 +35,8 @@ class ship
     void free();
     //load ship saved data from file
     void loadSavedShipData(Uint32 dataValues[]);
+
+    void loadShip(SDL_Renderer* renderer,TTF_Font* font);
 
     private:
 
