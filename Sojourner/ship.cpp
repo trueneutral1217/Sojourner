@@ -103,6 +103,6 @@ void ship::loadSavedShipData(Uint32 dataValues[])
 
 void ship::loadShip(SDL_Renderer* renderer,TTF_Font* font)
 {
-    habitation.loadModule(renderer,font,gauge);
+    habitation.loadHabitation(renderer,font,gauge);
 }
 

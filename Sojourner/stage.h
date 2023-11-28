@@ -90,7 +90,7 @@ class stage
         //declare player
         player player1;
         //declare station
-        station station;
+        //station station;
         //declare ship
         ship ship;
         //loads resources at opening of stages.

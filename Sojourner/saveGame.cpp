@@ -203,12 +203,12 @@ void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
         {
             data[i+12] = stage.ship.gauge[i];
         }
-        data[18] = stage.station.plantOkay;
-        data[19] = stage.station.waterPlantsOkay;
+        data[18] = stage.ship.habitation.planter.plantOkay;
+        data[19] = stage.ship.habitation.planter.waterPlantsOkay;
         data[20] = stage.timeSurvived;
-        data[21] = stage.station.planterState;
-        data[22] = stage.station.planterDaysState;
-        data[23] = stage.station.planterTimeWatered;
+        data[21] = stage.ship.habitation.planter.planterState;
+        data[22] = stage.ship.habitation.planter.planterDaysState;
+        data[23] = stage.ship.habitation.planter.planterTimeWatered;
         data[24] = stage.engInternalY1;
         data[25] = stage.engInternalY2;
 
@@ -351,12 +351,12 @@ void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
         data[i+12] = stage.ship.gauge[i];
     }
 
-    data[18] = stage.station.plantOkay;
-    data[19] = stage.station.waterPlantsOkay;
+    data[18] = stage.ship.habitation.planter.plantOkay;
+    data[19] = stage.ship.habitation.planter.waterPlantsOkay;
     data[20] = stage.timeSurvived;
-    data[21] = stage.station.planterState;
-    data[22] = stage.station.planterDaysState;
-    data[23] = stage.station.planterTimeWatered;
+    data[21] = stage.ship.habitation.planter.planterState;
+    data[22] = stage.ship.habitation.planter.planterDaysState;
+    data[23] = stage.ship.habitation.planter.planterTimeWatered;
     data[24] = stage.engInternalY1;
     data[24] = stage.engInternalY2;
 

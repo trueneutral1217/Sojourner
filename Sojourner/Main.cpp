@@ -424,12 +424,17 @@ int main( int argc, char* args[] )
                                     stage.player1.loadSavedPlayerData(savegame.dataValues2);
                                     //load ship gauge data from save file
                                     stage.ship.loadSavedShipData(savegame.dataValues3);
-                                    stage.station.plantOkay = savegame.data[18];
-                                    stage.station.waterPlantsOkay = savegame.data[19];
+                                    stage.ship.habitation.planter.plantOkay = savegame.data[18];
+                                    stage.ship.habitation.planter.waterPlantsOkay = savegame.data[19];
+                                    //stage.station.plantOkay = savegame.data[18];
+                                    //stage.station.waterPlantsOkay = savegame.data[19];
                                     stage.timeSurvived = savegame.data[20];
-                                    stage.station.planterState = savegame.data[21];
-                                    stage.station.planterDaysState = savegame.data[22];
-                                    stage.station.planterTimeWatered = savegame.data[23];
+                                    stage.ship.habitation.planter.planterState = savegame.data[21];
+                                    stage.ship.habitation.planter.planterDaysState = savegame.data[22];
+                                    stage.ship.habitation.planter.planterTimeWatered = savegame.data[23];
+                                    //stage.station.planterState = savegame.data[21];
+                                    //stage.station.planterDaysState = savegame.data[22];
+                                    //stage.station.planterTimeWatered = savegame.data[23];
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer,true);
                                     //previouslyPlayed is probably deprecated by timePlayed.
@@ -546,7 +551,6 @@ int main( int argc, char* args[] )
 							break;
 						}
 					}
-
 					//if wasd are pressed player will be moved.
 					if(stage.internalView)
                     {
@@ -557,17 +561,12 @@ int main( int argc, char* args[] )
                     {
                         stage.handlePlanter(renderer,text.font2);
                     }
-
-
-
 				}
-
 				//process player movement, updates hab internal background as well
 				if(stage.internalView)
                 {//updates player and habitat coords
                     stage.move(countedFrames);
                 }
-
 				//Clear screen
 				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( renderer );
