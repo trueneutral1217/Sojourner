@@ -13,6 +13,10 @@ class station
         ~station();
 
         int stationX,stationY,stationH,stationBot;
+        //used when keeping the stations stationary while player moves up and down in module.
+        int stationInitialY;
+
+        /* //these are all now deprecated.
         //bed (sleeping bag) coordinates
         int bedX, bedY,bedH,bedBot;
         //watertank coordinates
@@ -31,6 +35,7 @@ class station
         int habExitX, habExitY,habExitH,habExitBot;
 
         int engExitX, engExitY,engExitH,engExitBot;
+        */
 
         int planterTimeWatered, planterDaysState, planterState;
 
@@ -38,6 +43,9 @@ class station
 
         std::string stationDefaultInteractionText;
 
+
+        //below strings now deprecated.
+        /*
         //the default strings should be renamed to stationDefaultInteractionText or something similar.
         std::string engExitDefault;
         std::string habExitDefault;
@@ -50,6 +58,7 @@ class station
         std::string sleepyTime;
         std::string plantStatus;
         std::string foodTime;
+        */
         //strings to be used to determine interaction type for planter
         std::string plant;
         std::string waterPlants;
@@ -73,12 +82,10 @@ class station
 
         Texture stationDefaultInteractionTextTexture;
 
+        /*
         Texture engExitDefaultTexture;
-
         Texture habExitDefaultTexture;
-
         Texture recDefaultTexture;
-
         Texture bikeDefaultTexture;
         Texture infirmDefaultTexture;
         //the texture for the waterLevel string
@@ -86,6 +93,7 @@ class station
         Texture sleepyTimeTexture;
         //Texture plantStatusTexture;
         Texture foodTimeTexture;
+        */
         //Textures for planter interaction
         Texture plantTexture;
         Texture waterPlantsTexture;
@@ -114,49 +122,62 @@ class station
         Texture planterRipeWateredTexture;
         */
 
-        Texture habExitTexture;//currently no texture for this, might just do a 10x10 fully transparent square/rect
-        Texture engExitTexture;
+        //Texture habExitTexture;//currently no texture for this, might just do a 10x10 fully transparent square/rect
+        //Texture engExitTexture;
 
         //Texture kitchenTexture;
 
-        //the two arrays bellow need to be reduced to single rects that each station has.
+
 
         //the impassable area of the station
-        SDL_Rect collidable[STATIONS];
+        SDL_Rect collidable;
         //the interactable area of the station
-        SDL_Rect interactable[STATIONS];
+        SDL_Rect interactable;
+
 
         void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
-        void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
-
         void loadHabExit(SDL_Renderer* renderer, TTF_Font* font);
+        void loadRec(SDL_Renderer* renderer, TTF_Font* font);
+        void loadBike(SDL_Renderer* renderer, TTF_Font* font);
+        void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font);
+        void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
+        void loadBed(SDL_Renderer* renderer,TTF_Font* font);
+        void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
+        void loadKitchen(SDL_Renderer* renderer, TTF_Font* font);
+
+        //most of the render functions are replaceable, probably going to have something like
+        //renderInteractStation(blah blah blah);
+
+        void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
 
-        void loadRec(SDL_Renderer* renderer, TTF_Font* font);
+        void renderInteractStation(SDL_Renderer* renderer, int x, int y);
+        /* deprecated
         void renderInteractRec(SDL_Renderer* renderer, int x, int y);
-
-        void loadBike(SDL_Renderer* renderer, TTF_Font* font);
         void renderInteractBike(SDL_Renderer* renderer, int x, int y);
-
-        void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font);
         void renderInteractInfirmary(SDL_Renderer* renderer, int x, int y);
+        void renderInteractWaterTank(SDL_Renderer* renderer,int x, int y);
+        void renderInteractBed(SDL_Renderer* renderer,int x, int y);
+        void renderInteractKitchen(SDL_Renderer* renderer,int x, int y);
+        */
+        void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
         //loads the water tank interaction text texture with the current waterlevel (currently just using a
         //stringstream hard coded with "100L"
-        void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
+
         //renders the water tank level text texture to screen
-        void renderInteractWaterTank(SDL_Renderer* renderer,int x, int y);
+
         //loads bed interaction string and texture
-        void loadBed(SDL_Renderer* renderer,TTF_Font* font);
+
         //renders bed interaction text texture
-        void renderInteractBed(SDL_Renderer* renderer,int x, int y);
+
         //loads Planter interaction string and text texture
-        void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
+
         //renders planter interaction text texture
-        void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
+
         //load kitchen interaction string and text texture
-        void loadKitchen(SDL_Renderer* renderer, TTF_Font* font);
+
         //render kitchen interaction text texture
-        void renderInteractKitchen(SDL_Renderer* renderer,int x, int y);
+
         //loads textures for stations (sleepingbag image, water tank image)
         void loadStation(SDL_Renderer* renderer,TTF_Font* font, int shipGaugeValues[]);
         //when player walks around, the stations move with the background.

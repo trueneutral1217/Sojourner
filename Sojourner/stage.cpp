@@ -356,7 +356,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             {
                 if(player1.interactWaterTank)
                 {
-                    ship.habitation.waterTank.renderInteractWaterTank(renderer,player1.getX(),player1.getY());
+                    ship.habitation.waterTank.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactBed)
                 {
@@ -374,7 +374,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render 'not tired'
-                        ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
+                        ship.habitation.bed.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
                 if(player1.interactPlanter)
@@ -396,7 +396,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render default text texture
-                        ship.habitation.kitchen.renderInteractKitchen(renderer,player1.getX(),player1.getY());
+                        ship.habitation.kitchen.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
                 if(player1.interactInfirmary)
@@ -414,7 +414,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render 'not tired'
-                        ship.habitation.infirmary.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
+                        ship.habitation.infirmary.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
                 if(player1.interactBike)
@@ -432,7 +432,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render 'stronk'
-                        ship.habitation.bike.renderInteractBike(renderer,player1.getX(),player1.getY());
+                        ship.habitation.bike.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
                 if(player1.interactRec)
@@ -450,7 +450,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render 'I'm Happy'
-                        ship.habitation.recreation.renderInteractRec(renderer,player1.getX(),player1.getY());
+                        ship.habitation.recreation.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
                 if(player1.interactHabExit)
@@ -618,17 +618,39 @@ void stage::move(int countedFrames)
 
     //THIS SHOULD BE CHANGED, ONLY WATERTANK WILL BE COLLIDABLE/INTERACTABLE
     //probably going to just send ship in.
-    player1.move(countedFrames,ship.habitation.waterTank.collidable,ship.habitation.waterTank.interactable,ship.habitation.waterTank.STATIONS,inHab,inEng);
+    //player1.move(countedFrames,ship.habitation.waterTank.collidable,ship.habitation.waterTank.interactable,ship.habitation.waterTank.STATIONS,inHab,inEng);
+    player1.move(countedFrames,ship);
     if(inHab)
     {
         //going to need to clean these two areas up as well to include all the stations.
         ship.habitation.waterTank.updateHabPosition(habInternalY1);
-        ship.habitation.waterTank.updateHabPosition2(habInternalY2);
+        //ship.habitation.waterTank.updateHabPosition2(habInternalY2);
+
+        ship.habitation.kitchen.updateHabPosition(habInternalY1);
+        //ship.habitation.kitchen.updateHabPosition2(habInternalY2);
+
+        ship.habitation.infirmary.updateHabPosition(habInternalY1);
+        //ship.habitation.infirmary.updateHabPosition2(habInternalY2);
+
+        ship.habitation.planter.updateHabPosition(habInternalY1);
+        //ship.habitation.planter.updateHabPosition2(habInternalY2);
+
+        //ship.habitation.bike.updateHabPosition(habInternalY1);
+        ship.habitation.bike.updateHabPosition2(habInternalY2);
+
+        //ship.habitation.recreation.updateHabPosition(habInternalY1);
+        ship.habitation.recreation.updateHabPosition2(habInternalY2);
+
+        ship.habitation.bed.updateHabPosition(habInternalY1);
+        //ship.habitation.bed.updateHabPosition2(habInternalY2);
+
+        ship.habitation.habExit.updateHabPosition(habInternalY1);
+
     }
     else if(inEng)
     {
         ship.engineering.engExit.updateEngPosition(engInternalY1);
-        ship.engineering.engExit.updateEngPosition2(engInternalY2);
+        //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }
 
 }
@@ -671,19 +693,19 @@ void stage::loadSavedGameData(Uint32 dataValues[])
 
 void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
 {
-    if(station.planterOptionsLoaded && !player1.interact)
+    if(ship.habitation.planter.planterOptionsLoaded && !player1.interact)
     {//the player is no longer interacting with the planter,freeing the buttons
-        ship.habitation.station.freePlanterOptions();
+        ship.habitation.planter.freePlanterOptions();
     }
-    if(!station.planterOptionsLoaded && player1.interact)
+    if(!ship.habitation.planter.planterOptionsLoaded && player1.interact)
     {//player is interacting with the planter, loading the buttons
-        ship.habitation.station.loadInteractPlanter(renderer,font);
+        ship.habitation.planter.loadPlanter(renderer,font);
     }
-    if(station.planterOptionsLoaded && player1.interact && station.interacted)
+    if(ship.habitation.planter.planterOptionsLoaded && player1.interact && ship.habitation.planter.interacted)
     {//player interacted with the planter, update the available options, planter texture.
-        ship.habitation.station.freePlanterOptions();
-        ship.habitation.station.loadInteractPlanter(renderer,font);
-        ship.habitation.station.interacted = false;
+        ship.habitation.planter.freePlanterOptions();
+        ship.habitation.planter.loadPlanter(renderer,font);
+        ship.habitation.planter.interacted = false;
     }
 }
 

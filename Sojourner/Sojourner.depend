@@ -1334,8 +1334,8 @@
 	"parallax.h"
 	"ship.h"
 
-1700436053 c:\sojourner\sojourner\player.h
-	"texture.h"
+1701223611 c:\sojourner\sojourner\player.h
+	"ship.h"
 
 1698102383 c:\sojourner\sojourner\text.h
 	"texture.h"
@@ -1346,13 +1346,13 @@
 1700352562 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1700530038 source:c:\sojourner\sojourner\player.cpp
+1701218864 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1701136974 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1701041955 source:c:\sojourner\sojourner\stage.cpp
+1701222324 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1375,10 +1375,10 @@
 1700004156 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1700436709 source:c:\sojourner\sojourner\station.cpp
+1701223051 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1701138276 c:\sojourner\sojourner\station.h
+1701221582 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 
@@ -1391,6 +1391,6 @@
 1701138338 c:\sojourner\sojourner\module.h
 	"station.h"
 
-1701137832 source:c:\sojourner\sojourner\module.cpp
+1701219667 source:c:\sojourner\sojourner\module.cpp
 	"module.h"
 

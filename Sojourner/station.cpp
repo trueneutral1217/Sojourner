@@ -2,33 +2,6 @@
 
 station::station()
 {
-
-    //setup coords & collision box for water Tank
-    waterTankX = 100;
-    waterTankY = 25;
-    waterTankH = 34;
-    waterTankBot = waterTankY + waterTankH;
-    collidable[1].x = waterTankX;
-    collidable[1].y = waterTankY+(waterTankH/2);
-    collidable[1].w = 87;
-    collidable[1].h = waterTankH/2;
-    interactable[1].x=collidable[1].x-2;
-    interactable[1].y = collidable[1].y-4;
-    interactable[1].w=collidable[1].w+6;
-    interactable[1].h = collidable[1].h+6;
-    //setup coords for planter + it's collision box, plus it's interaction box.
-    planterX = 600;
-    planterY = 25;
-    planterH = 50;
-    planterBot = planterY+planterH;
-    collidable[2].x = planterX;
-    collidable[2].y = planterY+(planterH/2);
-    collidable[2].w = 100;
-    collidable[2].h = planterH/2;
-    interactable[2].x=collidable[2].x-2;
-    interactable[2].y=collidable[2].y-2;
-    interactable[2].w=collidable[2].w+4;
-    interactable[2].h=collidable[2].h+4;
     plantOkay = true;
     waterPlantsOkay = false;
     harvestOkay = false;
@@ -41,85 +14,7 @@ station::station()
     planterOptionsLoaded=false;
     //flag the interact buttons to reload.
     interacted = false;
-    //setup coords for kitchen + it's collision box, plus it's interaction box.
-    kitchenX = 100;
-    kitchenY = 250;
-    kitchenH = 100;
-    kitchenBot = kitchenY+kitchenH;
-    collidable[3].x = kitchenX;
-    collidable[3].y = kitchenY+(kitchenH/2);
-    collidable[3].w = 200;
-    collidable[3].h = kitchenH/2;
-    interactable[3].x=collidable[3].x-2;
-    interactable[3].y=collidable[3].y-2;
-    interactable[3].w=collidable[3].w+4;
-    interactable[3].h=collidable[3].h+4;
 
-    //collidable & interactable for infirm & bike may need some small adjustments to wrap the station better.
-    infirmX = 500;
-    infirmY = 250;
-    infirmH = 100;
-    infirmBot = infirmY+infirmH;
-    collidable[4].x = infirmX+40;
-    collidable[4].y = infirmY+(infirmH/2);
-    collidable[4].w = 105;
-    collidable[4].h = infirmH/2;
-    interactable[4].x = collidable[4].x-2;
-    interactable[4].y = collidable[4].y-2;
-    interactable[4].w = collidable[4].w+4;
-    interactable[4].h = collidable[4].h+4;
-
-    bikeX = 100;
-    bikeY = 850;
-    bikeH = 100;
-    bikeBot = bikeY+bikeH;
-    collidable[5].x = bikeX + 40;
-    collidable[5].y = bikeY+(bikeH/2);
-    collidable[5].w = 100;
-    collidable[5].h = bikeH/2;
-    interactable[5].x = collidable[5].x-2;
-    interactable[5].y = collidable[5].y-2;
-    interactable[5].w = collidable[5].w+4;
-    interactable[5].h = collidable[5].h+4;
-
-    recX = 510;
-    recY = 850;
-    recH = 100;
-    recBot = recY+recH;
-    collidable[6].x = recX;
-    collidable[6].y = recY+(recH/2);
-    collidable[6].w = 120;
-    collidable[6].h = recH/2;
-    interactable[6].x = collidable[6].x-2;
-    interactable[6].y = collidable[6].y-2;
-    interactable[6].w = collidable[6].w+4;
-    interactable[6].h = collidable[6].h+4;
-
-    habExitX = 790;
-    habExitY = 395;
-    habExitH = 10;
-    habExitBot = habExitY +habExitH;
-    collidable[7].x = habExitX;
-    collidable[7].y = habExitY + (habExitH/2);
-    collidable[7].w = 10;
-    collidable[7].h = habExitH/2;
-    interactable[7].x = collidable[7].x - 2;
-    interactable[7].y = collidable[7].y - 2;
-    interactable[7].w = collidable[7].w + 4;
-    interactable[7].h = collidable[7].h + 4;
-
-    engExitX = 5;
-    engExitY = 400;
-    engExitH = 10;
-    engExitBot = engExitY + engExitH;
-    collidable[8].x = engExitX;
-    collidable[8].y = engExitY + (engExitH/2);
-    collidable[8].w = 10;
-    collidable[8].h = engExitH/2;
-    interactable[8].x = collidable[8].x-2;
-    interactable[8].y = collidable[8].y - 2;
-    interactable[8].w = collidable[8].w + 4;
-    interactable[8].h = collidable[8].h + 4;
 }
 
 station::~station()
@@ -130,12 +25,6 @@ station::~station()
 void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeValues[])
 {
     std::cout<<"\n running station::loadStation(SDL_Renderer* renderer,TTF_Font* font)";
-
-
-
-
-
-
 
     //habExitTexture.loadFromFile("images/sprites/habExit.png",renderer);
 
@@ -165,12 +54,28 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
 void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
 {
     std::cout<<"\n running station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues[])";
+
+     //setup coords & collision box for water Tank
+    stationX = 100;
+    stationY = 25;
+    stationInitialY = stationY;
+    stationH = 34;
+    stationBot = stationY + stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 87;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-4;
+    interactable.w=collidable.w+6;
+    interactable.h=collidable.h+6;
+
     int waterGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
-    waterLevel = std::to_string(waterGauge);
-    waterLevel = waterLevel + " Liters";
+    stationDefaultInteractionText = std::to_string(waterGauge);
+    stationDefaultInteractionText = stationDefaultInteractionText + " Liters";
     SDL_Color textColor = {255,255,255};//white
-    if(!waterLevelTexture.loadFromRenderedText(waterLevel.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render waterLevel string to waterLevelTexture!";
     }
@@ -179,10 +84,25 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
 void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)";
+
+    stationX = 5;
+    stationY = 400;
+    stationInitialY = stationY;
+    stationH = 10;
+    stationBot = stationY + stationH;
+    collidable.x = stationX;
+    collidable.y = stationY + (stationH/2);
+    collidable.w = 10;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x-2;
+    interactable.y = collidable.y - 2;
+    interactable.w = collidable.w + 4;
+    interactable.h = collidable.h + 4;
+
     stationTexture.loadFromFile("images/sprites/engExit.png",renderer);
-    engExitDefault = "Leaving Engineering Module";
+    stationDefaultInteractionText = "Leaving Engineering Module";
     SDL_Color textColor = {255,255,255};
-    if(!engExitDefaultTexture.loadFromRenderedText(engExitDefault.c_str(),textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(),textColor,font,renderer))
     {
        std::cout<<"\n unable to render engExitDefault string to engExitDefaultTexture!";
     }
@@ -191,10 +111,25 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)";
+
+    stationX = 790;
+    stationY = 395;
+    stationInitialY = stationY;
+    stationH = 10;
+    stationBot = stationY +stationH;
+    collidable.x = stationX;
+    collidable.y = stationY + (stationH/2);
+    collidable.w = 10;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x - 2;
+    interactable.y = collidable.y - 2;
+    interactable.w = collidable.w + 4;
+    interactable.h = collidable.h + 4;
+
     stationTexture.loadFromFile("images/sprites/habExit.png",renderer);
-    habExitDefault = "Leaving Habitation Module";
+    stationDefaultInteractionText = "Leaving Habitation Module";
     SDL_Color textColor = {255,255,255};
-    if(!habExitDefaultTexture.loadFromRenderedText(habExitDefault.c_str(),textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(),textColor,font,renderer))
     {
        std::cout<<"\n unable to render habExitDefault string to habExitDefaultTexture!";
     }
@@ -203,11 +138,26 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadRec(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadRec(SDL_Renderer* renderer, TTF_Font* font)";
+
+    stationX = 510;
+    stationY = 850;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY+stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 120;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x-2;
+    interactable.y = collidable.y-2;
+    interactable.w = collidable.w+4;
+    interactable.h = collidable.h+4;
+
     stationTexture.loadFromFile("images/sprites/recreation.png",renderer);
     //setting text for recreation interaction
-    recDefault = "I'm Happy";
+    stationDefaultInteractionText = "I'm Happy";
     SDL_Color textColor = {255,255,255};//white
-    if(!recDefaultTexture.loadFromRenderedText(recDefault.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render recDefault string to recDefaultTexture!";
     }
@@ -216,12 +166,28 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadBike(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadBike(SDL_Renderer* renderer, TTF_Font* font)";
+
+
+    stationX = 100;
+    stationY = 850;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY+stationH;
+    collidable.x = stationX + 40;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 100;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x-2;
+    interactable.y = collidable.y-2;
+    interactable.w = collidable.w+4;
+    interactable.h = collidable.h+4;
+
     //setting bike image to station texture
     stationTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
     //setting text for bike interaction
-    bikeDefault = "Stronk";
+    stationDefaultInteractionText = "Stronk";
     SDL_Color textColor = {255,255,255};//white
-    if(!bikeDefaultTexture.loadFromRenderedText(bikeDefault.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render bikeDefault string to bikeDefaultTexture!";
     }
@@ -230,12 +196,28 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
 {
     std::cout<<"\n running station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)";
+
+    //collidable & interactable for infirm & bike may need some small adjustments to wrap the station better.
+    stationX = 500;
+    stationY = 250;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY+stationH;
+    collidable.x = stationX+40;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 105;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x-2;
+    interactable.y = collidable.y-2;
+    interactable.w = collidable.w+4;
+    interactable.h = collidable.h+4;
+
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     //setting text for station interaction
-    infirmDefault = "Healthy";
+    stationDefaultInteractionText = "Healthy";
     SDL_Color textColor = {255,255,255};//white
-    if(!infirmDefaultTexture.loadFromRenderedText(infirmDefault.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render infirmDefault string to infirmDefaultTexture!";
     }
@@ -244,11 +226,27 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
 void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)
 {
     std::cout<<"\n running station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)";
+
+    //setup coords for kitchen + it's collision box, plus it's interaction box.
+    stationX = 100;
+    stationY = 250;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY+stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 200;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-2;
+    interactable.w=collidable.w+4;
+    interactable.h=collidable.h+4;
+
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     //setting text for waterTank interaction
-    foodTime = "Not Hungry";
+    stationDefaultInteractionText = "Not Hungry";
     SDL_Color textColor = {255,255,255};//white
-    if(!foodTimeTexture.loadFromRenderedText(foodTime.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render foodTime string to foodTimeTexture!";
     }
@@ -257,6 +255,22 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)
 void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
 {
     std::cout<<"\n running station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)";
+
+    //setup coords for planter + it's collision box, plus it's interaction box.
+    stationX = 600;
+    stationY = 25;
+    stationInitialY = stationY;
+    stationH = 50;
+    stationBot = stationY+stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 100;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-2;
+    interactable.w=collidable.w+4;
+    interactable.h=collidable.h+4;
+
     stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     //setting text for planter interaction
     plant="Plant";
@@ -323,27 +337,28 @@ void station::freePlanterOptions()
 
 void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 {
-
+    std::cout<<"\n running station::loadBed(SDL_Renderer* renderer,TTF_Font* font)";
     //Setup coords & collision box for bed
     stationX = 100;
     stationY = 500;
+    stationInitialY = stationY;
     stationH = 37;
     stationBot = stationY + stationH;
-    collidable[0].x = stationX;
-    collidable[0].y = stationY+(stationH/2);
-    collidable[0].w = 85;
-    collidable[0].h = stationH/2;
-    interactable[0].x=collidable[0].x-2;
-    interactable[0].y=collidable[0].y-4;
-    interactable[0].w=collidable[0].w+4;
-    interactable[0].h=collidable[0].h+10;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 85;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-4;
+    interactable.w=collidable.w+4;
+    interactable.h=collidable.h+10;
 
-    std::cout<<"\n running station::loadBed(SDL_Renderer* renderer,TTF_Font* font)";
+
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
     //setting text for station interaction
-    sleepyTime = "Not Tired";
+    stationDefaultInteractionText = "Not Tired";
     SDL_Color textColor = {255,255,255};//white
-    if(!sleepyTimeTexture.loadFromRenderedText(sleepyTime.c_str(), textColor,font,renderer))
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render sleepyTime string to sleepyTimeTexture!";
     }
@@ -351,6 +366,12 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::updateHabPosition(int y)
 {
+
+    stationY = y + stationInitialY;
+    stationBot = stationY + stationH;
+    collidable.y=stationY + (stationH/2);
+    interactable.y=collidable.y-4;
+    /*
     //when player moves, background parallaxes, this makes sure the stations stay in their places.
     //bedY = y+300;
     bedY = y+500;
@@ -386,18 +407,31 @@ void station::updateHabPosition(int y)
 
 
     //std::cout<<"\n \n collidable.y: "<<collidable.y;
+    */
 }
 
 void station::updateEngPosition(int y)
 {
+
+    stationY = y + stationInitialY;
+    stationBot = stationY + stationH;
+    collidable.y = stationY + (stationH/2);
+    interactable.y = collidable.y -4;
+    /*
     engExitY = y+395;
     engExitBot = engExitY + engExitH;
     collidable[8].y=engExitY+(engExitH/2);
     interactable[8].y=collidable[8].y-4;
+    */
 }
 
 void station::updateHabPosition2(int y)
 {
+    stationY = y + (stationInitialY - 600);
+    stationBot = stationY + stationH;
+    collidable.y = stationY + (stationH/2);
+    interactable.y = collidable.y - 2;
+    /*
     //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
     //std::cout<<"\n y: "<<y;
     bikeY = y+250;
@@ -409,10 +443,17 @@ void station::updateHabPosition2(int y)
     recBot = recY + recH;
     collidable[6].y = recY + (recH/2);
     interactable[6].y = collidable[6].y-2;
+
+    */
 }
 
 void station::updateEngPosition2(int y)
 {
+
+    stationY = y + stationInitialY;
+    stationBot = stationY + stationH;
+    collidable.y = stationY + (stationH/2);
+    interactable.y = collidable.y -4;
     /*engExitY = y+395;
     engExitBot = engExitY + engExitH;
     collidable[8].y=engExitY+(engExitH/2);
@@ -422,55 +463,62 @@ void station::updateEngPosition2(int y)
 void station::renderInteractEngExit(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
-    engExitDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
     x-=60;
-    habExitDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 
 }
 
+void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
+{
+    y-=20;
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+/*
 void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
-    recDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
-    bikeDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
-    infirmDefaultTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractKitchen(SDL_Renderer* renderer,int x, int y)
 {
     //displays texture above player's head
     y-=20;
-    foodTimeTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractWaterTank(SDL_Renderer* renderer,int x, int y)
 {
     //displays texture above player's head
     y-=20;
-    waterLevelTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractBed(SDL_Renderer* renderer,int x, int y)
 {
     //displays texture above player's head
     y-=20;
-    sleepyTimeTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
+    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}*/
 
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 {//these are the buttons that pop up when player is next to the planter and presses 'e'
@@ -490,13 +538,14 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 {
 
-    /*
     if(playerBot>stationBot)
     {
         stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-    */
 
+
+
+    /*
     if(playerBot>bedBot)
     {
         bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -604,18 +653,28 @@ void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
     {
         habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    */
+
 }
 
 void station::renderEngStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 {
-    if(playerBot>engExitBot)
+    if(playerBot>stationBot)
     {
-        engExitTexture.render(engExitX,engExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
 }
 
 void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 {
+
+    if(playerBot<=stationBot)
+    {
+        stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+
+
+    /*
     if(playerBot<=bedBot)
     {
         bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -719,18 +778,22 @@ void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
     {
         habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
+    */
 }
 
 void station::renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 {
-    if(playerBot<=engExitBot)
+    if(playerBot<=stationBot)
     {
-        engExitTexture.render(engExitX,engExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
 }
 void station::free()
 {
     std::cout<<"\n running station::free()";
+    stationTexture.free();
+    stationDefaultInteractionTextTexture.free();
+    /*
     habExitDefaultTexture.free();
     habExitTexture.free();
     engExitDefaultTexture.free();
@@ -750,7 +813,7 @@ void station::free()
 	bikeTexture.free();
 	bikeDefaultTexture.free();
 	recTexture.free();
-	recDefaultTexture.free();
+	recDefaultTexture.free();*/
 }
 
 void station::updatePlant(int timeSurvived)

@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "texture.h"
+#include "ship.h"
 
 //textures for character, soon to be broken up into different dimensions
 //const int PLAYER_TEXTURES = 11;
@@ -106,7 +106,9 @@ class player
         //if user presses wasd, this update's player velocity
         void handleEvent(SDL_Event& e);
         //updates player position, walk animation, station collision box, station interaction box
-        void move(int tick, SDL_Rect collidable[], SDL_Rect interactable[],int STATIONS, bool inHab,bool inEng);
+        //void move(int tick, SDL_Rect collidable, SDL_Rect interactable,int STATIONS, bool inHab,bool inEng);
+
+        void move(int tick, ship ship,bool inhab, bool inEng);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources

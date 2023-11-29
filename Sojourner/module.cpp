@@ -29,5 +29,12 @@ void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)
 
 void module::free()
 {
+    waterTank.free();
+    kitchen.free();
+    infirmary.free();
+    bed.free();
+    bike.free();
+    planter.free();
+    recreation.free();
     //station.free();
 }

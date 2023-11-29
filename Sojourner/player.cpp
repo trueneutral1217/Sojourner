@@ -131,7 +131,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int STATIONS,bool inHab,bool inEng)
+void player::move(int tick, ship ship,bool inHab, bool inEng)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -303,14 +303,14 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
         {
 
             //prevent player from walking into station
-            if(collisionDetector(collidable[i]))
+            if(collisionDetector(collidable))
             {
                 //std::cout<<"\n collision detected!";
                 playerX-=pVelX;
                 playerY-=pVelY;
             }
             //check if player is in range of interacting with a station
-            if(collisionDetector(interactable[i]))
+            if(collisionDetector(interactable))
             {
 
                 if(i==0)
@@ -398,14 +398,14 @@ void player::move(int tick, SDL_Rect collidable[],SDL_Rect interactable[],int ST
         {
 
             //prevent player from walking into station
-            if(collisionDetector(collidable[i]))
+            if(collisionDetector(collidable))
             {
                 //std::cout<<"\n collision detected!";
                 playerX-=pVelX;
                 playerY-=pVelY;
             }
             //check if player is in range of interacting with a station
-            if(collisionDetector(interactable[i]))
+            if(collisionDetector(interactable))
             {
                 if(i==8)
                 {
