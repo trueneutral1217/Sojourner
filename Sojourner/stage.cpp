@@ -317,6 +317,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
     if(internalView)
     {//this will have to be broken up a little, it should probably be renderHabStationBehindPlayer, but maybe I will
         //alter it in the function.
+
         if(inHab)
         {
             ship.habitation.waterTank.renderHabStationBehindPlayer(renderer,player1.playerBot);
@@ -326,12 +327,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.habitation.recreation.renderHabStationBehindPlayer(renderer,player1.playerBot);
             ship.habitation.bike.renderHabStationBehindPlayer(renderer,player1.playerBot);
             ship.habitation.bed.renderHabStationBehindPlayer(renderer,player1.playerBot);
-            //station.renderHabStationBehindPlayer(renderer,player1.playerBot);
         }
         if(inEng)
         {
             ship.engineering.engExit.renderEngStationBehindPlayer(renderer,player1.playerBot);
-            //station.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
 
     }
@@ -341,7 +340,11 @@ void stage::renderStage1(SDL_Renderer* renderer)
 
         if(inHab)
         {
-            //ship.habitation.station.renderHabStationFrontPlayer(renderer,player1.playerBot);
+            /*
+            //this line is for test purposes
+            ship.habitation.kitchen.stationTexture.render(300,300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            */
+
             ship.habitation.waterTank.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.planter.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.infirmary.renderHabStationFrontPlayer(renderer,player1.playerBot);
@@ -349,7 +352,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.habitation.recreation.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.bike.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.bed.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            //station.renderHabStationFrontPlayer(renderer,player1.playerBot);
 
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
@@ -374,6 +376,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     }
                     else
                     {//else just render 'not tired'
+                        //std::cout<<"\n not tired should be displaying";
                         ship.habitation.bed.renderInteractStation(renderer,player1.getX(),player1.getY());
                     }
                 }
@@ -611,45 +614,28 @@ void stage::move(int countedFrames)
             engInternalY1-=player1.getPVelY();
             engInternalY2-=player1.getPVelY();
         }
-
-        //std::cout<<"\n habY1: "<<habInternalY1<<", habY2: "<<habInternalY2;
-        //std::cout<<"\n bikeBot: "<<station.bikeBot;
     }
 
-    //THIS SHOULD BE CHANGED, ONLY WATERTANK WILL BE COLLIDABLE/INTERACTABLE
-    //probably going to just send ship in.
-    //player1.move(countedFrames,ship.habitation.waterTank.collidable,ship.habitation.waterTank.interactable,ship.habitation.waterTank.STATIONS,inHab,inEng);
-    player1.move(countedFrames,ship);
+    player1.move(countedFrames,ship,inHab,inEng);
     if(inHab)
     {
-        //going to need to clean these two areas up as well to include all the stations.
+        //first habitat background
         ship.habitation.waterTank.updateHabPosition(habInternalY1);
-        //ship.habitation.waterTank.updateHabPosition2(habInternalY2);
-
         ship.habitation.kitchen.updateHabPosition(habInternalY1);
-        //ship.habitation.kitchen.updateHabPosition2(habInternalY2);
-
         ship.habitation.infirmary.updateHabPosition(habInternalY1);
-        //ship.habitation.infirmary.updateHabPosition2(habInternalY2);
-
         ship.habitation.planter.updateHabPosition(habInternalY1);
-        //ship.habitation.planter.updateHabPosition2(habInternalY2);
-
-        //ship.habitation.bike.updateHabPosition(habInternalY1);
-        ship.habitation.bike.updateHabPosition2(habInternalY2);
-
-        //ship.habitation.recreation.updateHabPosition(habInternalY1);
-        ship.habitation.recreation.updateHabPosition2(habInternalY2);
-
         ship.habitation.bed.updateHabPosition(habInternalY1);
-        //ship.habitation.bed.updateHabPosition2(habInternalY2);
-
         ship.habitation.habExit.updateHabPosition(habInternalY1);
+
+        //second habitat background
+        ship.habitation.bike.updateHabPosition2(habInternalY2);
+        ship.habitation.recreation.updateHabPosition2(habInternalY2);
 
     }
     else if(inEng)
     {
         ship.engineering.engExit.updateEngPosition(engInternalY1);
+        //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }
 

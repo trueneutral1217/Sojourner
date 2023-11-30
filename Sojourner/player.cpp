@@ -298,127 +298,145 @@ void player::move(int tick, ship ship,bool inHab, bool inEng)
 
     if(inHab)
     {
-        //probably going to start sending station into this function
-       for(int i = 0; i<8;i++)
+        if(collisionDetector(ship.habitation.bed.interactable))
         {
-
-            //prevent player from walking into station
-            if(collisionDetector(collidable))
+            //bed is interactable
+            interactBed = true;
+            //std::cout<<"\n interactBed = true";
+            if(collisionDetector(ship.habitation.bed.collidable))
             {
                 //std::cout<<"\n collision detected!";
                 playerX-=pVelX;
                 playerY-=pVelY;
-            }
-            //check if player is in range of interacting with a station
-            if(collisionDetector(interactable))
-            {
-
-                if(i==0)
-                {
-                    //flag stage to render bed sleeptyTime text texture
-                    interactBed = true;
-                }
-                //watertank is interactable[1]
-                if(i==1)
-                {
-                    //flag stage to render watertank waterLevel text texture
-                    interactWaterTank = true;
-                }
-                if(i==2)
-                {
-                    //flag stage to render planter plantStatus text texture
-                    interactPlanter = true;
-                }
-                if(i==3)
-                {
-                    //flag stage to render kitchen foodTime text texture
-                    interactKitchen = true;
-                }
-                if(i==4)
-                {
-                    interactInfirmary = true;
-                }
-                if(i==5)
-                {
-                    interactBike = true;
-                }
-                if(i==6)
-                {
-                    interactRec = true;
-                }
-                if(i==7)
-                {
-                    interactHabExit = true;
-                }
-            }
-            else
-            {
-                if(i==0)
-                {
-                    //flag stage to render bed sleeptyTime text texture
-                    interactBed = false;
-                }
-                if(i==1)
-                {
-                    //flag stage to render watertank waterLevel text texture
-                    interactWaterTank = false;
-                }
-                if(i==2)
-                {
-                    //flag stage to render planter plantStatus text texture
-                    interactPlanter = false;
-                }
-                if(i==3)
-                {
-                    //flag stage to render kitchen foodTime text texture
-                    interactKitchen = false;
-                }
-                if(i==4)
-                {
-                    interactInfirmary = false;
-                }
-                if(i==5)
-                {
-                    interactBike = false;
-                }
-                if(i==6)
-                {
-                    interactRec = false;
-                }
-                if(i==7)
-                {
-                    interactHabExit = false;
-                }
             }
         }
-    }
-    if(inEng)
-    {//this section as well as some of station class will likely need an overhaul.
-        for(int i = 8; i<STATIONS;i++)
+        else
         {
-
-            //prevent player from walking into station
-            if(collisionDetector(collidable))
+            interactBed = false;
+        }
+        if(collisionDetector(ship.habitation.kitchen.interactable))
+        {
+            //bed is interactable
+            interactKitchen = true;
+            if(collisionDetector(ship.habitation.kitchen.collidable))
             {
                 //std::cout<<"\n collision detected!";
                 playerX-=pVelX;
                 playerY-=pVelY;
             }
-            //check if player is in range of interacting with a station
-            if(collisionDetector(interactable))
+        }
+        else
+        {
+            interactKitchen = false;
+        }
+        if(collisionDetector(ship.habitation.waterTank.interactable))
+        {
+            //bed is interactable
+            interactWaterTank = true;
+            if(collisionDetector(ship.habitation.waterTank.collidable))
             {
-                if(i==8)
-                {
-                    interactEngExit = true;
-                }
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
-            else
+        }
+        else
+        {
+            interactWaterTank = false;
+        }
+        if(collisionDetector(ship.habitation.planter.interactable))
+        {
+            //bed is interactable
+            interactPlanter = true;
+            if(collisionDetector(ship.habitation.planter.collidable))
             {
-                if(i==8)
-                {
-                    interactEngExit = false;
-                }
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
+        }
+        else
+        {
+            interactPlanter = false;
+        }
+        if(collisionDetector(ship.habitation.infirmary.interactable))
+        {
+            //bed is interactable
+            interactInfirmary = true;
+            if(collisionDetector(ship.habitation.infirmary.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactInfirmary=false;
+        }
+        if(collisionDetector(ship.habitation.bike.interactable))
+        {
+            //bed is interactable
+            interactBike = true;
+            if(collisionDetector(ship.habitation.bike.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactBike = false;
+        }
+        if(collisionDetector(ship.habitation.recreation.interactable))
+        {
+            //bed is interactable
+            interactRec = true;
+            if(collisionDetector(ship.habitation.recreation.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactRec = false;
+        }
+        if(collisionDetector(ship.habitation.habExit.interactable))
+        {
+            //bed is interactable
+            interactHabExit = true;
+            if(collisionDetector(ship.habitation.habExit.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactHabExit=false;
+        }
+
+    }
+    if(inEng)
+    {
+        if(collisionDetector(ship.engineering.engExit.interactable))
+        {
+            //bed is interactable
+            interactEngExit = true;
+            if(collisionDetector(ship.habitation.engExit.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactEngExit=false;
         }
     }
     playerBot = playerY+PLAYER_HEIGHT;

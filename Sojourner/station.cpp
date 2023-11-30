@@ -355,8 +355,10 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 
 
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
+
     //setting text for station interaction
     stationDefaultInteractionText = "Not Tired";
+
     SDL_Color textColor = {255,255,255};//white
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
@@ -366,48 +368,14 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::updateHabPosition(int y)
 {
-
+    //when player moves, background parallaxes, this makes sure the stations stay in their places.
     stationY = y + stationInitialY;
     stationBot = stationY + stationH;
     collidable.y=stationY + (stationH/2);
     interactable.y=collidable.y-4;
-    /*
-    //when player moves, background parallaxes, this makes sure the stations stay in their places.
-    //bedY = y+300;
-    bedY = y+500;
-    bedBot = bedY + bedH;
-    collidable[0].y=bedY+(bedH/2);
-    interactable[0].y=collidable[0].y-4;
-
-    waterTankY = y+25;
-    waterTankBot = waterTankY+waterTankH;
-    collidable[1].y=waterTankY + (waterTankH/2);
-    interactable[1].y=collidable[1].y-4;
-
-    planterY = y+25;
-    planterBot = planterY + planterH;
-    collidable[2].y=planterY+(planterH/2);
-    interactable[2].y=collidable[2].y-2;
-
-    kitchenY = y+250;
-    kitchenBot = kitchenY+kitchenH;
-    collidable[3].y=kitchenY+(kitchenH/2);
-    interactable[3].y=collidable[3].y-2;
-
-    infirmY = y+250;
-    infirmBot = infirmY + infirmH;
-    collidable[4].y = infirmY + (infirmH/2);
-    interactable[4].y = collidable[4].y-2;
-
-    habExitY = y+395;
-    habExitBot = habExitY + habExitH;
-    collidable[7].y = habExitY +(habExitH/2);
-    interactable[7].y = collidable[7].y-2;
 
 
 
-    //std::cout<<"\n \n collidable.y: "<<collidable.y;
-    */
 }
 
 void station::updateEngPosition(int y)
@@ -417,12 +385,7 @@ void station::updateEngPosition(int y)
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y -4;
-    /*
-    engExitY = y+395;
-    engExitBot = engExitY + engExitH;
-    collidable[8].y=engExitY+(engExitH/2);
-    interactable[8].y=collidable[8].y-4;
-    */
+
 }
 
 void station::updateHabPosition2(int y)
@@ -431,20 +394,7 @@ void station::updateHabPosition2(int y)
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y - 2;
-    /*
-    //this needs to be modified, stationary bicycle isn't showing up sometimes when it should.
-    //std::cout<<"\n y: "<<y;
-    bikeY = y+250;
-    bikeBot = bikeY+bikeH;
-    collidable[5].y = bikeY + (bikeH/2);
-    interactable[5].y = collidable[5].y-2;
 
-    recY = y + 250;
-    recBot = recY + recH;
-    collidable[6].y = recY + (recH/2);
-    interactable[6].y = collidable[6].y-2;
-
-    */
 }
 
 void station::updateEngPosition2(int y)
@@ -476,49 +426,11 @@ void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
 
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 {
+    //std::cout<<"\n running station::renderInteractStation(SDL_Renderer* renderer, int x, int y)";
+    std::cout<<"\n"<<stationDefaultInteractionText;
     y-=20;
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
-
-/*
-void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
-{
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
-{
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
-{
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractKitchen(SDL_Renderer* renderer,int x, int y)
-{
-    //displays texture above player's head
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractWaterTank(SDL_Renderer* renderer,int x, int y)
-{
-    //displays texture above player's head
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractBed(SDL_Renderer* renderer,int x, int y)
-{
-    //displays texture above player's head
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}*/
 
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 {//these are the buttons that pop up when player is next to the planter and presses 'e'
@@ -537,124 +449,10 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 
 void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 {
-
     if(playerBot>stationBot)
     {
         stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-
-
-
-    /*
-    if(playerBot>bedBot)
-    {
-        bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>waterTankBot)
-    {
-        waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>planterBot)
-    {
-        //planter textures going to have to change after timeSurvived - planterTimeWatered = 24hrs or greater
-        //if planterDaysState is 5 or greater, planter state (texture) will have to progress
-        //planterDaysState gets to 5 from being watered 5 times and a day passing after each of those 5 waterings
-
-        if(planterState == 0  && !plantOkay)
-        {
-            //if player has sown the crops, but not yet watered
-            if(waterPlantsOkay)
-            {
-                planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has sown & watered
-            else if(!waterPlantsOkay)
-            {
-                planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 1)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterSeedlingTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterSeedlingWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 2)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterVegetativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterVegatativeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 3)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterFloweringTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterFloweringWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 4)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterRipeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterRipeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-
-        //if player hasn't sown or watered
-        else if(plantOkay && !waterPlantsOkay)
-        {
-            planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        }
-    }
-    if(playerBot>kitchenBot)
-    {
-        kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>infirmBot)
-    {
-        infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>bikeBot)
-    {
-        //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
-        bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>recBot)
-    {
-        recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot>habExitBot)
-    {
-        habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    */
-
 }
 
 void station::renderEngStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
@@ -667,118 +465,10 @@ void station::renderEngStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
 
 void station::renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 {
-
     if(playerBot<=stationBot)
     {
         stationTexture.render(stationX,stationY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-
-
-    /*
-    if(playerBot<=bedBot)
-    {
-        bedTexture.render(bedX,bedY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=waterTankBot)
-    {
-        waterTankTexture.render(waterTankX,waterTankY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=planterBot)
-    {
-        if(planterState == 0  && !plantOkay)
-        {
-            //if player has sown the crops, but not yet watered
-            if(waterPlantsOkay)
-            {
-                planterSownTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has sown & watered
-            else if(!waterPlantsOkay)
-            {
-                planterSownWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 1)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterSeedlingTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterSeedlingWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 2)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterVegetativeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterVegatativeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 3)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterFloweringTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterFloweringWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-        else if(planterState == 4)
-        {
-            //if player has not yet watered
-            if(waterPlantsOkay)
-            {
-                planterRipeTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-            //if player has watered
-            else if(!waterPlantsOkay)
-            {
-                planterRipeWateredTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
-        }
-
-        //if player hasn't sown or watered
-        else if(plantOkay && !waterPlantsOkay)
-        {
-            planterTexture.render(planterX,planterY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        }
-    }
-    if(playerBot<=kitchenBot)
-    {
-        kitchenTexture.render(kitchenX,kitchenY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=infirmBot)
-    {
-        infirmaryTexture.render(infirmX,infirmY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=bikeBot)
-    {
-        //std::cout<<"\n playerBot: "<<playerBot<<" bikeBot: "<<bikeBot;
-        bikeTexture.render(bikeX,bikeY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=recBot)
-    {
-        recTexture.render(recX,recY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    if(playerBot<=habExitBot)
-    {
-        habExitTexture.render(habExitX,habExitY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
-    */
 }
 
 void station::renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
@@ -793,27 +483,6 @@ void station::free()
     std::cout<<"\n running station::free()";
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
-    /*
-    habExitDefaultTexture.free();
-    habExitTexture.free();
-    engExitDefaultTexture.free();
-    engExitTexture.free();
-	bedTexture.free();
-	waterTankTexture.free();
-	waterLevelTexture.free();
-	sleepyTimeTexture.free();
-	planterTexture.free();
-	kitchenTexture.free();
-	foodTimeTexture.free();
-	plantTexture.free();
-	waterPlantsTexture.free();
-	harvestTexture.free();
-	infirmaryTexture.free();
-	infirmDefaultTexture.free();
-	bikeTexture.free();
-	bikeDefaultTexture.free();
-	recTexture.free();
-	recDefaultTexture.free();*/
 }
 
 void station::updatePlant(int timeSurvived)
