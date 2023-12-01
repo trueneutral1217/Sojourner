@@ -466,12 +466,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
                         std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                     }
-                    else if(inEng)
-                    {
-                        ship.habitation.habExit.renderInteractHabExit(renderer,player1.getX(),player1.getY());
-                        std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
-                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                    }
                 }
             }
         }
@@ -489,12 +483,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.setX(750);
                         inHab = true;
                         inEng = false;
-                        std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
-                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                    }
-                    else
-                    {
-                        ship.engineering.engExit.renderInteractEngExit(renderer,player1.getX(),player1.getY());
                         std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
                         std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                     }

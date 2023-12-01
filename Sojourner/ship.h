@@ -3,6 +3,7 @@
 
 #include "module.h"
 
+
 const int TOTAL_SHIP_GAUGES = 6;
 
 class ship

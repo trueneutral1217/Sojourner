@@ -353,7 +353,6 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+10;
 
-
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
 
     //setting text for station interaction
@@ -368,13 +367,11 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 
 void station::updateHabPosition(int y)
 {
-    //when player moves, background parallaxes, this makes sure the stations stay in their places.
+    //when player moves, background parallaxes, this makes sure the stations move with the bg.
     stationY = y + stationInitialY;
     stationBot = stationY + stationH;
     collidable.y=stationY + (stationH/2);
     interactable.y=collidable.y-4;
-
-
 
 }
 
@@ -404,12 +401,10 @@ void station::updateEngPosition2(int y)
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y -4;
-    /*engExitY = y+395;
-    engExitBot = engExitY + engExitH;
-    collidable[8].y=engExitY+(engExitH/2);
-    interactable[8].y=collidable[8].y-4;*/
+
 }
 
+/*
 void station::renderInteractEngExit(SDL_Renderer* renderer, int x, int y)
 {
     y-=20;
@@ -421,8 +416,7 @@ void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
     y-=20;
     x-=60;
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-
-}
+}*/
 
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 {
