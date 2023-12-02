@@ -131,7 +131,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 
-void player::move(int tick, ship ship,bool inHab, bool inEng)
+void player::move(int tick, ship& ship,bool inHab, bool inEng)
 {
     playerX += pVelX;
     //keeps playerY within 100 pixels of center
@@ -298,6 +298,7 @@ void player::move(int tick, ship ship,bool inHab, bool inEng)
 
     if(inHab)
     {
+
         if(collisionDetector(ship.habitation.bed.interactable))
         {
             //bed is interactable
@@ -422,7 +423,7 @@ void player::move(int tick, ship ship,bool inHab, bool inEng)
 
     }
     if(inEng)
-    {
+    {/*
         if(collisionDetector(ship.engineering.engExit.interactable))
         {
             //bed is interactable
@@ -437,7 +438,7 @@ void player::move(int tick, ship ship,bool inHab, bool inEng)
         else
         {
             interactEngExit=false;
-        }
+        }*/
     }
     playerBot = playerY+PLAYER_HEIGHT;
 }

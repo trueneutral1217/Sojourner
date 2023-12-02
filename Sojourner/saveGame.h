@@ -42,11 +42,15 @@ class saveGame
     //reads save file, specified by fileNum, creates a new one if none exists.
     void readSaveFile(int fileNum);
 
-    void writePrefsFile(pregameui pregameui);
 
-    void writeSaveFile(int fileNum,stage stage,Uint32 playedTime);
+    //*********************************
+    //Objects may need to be sent in by reference (&) in order for proper functioning.
+    //*********************************
+    void writePrefsFile(pregameui& pregameui);
+
+    void writeSaveFile(int fileNum,stage& stage,Uint32 playedTime);
     //just updates data of a save file, writing happens at program close.
-    void updateSaveData(int fileNum,stage stage, Uint32 playedTime);
+    void updateSaveData(int fileNum,stage& stage, Uint32 playedTime);
     //updates the text textures of after the data has been updated.
     void updateSavedMetaData(int fileNum,SDL_Renderer* renderer,TTF_Font* font);
 

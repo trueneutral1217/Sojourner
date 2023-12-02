@@ -208,9 +208,9 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
     collidable.w = 105;
     collidable.h = stationH/2;
     interactable.x = collidable.x-2;
-    interactable.y = collidable.y-2;
+    interactable.y = collidable.y-3;
     interactable.w = collidable.w+4;
-    interactable.h = collidable.h+4;
+    interactable.h = collidable.h+6;
 
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
@@ -238,9 +238,9 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)
     collidable.w = 200;
     collidable.h = stationH/2;
     interactable.x=collidable.x-2;
-    interactable.y=collidable.y-2;
+    interactable.y=collidable.y-3;
     interactable.w=collidable.w+4;
-    interactable.h=collidable.h+4;
+    interactable.h=collidable.h+6;
 
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     //setting text for waterTank interaction

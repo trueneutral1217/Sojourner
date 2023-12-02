@@ -174,7 +174,7 @@ void saveGame::readSaveFile(int fileNum)
     }
 }
 
-void saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)
+void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
 {
     std::cout<<"\n running saveGame::writeSaveFile(int fileNum,stage stage,Uint32 playedTime)";
     //saves the game, depending on fileNum to save1.ssf, save2.ssf, and save3.ssf
@@ -287,7 +287,7 @@ void saveGame::deleteSave(int fileNum)
     savedDate[fileNum].str() = "";
 }
 
-void saveGame::writePrefsFile(pregameui pregameui)
+void saveGame::writePrefsFile(pregameui& pregameui)
 {
     std::cout<<"\n running saveGame::writePrefsFile(pregameui pregameui)";
     //save user preferences to prefs.ssf
@@ -320,7 +320,7 @@ void saveGame::writePrefsFile(pregameui pregameui)
 
 }
 
-void saveGame::updateSaveData(int fileNum,stage stage,Uint32 playedTime)
+void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
 {
     std::cout<<"\n running saveGame::updateSaveData(stage stage,Uint32 playedTime)";
     time_t now = time(0);

@@ -201,6 +201,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         //this is where the texture for the planter station should update to show plants have been planted
         //it should also take some time and lower players' needs (ie: player's slumber need)
         //std::cout<<"\n planter 'plant' button pressed";
+
         if(ship.habitation.planter.plantOkay)
         {
             //station.planterSown = true;
@@ -223,6 +224,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     else if(buttonClicked == 4)
     {
         //if  player has already planted but not watered
+
         if(!ship.habitation.planter.plantOkay && ship.habitation.planter.waterPlantsOkay)
         {
             //station.planterWatered = true;
@@ -259,6 +261,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
 
     //planter's plant button needs to be updated based on the planter's X,Y coords
     //attempting to create a button using a textTexture. this might not work right if plant texture has moved.
+
     buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
     buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
 
@@ -327,6 +330,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.habitation.recreation.renderHabStationBehindPlayer(renderer,player1.playerBot);
             ship.habitation.bike.renderHabStationBehindPlayer(renderer,player1.playerBot);
             ship.habitation.bed.renderHabStationBehindPlayer(renderer,player1.playerBot);
+
         }
         if(inEng)
         {
@@ -342,6 +346,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             /*
             //this line is for test purposes
+            //may no longer be needed
             ship.habitation.kitchen.stationTexture.render(300,300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             */
 
@@ -360,6 +365,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 {
                     ship.habitation.waterTank.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
+
                 if(player1.interactBed)
                 {
                     if(player1.need[3]<100)
@@ -609,6 +615,7 @@ void stage::move(int countedFrames)
     {
         //first habitat background
         ship.habitation.waterTank.updateHabPosition(habInternalY1);
+
         ship.habitation.kitchen.updateHabPosition(habInternalY1);
         ship.habitation.infirmary.updateHabPosition(habInternalY1);
         ship.habitation.planter.updateHabPosition(habInternalY1);

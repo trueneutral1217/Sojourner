@@ -22,6 +22,7 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[])
     planter.loadPlanter(renderer,font);
     recreation.loadRec(renderer,font);
     habExit.loadHabExit(renderer,font);
+
 }
 
 void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)
@@ -40,5 +41,4 @@ void module::free()
     bike.free();
     planter.free();
     recreation.free();
-    //station.free();
 }

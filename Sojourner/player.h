@@ -108,7 +108,7 @@ class player
         //updates player position, walk animation, station collision box, station interaction box
         //void move(int tick, SDL_Rect collidable, SDL_Rect interactable,int STATIONS, bool inHab,bool inEng);
 
-        void move(int tick, ship ship,bool inhab, bool inEng);
+        void move(int tick, ship& ship,bool inhab, bool inEng);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources
