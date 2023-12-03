@@ -114,6 +114,8 @@ class stage
         //handles planter interaction textures and updates planter texture
         void handlePlanter(SDL_Renderer* renderer, TTF_Font* font);
         //
+        void freePlanterButtons();
+        //
         void loadTimeSurvivedTextures(SDL_Renderer* renderer);
         //
         void renderTimeSurvivedTextTextures(SDL_Renderer* renderer);

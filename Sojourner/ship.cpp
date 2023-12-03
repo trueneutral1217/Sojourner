@@ -55,9 +55,20 @@ void ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)
     //when something happens that affects the ship's gauges, the text texture for that
     //gauge needs to be reloaded before being rendered again
     std::cout<<"\n running ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)";
-    SDL_Color textColor = {0,128,200}; //font blue
+
+
+    int r,b,g;
+    r = 0;
+    g = 128;
+    b = 200;
+    SDL_Color textColor = {r,g,b};
+
     for (int i = 0; i< TOTAL_SHIP_GAUGES; i++)
     {
+        r = 255 - (gauge[i]*2.55);
+        g = gauge[i]*1.28;
+        b = gauge[i]*2;
+        textColor = {r,g,b};
         shipGauges[i] = std::to_string(gauge[i]);
 
         if(!gaugesTexture[i].loadFromRenderedText(shipGauges[i], textColor,font,renderer))

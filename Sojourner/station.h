@@ -51,18 +51,6 @@ class station
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
 
         Texture stationTexture;
-        /*
-        Texture planterSownTexture;
-        Texture planterSownWateredTexture;
-        Texture planterSeedlingTexture;
-        Texture planterSeedlingWateredTexture;
-        Texture planterVegetativeTexture;
-        Texture planterVegatativeWateredTexture;
-        Texture planterFloweringTexture;
-        Texture planterFloweringWateredTexture;
-        Texture planterRipeTexture;
-        Texture planterRipeWateredTexture;
-        */
 
         //the impassable area of the station
         SDL_Rect collidable;
@@ -86,6 +74,8 @@ class station
 
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
 
+
+
         //loads textures for stations (sleepingbag image, water tank image)
         void loadStation(SDL_Renderer* renderer,TTF_Font* font, int shipGaugeValues[]);
         //when player walks around, the stations move with the background.
@@ -108,8 +98,11 @@ class station
         void freePlanterOptions();
         //frees the resources
         void free();
-        //
-        void updatePlant(int timeSurvived);
+        //update's plant's state based on time survived
+        void updatePlant(SDL_Renderer* renderer, int timeSurvived);
+        //update's plant's texture
+        void updatePlantTexture(SDL_Renderer* renderer);
+
 
     private:
 

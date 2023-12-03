@@ -29,16 +29,7 @@ void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeVal
     //habExitTexture.loadFromFile("images/sprites/habExit.png",renderer);
 
 /*
-    planterSownTexture.loadFromFile("images/sprites/planterSown.png",renderer);
-    planterSownWateredTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
-    planterSeedlingTexture.loadFromFile("images/sprites/planterSeedling.png",renderer);
-    planterSeedlingWateredTexture.loadFromFile("images/sprites/planterSeedlingWatered.png",renderer);
-    planterVegetativeTexture.loadFromFile("images/sprites/planterVegetative.png",renderer);
-    planterVegatativeWateredTexture.loadFromFile("images/sprites/planterVegetativeWatered.png",renderer);
-    planterFloweringTexture.loadFromFile("images/sprites/planterFlowering.png",renderer);
-    planterFloweringWateredTexture.loadFromFile("images/sprites/planterFloweringWatered.png",renderer);
-    planterRipeTexture.loadFromFile("images/sprites/planterRipe.png",renderer);
-    planterRipeWateredTexture.loadFromFile("images/sprites/planterRipeWatered.png",renderer);
+
     */
 
     //loadInteractBed(renderer,font);
@@ -270,8 +261,11 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     interactable.y=collidable.y-2;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+4;
+    if(planterState == -1)
+    {
+        stationTexture.loadFromFile("images/sprites/planter.png",renderer);
+    }
 
-    stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     //setting text for planter interaction
     plant="Plant";
     waterPlants = "Water Plants";
@@ -479,7 +473,7 @@ void station::free()
     stationDefaultInteractionTextTexture.free();
 }
 
-void station::updatePlant(int timeSurvived)
+void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)
 {
     std::cout<<"\n running station::updatePlant(int timeSurvived)";
     if(planterState<4)
@@ -514,4 +508,56 @@ void station::updatePlant(int timeSurvived)
     std::cout<<"\n planterDaysState: "<<planterDaysState;
     std::cout<<"\n planterState: "<<planterState;
     std::cout<<"\n harvestOkay: "<<harvestOkay;
+    updatePlantTexture(renderer);
+}
+
+void station::updatePlantTexture(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running station::updatePlantTexture(SDL_Renderer* renderer)";
+    stationTexture.free();
+    std::cout<<"\n waterPlantsOkay: "<<waterPlantsOkay;
+    std::cout<<"\n planterState: "<<planterState;
+    if(waterPlantsOkay)
+    {//if plants are dry
+        switch(planterState)
+        {//load texture based on state (lifecycle) of the plant.
+            case 0:
+                stationTexture.loadFromFile("images/sprites/planterSown.png",renderer);
+                break;
+            case 1:
+                stationTexture.loadFromFile("images/sprites/planterSeedling.png",renderer);
+                break;
+            case 2:
+                stationTexture.loadFromFile("images/sprites/planterVegetative.png",renderer);
+                break;
+            case 3:
+                stationTexture.loadFromFile("images/sprites/planterFlowering.png",renderer);
+                break;
+            case 4:
+                stationTexture.loadFromFile("images/sprites/planterRipe.png",renderer);
+                break;
+        }
+    }
+    else
+    {//plants are watered
+        switch(planterState)
+        {
+            case 0:
+                stationTexture.loadFromFile("images/sprites/planterSownWatered.png",renderer);
+                break;
+            case 1:
+                stationTexture.loadFromFile("images/sprites/planterSeedlingWatered.png",renderer);
+                break;
+            case 2:
+                stationTexture.loadFromFile("images/sprites/planterVegetativeWatered.png",renderer);
+                break;
+            case 3:
+                stationTexture.loadFromFile("images/sprites/planterFloweringWatered.png",renderer);
+                break;
+            case 4:
+                stationTexture.loadFromFile("images/sprites/planterRipeWatered.png",renderer);
+                break;
+        }
+    }
+
 }

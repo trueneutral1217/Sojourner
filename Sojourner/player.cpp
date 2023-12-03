@@ -813,12 +813,19 @@ void player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
 {//when something happens that affects the players needs, the text texture for that
     //need needs to be reloaded before being rendered again
     std::cout<<"\n running player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)";
-    SDL_Color textColor = {0,128,200};
+    int r,b,g;
+    r = 0;
+    g = 128;
+    b = 200;
+    SDL_Color textColor = {r,g,b};
+
+
     for (int i = 0; i< TOTAL_PLAYER_NEEDS; i++)
     {
-        //need[i] = 10+(i*15);
-
-        //playerNeeds[i].str("");
+        r = 255 - (need[i]*2.55);
+        g = need[i]*1.28;
+        b = need[i]*2;
+        textColor = {r,g,b};
         needsTexture[i].free();
         playerNeeds[i] = std::to_string(need[i]);// << need[i];
         if(!needsTexture[i].loadFromRenderedText(playerNeeds[i], textColor,font,renderer))

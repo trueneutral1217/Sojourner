@@ -65,15 +65,7 @@ class button
 
 		std::string buttonName;
 
-        //phasing this string array out
-		//std::string pregameButtonNames[TOTAL_PREGAME_BUTTONS];
-		//std::string chapterButtonNames[TOTAL_CHAPTER_BUTTONS];
-
 		std::string stageButtonNames[TOTAL_STAGE_BUTTONS];
-
-        //each button has a string that describes the button.
-		//void setChapterButtonName(int i);
-		//void setPregameButtonName(int i);
 
 		void setStageButtonName(int i);
 
@@ -81,6 +73,8 @@ class button
 		void fullScreenButtonTextureToggle(SDL_Renderer* renderer);
         void musicButtonTextureToggle(SDL_Renderer* renderer);
         void voiceButtonTextureToggle(SDL_Renderer* renderer);
+
+        void free();
 
 	private:
 		//Top left point of button image location

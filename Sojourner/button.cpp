@@ -352,3 +352,11 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
 	return buttonClicked;
 }
 
+void button::free()
+{   //frees button textures, clears the button name, sets position to 0,0.
+    std::cout<<"\n running button::free()";
+    buttonTexture.free();
+    buttonMOTexture.free();
+    buttonName = "";
+    setPosition(0,0);
+}

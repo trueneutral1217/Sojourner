@@ -201,14 +201,15 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         //this is where the texture for the planter station should update to show plants have been planted
         //it should also take some time and lower players' needs (ie: player's slumber need)
         //std::cout<<"\n planter 'plant' button pressed";
-
         if(ship.habitation.planter.plantOkay)
         {
             //station.planterSown = true;
             ship.habitation.planter.waterPlantsOkay = true;
             ship.habitation.planter.plantOkay = false;
+
             ship.habitation.planter.planterDaysState = 0;
             ship.habitation.planter.planterState = 0;
+            ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.interacted = true;
             std::cout<<"\n plantOkay: "<<ship.habitation.planter.plantOkay;
             timeSurvived += 30;
@@ -227,8 +228,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
 
         if(!ship.habitation.planter.plantOkay && ship.habitation.planter.waterPlantsOkay)
         {
-            //station.planterWatered = true;
             ship.habitation.planter.waterPlantsOkay = false;
+            ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.planterTimeWatered = timeSurvived;
             ship.habitation.planter.interacted = true;
             std::cout<<"\n waterPlantsOkay: "<<ship.habitation.planter.waterPlantsOkay;
@@ -263,9 +264,11 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
     //attempting to create a button using a textTexture. this might not work right if plant texture has moved.
 
     buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
+    buttons[1].buttonName = "plant";
     buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
 
     buttons[2].buttonTexture = ship.habitation.planter.waterPlantsTexture;
+    buttons[2].buttonName = "waterPlants";
     buttons[2].setPosition(player1.getX()+50,player1.getY());
 
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
@@ -293,6 +296,12 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         return 5;
     }
 
+}
+
+void stage::freePlanterButtons()
+{
+    buttons[1].free();
+    buttons[2].free();
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -376,7 +385,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.reloadNeedsTextures(renderer,font);
                         //8 hours passed from sleeping
                         timeSurvived +=480;
-                        ship.habitation.planter.updatePlant(timeSurvived);
+                        ship.habitation.planter.updatePlant(renderer,timeSurvived);
 
                         refreshTS(renderer);
                     }
@@ -400,7 +409,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.reloadNeedsTextures(renderer,font);
                         //8 hours passed from sleeping
                         timeSurvived +=30;
-                        ship.habitation.planter.updatePlant(timeSurvived);
+                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
                         refreshTS(renderer);
                     }
                     else
@@ -418,7 +427,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.reloadNeedsTextures(renderer,font);
                         //8 hours passed from sleeping
                         timeSurvived +=60;
-                        ship.habitation.planter.updatePlant(timeSurvived);
+                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
                         refreshTS(renderer);
                     }
                     else
@@ -436,7 +445,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.reloadNeedsTextures(renderer,font);
                         //2 hours passed from exercising
                         timeSurvived +=120;
-                        ship.habitation.planter.updatePlant(timeSurvived);
+                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
                         refreshTS(renderer);
                     }
                     else
@@ -454,7 +463,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         player1.reloadNeedsTextures(renderer,font);
                         //1 hours passed from R&R
                         timeSurvived +=60;
-                        ship.habitation.planter.updatePlant(timeSurvived);
+                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
                         refreshTS(renderer);
                     }
                     else
@@ -677,6 +686,7 @@ void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
     if(ship.habitation.planter.planterOptionsLoaded && !player1.interact)
     {//the player is no longer interacting with the planter,freeing the buttons
         ship.habitation.planter.freePlanterOptions();
+        freePlanterButtons();
     }
     if(!ship.habitation.planter.planterOptionsLoaded && player1.interact)
     {//player is interacting with the planter, loading the buttons
@@ -685,6 +695,7 @@ void stage::handlePlanter(SDL_Renderer* renderer, TTF_Font* font)
     if(ship.habitation.planter.planterOptionsLoaded && player1.interact && ship.habitation.planter.interacted)
     {//player interacted with the planter, update the available options, planter texture.
         ship.habitation.planter.freePlanterOptions();
+        freePlanterButtons();
         ship.habitation.planter.loadPlanter(renderer,font);
         ship.habitation.planter.interacted = false;
     }
