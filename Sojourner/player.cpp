@@ -813,7 +813,7 @@ void player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
 {//when something happens that affects the players needs, the text texture for that
     //need needs to be reloaded before being rendered again
     std::cout<<"\n running player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)";
-    int r,b,g;
+    Uint8 r,b,g;
     r = 0;
     g = 128;
     b = 200;

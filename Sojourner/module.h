@@ -16,7 +16,7 @@ class module
         //declare engineering stations
         station engExit;
 
-        void loadHabitation(SDL_Renderer* renderer,TTF_Font* font, int gauge[]);
+        void loadHabitation(SDL_Renderer* renderer,TTF_Font* font, int gauge[], int need[]);
 
         void loadEngineering(SDL_Renderer* renderer,TTF_Font* font);
 

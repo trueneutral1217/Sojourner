@@ -11,7 +11,7 @@ station::station()
 
 //    planterSown = false;
     //planterWatered = false;
-    planterOptionsLoaded=false;
+    stationOptionsLoaded=false;
     //flag the interact buttons to reload.
     interacted = false;
 
@@ -270,9 +270,9 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     plant="Plant";
     waterPlants = "Water Plants";
     harvest = "Harvest";
-    //cancel = "cancel";
     SDL_Color textColor = {255,255,255};//white
     SDL_Color unavailable = {0,0,0};//black
+
 
     if(plantOkay)
     {
@@ -316,20 +316,21 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
             std::cout<<"\n unable to render harvest string to harvestTexture!";
         }
     }
-planterOptionsLoaded = true;
-planterOptionsFreed = false;
+stationOptionsLoaded = true;
+stationOptionsFreed = false;
 }
 
-void station::freePlanterOptions()
+void station::freeStationOptions()
 {
     plantTexture.free();
     waterPlantsTexture.free();
     harvestTexture.free();
-    planterOptionsFreed = true;
-    planterOptionsLoaded=false;
+    sleepTexture.free();
+    stationOptionsFreed = true;
+    stationOptionsLoaded=false;
 }
 
-void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
+void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
 {
     std::cout<<"\n running station::loadBed(SDL_Renderer* renderer,TTF_Font* font)";
     //Setup coords & collision box for bed
@@ -349,6 +350,7 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
 
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
 
+
     //setting text for station interaction
     stationDefaultInteractionText = "Not Tired";
 
@@ -357,6 +359,26 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font)
     {
         std::cout<<"\n unable to render sleepyTime string to sleepyTimeTexture!";
     }
+
+    sleep = "Sleep";
+    textColor = {255,255,255};//white
+    SDL_Color unavailable = {0,0,0};//black
+
+    if(need != 100)
+    {
+        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render sleep string to sleepTexture";
+        }
+    }
+    else
+    {
+        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render sleep string to sleepTexture";
+        }
+    }
+
 }
 
 void station::updateHabPosition(int y)
@@ -420,6 +442,15 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
+void station::renderInteractBed(SDL_Renderer* renderer, int x, int y)
+{
+    //displays textures to the right of player texture
+    x+=50;
+    //displays texture above player's head
+    y-=20;
+    sleepTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
 {//these are the buttons that pop up when player is next to the planter and presses 'e'
     //displays textures to the right of player texture
@@ -471,6 +502,7 @@ void station::free()
     std::cout<<"\n running station::free()";
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
+    sleepTexture.free();
 }
 
 void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)

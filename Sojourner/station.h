@@ -27,14 +27,18 @@ class station
         std::string waterPlants;
         std::string harvest;
 
+        //for bed
+        std::string sleep;
+
         //flags for planter options.  true sets font to white, false to black.
         bool plantOkay;
         bool waterPlantsOkay;
         bool harvestOkay;
+
         //the two bools below are to determine whether or not to load/render text texture buttons for planting, etc.
         //could possibly reduce to 1.
-        bool planterOptionsLoaded;
-        bool planterOptionsFreed;
+        bool stationOptionsLoaded;
+        bool stationOptionsFreed;
 
 
         bool interacted;
@@ -42,10 +46,14 @@ class station
         Texture stationDefaultInteractionTextTexture;
 
 
-        //Textures for planter interaction
+        //Textures for planter interaction buttons
         Texture plantTexture;
         Texture waterPlantsTexture;
         Texture harvestTexture;
+
+        //bed interactation button texture
+        Texture sleepTexture;
+
 
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
@@ -63,7 +71,7 @@ class station
         void loadBike(SDL_Renderer* renderer, TTF_Font* font);
         void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font);
         void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
-        void loadBed(SDL_Renderer* renderer,TTF_Font* font);
+        void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font);
 
@@ -73,6 +81,8 @@ class station
         void renderInteractStation(SDL_Renderer* renderer, int x, int y);
 
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
+
+        void renderInteractBed(SDL_Renderer* renderer,int x, int y);
 
 
 
@@ -95,7 +105,7 @@ class station
         //
         void renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
         //player is no longer interacting with the planter.
-        void freePlanterOptions();
+        void freeStationOptions();
         //frees the resources
         void free();
         //update's plant's state based on time survived

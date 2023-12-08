@@ -37,7 +37,7 @@ class ship
     //load ship saved data from file
     void loadSavedShipData(Uint32 dataValues[]);
 
-    void loadShip(SDL_Renderer* renderer,TTF_Font* font);
+    void loadShip(SDL_Renderer* renderer,TTF_Font* font, int need[]);
 
     private:
 

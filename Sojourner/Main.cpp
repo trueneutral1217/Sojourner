@@ -557,7 +557,7 @@ int main( int argc, char* args[] )
                     //handles the interactions with the planter.
                     if(stage.inHab && stage.player1.interactPlanter)
                     {
-                        stage.handlePlanter(renderer,text.font2);
+                        stage.handleStation(renderer,text.font2);
                     }
 				}
 				//process player movement, updates hab internal background as well

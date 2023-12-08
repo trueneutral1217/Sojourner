@@ -111,10 +111,10 @@ class stage
         void setNewgameVars();
         //loads saved data from savesfile (player coords, location in habitat)
         void loadSavedGameData(Uint32 dataValues[]);
-        //handles planter interaction textures and updates planter texture
-        void handlePlanter(SDL_Renderer* renderer, TTF_Font* font);
+        //handles station interaction textures and updates station texture
+        void handleStation(SDL_Renderer* renderer, TTF_Font* font);
         //
-        void freePlanterButtons();
+        void freeStationButtons();
         //
         void loadTimeSurvivedTextures(SDL_Renderer* renderer);
         //

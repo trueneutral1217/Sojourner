@@ -57,7 +57,7 @@ void ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n running ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)";
 
 
-    int r,b,g;
+    Uint8 r,b,g;
     r = 0;
     g = 128;
     b = 200;
@@ -113,8 +113,8 @@ void ship::loadSavedShipData(Uint32 dataValues[])
     }
 }
 
-void ship::loadShip(SDL_Renderer* renderer,TTF_Font* font)
+void ship::loadShip(SDL_Renderer* renderer,TTF_Font* font, int need[])
 {
-    habitation.loadHabitation(renderer,font,gauge);
+    habitation.loadHabitation(renderer,font,gauge,need);
 }
 
