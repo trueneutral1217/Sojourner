@@ -322,10 +322,12 @@ stationOptionsFreed = false;
 
 void station::freeStationOptions()
 {
-    plantTexture.free();
-    waterPlantsTexture.free();
-    harvestTexture.free();
-    sleepTexture.free();
+    std::cout<<"\n running station::freeStationOptions()";
+    //plantTexture.free();
+    //waterPlantsTexture.free();
+    //harvestTexture.free();
+    //sleepTexture.free();
+
     stationOptionsFreed = true;
     stationOptionsLoaded=false;
 }
@@ -378,7 +380,9 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
             std::cout<<"\n unable to render sleep string to sleepTexture";
         }
     }
-
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
+    stationOptionsFreed = false;
 }
 
 void station::updateHabPosition(int y)

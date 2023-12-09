@@ -324,6 +324,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
 
 void stage::freeStationButtons()
 {
+    std::cout<<"\n running stage::freeStationButtons()";
     buttons[1].free();
     buttons[2].free();
     buttons[3].free();
@@ -714,10 +715,18 @@ void stage::loadSavedGameData(Uint32 dataValues[])
 void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
 {
     //this function needs work **********************
+    //needs abstraction
+
+
 
     if(ship.habitation.planter.stationOptionsLoaded && !player1.interact)
     {//the player is no longer interacting with the planter,freeing the buttons
         ship.habitation.planter.freeStationOptions();
+        //ship.habitation.bed.freeStationOptions();
+        freeStationButtons();
+    }
+    if(ship.habitation.bed.stationOptionsLoaded && !player1.interact)
+    {
         ship.habitation.bed.freeStationOptions();
         freeStationButtons();
     }

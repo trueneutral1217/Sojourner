@@ -40,7 +40,7 @@ class station
         bool stationOptionsLoaded;
         bool stationOptionsFreed;
 
-
+        //tracks when 'plant' and 'watered' have been pressed,
         bool interacted;
 
         Texture stationDefaultInteractionTextTexture;
@@ -78,6 +78,7 @@ class station
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
 
+        //functions for rendering interaction buttons like 'plant', 'sleep', etc.
         void renderInteractStation(SDL_Renderer* renderer, int x, int y);
 
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
