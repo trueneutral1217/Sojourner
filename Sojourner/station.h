@@ -38,7 +38,6 @@ class station
         //the two bools below are to determine whether or not to load/render text texture buttons for planting, etc.
         //could possibly reduce to 1.
         bool stationOptionsLoaded;
-        bool stationOptionsFreed;
 
         //tracks when 'plant' and 'watered' have been pressed,
         bool interacted;
@@ -105,8 +104,6 @@ class station
         void renderEngStationBehindPlayer(SDL_Renderer* renderer, int playerBot);
         //
         void renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
-        //player is no longer interacting with the planter.
-        void freeStationOptions();
         //frees the resources
         void free();
         //update's plant's state based on time survived

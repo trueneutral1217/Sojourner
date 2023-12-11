@@ -549,15 +549,19 @@ int main( int argc, char* args[] )
 							break;
 						}
 					}
-					//if wasd are pressed player will be moved.
+					//if wasd are pressed player will be moved. 'e' to interact with stations
 					if(stage.internalView)
                     {
                         stage.player1.handleEvent(e);
 					}
-                    //handles the interactions with the planter.
-                    if(stage.inHab && stage.player1.interact)
+                    //handles the interactions with the stations.
+                    if(stage.player1.interact)
                     {
                         stage.handleStation(renderer,text.font2);
+                    }
+                    if(!stage.buttonsFreed && !stage.player1.interact)
+                    {
+                        stage.freeStationButtons();
                     }
 
 				}

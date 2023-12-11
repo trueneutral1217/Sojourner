@@ -317,19 +317,6 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
         }
     }
 stationOptionsLoaded = true;
-stationOptionsFreed = false;
-}
-
-void station::freeStationOptions()
-{
-    std::cout<<"\n running station::freeStationOptions()";
-    //plantTexture.free();
-    //waterPlantsTexture.free();
-    //harvestTexture.free();
-    //sleepTexture.free();
-
-    stationOptionsFreed = true;
-    stationOptionsLoaded=false;
 }
 
 void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
@@ -382,7 +369,6 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     }
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
-    stationOptionsFreed = false;
 }
 
 void station::updateHabPosition(int y)
@@ -448,10 +434,12 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 
 void station::renderInteractBed(SDL_Renderer* renderer, int x, int y)
 {
+    //std::cout<<"\n running station::renderInteractBed(SDL_Renderer* renderer, int x, int y)";
     //displays textures to the right of player texture
     x+=50;
     //displays texture above player's head
     y-=20;
+    //text texture 'Sleep'
     sleepTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
@@ -461,12 +449,15 @@ void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
     x+=50;
     //displays texture above player's head
     y-=20;
+    //text texture 'Plant'
     plantTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //render below previous option
     y+=20;
+    //text texture 'water'
     waterPlantsTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //render below previous option
     y+=20;
+    //text texture 'harvest'
     harvestTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 

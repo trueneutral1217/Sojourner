@@ -347,7 +347,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.planter.interactable))
         {
-            //bed is interactable
+            //station is interactable
             interactPlanter = true;
             if(collisionDetector(ship.habitation.planter.collidable))
             {
@@ -852,3 +852,4 @@ void player::loadSavedPlayerData(Uint32 dataValues[])
         need[i] = dataValues[i];
     }
 }
+

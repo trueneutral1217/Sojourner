@@ -31,6 +31,9 @@ class stage
         //these will likely be saved just to remember the player's location correctly.
         bool inHab, inEng;
 
+        bool buttonsFreed;
+
+
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
         int habInternalY1;
         int habInternalY2;

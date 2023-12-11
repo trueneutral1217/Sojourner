@@ -131,6 +131,7 @@ class player
         //void loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5);
         void loadSavedPlayerData(Uint32 dataValues[]);
 
+
     private:
         //player coordinates
         int playerX,playerY;

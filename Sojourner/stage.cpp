@@ -14,6 +14,9 @@ stage::stage()
     inHab = true;
     //player does not start in engineering module
     inEng = false;
+
+    buttonsFreed = true;
+
 }
 
 stage::~stage()
@@ -211,6 +214,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.planterState = 0;
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.interacted = true;
+
+            player1.disinteract();
+
             std::cout<<"\n plantOkay: "<<ship.habitation.planter.plantOkay;
             timeSurvived += 30;
             refreshTS(renderer);
@@ -232,6 +238,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.planterTimeWatered = timeSurvived;
             ship.habitation.planter.interacted = true;
+
+             player1.disinteract();
+
             std::cout<<"\n waterPlantsOkay: "<<ship.habitation.planter.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
             timeSurvived +=30;
@@ -277,9 +286,12 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
 
     //planter's plant button needs to be updated based on the planter's X,Y coords
     //attempting to create a button using a textTexture. this might not work right if plant texture has moved.
+    //std::cout<<"\n interactPlanter: "<<player1.interactPlanter;
 
-    if(player1.interactPlanter)
+
+    if(player1.interactPlanter && player1.interact)
     {
+        std::cout<<"\n creating planter buttons";
         buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
         buttons[1].buttonName = "plant";
         buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
@@ -287,12 +299,16 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         buttons[2].buttonTexture = ship.habitation.planter.waterPlantsTexture;
         buttons[2].buttonName = "waterPlants";
         buttons[2].setPosition(player1.getX()+50,player1.getY());
+        buttonsFreed = false;
     }
-    if(player1.interactBed)
+    //std::cout<<"\n interactBed: "<<player1.interactBed;
+    if(player1.interactBed && player1.interact)
     {
+        std::cout<<"\n creating bed buttons";
         buttons[3].buttonTexture = ship.habitation.bed.sleepTexture;
         buttons[3].buttonName = "sleep";
         buttons[3].setPosition(player1.getX()+50,player1.getY()-20);
+        buttonsFreed = false;
     }
 
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
@@ -328,6 +344,8 @@ void stage::freeStationButtons()
     buttons[1].free();
     buttons[2].free();
     buttons[3].free();
+
+    buttonsFreed = true;
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -419,12 +437,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         ship.habitation.planter.updatePlant(renderer,timeSurvived);
 
                         refreshTS(renderer);*/
-                    }
+                    }/*
                     else
                     {//else just render 'not tired'
                         //std::cout<<"\n not tired should be displaying";
                         ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
-                    }
+                    }*/
                 }
                 if(player1.interactPlanter)
                 {
@@ -716,35 +734,24 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
 {
     //this function needs work **********************
     //needs abstraction
+    //buttons aren't deleting
+    //player1.interact is always true when this is running
 
-
-
-    if(ship.habitation.planter.stationOptionsLoaded && !player1.interact)
-    {//the player is no longer interacting with the planter,freeing the buttons
-        ship.habitation.planter.freeStationOptions();
-        //ship.habitation.bed.freeStationOptions();
-        freeStationButtons();
-    }
-    if(ship.habitation.bed.stationOptionsLoaded && !player1.interact)
-    {
-        ship.habitation.bed.freeStationOptions();
-        freeStationButtons();
-    }
     if(!ship.habitation.planter.stationOptionsLoaded && player1.interactPlanter)
-    {//player is interacting with the planter, loading the buttons
+    {//player is interacting with the planter, creating the buttons
         ship.habitation.planter.loadPlanter(renderer,font);
     }
     if(!ship.habitation.bed.stationOptionsLoaded && player1.interactBed)
     {
         ship.habitation.bed.loadBed(renderer,font,player1.need[3]);
     }
-    if(ship.habitation.planter.stationOptionsLoaded && player1.interact && ship.habitation.planter.interacted)
+    /*
+    if(ship.habitation.planter.stationOptionsLoaded && ship.habitation.planter.interacted)
     {//player interacted with the planter, update the available options, planter texture.
-        ship.habitation.planter.freeStationOptions();
         freeStationButtons();
         ship.habitation.planter.loadPlanter(renderer,font);
         ship.habitation.planter.interacted = false;
-    }
+    }*/
 
 }
 
