@@ -270,13 +270,19 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     plant="Plant";
     waterPlants = "Water Plants";
     harvest = "Harvest";
-    SDL_Color textColor = {255,255,255};//white
-    SDL_Color unavailable = {0,0,0};//black
 
 
+    loadPlanterTextTextures(renderer,font);
+
+}
+
+void station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)";
+    std::cout<<"\n plant string: "<<plant;
     if(plantOkay)
     {
-        if(!plantTexture.loadFromRenderedText(plant.c_str(), textColor,font,renderer))
+        if(!plantTexture.loadFromRenderedText(plant.c_str(), available,font,renderer))
         {
             std::cout<<"\n unable to render plant string to plantTexture!";
         }
@@ -290,7 +296,7 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     }
     if(waterPlantsOkay)
     {
-        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), textColor,font,renderer))
+        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), available,font,renderer))
         {
             std::cout<<"\n unable to render waterPlants string to waterPlantsTexture!";
         }
@@ -304,7 +310,7 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     }
     if(harvestOkay)
     {
-        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), textColor,font,renderer))
+        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), available,font,renderer))
         {
             std::cout<<"\n unable to render harvest string to harvestTexture!";
         }
@@ -350,19 +356,29 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     }
 
     sleep = "Sleep";
-    textColor = {255,255,255};//white
-    SDL_Color unavailable = {0,0,0};//black
 
-    if(need != 100)
+    loadBedTextTextures(renderer,font,need);
+}
+
+void station::loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)
+{
+    std::cout<<"\n running station::loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
+    std::cout<<"\n sleep string: "<<sleep;
+
+    if(need == 100)
     {
-        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),textColor,font,renderer))
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n sleep unavailable text texture should load";
+        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),unavailable,font,renderer))
         {
             std::cout<<"\n unable to render sleep string to sleepTexture";
         }
     }
     else
     {
-        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),unavailable,font,renderer))
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n sleep available text texture should load";
+        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),available,font,renderer))
         {
             std::cout<<"\n unable to render sleep string to sleepTexture";
         }
@@ -497,7 +513,7 @@ void station::free()
     std::cout<<"\n running station::free()";
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
-    sleepTexture.free();
+    //sleepTexture.free();
 }
 
 void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)

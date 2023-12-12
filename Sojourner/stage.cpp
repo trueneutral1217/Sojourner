@@ -209,13 +209,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //station.planterSown = true;
             ship.habitation.planter.waterPlantsOkay = true;
             ship.habitation.planter.plantOkay = false;
+            ship.habitation.planter.loadPlanterTextTextures(renderer,font);
 
             ship.habitation.planter.planterDaysState = 0;
             ship.habitation.planter.planterState = 0;
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.interacted = true;
 
-            player1.disinteract();
 
             std::cout<<"\n plantOkay: "<<ship.habitation.planter.plantOkay;
             timeSurvived += 30;
@@ -235,11 +235,11 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         if(!ship.habitation.planter.plantOkay && ship.habitation.planter.waterPlantsOkay)
         {
             ship.habitation.planter.waterPlantsOkay = false;
+            ship.habitation.planter.loadPlanterTextTextures(renderer,font);
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.planterTimeWatered = timeSurvived;
             ship.habitation.planter.interacted = true;
 
-             player1.disinteract();
 
             std::cout<<"\n waterPlantsOkay: "<<ship.habitation.planter.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
@@ -268,6 +268,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's slumber value is less than 100, modify and refresh needs from bed use.
             int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
             player1.modifyNeeds(slumberBag);
+            ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
             timeSurvived +=480;
@@ -289,7 +290,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
     //std::cout<<"\n interactPlanter: "<<player1.interactPlanter;
 
 
-    if(player1.interactPlanter && player1.interact)
+    if(player1.interactPlanter && player1.interact && buttonsFreed)
     {
         std::cout<<"\n creating planter buttons";
         buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
@@ -302,7 +303,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         buttonsFreed = false;
     }
     //std::cout<<"\n interactBed: "<<player1.interactBed;
-    if(player1.interactBed && player1.interact)
+    if(player1.interactBed && player1.interact && buttonsFreed)
     {
         std::cout<<"\n creating bed buttons";
         buttons[3].buttonTexture = ship.habitation.bed.sleepTexture;
@@ -344,7 +345,8 @@ void stage::freeStationButtons()
     buttons[1].free();
     buttons[2].free();
     buttons[3].free();
-
+    ship.habitation.planter.stationOptionsLoaded = false;
+    ship.habitation.bed.stationOptionsLoaded = false;
     buttonsFreed = true;
 }
 
@@ -421,13 +423,13 @@ void stage::renderStage1(SDL_Renderer* renderer)
 
                 if(player1.interactBed)
                 {
+                    ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
+                    /*
                     if(player1.need[3]<100)
                     {
 
-                        ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
-
                         //this magic should only happen if the player is sleepy and clicks the sleep option.
-                        /*
+
                         //if player's slumber value is less than 100, modify and refresh needs from bed use.
                         int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
                         player1.modifyNeeds(slumberBag);
@@ -436,8 +438,8 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         timeSurvived +=480;
                         ship.habitation.planter.updatePlant(renderer,timeSurvived);
 
-                        refreshTS(renderer);*/
-                    }/*
+                        refreshTS(renderer);
+                    }*//*
                     else
                     {//else just render 'not tired'
                         //std::cout<<"\n not tired should be displaying";
@@ -734,18 +736,28 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
 {
     //this function needs work **********************
     //needs abstraction
-    //buttons aren't deleting
+    //buttons aren't rendering again after being freed then recreated.
     //player1.interact is always true when this is running
 
+    if(buttonsFreed && player1.interactPlanter && !ship.habitation.planter.stationOptionsLoaded)
+    {
+        ship.habitation.planter.loadPlanterTextTextures(renderer,font);
+    }
+
+    if(buttonsFreed && player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
+    {
+        ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+    }
+    /*
     if(!ship.habitation.planter.stationOptionsLoaded && player1.interactPlanter)
     {//player is interacting with the planter, creating the buttons
-        ship.habitation.planter.loadPlanter(renderer,font);
+        ship.habitation.planter.loadPlanterTextTextures(renderer,font);
     }
     if(!ship.habitation.bed.stationOptionsLoaded && player1.interactBed)
     {
-        ship.habitation.bed.loadBed(renderer,font,player1.need[3]);
+        ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
     }
-    /*
+
     if(ship.habitation.planter.stationOptionsLoaded && ship.habitation.planter.interacted)
     {//player interacted with the planter, update the available options, planter texture.
         freeStationButtons();

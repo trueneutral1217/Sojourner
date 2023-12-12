@@ -44,13 +44,16 @@ class station
 
         Texture stationDefaultInteractionTextTexture;
 
+        //if the button is clickable, it shows up white, else black.
+        SDL_Color available = {255,255,255};//white
+        SDL_Color unavailable = {0,0,0};//black
 
-        //Textures for planter interaction buttons
+        //Text Textures for planter interaction buttons
         Texture plantTexture;
         Texture waterPlantsTexture;
         Texture harvestTexture;
 
-        //bed interactation button texture
+        //bed interactation button text texture
         Texture sleepTexture;
 
 
@@ -71,7 +74,10 @@ class station
         void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font);
         void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
         void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
+        void loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
+        //since the text texture may need reloading, giving them their own function
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
+        void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font);
 
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
