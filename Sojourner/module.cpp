@@ -15,7 +15,7 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
     std::cout<<"\n running module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[])";
     //load textures and interaction dialog etc for each station.
     waterTank.loadWaterTank(renderer,font,gauge[3]);
-    kitchen.loadKitchen(renderer,font);
+    kitchen.loadKitchen(renderer,font,need[2]);
     infirmary.loadInfirmary(renderer,font);
     bed.loadBed(renderer,font,need[3]);
     bike.loadBike(renderer,font);

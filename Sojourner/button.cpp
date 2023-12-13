@@ -345,10 +345,20 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
                             std::cout<<"\n user clicked 'waterPlants' button";
                             buttonClicked = 4;
                         }
+                        else if(buttonName == "harvest")
+                        {
+                            std::cout<<"\n user clicked 'harvest' button";
+                            buttonClicked = 5;
+                        }
                         else if(buttonName == "sleep")
                         {
                             std::cout<<"\n user clicked 'sleep' button";
-                            buttonClicked = 5;
+                            buttonClicked = 6;
+                        }
+                        else if(buttonName == "eat")
+                        {
+                            std::cout<<"\n user clicked 'eat' button";
+                            buttonClicked = 7;
                         }
                     break;
                 }

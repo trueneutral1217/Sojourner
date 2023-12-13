@@ -26,9 +26,10 @@ class station
         std::string plant;
         std::string waterPlants;
         std::string harvest;
-
         //for bed
         std::string sleep;
+        //for kitchen
+        std::string eat;
 
         //flags for planter options.  true sets font to white, false to black.
         bool plantOkay;
@@ -52,9 +53,10 @@ class station
         Texture plantTexture;
         Texture waterPlantsTexture;
         Texture harvestTexture;
-
-        //bed interactation button text texture
+        //bed interaction button text texture
         Texture sleepTexture;
+        //kitchen interaction button text texture
+        Texture eatTexture;
 
 
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
@@ -78,7 +80,8 @@ class station
         //since the text texture may need reloading, giving them their own function
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
         void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
-        void loadKitchen(SDL_Renderer* renderer, TTF_Font* font);
+        void loadKitchen(SDL_Renderer* renderer, TTF_Font* font,int need);
+        void loadKitchenTextTexture(SDL_Renderer* renderer, TTF_Font* font, int need);
 
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
@@ -89,6 +92,8 @@ class station
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
 
         void renderInteractBed(SDL_Renderer* renderer,int x, int y);
+
+        void renderInteractKitchen(SDL_Renderer* renderer, int x, int y);
 
 
 

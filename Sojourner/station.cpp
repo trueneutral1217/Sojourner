@@ -214,7 +214,7 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
     }
 }
 
-void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)
+void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)";
 
@@ -234,13 +234,43 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)
     interactable.h=collidable.h+6;
 
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
+
+    eat = "Eat";
+    /*
     //setting text for waterTank interaction
     stationDefaultInteractionText = "Not Hungry";
-    SDL_Color textColor = {255,255,255};//white
+    //SDL_Color textColor = {255,255,255};//white
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render foodTime string to foodTimeTexture!";
+    }*/
+    loadKitchenTextTexture(renderer,font,need);
+}
+
+void station::loadKitchenTextTexture(SDL_Renderer* renderer, TTF_Font* font, int need)
+{
+    std::cout<<"\n running station::loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
+    std::cout<<"\n eat string: "<<eat;
+
+    if(need == 100)
+    {
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n sleep unavailable text texture should load";
+        if(!eatTexture.loadFromRenderedText(eat.c_str(),unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render eat string to eatTexture";
+        }
     }
+    else
+    {
+        std::cout<<"\n need: "<<need;
+        if(!eatTexture.loadFromRenderedText(eat.c_str(),available,font,renderer))
+        {
+            std::cout<<"\n unable to render eat string to eatTexture";
+        }
+    }
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
 }
 
 void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
@@ -322,6 +352,7 @@ void station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)
             std::cout<<"\n unable to render harvest string to harvestTexture!";
         }
     }
+
 stationOptionsLoaded = true;
 }
 
@@ -426,26 +457,19 @@ void station::updateEngPosition2(int y)
 
 }
 
-/*
-void station::renderInteractEngExit(SDL_Renderer* renderer, int x, int y)
-{
-    y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractHabExit(SDL_Renderer* renderer, int x, int y)
-{
-    y-=20;
-    x-=60;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}*/
-
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 {
     //std::cout<<"\n running station::renderInteractStation(SDL_Renderer* renderer, int x, int y)";
     std::cout<<"\n"<<stationDefaultInteractionText;
     y-=20;
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void station::renderInteractKitchen(SDL_Renderer* renderer, int x, int y)
+{
+    x+=50;
+    y-=20;
+    eatTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractBed(SDL_Renderer* renderer, int x, int y)
@@ -601,6 +625,10 @@ void station::updatePlantTexture(SDL_Renderer* renderer)
                 stationTexture.loadFromFile("images/sprites/planterRipeWatered.png",renderer);
                 break;
         }
+    }
+    if(planterState == -1)
+    {
+        stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     }
 
 }

@@ -229,26 +229,21 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         //station.planterTexture=station.planterSownTexture;
     }
     else if(buttonClicked == 4)
-    {
-        //if  player has already planted but not watered
-
-        if(!ship.habitation.planter.plantOkay && ship.habitation.planter.waterPlantsOkay)
+    {//player clicked water
+        //if it's okay to water the plants now
+        if(ship.habitation.planter.waterPlantsOkay)
         {
             ship.habitation.planter.waterPlantsOkay = false;
             ship.habitation.planter.loadPlanterTextTextures(renderer,font);
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.planterTimeWatered = timeSurvived;
             ship.habitation.planter.interacted = true;
-
-
             std::cout<<"\n waterPlantsOkay: "<<ship.habitation.planter.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
             timeSurvived +=30;
             refreshTS(renderer);
-
-            //health physique slumber hunger morale
-
-            //temporary numbers
+            //health physique hunger slumber morale
+            //temporary numbers (need balancing later)
             int water[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
             player1.modifyNeeds(water);
             player1.reloadNeedsTextures(renderer,font);
@@ -262,7 +257,34 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         }
     }
     else if(buttonClicked == 5)
-    {
+    {//player clicked harvest
+        if(ship.habitation.planter.harvestOkay)
+        {//update flags.
+            ship.habitation.planter.plantOkay = true;
+            ship.habitation.planter.waterPlantsOkay = false;
+            ship.habitation.planter.harvestOkay = false;
+            //this updates the buttons based on the availability of the above options.
+            ship.habitation.planter.loadPlanterTextTextures(renderer,font);
+            //-1 is a special state the planter returns to after harvest: not sown or watered.
+            ship.habitation.planter.planterState = -1;
+            //update the texture of the planter station to the unsown/unwatered texture
+            ship.habitation.planter.updatePlantTexture(renderer);
+            //interacted variable may be deprecated... remove?
+            ship.habitation.planter.interacted = true;
+            //takes 1 hour to harvest the plants.  update the TimeSurvived text texture to reflect this.
+            timeSurvived +=60;
+            refreshTS(renderer);
+            //health physique hunger slumber morale
+            //temporary numbers (need balancing later)
+            int harvest[TOTAL_PLAYER_NEEDS] = {0,-10,-10,-10,-10};
+            player1.modifyNeeds(harvest);
+            player1.reloadNeedsTextures(renderer,font);
+
+        }
+
+    }
+    else if(buttonClicked == 6)
+    {//player clicked sleep
         if(player1.need[3] != 100)
         {
             //if player's slumber value is less than 100, modify and refresh needs from bed use.
@@ -274,6 +296,21 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             timeSurvived +=480;
             ship.habitation.planter.updatePlant(renderer,timeSurvived);
 
+            refreshTS(renderer);
+        }
+    }
+    else if(buttonClicked == 7)
+    {
+        if(player1.need[2] != 100)
+        {
+            //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+            int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
+            player1.modifyNeeds(kitchen);
+            ship.habitation.kitchen.loadKitchenTextTexture(renderer,font,player1.need[2]);
+            player1.reloadNeedsTextures(renderer,font);
+            //8 hours passed from sleeping
+            timeSurvived +=30;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
         }
     }
@@ -300,15 +337,29 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         buttons[2].buttonTexture = ship.habitation.planter.waterPlantsTexture;
         buttons[2].buttonName = "waterPlants";
         buttons[2].setPosition(player1.getX()+50,player1.getY());
+
+        buttons[3].buttonTexture = ship.habitation.planter.harvestTexture;
+        buttons[3].buttonName = "harvest";
+        buttons[3].setPosition(player1.getX()+50,player1.getY()+20);
+
         buttonsFreed = false;
     }
     //std::cout<<"\n interactBed: "<<player1.interactBed;
     if(player1.interactBed && player1.interact && buttonsFreed)
     {
         std::cout<<"\n creating bed buttons";
-        buttons[3].buttonTexture = ship.habitation.bed.sleepTexture;
-        buttons[3].buttonName = "sleep";
-        buttons[3].setPosition(player1.getX()+50,player1.getY()-20);
+        buttons[4].buttonTexture = ship.habitation.bed.sleepTexture;
+        buttons[4].buttonName = "sleep";
+        buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
+        buttonsFreed = false;
+    }
+
+    if(player1.interactKitchen && player1.interact && buttonsFreed)
+    {
+        std::cout<<"\n creating kitchen buttons";
+        buttons[5].buttonTexture = ship.habitation.kitchen.eatTexture;
+        buttons[5].buttonName = "eat";
+        buttons[5].setPosition(player1.getX()+50,player1.getY()-20);
         buttonsFreed = false;
     }
 
@@ -347,6 +398,7 @@ void stage::freeStationButtons()
     buttons[3].free();
     ship.habitation.planter.stationOptionsLoaded = false;
     ship.habitation.bed.stationOptionsLoaded = false;
+    ship.habitation.kitchen.stationOptionsLoaded = false;
     buttonsFreed = true;
 }
 
@@ -370,12 +422,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
             engInternalHandleParallax(renderer);
         }
     }
-
     //renders station, then renders player, because station is in front of player (station closer to bottom screen)
     if(internalView)
     {//this will have to be broken up a little, it should probably be renderHabStationBehindPlayer, but maybe I will
         //alter it in the function.
-
         if(inHab)
         {
             ship.habitation.waterTank.renderHabStationBehindPlayer(renderer,player1.playerBot);
@@ -391,20 +441,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             ship.engineering.engExit.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
-
     }
     if(showPlayer)
     {//player is shown if internalView is on.
         player1.render(renderer);
-
         if(inHab)
         {
-            /*
-            //this line is for test purposes
-            //may no longer be needed
-            ship.habitation.kitchen.stationTexture.render(300,300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            */
-
             ship.habitation.waterTank.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.planter.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.infirmary.renderHabStationFrontPlayer(renderer,player1.playerBot);
@@ -412,7 +454,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.habitation.recreation.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.bike.renderHabStationFrontPlayer(renderer,player1.playerBot);
             ship.habitation.bed.renderHabStationFrontPlayer(renderer,player1.playerBot);
-
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -424,27 +465,6 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(player1.interactBed)
                 {
                     ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
-                    /*
-                    if(player1.need[3]<100)
-                    {
-
-                        //this magic should only happen if the player is sleepy and clicks the sleep option.
-
-                        //if player's slumber value is less than 100, modify and refresh needs from bed use.
-                        int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
-                        player1.modifyNeeds(slumberBag);
-                        player1.reloadNeedsTextures(renderer,font);
-                        //8 hours passed from sleeping
-                        timeSurvived +=480;
-                        ship.habitation.planter.updatePlant(renderer,timeSurvived);
-
-                        refreshTS(renderer);
-                    }*//*
-                    else
-                    {//else just render 'not tired'
-                        //std::cout<<"\n not tired should be displaying";
-                        ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
-                    }*/
                 }
                 if(player1.interactPlanter)
                 {
@@ -452,21 +472,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 }
                 if(player1.interactKitchen)
                 {
-                    if(player1.need[2]<100)
-                    {
-                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                        int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
-                        player1.modifyNeeds(kitchen);
-                        player1.reloadNeedsTextures(renderer,font);
-                        //8 hours passed from sleeping
-                        timeSurvived +=30;
-                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
-                        refreshTS(renderer);
-                    }
-                    else
-                    {//else just render default text texture
-                        ship.habitation.kitchen.renderInteractStation(renderer,player1.getX(),player1.getY());
-                    }
+                    ship.habitation.kitchen.renderInteractKitchen(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactInfirmary)
                 {
@@ -675,17 +681,14 @@ void stage::move(int countedFrames)
     {
         //first habitat background
         ship.habitation.waterTank.updateHabPosition(habInternalY1);
-
         ship.habitation.kitchen.updateHabPosition(habInternalY1);
         ship.habitation.infirmary.updateHabPosition(habInternalY1);
         ship.habitation.planter.updateHabPosition(habInternalY1);
         ship.habitation.bed.updateHabPosition(habInternalY1);
         ship.habitation.habExit.updateHabPosition(habInternalY1);
-
         //second habitat background
         ship.habitation.bike.updateHabPosition2(habInternalY2);
         ship.habitation.recreation.updateHabPosition2(habInternalY2);
-
     }
     else if(inEng)
     {
@@ -693,7 +696,6 @@ void stage::move(int countedFrames)
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }
-
 }
 
 void stage::setNewgameVars()
@@ -715,7 +717,6 @@ void stage::setNewgameVars()
     {
         ship.gauge[i] = 100;
     }
-    //externalView=true;
 }
 
 
@@ -724,47 +725,31 @@ void stage::loadSavedGameData(Uint32 dataValues[])
     std::cout<<"\n running stage::loadSavedGameData(Uint32 dataValues[])";
     player1.setX(dataValues[0]);
     player1.setY(dataValues[1]);
-    //load habitat Y1 and Y2 coords from safe file
+    //load habitat Y1 and Y2 coords from save file
     habInternalY1 = dataValues[2];
     habInternalY2 = dataValues[3];
-
+    //load engineering Y1 & Y2 values from save file
     engInternalY1 = dataValues[4];
     engInternalY2 = dataValues[5];
 }
 
 void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
 {
-    //this function needs work **********************
-    //needs abstraction
-    //buttons aren't rendering again after being freed then recreated.
+    //I want more abstraction
+    //buttons aren't rendering again after being freed then recreated... sometimes
     //player1.interact is always true when this is running
-
     if(buttonsFreed && player1.interactPlanter && !ship.habitation.planter.stationOptionsLoaded)
     {
         ship.habitation.planter.loadPlanterTextTextures(renderer,font);
     }
-
     if(buttonsFreed && player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
     {
         ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
     }
-    /*
-    if(!ship.habitation.planter.stationOptionsLoaded && player1.interactPlanter)
-    {//player is interacting with the planter, creating the buttons
-        ship.habitation.planter.loadPlanterTextTextures(renderer,font);
-    }
-    if(!ship.habitation.bed.stationOptionsLoaded && player1.interactBed)
+    if(buttonsFreed && player1.interactKitchen && !ship.habitation.kitchen.stationOptionsLoaded)
     {
-        ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+        ship.habitation.kitchen.loadKitchenTextTexture(renderer,font,player1.need[2]);
     }
-
-    if(ship.habitation.planter.stationOptionsLoaded && ship.habitation.planter.interacted)
-    {//player interacted with the planter, update the available options, planter texture.
-        freeStationButtons();
-        ship.habitation.planter.loadPlanter(renderer,font);
-        ship.habitation.planter.interacted = false;
-    }*/
-
 }
 
 void stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)
