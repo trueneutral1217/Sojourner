@@ -13,7 +13,7 @@ station::station()
     //planterWatered = false;
     stationOptionsLoaded=false;
     //flag the interact buttons to reload.
-    interacted = false;
+    //interacted = false;
 
 }
 
@@ -126,7 +126,7 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
     }
 }
 
-void station::loadRec(SDL_Renderer* renderer, TTF_Font* font)
+void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadRec(SDL_Renderer* renderer, TTF_Font* font)";
 
@@ -145,16 +145,38 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font)
     interactable.h = collidable.h+4;
 
     stationTexture.loadFromFile("images/sprites/recreation.png",renderer);
-    //setting text for recreation interaction
-    stationDefaultInteractionText = "I'm Happy";
-    SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render recDefault string to recDefaultTexture!";
-    }
+    relax = "Relax";
+
+    loadRecTextTextures(renderer,font,need);
 }
 
-void station::loadBike(SDL_Renderer* renderer, TTF_Font* font)
+void station::loadRecTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
+{
+    std::cout<<"\n running station::loadRecTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
+    std::cout<<"\n relax string: "<<relax;
+
+    if(need == 100)
+    {
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n relax unavailable text texture should load";
+        if(!relaxTexture.loadFromRenderedText(relax.c_str(),unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render relax string to relaxTexture";
+        }
+    }
+    else
+    {
+        std::cout<<"\n need: "<<need;
+        if(!relaxTexture.loadFromRenderedText(relax.c_str(),available,font,renderer))
+        {
+            std::cout<<"\n unable to render relax string to relaxTexture";
+        }
+    }
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
+}
+
+void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadBike(SDL_Renderer* renderer, TTF_Font* font)";
 
@@ -175,16 +197,39 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font)
 
     //setting bike image to station texture
     stationTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
-    //setting text for bike interaction
-    stationDefaultInteractionText = "Stronk";
-    SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render bikeDefault string to bikeDefaultTexture!";
-    }
+
+    exercise = "Exercise";
+
+    loadBikeTextTextures(renderer,font,need);
 }
 
-void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
+void station::loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need)
+{
+    std::cout<<"\n running station::loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
+    std::cout<<"\n exercise string: "<<exercise;
+
+    if(need == 100)
+    {
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n exercise unavailable text texture should load";
+        if(!exerciseTexture.loadFromRenderedText(exercise.c_str(),unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render exercise string to exerciseTexture";
+        }
+    }
+    else
+    {
+        std::cout<<"\n need: "<<need;
+        if(!exerciseTexture.loadFromRenderedText(exercise.c_str(),available,font,renderer))
+        {
+            std::cout<<"\n unable to render exercise string to exerciseTexture";
+        }
+    }
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
+}
+
+void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
 {
     std::cout<<"\n running station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)";
 
@@ -205,13 +250,35 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)
 
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
-    //setting text for station interaction
-    stationDefaultInteractionText = "Healthy";
-    SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    heal = "Heal";
+
+    loadInfirmaryTextTextures(renderer,font,need);
+}
+
+void station::loadInfirmaryTextTextures(SDL_Renderer* renderer,TTF_Font* font, int need)
+{
+    std::cout<<"\n running station::loadInfirmaryTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
+    std::cout<<"\n heal string: "<<heal;
+
+    if(need == 100)
     {
-        std::cout<<"\n unable to render infirmDefault string to infirmDefaultTexture!";
+        std::cout<<"\n need: "<<need;
+        std::cout<<"\n heal unavailable text texture should load";
+        if(!healTexture.loadFromRenderedText(heal.c_str(),unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render heal string to healTexture";
+        }
     }
+    else
+    {
+        std::cout<<"\n need: "<<need;
+        if(!healTexture.loadFromRenderedText(heal.c_str(),available,font,renderer))
+        {
+            std::cout<<"\n unable to render heal string to healTexture";
+        }
+    }
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
 }
 
 void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
@@ -236,18 +303,11 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
 
     eat = "Eat";
-    /*
-    //setting text for waterTank interaction
-    stationDefaultInteractionText = "Not Hungry";
-    //SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render foodTime string to foodTimeTexture!";
-    }*/
-    loadKitchenTextTexture(renderer,font,need);
+
+    loadKitchenTextTextures(renderer,font,need);
 }
 
-void station::loadKitchenTextTexture(SDL_Renderer* renderer, TTF_Font* font, int need)
+void station::loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
     std::cout<<"\n eat string: "<<eat;
@@ -376,16 +436,6 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
 
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
 
-
-    //setting text for station interaction
-    stationDefaultInteractionText = "Not Tired";
-
-    SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render sleepyTime string to sleepyTimeTexture!";
-    }
-
     sleep = "Sleep";
 
     loadBedTextTextures(renderer,font,need);
@@ -470,6 +520,27 @@ void station::renderInteractKitchen(SDL_Renderer* renderer, int x, int y)
     x+=50;
     y-=20;
     eatTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
+{
+    x+=50;
+    y-=20;
+    healTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
+{
+    x+=50;
+    y-=20;
+    exerciseTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+}
+
+void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
+{
+    x+=50;
+    y-=20;
+    relaxTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractBed(SDL_Renderer* renderer, int x, int y)

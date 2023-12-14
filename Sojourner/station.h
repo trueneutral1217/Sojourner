@@ -30,6 +30,12 @@ class station
         std::string sleep;
         //for kitchen
         std::string eat;
+        //for infirmary
+        std::string heal;
+        //for bike
+        std::string exercise;
+        //for rec
+        std::string relax;
 
         //flags for planter options.  true sets font to white, false to black.
         bool plantOkay;
@@ -41,7 +47,7 @@ class station
         bool stationOptionsLoaded;
 
         //tracks when 'plant' and 'watered' have been pressed,
-        bool interacted;
+        //bool interacted;
 
         Texture stationDefaultInteractionTextTexture;
 
@@ -57,6 +63,12 @@ class station
         Texture sleepTexture;
         //kitchen interaction button text texture
         Texture eatTexture;
+        //infirmary interaction button text texture
+        Texture healTexture;
+        //bike interaction button text texture
+        Texture exerciseTexture;
+        //rec interaction button text texture
+        Texture relaxTexture;
 
 
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
@@ -71,9 +83,12 @@ class station
 
         void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadHabExit(SDL_Renderer* renderer, TTF_Font* font);
-        void loadRec(SDL_Renderer* renderer, TTF_Font* font);
-        void loadBike(SDL_Renderer* renderer, TTF_Font* font);
-        void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font);
+        void loadRec(SDL_Renderer* renderer, TTF_Font* font,int need);
+        void loadRecTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
+        void loadBike(SDL_Renderer* renderer, TTF_Font* font, int need);
+        void loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
+        void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font, int need);
+        void loadInfirmaryTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need);
         void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
         void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
         void loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
@@ -81,19 +96,19 @@ class station
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
         void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font,int need);
-        void loadKitchenTextTexture(SDL_Renderer* renderer, TTF_Font* font, int need);
+        void loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
 
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
 
         //functions for rendering interaction buttons like 'plant', 'sleep', etc.
         void renderInteractStation(SDL_Renderer* renderer, int x, int y);
-
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
-
         void renderInteractBed(SDL_Renderer* renderer,int x, int y);
-
         void renderInteractKitchen(SDL_Renderer* renderer, int x, int y);
+        void renderInteractInfirmary(SDL_Renderer* renderer,int x, int y);
+        void renderInteractBike(SDL_Renderer* renderer, int x, int y );
+        void renderInteractRec(SDL_Renderer* renderer, int x, int y);
 
 
 

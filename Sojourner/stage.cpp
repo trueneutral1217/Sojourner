@@ -214,7 +214,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.planterDaysState = 0;
             ship.habitation.planter.planterState = 0;
             ship.habitation.planter.updatePlantTexture(renderer);
-            ship.habitation.planter.interacted = true;
+            //ship.habitation.planter.interacted = true;
 
 
             std::cout<<"\n plantOkay: "<<ship.habitation.planter.plantOkay;
@@ -237,7 +237,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.loadPlanterTextTextures(renderer,font);
             ship.habitation.planter.updatePlantTexture(renderer);
             ship.habitation.planter.planterTimeWatered = timeSurvived;
-            ship.habitation.planter.interacted = true;
+            //ship.habitation.planter.interacted = true;
             std::cout<<"\n waterPlantsOkay: "<<ship.habitation.planter.waterPlantsOkay;
             //player watered the plants, which takes 30 minutes
             timeSurvived +=30;
@@ -270,7 +270,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //update the texture of the planter station to the unsown/unwatered texture
             ship.habitation.planter.updatePlantTexture(renderer);
             //interacted variable may be deprecated... remove?
-            ship.habitation.planter.interacted = true;
+            //ship.habitation.planter.interacted = true;
             //takes 1 hour to harvest the plants.  update the TimeSurvived text texture to reflect this.
             timeSurvived +=60;
             refreshTS(renderer);
@@ -306,10 +306,55 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
             int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
             player1.modifyNeeds(kitchen);
-            ship.habitation.kitchen.loadKitchenTextTexture(renderer,font,player1.need[2]);
+            ship.habitation.kitchen.loadKitchenTextTextures(renderer,font,player1.need[2]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
             timeSurvived +=30;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+        }
+    }
+    else if(buttonClicked == 8)
+    {//heal button clicked
+        if(player1.need[0] != 100)
+        {
+            //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+            int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
+            player1.modifyNeeds(infirm);
+            ship.habitation.infirmary.loadInfirmaryTextTextures(renderer,font,player1.need[0]);
+            player1.reloadNeedsTextures(renderer,font);
+            //8 hours passed from sleeping
+            timeSurvived +=60;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+        }
+    }
+    else if(buttonClicked == 9)
+    {//exercise button clicked
+        if(player1.need[1] != 100)
+        {
+            //if player's physique value is less than 100, modify and refresh needs from bike use.
+            int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
+            player1.modifyNeeds(bike);
+            ship.habitation.bike.loadBikeTextTextures(renderer,font,player1.need[1]);
+            player1.reloadNeedsTextures(renderer,font);
+            //2 hours passed from exercising
+            timeSurvived +=120;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+        }
+    }
+    else if(buttonClicked == 10)
+    {//relax button clicked
+        if(player1.need[4] != 100)
+        {
+            //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
+            int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
+            player1.modifyNeeds(recreation);
+            ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+            player1.reloadNeedsTextures(renderer,font);
+            //1 hours passed from R&R
+            timeSurvived +=60;
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
         }
@@ -325,42 +370,70 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
     //planter's plant button needs to be updated based on the planter's X,Y coords
     //attempting to create a button using a textTexture. this might not work right if plant texture has moved.
     //std::cout<<"\n interactPlanter: "<<player1.interactPlanter;
-
-
-    if(player1.interactPlanter && player1.interact && buttonsFreed)
+    if(player1.interact && buttonsFreed)
     {
-        std::cout<<"\n creating planter buttons";
-        buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
-        buttons[1].buttonName = "plant";
-        buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
+        if(player1.interactPlanter)
+        {
+            std::cout<<"\n creating planter buttons";
+            buttons[1].buttonTexture = ship.habitation.planter.plantTexture;
+            buttons[1].buttonName = "plant";
+            buttons[1].setPosition(player1.getX()+50,player1.getY()-20);
 
-        buttons[2].buttonTexture = ship.habitation.planter.waterPlantsTexture;
-        buttons[2].buttonName = "waterPlants";
-        buttons[2].setPosition(player1.getX()+50,player1.getY());
+            buttons[2].buttonTexture = ship.habitation.planter.waterPlantsTexture;
+            buttons[2].buttonName = "waterPlants";
+            buttons[2].setPosition(player1.getX()+50,player1.getY());
 
-        buttons[3].buttonTexture = ship.habitation.planter.harvestTexture;
-        buttons[3].buttonName = "harvest";
-        buttons[3].setPosition(player1.getX()+50,player1.getY()+20);
+            buttons[3].buttonTexture = ship.habitation.planter.harvestTexture;
+            buttons[3].buttonName = "harvest";
+            buttons[3].setPosition(player1.getX()+50,player1.getY()+20);
 
-        buttonsFreed = false;
-    }
-    //std::cout<<"\n interactBed: "<<player1.interactBed;
-    if(player1.interactBed && player1.interact && buttonsFreed)
-    {
-        std::cout<<"\n creating bed buttons";
-        buttons[4].buttonTexture = ship.habitation.bed.sleepTexture;
-        buttons[4].buttonName = "sleep";
-        buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
-        buttonsFreed = false;
-    }
+            buttonsFreed = false;
+        }
+        //std::cout<<"\n interactBed: "<<player1.interactBed;
+        if(player1.interactBed)
+        {
+            std::cout<<"\n creating bed buttons";
+            buttons[4].buttonTexture = ship.habitation.bed.sleepTexture;
+            buttons[4].buttonName = "sleep";
+            buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
 
-    if(player1.interactKitchen && player1.interact && buttonsFreed)
-    {
-        std::cout<<"\n creating kitchen buttons";
-        buttons[5].buttonTexture = ship.habitation.kitchen.eatTexture;
-        buttons[5].buttonName = "eat";
-        buttons[5].setPosition(player1.getX()+50,player1.getY()-20);
-        buttonsFreed = false;
+        if(player1.interactKitchen)
+        {
+            std::cout<<"\n creating kitchen buttons";
+            buttons[5].buttonTexture = ship.habitation.kitchen.eatTexture;
+            buttons[5].buttonName = "eat";
+            buttons[5].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
+
+        if(player1.interactInfirmary)
+        {
+            std::cout<<"\n creating infirmary buttons";
+            buttons[6].buttonTexture = ship.habitation.infirmary.healTexture;
+            buttons[6].buttonName = "heal";
+            buttons[6].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
+
+        if(player1.interactBike)
+        {
+            std::cout<<"\n creating bike buttons";
+            buttons[7].buttonTexture = ship.habitation.bike.exerciseTexture;
+            buttons[7].buttonName = "exercise";
+            buttons[7].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed=false;
+        }
+
+        if(player1.interactRec)
+        {
+            std::cout<<"\n creating Rec buttons";
+            buttons[8].buttonTexture = ship.habitation.recreation.relaxTexture;
+            buttons[8].buttonName = "relax";
+            buttons[8].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
     }
 
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
@@ -393,12 +466,16 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
 void stage::freeStationButtons()
 {
     std::cout<<"\n running stage::freeStationButtons()";
-    buttons[1].free();
-    buttons[2].free();
-    buttons[3].free();
+    for(int i = 1; i<TOTAL_STAGE_BUTTONS; i++)
+    {
+        buttons[i].free();
+    }
     ship.habitation.planter.stationOptionsLoaded = false;
     ship.habitation.bed.stationOptionsLoaded = false;
     ship.habitation.kitchen.stationOptionsLoaded = false;
+    ship.habitation.infirmary.stationOptionsLoaded = false;
+    ship.habitation.bike.stationOptionsLoaded = false;
+    ship.habitation.recreation.stationOptionsLoaded =false;
     buttonsFreed = true;
 }
 
@@ -476,57 +553,15 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 }
                 if(player1.interactInfirmary)
                 {
-                    if(player1.need[0]<100)
-                    {
-                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                        int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
-                        player1.modifyNeeds(infirm);
-                        player1.reloadNeedsTextures(renderer,font);
-                        //8 hours passed from sleeping
-                        timeSurvived +=60;
-                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
-                        refreshTS(renderer);
-                    }
-                    else
-                    {//else just render 'not tired'
-                        ship.habitation.infirmary.renderInteractStation(renderer,player1.getX(),player1.getY());
-                    }
+                    ship.habitation.infirmary.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactBike)
                 {
-                    if(player1.need[1]<100)
-                    {
-                        //if player's physique value is less than 100, modify and refresh needs from bike use.
-                        int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
-                        player1.modifyNeeds(bike);
-                        player1.reloadNeedsTextures(renderer,font);
-                        //2 hours passed from exercising
-                        timeSurvived +=120;
-                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
-                        refreshTS(renderer);
-                    }
-                    else
-                    {//else just render 'stronk'
-                        ship.habitation.bike.renderInteractStation(renderer,player1.getX(),player1.getY());
-                    }
+                    ship.habitation.bike.renderInteractBike(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactRec)
                 {
-                    if(player1.need[4]<100)
-                    {
-                        //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-                        int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
-                        player1.modifyNeeds(recreation);
-                        player1.reloadNeedsTextures(renderer,font);
-                        //1 hours passed from R&R
-                        timeSurvived +=60;
-                        ship.habitation.planter.updatePlant(renderer, timeSurvived);
-                        refreshTS(renderer);
-                    }
-                    else
-                    {//else just render 'I'm Happy'
-                        ship.habitation.recreation.renderInteractStation(renderer,player1.getX(),player1.getY());
-                    }
+                    ship.habitation.recreation.renderInteractRec(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactHabExit)
                 {
@@ -738,33 +773,52 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
     //I want more abstraction
     //buttons aren't rendering again after being freed then recreated... sometimes
     //player1.interact is always true when this is running
-    if(buttonsFreed && player1.interactPlanter && !ship.habitation.planter.stationOptionsLoaded)
+    if(buttonsFreed)
     {
-        ship.habitation.planter.loadPlanterTextTextures(renderer,font);
+        if(player1.interactPlanter && !ship.habitation.planter.stationOptionsLoaded)
+        {
+            ship.habitation.planter.loadPlanterTextTextures(renderer,font);
+        }
+        if(player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
+        {
+            ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+        }
+        if(player1.interactKitchen && !ship.habitation.kitchen.stationOptionsLoaded)
+        {
+            ship.habitation.kitchen.loadKitchenTextTextures(renderer,font,player1.need[2]);
+        }
+        if(player1.interactInfirmary && !ship.habitation.infirmary.stationOptionsLoaded)
+        {
+            ship.habitation.infirmary.loadInfirmaryTextTextures(renderer,font,player1.need[0]);
+        }
+        if(player1.interactBike && !ship.habitation.bike.stationOptionsLoaded)
+        {
+            ship.habitation.bike.loadBikeTextTextures(renderer,font,player1.need[1]);
+        }
+        if(player1.interactRec && !ship.habitation.recreation.stationOptionsLoaded)
+        {
+            ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+        }
     }
-    if(buttonsFreed && player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
-    {
-        ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
-    }
-    if(buttonsFreed && player1.interactKitchen && !ship.habitation.kitchen.stationOptionsLoaded)
-    {
-        ship.habitation.kitchen.loadKitchenTextTexture(renderer,font,player1.need[2]);
-    }
+
 }
 
 void stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)
 {
     std::cout<<"\n running stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)";
-
+    //minutes, hours, days survived
     int mS,hS,dS;
+    //time survived is an int that keeps getting increased by minutes
     mS = timeSurvived%60;
     hS = (timeSurvived/60)%24;
     dS = ((timeSurvived/60)/24);
 
+    //strings created for the UI at the top center of stage screen
     std::string mSurvived = std::to_string(mS);
     std::string hSurvived = std::to_string(hS);
     std::string dSurvived = std::to_string(dS);
 
+    //the text textures for mins, hrs, & days survived
     SDL_Color textColor = {255,255,255};//white
     if(!minutesSurvived.loadFromRenderedText(mSurvived.c_str(), textColor,font,renderer))
     {
@@ -781,21 +835,22 @@ void stage::loadTimeSurvivedTextures(SDL_Renderer* renderer)
 }
 
 void stage::renderTimeSurvivedTextTextures(SDL_Renderer* renderer)
-{
+{//renders the text textures for the mins,hrs, and days survived
     daysSurvived.render(420,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     hoursSurvived.render(420,25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     minutesSurvived.render(420,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void stage::freeTimeSurvivedTextures()
-{
+{//frees the text textures for mins, hrs, and days survived
     daysSurvived.free();
     hoursSurvived.free();
     minutesSurvived.free();
 }
 
 void stage::refreshTS(SDL_Renderer* renderer)
-{
+{//if time survived is increased, the new values for mins,hrs, and days need to be reloaded from ints to strings
+    //to textures
     freeTimeSurvivedTextures();
     std::cout<<"\n running stage::refreshTS(SDL_Renderer* renderer)";
 

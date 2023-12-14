@@ -16,11 +16,11 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
     //load textures and interaction dialog etc for each station.
     waterTank.loadWaterTank(renderer,font,gauge[3]);
     kitchen.loadKitchen(renderer,font,need[2]);
-    infirmary.loadInfirmary(renderer,font);
+    infirmary.loadInfirmary(renderer,font,need[0]);
     bed.loadBed(renderer,font,need[3]);
-    bike.loadBike(renderer,font);
+    bike.loadBike(renderer,font,need[1]);
     planter.loadPlanter(renderer,font);
-    recreation.loadRec(renderer,font);
+    recreation.loadRec(renderer,font,need[4]);
     habExit.loadHabExit(renderer,font);
 
 }
