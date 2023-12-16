@@ -143,35 +143,37 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
     interactable.y = collidable.y-2;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+4;
-
     stationTexture.loadFromFile("images/sprites/recreation.png",renderer);
-    relax = "Relax";
-
-    loadRecTextTextures(renderer,font,need);
+    buttonString.push_back("Relax");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
-void station::loadRecTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
+void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
 {
-    std::cout<<"\n running station::loadRecTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
-    std::cout<<"\n relax string: "<<relax;
-
+    std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
+    std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
+    //Texture tempTextTexture;
     if(need == 100)
     {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n relax unavailable text texture should load";
-        if(!relaxTexture.loadFromRenderedText(relax.c_str(),unavailable,font,renderer))
+        std::cout<<"\n unavailable";
+        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],unavailable,font,renderer))
         {
-            std::cout<<"\n unable to render relax string to relaxTexture";
+            std::cout<<"\n unable to render station button text to station button text texture!";
         }
     }
     else
     {
-        std::cout<<"\n need: "<<need;
-        if(!relaxTexture.loadFromRenderedText(relax.c_str(),available,font,renderer))
+        std::cout<<"\n available";
+        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],available,font,renderer))
         {
-            std::cout<<"\n unable to render relax string to relaxTexture";
+            std::cout<<"\n unable to render station button text to station button text texture!";
         }
     }
+    //buttonTextTexture.push_back(tempTextTexture);
+    std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
 }
@@ -179,8 +181,6 @@ void station::loadRecTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need
 void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadBike(SDL_Renderer* renderer, TTF_Font* font)";
-
-
     stationX = 100;
     stationY = 850;
     stationInitialY = stationY;
@@ -197,36 +197,11 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
 
     //setting bike image to station texture
     stationTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
-
-    exercise = "Exercise";
-
-    loadBikeTextTextures(renderer,font,need);
-}
-
-void station::loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need)
-{
-    std::cout<<"\n running station::loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
-    std::cout<<"\n exercise string: "<<exercise;
-
-    if(need == 100)
-    {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n exercise unavailable text texture should load";
-        if(!exerciseTexture.loadFromRenderedText(exercise.c_str(),unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render exercise string to exerciseTexture";
-        }
-    }
-    else
-    {
-        std::cout<<"\n need: "<<need;
-        if(!exerciseTexture.loadFromRenderedText(exercise.c_str(),available,font,renderer))
-        {
-            std::cout<<"\n unable to render exercise string to exerciseTexture";
-        }
-    }
-    //tells the stage.handleStation function not to keep running this function.
-    stationOptionsLoaded = true;
+    buttonString.push_back("Exercise");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
 void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
@@ -247,38 +222,13 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.y = collidable.y-3;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+6;
-
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
-    heal = "Heal";
-
-    loadInfirmaryTextTextures(renderer,font,need);
-}
-
-void station::loadInfirmaryTextTextures(SDL_Renderer* renderer,TTF_Font* font, int need)
-{
-    std::cout<<"\n running station::loadInfirmaryTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
-    std::cout<<"\n heal string: "<<heal;
-
-    if(need == 100)
-    {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n heal unavailable text texture should load";
-        if(!healTexture.loadFromRenderedText(heal.c_str(),unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render heal string to healTexture";
-        }
-    }
-    else
-    {
-        std::cout<<"\n need: "<<need;
-        if(!healTexture.loadFromRenderedText(heal.c_str(),available,font,renderer))
-        {
-            std::cout<<"\n unable to render heal string to healTexture";
-        }
-    }
-    //tells the stage.handleStation function not to keep running this function.
-    stationOptionsLoaded = true;
+    buttonString.push_back("Heal");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
 void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
@@ -299,38 +249,12 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
     interactable.y=collidable.y-3;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+6;
-
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
-
-    eat = "Eat";
-
-    loadKitchenTextTextures(renderer,font,need);
-}
-
-void station::loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need)
-{
-    std::cout<<"\n running station::loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
-    std::cout<<"\n eat string: "<<eat;
-
-    if(need == 100)
-    {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n sleep unavailable text texture should load";
-        if(!eatTexture.loadFromRenderedText(eat.c_str(),unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render eat string to eatTexture";
-        }
-    }
-    else
-    {
-        std::cout<<"\n need: "<<need;
-        if(!eatTexture.loadFromRenderedText(eat.c_str(),available,font,renderer))
-        {
-            std::cout<<"\n unable to render eat string to eatTexture";
-        }
-    }
-    //tells the stage.handleStation function not to keep running this function.
-    stationOptionsLoaded = true;
+    buttonString.push_back("Eat");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
 void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
@@ -361,9 +285,7 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     waterPlants = "Water Plants";
     harvest = "Harvest";
 
-
     loadPlanterTextTextures(renderer,font);
-
 }
 
 void station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)
@@ -433,39 +355,12 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.y=collidable.y-4;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+10;
-
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
-
-    sleep = "Sleep";
-
-    loadBedTextTextures(renderer,font,need);
-}
-
-void station::loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)
-{
-    std::cout<<"\n running station::loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need)";
-    std::cout<<"\n sleep string: "<<sleep;
-
-    if(need == 100)
-    {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n sleep unavailable text texture should load";
-        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render sleep string to sleepTexture";
-        }
-    }
-    else
-    {
-        std::cout<<"\n need: "<<need;
-        std::cout<<"\n sleep available text texture should load";
-        if(!sleepTexture.loadFromRenderedText(sleep.c_str(),available,font,renderer))
-        {
-            std::cout<<"\n unable to render sleep string to sleepTexture";
-        }
-    }
-    //tells the stage.handleStation function not to keep running this function.
-    stationOptionsLoaded = true;
+    buttonString.push_back("Sleep");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
 void station::updateHabPosition(int y)
@@ -515,43 +410,11 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
-void station::renderInteractKitchen(SDL_Renderer* renderer, int x, int y)
+void station::renderInteractStationButtons(SDL_Renderer* renderer, int x, int y)
 {
     x+=50;
     y-=20;
-    eatTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractInfirmary(SDL_Renderer* renderer, int x, int y)
-{
-    x+=50;
-    y-=20;
-    healTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractBike(SDL_Renderer* renderer, int x, int y)
-{
-    x+=50;
-    y-=20;
-    exerciseTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractRec(SDL_Renderer* renderer, int x, int y)
-{
-    x+=50;
-    y-=20;
-    relaxTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractBed(SDL_Renderer* renderer, int x, int y)
-{
-    //std::cout<<"\n running station::renderInteractBed(SDL_Renderer* renderer, int x, int y)";
-    //displays textures to the right of player texture
-    x+=50;
-    //displays texture above player's head
-    y-=20;
-    //text texture 'Sleep'
-    sleepTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    buttonTextTexture[0].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
@@ -608,6 +471,16 @@ void station::free()
     std::cout<<"\n running station::free()";
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
+    for(int i=0;i<buttonString.size();i++)
+    {
+        buttonString[i] = "";
+        buttonString.pop_back();
+    }
+    for(int i=0;i<buttonTextTexture.size();i++)
+    {
+        buttonTextTexture[i].free();
+        buttonTextTexture.pop_back();
+    }
     //sleepTexture.free();
 }
 

@@ -290,7 +290,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's slumber value is less than 100, modify and refresh needs from bed use.
             int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
             player1.modifyNeeds(slumberBag);
-            ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+            //ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+            ship.habitation.bed.loadStationButtonTextTextures(renderer,font,player1.need[3]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
             timeSurvived +=480;
@@ -306,7 +307,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
             int kitchen[TOTAL_PLAYER_NEEDS] = {0,-5,100,-2,0};
             player1.modifyNeeds(kitchen);
-            ship.habitation.kitchen.loadKitchenTextTextures(renderer,font,player1.need[2]);
+            ship.habitation.kitchen.loadStationButtonTextTextures(renderer,font,player1.need[2]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
             timeSurvived +=30;
@@ -321,7 +322,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
             int infirm[TOTAL_PLAYER_NEEDS] = {100,-5,-5,-5,-5};
             player1.modifyNeeds(infirm);
-            ship.habitation.infirmary.loadInfirmaryTextTextures(renderer,font,player1.need[0]);
+            ship.habitation.infirmary.loadStationButtonTextTextures(renderer,font,player1.need[0]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
             timeSurvived +=60;
@@ -336,7 +337,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's physique value is less than 100, modify and refresh needs from bike use.
             int bike[TOTAL_PLAYER_NEEDS] = {0,100,-5,-5,-5};
             player1.modifyNeeds(bike);
-            ship.habitation.bike.loadBikeTextTextures(renderer,font,player1.need[1]);
+            ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
             player1.reloadNeedsTextures(renderer,font);
             //2 hours passed from exercising
             timeSurvived +=120;
@@ -351,7 +352,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
             int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
             player1.modifyNeeds(recreation);
-            ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+            //ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+            ship.habitation.recreation.loadStationButtonTextTextures(renderer,font,player1.need[4]);
             player1.reloadNeedsTextures(renderer,font);
             //1 hours passed from R&R
             timeSurvived +=60;
@@ -393,7 +395,8 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         if(player1.interactBed)
         {
             std::cout<<"\n creating bed buttons";
-            buttons[4].buttonTexture = ship.habitation.bed.sleepTexture;
+            //buttons[4].buttonTexture = ship.habitation.bed.sleepTexture;
+            buttons[4].buttonTexture = ship.habitation.bed.buttonTextTexture[0];
             buttons[4].buttonName = "sleep";
             buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
@@ -402,7 +405,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         if(player1.interactKitchen)
         {
             std::cout<<"\n creating kitchen buttons";
-            buttons[5].buttonTexture = ship.habitation.kitchen.eatTexture;
+            buttons[5].buttonTexture = ship.habitation.kitchen.buttonTextTexture[0];
             buttons[5].buttonName = "eat";
             buttons[5].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
@@ -411,7 +414,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         if(player1.interactInfirmary)
         {
             std::cout<<"\n creating infirmary buttons";
-            buttons[6].buttonTexture = ship.habitation.infirmary.healTexture;
+            buttons[6].buttonTexture = ship.habitation.infirmary.buttonTextTexture[0];
             buttons[6].buttonName = "heal";
             buttons[6].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
@@ -420,7 +423,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         if(player1.interactBike)
         {
             std::cout<<"\n creating bike buttons";
-            buttons[7].buttonTexture = ship.habitation.bike.exerciseTexture;
+            buttons[7].buttonTexture = ship.habitation.bike.buttonTextTexture[0];
             buttons[7].buttonName = "exercise";
             buttons[7].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed=false;
@@ -429,7 +432,8 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
         if(player1.interactRec)
         {
             std::cout<<"\n creating Rec buttons";
-            buttons[8].buttonTexture = ship.habitation.recreation.relaxTexture;
+            buttons[8].buttonTexture = ship.habitation.recreation.buttonTextTexture[0];
+            //buttons[8].buttonTexture = ship.habitation.recreation.relaxTexture;
             buttons[8].buttonName = "relax";
             buttons[8].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
@@ -538,30 +542,29 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 {
                     ship.habitation.waterTank.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
-
                 if(player1.interactBed)
                 {
-                    ship.habitation.bed.renderInteractBed(renderer,player1.getX(),player1.getY());
+                    ship.habitation.bed.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactRec)
+                {
+                    ship.habitation.recreation.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactBike)
+                {
+                    ship.habitation.bike.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactInfirmary)
+                {
+                    ship.habitation.infirmary.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactKitchen)
+                {
+                    ship.habitation.kitchen.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactPlanter)
                 {
                     ship.habitation.planter.renderInteractPlanter(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactKitchen)
-                {
-                    ship.habitation.kitchen.renderInteractKitchen(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactInfirmary)
-                {
-                    ship.habitation.infirmary.renderInteractInfirmary(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactBike)
-                {
-                    ship.habitation.bike.renderInteractBike(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactRec)
-                {
-                    ship.habitation.recreation.renderInteractRec(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactHabExit)
                 {
@@ -781,23 +784,25 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
         }
         if(player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
         {
-            ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+            //ship.habitation.bed.loadBedTextTextures(renderer,font,player1.need[3]);
+            ship.habitation.bed.loadStationButtonTextTextures(renderer,font,player1.need[3]);
         }
         if(player1.interactKitchen && !ship.habitation.kitchen.stationOptionsLoaded)
         {
-            ship.habitation.kitchen.loadKitchenTextTextures(renderer,font,player1.need[2]);
+            ship.habitation.kitchen.loadStationButtonTextTextures(renderer,font,player1.need[2]);
         }
         if(player1.interactInfirmary && !ship.habitation.infirmary.stationOptionsLoaded)
         {
-            ship.habitation.infirmary.loadInfirmaryTextTextures(renderer,font,player1.need[0]);
+            ship.habitation.infirmary.loadStationButtonTextTextures(renderer,font,player1.need[0]);
         }
         if(player1.interactBike && !ship.habitation.bike.stationOptionsLoaded)
         {
-            ship.habitation.bike.loadBikeTextTextures(renderer,font,player1.need[1]);
+            ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
         }
         if(player1.interactRec && !ship.habitation.recreation.stationOptionsLoaded)
         {
-            ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+            //ship.habitation.recreation.loadRecTextTextures(renderer,font,player1.need[4]);
+            ship.habitation.recreation.loadStationButtonTextTextures(renderer,font,player1.need[4]);
         }
     }
 

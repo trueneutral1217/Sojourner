@@ -3,6 +3,7 @@
 
 #include "texture.h"
 #include "button.h"
+#include <vector>
 
 class station
 {
@@ -22,20 +23,23 @@ class station
 
         std::string stationDefaultInteractionText;
 
+        //strings for interaction button text textures
+        //doing this to make the code more abstract.
+        std::vector<std::string> buttonString;
+
         //strings to be used to determine interaction type for planter
         std::string plant;
         std::string waterPlants;
         std::string harvest;
-        //for bed
-        std::string sleep;
+
         //for kitchen
         std::string eat;
         //for infirmary
         std::string heal;
         //for bike
         std::string exercise;
-        //for rec
-        std::string relax;
+
+
 
         //flags for planter options.  true sets font to white, false to black.
         bool plantOkay;
@@ -55,21 +59,12 @@ class station
         SDL_Color available = {255,255,255};//white
         SDL_Color unavailable = {0,0,0};//black
 
+        std::vector<Texture> buttonTextTexture;
+
         //Text Textures for planter interaction buttons
         Texture plantTexture;
         Texture waterPlantsTexture;
         Texture harvestTexture;
-        //bed interaction button text texture
-        Texture sleepTexture;
-        //kitchen interaction button text texture
-        Texture eatTexture;
-        //infirmary interaction button text texture
-        Texture healTexture;
-        //bike interaction button text texture
-        Texture exerciseTexture;
-        //rec interaction button text texture
-        Texture relaxTexture;
-
 
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
@@ -81,22 +76,21 @@ class station
         //the interactable area of the station
         SDL_Rect interactable;
 
+        //
+        void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need);
+
+        void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
+
         void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadHabExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadRec(SDL_Renderer* renderer, TTF_Font* font,int need);
-        void loadRecTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
         void loadBike(SDL_Renderer* renderer, TTF_Font* font, int need);
-        void loadBikeTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
         void loadInfirmary(SDL_Renderer* renderer, TTF_Font* font, int need);
-        void loadInfirmaryTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need);
         void loadWaterTank(SDL_Renderer* renderer,TTF_Font* font, int waterGauge);
         void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
-        void loadBedTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
-        //since the text texture may need reloading, giving them their own function
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
-        void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font,int need);
-        void loadKitchenTextTextures(SDL_Renderer* renderer, TTF_Font* font, int need);
+
 
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
@@ -104,12 +98,8 @@ class station
         //functions for rendering interaction buttons like 'plant', 'sleep', etc.
         void renderInteractStation(SDL_Renderer* renderer, int x, int y);
         void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
-        void renderInteractBed(SDL_Renderer* renderer,int x, int y);
-        void renderInteractKitchen(SDL_Renderer* renderer, int x, int y);
-        void renderInteractInfirmary(SDL_Renderer* renderer,int x, int y);
-        void renderInteractBike(SDL_Renderer* renderer, int x, int y );
-        void renderInteractRec(SDL_Renderer* renderer, int x, int y);
 
+        void renderInteractStationButtons(SDL_Renderer* renderer, int x,int y);
 
 
         //loads textures for stations (sleepingbag image, water tank image)
