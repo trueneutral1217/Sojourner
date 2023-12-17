@@ -20,6 +20,7 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
     bed.loadBed(renderer,font,need[3]);
     bike.loadBike(renderer,font,need[1]);
     planter.loadPlanter(renderer,font);
+    planter.updatePlantTexture(renderer);
     recreation.loadRec(renderer,font,need[4]);
     habExit.loadHabExit(renderer,font);
 

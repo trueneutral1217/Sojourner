@@ -24,35 +24,15 @@ class station
         std::string stationDefaultInteractionText;
 
         //strings for interaction button text textures
-        //doing this to make the code more abstract.
         std::vector<std::string> buttonString;
-
-        //strings to be used to determine interaction type for planter
-        std::string plant;
-        std::string waterPlants;
-        std::string harvest;
-
-        //for kitchen
-        std::string eat;
-        //for infirmary
-        std::string heal;
-        //for bike
-        std::string exercise;
-
-
-
-        //flags for planter options.  true sets font to white, false to black.
-        bool plantOkay;
-        bool waterPlantsOkay;
-        bool harvestOkay;
+        //flags for button availability (to player).  true = clickable,white.  false = not clickable/black.
+        std::vector<bool> buttonAvailable;
 
         //the two bools below are to determine whether or not to load/render text texture buttons for planting, etc.
         //could possibly reduce to 1.
         bool stationOptionsLoaded;
 
-        //tracks when 'plant' and 'watered' have been pressed,
-        //bool interacted;
-
+        //this is currently only used for the waterTank I think, it's redundant, might delete.
         Texture stationDefaultInteractionTextTexture;
 
         //if the button is clickable, it shows up white, else black.
@@ -61,14 +41,10 @@ class station
 
         std::vector<Texture> buttonTextTexture;
 
-        //Text Textures for planter interaction buttons
-        Texture plantTexture;
-        Texture waterPlantsTexture;
-        Texture harvestTexture;
-
         //idea for water tank / other upgrades: upgrades to stations = upgrades to UI,
         //ie: interact to gauge water before upgrade, after upgrade water level is part of UI.
 
+        //this is the image of the station that is rendered to the module the player is in.
         Texture stationTexture;
 
         //the impassable area of the station
@@ -76,11 +52,10 @@ class station
         //the interactable area of the station
         SDL_Rect interactable;
 
-        //
+        //when interacting with a station, these two set up the render color for text textures
         void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need);
-
-        void loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font);
-
+        void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font);
+        //when loading stage, these functions set up each station
         void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadHabExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadRec(SDL_Renderer* renderer, TTF_Font* font,int need);
@@ -90,35 +65,28 @@ class station
         void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font,int need);
-
-
+        //these two might not be used, considering deleting
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);
-
         //functions for rendering interaction buttons like 'plant', 'sleep', etc.
         void renderInteractStation(SDL_Renderer* renderer, int x, int y);
-        void renderInteractPlanter(SDL_Renderer* renderer,int x, int y);
-
+        //renders the text textures for the stations' buttons, based on player coords sent in.
         void renderInteractStationButtons(SDL_Renderer* renderer, int x,int y);
-
-
-        //loads textures for stations (sleepingbag image, water tank image)
-        void loadStation(SDL_Renderer* renderer,TTF_Font* font, int shipGaugeValues[]);
         //when player walks around, the stations move with the background.
         void updateHabPosition(int y);
         //for the stations that are rendered on the second hab bg.
         void updateHabPosition2(int y);
-        //
+        //updates first engineering background image to parallax as player walks up/down
         void updateEngPosition(int y);
-        //
+        //updates the second background image
         void updateEngPosition2(int y);
         //renders the textures that belong behind player
         void renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot);
         //renders the textures that belong in front of the player
         void renderHabStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
-        //
+        //renders stations behind player in engineering module
         void renderEngStationBehindPlayer(SDL_Renderer* renderer, int playerBot);
-        //
+        //renders stations in front of player in engineering module
         void renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot);
         //frees the resources
         void free();
@@ -126,7 +94,6 @@ class station
         void updatePlant(SDL_Renderer* renderer, int timeSurvived);
         //update's plant's texture
         void updatePlantTexture(SDL_Renderer* renderer);
-
 
     private:
 

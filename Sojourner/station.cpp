@@ -2,44 +2,15 @@
 
 station::station()
 {
-    plantOkay = true;
-    waterPlantsOkay = false;
-    harvestOkay = false;
     planterTimeWatered=0;
     planterDaysState=0;
     planterState=-1;
-
-//    planterSown = false;
-    //planterWatered = false;
     stationOptionsLoaded=false;
-    //flag the interact buttons to reload.
-    //interacted = false;
-
 }
 
 station::~station()
 {
 
-}
-
-void station::loadStation(SDL_Renderer* renderer,TTF_Font* font,int shipGaugeValues[])
-{
-    std::cout<<"\n running station::loadStation(SDL_Renderer* renderer,TTF_Font* font)";
-
-    //habExitTexture.loadFromFile("images/sprites/habExit.png",renderer);
-
-/*
-
-    */
-
-    //loadInteractBed(renderer,font);
-    //loadInteractPlanter(renderer,font);
-    //loadInteractKitchen(renderer,font);
-    //loadInteractInfirmary(renderer,font);
-    //loadInteractBike(renderer,font);
-    //loadInteractRec(renderer,font);
-    //loadInteractHabExit(renderer,font);
-    //loadInteractEngExit(renderer,font);
 }
 
 void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
@@ -75,7 +46,6 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
 void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)";
-
     stationX = 5;
     stationY = 400;
     stationInitialY = stationY;
@@ -89,7 +59,6 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
     interactable.y = collidable.y - 2;
     interactable.w = collidable.w + 4;
     interactable.h = collidable.h + 4;
-
     stationTexture.loadFromFile("images/sprites/engExit.png",renderer);
     stationDefaultInteractionText = "Leaving Engineering Module";
     SDL_Color textColor = {255,255,255};
@@ -102,7 +71,6 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)";
-
     stationX = 790;
     stationY = 395;
     stationInitialY = stationY;
@@ -116,7 +84,6 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
     interactable.y = collidable.y - 2;
     interactable.w = collidable.w + 4;
     interactable.h = collidable.h + 4;
-
     stationTexture.loadFromFile("images/sprites/habExit.png",renderer);
     stationDefaultInteractionText = "Leaving Habitation Module";
     SDL_Color textColor = {255,255,255};
@@ -129,7 +96,6 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadRec(SDL_Renderer* renderer, TTF_Font* font)";
-
     stationX = 510;
     stationY = 850;
     stationInitialY = stationY;
@@ -155,25 +121,58 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
 {
     std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
-    //Texture tempTextTexture;
-    if(need == 100)
+    if(buttonTextTexture.size()>0)
     {
-        std::cout<<"\n unavailable";
-        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],unavailable,font,renderer))
+        for(Uint32 i = 0; i<buttonTextTexture.size(); i++)
         {
-            std::cout<<"\n unable to render station button text to station button text texture!";
+            if(need == 100)
+            {
+                std::cout<<"\n unavailable";
+                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],unavailable,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
+            else
+            {
+                std::cout<<"\n available";
+                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],available,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
         }
     }
-    else
-    {
-        std::cout<<"\n available";
-        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],available,font,renderer))
-        {
-            std::cout<<"\n unable to render station button text to station button text texture!";
-        }
-    }
-    //buttonTextTexture.push_back(tempTextTexture);
+    //tells the stage.handleStation function not to keep running this function.
+    stationOptionsLoaded = true;
+}
+
+void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font)
+{
+    std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
+    if(buttonTextTexture.size()>0)
+    {
+        for(Uint32 i = 0; i<buttonTextTexture.size(); i++)
+        {
+            if(!buttonAvailable[i])
+            {
+                std::cout<<"\n unavailable";
+                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],unavailable,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
+            else
+            {
+                std::cout<<"\n available";
+                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],available,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
+        }
+    }
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
 }
@@ -194,7 +193,6 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
     interactable.y = collidable.y-2;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+4;
-
     //setting bike image to station texture
     stationTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
     buttonString.push_back("Exercise");
@@ -207,7 +205,6 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
 void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
 {
     std::cout<<"\n running station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font)";
-
     //collidable & interactable for infirm & bike may need some small adjustments to wrap the station better.
     stationX = 500;
     stationY = 250;
@@ -234,7 +231,6 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
 void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
 {
     std::cout<<"\n running station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font)";
-
     //setup coords for kitchen + it's collision box, plus it's interaction box.
     stationX = 100;
     stationY = 250;
@@ -260,7 +256,6 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
 void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
 {
     std::cout<<"\n running station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)";
-
     //setup coords for planter + it's collision box, plus it's interaction box.
     stationX = 600;
     stationY = 25;
@@ -279,63 +274,36 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     {
         stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     }
-
-    //setting text for planter interaction
-    plant="Plant";
-    waterPlants = "Water Plants";
-    harvest = "Harvest";
-
-    loadPlanterTextTextures(renderer,font);
-}
-
-void station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)
-{
-    std::cout<<"\n running station::loadPlanterTextTextures(SDL_Renderer* renderer, TTF_Font* font)";
-    std::cout<<"\n plant string: "<<plant;
-    if(plantOkay)
+    if(buttonString.size() == 0)
     {
-        if(!plantTexture.loadFromRenderedText(plant.c_str(), available,font,renderer))
-        {
-            std::cout<<"\n unable to render plant string to plantTexture!";
-        }
+        buttonString.push_back("Plant");
+        std::cout<<"\n buttonString[0]: "<<buttonString[0];
     }
-    else
+    if(buttonString.size()==1)
     {
-        if(!plantTexture.loadFromRenderedText(plant.c_str(), unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render plant string to plantTexture!";
-        }
+        buttonString.push_back("Water Plants");
+        std::cout<<"\n buttonString[1]: "<<buttonString[1];
     }
-    if(waterPlantsOkay)
+    if(buttonString.size()==2)
     {
-        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), available,font,renderer))
-        {
-            std::cout<<"\n unable to render waterPlants string to waterPlantsTexture!";
-        }
+        buttonString.push_back("Harvest");
+        std::cout<<"\n buttonString[2]: "<<buttonString[2];
     }
-    else
+    Texture tempTextTexture;
+    if(buttonTextTexture.size()==0)
     {
-        if(!waterPlantsTexture.loadFromRenderedText(waterPlants.c_str(), unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render waterPlants string to waterPlantsTexture!";
-        }
+        buttonTextTexture.push_back(tempTextTexture);
+        buttonTextTexture.push_back(tempTextTexture);
+        buttonTextTexture.push_back(tempTextTexture);
     }
-    if(harvestOkay)
+    std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
+    if(buttonAvailable.size() == 0)
     {
-        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), available,font,renderer))
-        {
-            std::cout<<"\n unable to render harvest string to harvestTexture!";
-        }
+        buttonAvailable.push_back(true);
+        buttonAvailable.push_back(false);
+        buttonAvailable.push_back(false);
     }
-    else
-    {
-        if(!harvestTexture.loadFromRenderedText(harvest.c_str(), unavailable,font,renderer))
-        {
-            std::cout<<"\n unable to render harvest string to harvestTexture!";
-        }
-    }
-
-stationOptionsLoaded = true;
+    loadStationButtonTextTextures(renderer,font);
 }
 
 void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
@@ -370,17 +338,14 @@ void station::updateHabPosition(int y)
     stationBot = stationY + stationH;
     collidable.y=stationY + (stationH/2);
     interactable.y=collidable.y-4;
-
 }
 
 void station::updateEngPosition(int y)
 {
-
     stationY = y + stationInitialY;
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y -4;
-
 }
 
 void station::updateHabPosition2(int y)
@@ -389,17 +354,14 @@ void station::updateHabPosition2(int y)
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y - 2;
-
 }
 
 void station::updateEngPosition2(int y)
 {
-
     stationY = y + stationInitialY;
     stationBot = stationY + stationH;
     collidable.y = stationY + (stationH/2);
     interactable.y = collidable.y -4;
-
 }
 
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
@@ -412,27 +374,20 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 
 void station::renderInteractStationButtons(SDL_Renderer* renderer, int x, int y)
 {
-    x+=50;
-    y-=20;
-    buttonTextTexture[0].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-}
-
-void station::renderInteractPlanter(SDL_Renderer* renderer,int x, int y)
-{//these are the buttons that pop up when player is next to the planter and presses 'e'
-    //displays textures to the right of player texture
-    x+=50;
-    //displays texture above player's head
-    y-=20;
-    //text texture 'Plant'
-    plantTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    //render below previous option
-    y+=20;
-    //text texture 'water'
-    waterPlantsTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    //render below previous option
-    y+=20;
-    //text texture 'harvest'
-    harvestTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    if(buttonTextTexture.size() > 0)
+    {
+        x+=50;
+        y-=20;
+        buttonTextTexture[0].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(buttonTextTexture.size() > 1)
+        {
+            for(Uint32 i = 1; i<buttonTextTexture.size(); i++)
+            {
+                y+=20;
+                buttonTextTexture[i].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+    }
 }
 
 void station::renderHabStationBehindPlayer(SDL_Renderer* renderer,int playerBot)
@@ -471,17 +426,18 @@ void station::free()
     std::cout<<"\n running station::free()";
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
-    for(int i=0;i<buttonString.size();i++)
+    while(buttonString.size()>0)
     {
-        buttonString[i] = "";
         buttonString.pop_back();
     }
-    for(int i=0;i<buttonTextTexture.size();i++)
+    while(buttonTextTexture.size()>0)
     {
-        buttonTextTexture[i].free();
         buttonTextTexture.pop_back();
     }
-    //sleepTexture.free();
+    while(buttonAvailable.size()>0)
+    {
+        buttonAvailable.pop_back();
+    }
 }
 
 void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)
@@ -489,18 +445,14 @@ void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)
     std::cout<<"\n running station::updatePlant(int timeSurvived)";
     if(planterState<4)
     {
-        if(timeSurvived-planterTimeWatered > 1440 && !waterPlantsOkay && !harvestOkay)
+        if(timeSurvived-planterTimeWatered > 1440 && !buttonAvailable[1] && !buttonAvailable[2])
         {
             //1440 minutes is 24 hours... if at least that much time has passed, the plant is ready to be
             //watered again.  If the plant is harvestable, no need to water, so let's save the player from
             //accidentally wasting time watering.
-            waterPlantsOkay = true;
-            if(!harvestOkay)
-            {//as long as the plant isn't ready for harvest, the number of days in current state of plant life cycle
-                //increments.
-                planterDaysState++;
-            }
-            if(planterDaysState >= 5 && !harvestOkay)
+            buttonAvailable[1] = true;
+            planterDaysState++;
+            if(planterDaysState >= 5)
             {
                 //if the plant has been at it's current state for 5+ days and isn't harvestable yet, increment the
                 //state, then reset days at state to 0.
@@ -508,17 +460,16 @@ void station::updatePlant(SDL_Renderer* renderer, int timeSurvived)
                 planterDaysState = 0;
                 if(planterState == 4)
                 {//if plant is old enough, it is harvestable.
-                    harvestOkay = true;
-                    waterPlantsOkay = false;
+                    buttonAvailable[2] = true;
+                    buttonAvailable[1] = false;
                 }
             }
         }
     }
-
-    std::cout<<"\n waterPlantsOkay: "<<waterPlantsOkay;
+    std::cout<<"\n waterPlantsOkay: "<<buttonAvailable[1];
     std::cout<<"\n planterDaysState: "<<planterDaysState;
     std::cout<<"\n planterState: "<<planterState;
-    std::cout<<"\n harvestOkay: "<<harvestOkay;
+    std::cout<<"\n harvestOkay: "<<buttonAvailable[2];
     updatePlantTexture(renderer);
 }
 
@@ -526,9 +477,9 @@ void station::updatePlantTexture(SDL_Renderer* renderer)
 {
     std::cout<<"\n running station::updatePlantTexture(SDL_Renderer* renderer)";
     stationTexture.free();
-    std::cout<<"\n waterPlantsOkay: "<<waterPlantsOkay;
+    std::cout<<"\n waterPlantsOkay: "<<buttonAvailable[1];
     std::cout<<"\n planterState: "<<planterState;
-    if(waterPlantsOkay)
+    if(buttonAvailable[1])
     {//if plants are dry
         switch(planterState)
         {//load texture based on state (lifecycle) of the plant.
@@ -571,8 +522,7 @@ void station::updatePlantTexture(SDL_Renderer* renderer)
         }
     }
     if(planterState == -1)
-    {
+    {//if plant is not sown
         stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     }
-
 }

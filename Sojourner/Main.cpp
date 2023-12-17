@@ -326,12 +326,6 @@ int main( int argc, char* args[] )
                     {
                         if(gameState == 5){
                             gameState = stage.handleButtons(renderer,&e);
-                            /*if(stage.station.interacted)
-                            {
-                                stage.station.loadInteractPlanter(renderer,text.font2);
-                                stage.station.interacted = false;
-                            }*/
-
                             if(gameState!= 5)
                             {//player clicked save and exit button
                                 //player is going back to the main scene
@@ -424,15 +418,16 @@ int main( int argc, char* args[] )
                                     stage.player1.loadSavedPlayerData(savegame.dataValues2);
                                     //load ship gauge data from save file
                                     stage.ship.loadSavedShipData(savegame.dataValues3);
-
-                                    stage.ship.habitation.planter.plantOkay = savegame.data[18];
-                                    stage.ship.habitation.planter.waterPlantsOkay = savegame.data[19];
-
+                                    if(stage.ship.habitation.planter.buttonAvailable.size() == 0)
+                                    {
+                                        stage.ship.habitation.planter.buttonAvailable.push_back(savegame.data[18]);
+                                        stage.ship.habitation.planter.buttonAvailable.push_back(savegame.data[19]);
+                                        stage.ship.habitation.planter.buttonAvailable.push_back(savegame.data[26]);
+                                    }
                                     stage.timeSurvived = savegame.data[20];
                                     stage.ship.habitation.planter.planterState = savegame.data[21];
                                     stage.ship.habitation.planter.planterDaysState = savegame.data[22];
                                     stage.ship.habitation.planter.planterTimeWatered = savegame.data[23];
-
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer,true);
                                     //previouslyPlayed is probably deprecated by timePlayed.

@@ -107,6 +107,10 @@ void saveGame::readSaveFile(int fileNum)
                 {//enginternalY2
                     data[i] = 0;
                 }
+                else if(i<27)
+                {//harvestOkay = false
+                    data[i] = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -203,14 +207,15 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         {
             data[i+12] = stage.ship.gauge[i];
         }
-        data[18] = stage.ship.habitation.planter.plantOkay;
-        data[19] = stage.ship.habitation.planter.waterPlantsOkay;
+        data[18] = stage.ship.habitation.planter.buttonAvailable[0];
+        data[19] = stage.ship.habitation.planter.buttonAvailable[1];
         data[20] = stage.timeSurvived;
         data[21] = stage.ship.habitation.planter.planterState;
         data[22] = stage.ship.habitation.planter.planterDaysState;
         data[23] = stage.ship.habitation.planter.planterTimeWatered;
         data[24] = stage.engInternalY1;
         data[25] = stage.engInternalY2;
+        data[26] = stage.ship.habitation.planter.buttonAvailable[2];
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -276,6 +281,10 @@ void saveGame::deleteSave(int fileNum)
             }
             else if(i<26)
             {
+                data[i] = 0;
+            }
+            else if(i<27)
+            {//harvestOkay = false
                 data[i] = 0;
             }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
@@ -351,14 +360,15 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
         data[i+12] = stage.ship.gauge[i];
     }
 
-    data[18] = stage.ship.habitation.planter.plantOkay;
-    data[19] = stage.ship.habitation.planter.waterPlantsOkay;
+    data[18] = stage.ship.habitation.planter.buttonAvailable[0];
+    data[19] = stage.ship.habitation.planter.buttonAvailable[1];
     data[20] = stage.timeSurvived;
     data[21] = stage.ship.habitation.planter.planterState;
     data[22] = stage.ship.habitation.planter.planterDaysState;
     data[23] = stage.ship.habitation.planter.planterTimeWatered;
     data[24] = stage.engInternalY1;
-    data[24] = stage.engInternalY2;
+    data[25] = stage.engInternalY2;
+    data[26] = stage.ship.habitation.planter.buttonAvailable[2]; //harvestOkay
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )
