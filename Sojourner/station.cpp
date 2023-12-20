@@ -46,8 +46,8 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
 void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)";
-    stationX = 5;
-    stationY = 400;
+    stationX = 10;
+    stationY = 390;
     stationInitialY = stationY;
     stationH = 10;
     stationBot = stationY + stationH;
@@ -55,10 +55,10 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
     collidable.y = stationY + (stationH/2);
     collidable.w = 10;
     collidable.h = stationH/2;
-    interactable.x = collidable.x-2;
-    interactable.y = collidable.y - 2;
-    interactable.w = collidable.w + 4;
-    interactable.h = collidable.h + 4;
+    interactable.x = collidable.x-3;
+    interactable.y = collidable.y - 3;
+    interactable.w = collidable.w + 6;
+    interactable.h = collidable.h + 6;
     stationTexture.loadFromFile("images/sprites/engExit.png",renderer);
     stationDefaultInteractionText = "Leaving Engineering Module";
     SDL_Color textColor = {255,255,255};
@@ -80,10 +80,10 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
     collidable.y = stationY + (stationH/2);
     collidable.w = 10;
     collidable.h = stationH/2;
-    interactable.x = collidable.x - 2;
-    interactable.y = collidable.y - 2;
-    interactable.w = collidable.w + 4;
-    interactable.h = collidable.h + 4;
+    interactable.x = collidable.x - 3;
+    interactable.y = collidable.y - 3;
+    interactable.w = collidable.w + 6;
+    interactable.h = collidable.h + 6;
     stationTexture.loadFromFile("images/sprites/habExit.png",renderer);
     stationDefaultInteractionText = "Leaving Habitation Module";
     SDL_Color textColor = {255,255,255};

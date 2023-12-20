@@ -164,7 +164,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     player1.loadNeedsTextures(renderer,font);
     //when loading from save, the colors of the text textures needs to be set, so reloadneedstextures needs to run
     player1.reloadNeedsTextures(renderer,font);
-    ship.loadShip(renderer,font,player1.need);
+    ship.loadHabitationModule(renderer,font,player1.need);
     //ship.loadModule(renderer,font,ship.gauge);
     //station.loadStation(renderer,font,ship.gauge);
     ship.loadGaugesTextures(renderer,font);
@@ -492,7 +492,8 @@ void stage::renderStage1(SDL_Renderer* renderer)
         }
         if(inEng)
         {
-            ship.engineering.engExit.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            //engExit is invisible, so the line below is just what should be added for visible stations.
+            //ship.engineering.engExit.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -542,9 +543,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 {
                     if(inHab)
                     {
+                        player1.interactHabExit = false;
                         player1.setX(0);
                         inHab = false;
                         inEng = true;
+                        ship.habitation.freeHab();
+                        ship.loadEngineeringModule(renderer,font,player1.need);
                         std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
                         std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                     }
@@ -553,7 +557,8 @@ void stage::renderStage1(SDL_Renderer* renderer)
         }
         if(inEng)
         {
-            ship.engineering.engExit.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            //engExit should be invisible, which means the line below is pointless.
+            //ship.engineering.engExit.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -561,9 +566,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 {
                     if(inEng)
                     {
-                        player1.setX(750);
+                        player1.interactEngExit = false;
+                        player1.setX(720);
                         inHab = true;
                         inEng = false;
+                        ship.engineering.freeEng();
+                        ship.loadHabitationModule(renderer,font,player1.need);
                         std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
                         std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
                     }

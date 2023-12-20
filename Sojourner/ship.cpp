@@ -97,8 +97,8 @@ void ship::freeGaugesTextures()
 
 void ship::free()
 {
-    habitation.free();
-    engineering.free();
+    habitation.freeHab();
+    engineering.freeEng();
     freeGaugesTextures();
 }
 
@@ -113,8 +113,13 @@ void ship::loadSavedShipData(Uint32 dataValues[])
     }
 }
 
-void ship::loadShip(SDL_Renderer* renderer,TTF_Font* font, int need[])
+void ship::loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[])
 {
     habitation.loadHabitation(renderer,font,gauge,need);
+}
+
+void ship::loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[])
+{
+    engineering.loadEngineering(renderer,font);
 }
 

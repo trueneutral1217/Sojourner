@@ -32,7 +32,7 @@ void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)
     engExit.loadEngExit(renderer,font);
 }
 
-void module::free()
+void module::freeHab()
 {
     std::cout<<"\n running module::free()";
     waterTank.free();
@@ -42,4 +42,10 @@ void module::free()
     bike.free();
     planter.free();
     recreation.free();
+    habExit.free();
+}
+
+void module::freeEng()
+{
+    engExit.free();
 }

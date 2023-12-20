@@ -407,6 +407,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.habExit.interactable))
         {
+            std::cout<<"habExit is interactable!";
             //bed is interactable
             interactHabExit = true;
             if(collisionDetector(ship.habitation.habExit.collidable))
@@ -423,10 +424,11 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
 
     }
     if(inEng)
-    {/*
+    {
         if(collisionDetector(ship.engineering.engExit.interactable))
         {
-            //bed is interactable
+            //engExit is interactable
+            std::cout<<"engExit is interactable!";
             interactEngExit = true;
             if(collisionDetector(ship.habitation.engExit.collidable))
             {
@@ -438,7 +440,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         else
         {
             interactEngExit=false;
-        }*/
+        }
     }
     playerBot = playerY+PLAYER_HEIGHT;
 }

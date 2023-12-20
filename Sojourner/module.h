@@ -20,7 +20,9 @@ class module
 
         void loadEngineering(SDL_Renderer* renderer,TTF_Font* font);
 
-        void free();
+        void freeHab();
+
+        void freeEng();
 
     private:
 
