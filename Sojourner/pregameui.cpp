@@ -375,15 +375,18 @@ void pregameui::renderParticles(SDL_Renderer* renderer)
 
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
-        if( particles[i].isDead() )
+        if(particles[i].particleTimer.getTicks() > Uint32(rand() % 2000))
         {
-            particles[i].createParticle(renderer);
+            if( particles[i].isDead() )
+            {
+                particles[i].createParticle(renderer);
+            }
         }
     }
 
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
-        particles[i].render(renderer,particles[i].renderColor);
+        particles[i].render(renderer,particles[i].renderColor,star);
     }
 }
 
@@ -457,12 +460,14 @@ void pregameui::createParticles(SDL_Renderer* renderer)
 
     for( int i = 0; i < TOTAL_PARTICLES; ++i )
     {
-        if( particles[i].isDead() )
+        if(particles[i].particleTimer.getTicks() > Uint32(rand() % 2000))
         {
-            particles[i].createParticle(renderer);
+            if( particles[i].isDead() )
+            {
+                particles[i].createParticle(renderer);
+            }
         }
     }
-
 }
 
 
@@ -478,6 +483,8 @@ bool pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)
     {
         printf("\n \n there was a problem loading pregame UI textures. \n \n");
     }
+
+
 	return success;
 }
 
@@ -539,6 +546,16 @@ bool pregameui::loadPregameUI(SDL_Renderer* renderer,bool success)
     //set button names and button positions & image textures
     loadMainButtons(renderer);
     success = loadTitleScreenTextures(renderer);
+
+    for(int i = 0; i<TOTAL_FRAMES;i++)
+    {
+        int a = i;
+        std::stringstream ss;
+        ss << "images/animations/star/star" << a << ".png";
+        std::string str = ss.str();
+        star[i].loadFromFile(str,renderer);
+    }
+
     return success;
 }
 

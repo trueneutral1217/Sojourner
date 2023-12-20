@@ -10,6 +10,7 @@ void Particle::createParticle(SDL_Renderer* renderer)
     //set initial frame
     frame = 0;
     //frame = rand() % 50;
+    /*
     for(int i = 0; i<TOTAL_FRAMES;i++)
     {
         int a = i;
@@ -17,7 +18,7 @@ void Particle::createParticle(SDL_Renderer* renderer)
         ss << "images/animations/star/star" << a << ".png";
         std::string str = ss.str();
         star[i].loadFromFile(str,renderer);
-    }
+    }*/
 
     particleTimer.start();
 /*
@@ -39,7 +40,7 @@ void Particle::createParticle(SDL_Renderer* renderer)
 }
 
 
-void Particle::render(SDL_Renderer* renderer, int renderColor)
+void Particle::render(SDL_Renderer* renderer, int renderColor, Texture star[])
 {
     /*
     //Show image

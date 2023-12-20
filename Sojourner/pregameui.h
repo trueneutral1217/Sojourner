@@ -31,6 +31,8 @@ public:
     //behind background images that have transparency and need black background instead of default white.
     Texture PGUIBlackGround;
 
+    Texture star[TOTAL_FRAMES];
+
     //phasing this setup out
     //button buttons[TOTAL_PREGAME_BUTTONS];
 

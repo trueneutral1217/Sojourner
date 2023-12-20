@@ -19,8 +19,9 @@ class Particle
 
 		//~Particle();
 		Texture star[TOTAL_FRAMES];
+
 		//render particle textures to screen
-		void render(SDL_Renderer* renderer, int renderColor);
+		void render(SDL_Renderer* renderer, int renderColor, Texture star[]);
 
 		//Checks if particle is dead
 		bool isDead();
