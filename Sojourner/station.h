@@ -56,7 +56,7 @@ class station
         void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need);
         void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font);
         //when loading stage, these functions set up each station
-        void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
+        //hab stations
         void loadHabExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadRec(SDL_Renderer* renderer, TTF_Font* font,int need);
         void loadBike(SDL_Renderer* renderer, TTF_Font* font, int need);
@@ -65,6 +65,9 @@ class station
         void loadBed(SDL_Renderer* renderer,TTF_Font* font, int need);
         void loadPlanter(SDL_Renderer* renderer,TTF_Font* font);
         void loadKitchen(SDL_Renderer* renderer, TTF_Font* font,int need);
+        //engineering stations
+        void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
+        void loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int powerGauge);
         //these two might not be used, considering deleting
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);

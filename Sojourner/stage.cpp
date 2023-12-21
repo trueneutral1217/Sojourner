@@ -493,7 +493,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         if(inEng)
         {
             //engExit is invisible, so the line below is just what should be added for visible stations.
-            //ship.engineering.engExit.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            ship.engineering.batteryArray.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -558,23 +558,24 @@ void stage::renderStage1(SDL_Renderer* renderer)
         if(inEng)
         {
             //engExit should be invisible, which means the line below is pointless.
-            //ship.engineering.engExit.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
                 if(player1.interactEngExit)
                 {
-                    if(inEng)
-                    {
-                        player1.interactEngExit = false;
-                        player1.setX(720);
-                        inHab = true;
-                        inEng = false;
-                        ship.engineering.freeEng();
-                        ship.loadHabitationModule(renderer,font,player1.need);
-                        std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
-                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                    }
+                    player1.interactEngExit = false;
+                    player1.setX(720);
+                    inHab = true;
+                    inEng = false;
+                    ship.engineering.freeEng();
+                    ship.loadHabitationModule(renderer,font,player1.need);
+                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                }
+                if(player1.interactBatteryArray)
+                {
+                    ship.engineering.batteryArray.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
             }
         }
@@ -706,6 +707,7 @@ void stage::move(int countedFrames)
     else if(inEng)
     {
         ship.engineering.engExit.updateEngPosition(engInternalY1);
+        ship.engineering.batteryArray.updateEngPosition(engInternalY1);
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }

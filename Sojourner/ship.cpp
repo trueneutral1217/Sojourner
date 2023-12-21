@@ -120,6 +120,6 @@ void ship::loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[
 
 void ship::loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[])
 {
-    engineering.loadEngineering(renderer,font);
+    engineering.loadEngineering(renderer,font,gauge,need);
 }
 

@@ -26,10 +26,11 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
 
 }
 
-void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)
+void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font,int gauge[],int need[])
 {
     std::cout<<"\n running module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)";
     engExit.loadEngExit(renderer,font);
+    batteryArray.loadBatteryArray(renderer,font,gauge[2]);
 }
 
 void module::freeHab()
@@ -48,4 +49,5 @@ void module::freeHab()
 void module::freeEng()
 {
     engExit.free();
+    batteryArray.free();
 }

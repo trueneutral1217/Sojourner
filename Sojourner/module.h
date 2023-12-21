@@ -14,11 +14,11 @@ class module
         station waterTank,kitchen,infirmary,bed,bike,planter,recreation,habExit;
 
         //declare engineering stations
-        station engExit;
+        station engExit, batteryArray;
 
         void loadHabitation(SDL_Renderer* renderer,TTF_Font* font, int gauge[], int need[]);
 
-        void loadEngineering(SDL_Renderer* renderer,TTF_Font* font);
+        void loadEngineering(SDL_Renderer* renderer,TTF_Font* font, int gauge[], int need[]);
 
         void freeHab();
 

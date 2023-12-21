@@ -68,6 +68,36 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
     }
 }
 
+void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
+{
+    std::cout<<"\n running station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues[])";
+
+     //setup coords & collision box for water Tank
+    stationX = 100;
+    stationY = 25;
+    stationInitialY = stationY;
+    stationH = 34;
+    stationBot = stationY + stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 87;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-4;
+    interactable.w=collidable.w+6;
+    interactable.h=collidable.h+6;
+
+    int batteryGauge = shipGaugeValues;
+    stationTexture.loadFromFile("images/sprites/batteryArray.png",renderer);
+    stationDefaultInteractionText = std::to_string(batteryGauge);
+    stationDefaultInteractionText = stationDefaultInteractionText + " percent charge";
+    SDL_Color textColor = {255,255,255};//white
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }
+}
+
 void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)";
@@ -367,7 +397,7 @@ void station::updateEngPosition2(int y)
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 {
     //std::cout<<"\n running station::renderInteractStation(SDL_Renderer* renderer, int x, int y)";
-    std::cout<<"\n"<<stationDefaultInteractionText;
+//    std::cout<<"\n"<<stationDefaultInteractionText;
     y-=20;
     stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }

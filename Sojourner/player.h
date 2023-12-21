@@ -82,6 +82,7 @@ class player
         bool interactHabExit;
         //
         bool interactEngExit;
+        bool interactBatteryArray;
 
         //used for player walk animations
         Texture currentTexture;
