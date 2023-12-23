@@ -83,6 +83,7 @@ class player
         //
         bool interactEngExit;
         bool interactBatteryArray;
+        bool interactResearchDesk;
 
         //used for player walk animations
         Texture currentTexture;

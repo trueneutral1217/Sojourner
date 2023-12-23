@@ -455,6 +455,20 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             interactBatteryArray=false;
         }
+        if(collisionDetector(ship.engineering.researchDesk.interactable))
+        {
+            interactResearchDesk = true;
+            if(collisionDetector(ship.engineering.researchDesk.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactResearchDesk=false;
+        }
     }
     playerBot = playerY+PLAYER_HEIGHT;
 }

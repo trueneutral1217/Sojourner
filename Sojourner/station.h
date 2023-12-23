@@ -68,6 +68,7 @@ class station
         //engineering stations
         void loadEngExit(SDL_Renderer* renderer, TTF_Font* font);
         void loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int powerGauge);
+        void loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font);
         //these two might not be used, considering deleting
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);

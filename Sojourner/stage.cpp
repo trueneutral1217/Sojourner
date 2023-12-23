@@ -349,6 +349,10 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             refreshTS(renderer);
         }
     }
+    else if(buttonClicked == 11)
+    {
+        std::cout<<"\n research button action should happen here.";
+    }
 }
 
 int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
@@ -419,6 +423,14 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[8].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
         }
+        if(player1.interactResearchDesk)
+        {
+            std::cout<<"\n creating researchDesk buttons";
+            buttons[9].buttonTexture = ship.engineering.researchDesk.buttonTextTexture[0];
+            buttons[9].buttonName = "research";
+            buttons[9].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
     }
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
@@ -453,6 +465,7 @@ void stage::freeStationButtons()
     ship.habitation.infirmary.stationOptionsLoaded = false;
     ship.habitation.bike.stationOptionsLoaded = false;
     ship.habitation.recreation.stationOptionsLoaded =false;
+    ship.engineering.researchDesk.stationOptionsLoaded = false;
     buttonsFreed = true;
 }
 
@@ -494,6 +507,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             //engExit is invisible, so the line below is just what should be added for visible stations.
             ship.engineering.batteryArray.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            ship.engineering.researchDesk.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -559,6 +573,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             //engExit should be invisible, which means the line below is pointless.
             ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -576,6 +591,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(player1.interactBatteryArray)
                 {
                     ship.engineering.batteryArray.renderInteractStation(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactResearchDesk)
+                {
+                    ship.engineering.researchDesk.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
                 }
             }
         }
@@ -708,6 +727,7 @@ void stage::move(int countedFrames)
     {
         ship.engineering.engExit.updateEngPosition(engInternalY1);
         ship.engineering.batteryArray.updateEngPosition(engInternalY1);
+        ship.engineering.researchDesk.updateEngPosition(engInternalY1);
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }
@@ -776,6 +796,10 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
         if(player1.interactRec && !ship.habitation.recreation.stationOptionsLoaded)
         {
             ship.habitation.recreation.loadStationButtonTextTextures(renderer,font,player1.need[4]);
+        }
+        if(player1.interactResearchDesk && !ship.engineering.researchDesk.stationOptionsLoaded)
+        {
+            ship.engineering.researchDesk.loadStationButtonTextTextures(renderer,font);
         }
     }
 

@@ -31,11 +31,12 @@ void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font,int gauge[],i
     std::cout<<"\n running module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)";
     engExit.loadEngExit(renderer,font);
     batteryArray.loadBatteryArray(renderer,font,gauge[2]);
+    researchDesk.loadResearchDesk(renderer,font);
 }
 
 void module::freeHab()
 {
-    std::cout<<"\n running module::free()";
+    std::cout<<"\n running module::freeHab()";
     waterTank.free();
     kitchen.free();
     infirmary.free();
@@ -48,6 +49,8 @@ void module::freeHab()
 
 void module::freeEng()
 {
+    std::cout<<"\n Running module::freeEng()";
     engExit.free();
     batteryArray.free();
+    researchDesk.free();
 }

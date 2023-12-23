@@ -98,6 +98,49 @@ void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipG
     }
 }
 
+void station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)";
+
+     //setup coords & collision box for research desk
+    stationX = 100;
+    stationY = 500;
+    stationInitialY = stationY;
+    stationH = 45;
+    stationBot = stationY + stationH;
+    collidable.x = stationX;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 90;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-3;
+    interactable.y=collidable.y-3;
+    interactable.w=collidable.w+6;
+    interactable.h=collidable.h+6;
+
+    stationTexture.loadFromFile("images/sprites/researchDesk.png",renderer);
+    buttonString.push_back("Research");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    if(buttonTextTexture.size() == 0)
+    {
+        buttonTextTexture.push_back(tempTextTexture);
+    }
+
+    if(buttonAvailable.size() == 0)
+    {
+        buttonAvailable.push_back(true);
+    }
+    loadStationButtonTextTextures(renderer,font);
+    /*
+    stationDefaultInteractionText = std::to_string(batteryGauge);
+    stationDefaultInteractionText = stationDefaultInteractionText + " percent charge";
+    SDL_Color textColor = {255,255,255};//white
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }*/
+}
+
 void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
 {
     std::cout<<"\n running station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)";
