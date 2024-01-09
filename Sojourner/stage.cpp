@@ -431,6 +431,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[9].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
         }
+
     }
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
@@ -508,6 +509,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             //engExit is invisible, so the line below is just what should be added for visible stations.
             ship.engineering.batteryArray.renderEngStationBehindPlayer(renderer,player1.playerBot);
             ship.engineering.researchDesk.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            ship.engineering.engineStation.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -558,7 +560,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                     if(inHab)
                     {
                         player1.interactHabExit = false;
-                        player1.setX(0);
+                        player1.setX(60);
                         inHab = false;
                         inEng = true;
                         ship.habitation.freeHab();
@@ -574,6 +576,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             //engExit should be invisible, which means the line below is pointless.
             ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
             ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            ship.engineering.engineStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -595,6 +598,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(player1.interactResearchDesk)
                 {
                     ship.engineering.researchDesk.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactEngineStation)
+                {
+                    ship.engineering.engineStation.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
             }
         }
@@ -728,6 +735,7 @@ void stage::move(int countedFrames)
         ship.engineering.engExit.updateEngPosition(engInternalY1);
         ship.engineering.batteryArray.updateEngPosition(engInternalY1);
         ship.engineering.researchDesk.updateEngPosition(engInternalY1);
+        ship.engineering.engineStation.updateEngPosition(engInternalY1);
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }

@@ -11,10 +11,10 @@ class module
         ~module();
 
         //declare habitation stations
-        station waterTank,kitchen,infirmary,bed,bike,planter,recreation,habExit;
+        station waterTank, kitchen, infirmary, bed, bike, planter, recreation, habExit;
 
         //declare engineering stations
-        station engExit, batteryArray, researchDesk;
+        station engExit, batteryArray, researchDesk, engineStation;
 
         void loadHabitation(SDL_Renderer* renderer,TTF_Font* font, int gauge[], int need[]);
 

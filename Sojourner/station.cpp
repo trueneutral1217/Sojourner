@@ -70,7 +70,7 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
 
 void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
 {
-    std::cout<<"\n running station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues[])";
+    std::cout<<"\n running station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)";
 
      //setup coords & collision box for water Tank
     stationX = 100;
@@ -91,6 +91,36 @@ void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipG
     stationTexture.loadFromFile("images/sprites/batteryArray.png",renderer);
     stationDefaultInteractionText = std::to_string(batteryGauge);
     stationDefaultInteractionText = stationDefaultInteractionText + " percent charge";
+    SDL_Color textColor = {255,255,255};//white
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }
+}
+
+void station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
+{
+    std::cout<<"\n running station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)";
+
+     //setup coords & collision box for engine station
+    stationX = 500;
+    stationY = 250;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY+stationH;
+    collidable.x = stationX+40;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 105;
+    collidable.h = stationH/2;
+    interactable.x = collidable.x-2;
+    interactable.y = collidable.y-3;
+    interactable.w = collidable.w+4;
+    interactable.h = collidable.h+6;
+
+    int fuelGauge = shipGaugeValues;
+    stationTexture.loadFromFile("images/sprites/engineStation.png",renderer);
+    stationDefaultInteractionText = std::to_string(fuelGauge);
+    stationDefaultInteractionText = stationDefaultInteractionText + " percent fuel";
     SDL_Color textColor = {255,255,255};//white
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
