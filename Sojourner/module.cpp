@@ -33,6 +33,7 @@ void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font,int gauge[],i
     batteryArray.loadBatteryArray(renderer,font,gauge[2]);
     researchDesk.loadResearchDesk(renderer,font);
     engineStation.loadEngineStation(renderer,font,gauge[1]);
+    cargoArea.loadCargoArea(renderer, font);
 }
 
 void module::freeHab()
@@ -55,4 +56,5 @@ void module::freeEng()
     batteryArray.free();
     researchDesk.free();
     engineStation.free();
+    cargoArea.free();
 }

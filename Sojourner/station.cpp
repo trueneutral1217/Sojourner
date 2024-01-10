@@ -98,12 +98,42 @@ void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipG
     }
 }
 
+void station::loadCargoArea(SDL_Renderer* renderer, TTF_Font* font)
+{
+    //this should be the ship's inventory management station.
+    std::cout<<"\n running station::loadCargoArea(SDL_Renderer* renderer, TTF_Font* font)";
+
+     //setup coords & collision box for cargo area
+    stationX = 500;
+    stationY = 250;
+    stationInitialY = stationY;
+    stationH = 100;
+    stationBot = stationY + stationH;
+    collidable.x = stationX+6;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 187;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-4;
+    interactable.w=collidable.w+6;
+    interactable.h=collidable.h+6;
+
+
+    stationTexture.loadFromFile("images/sprites/cargoArea.png",renderer);
+    stationDefaultInteractionText = "inventory management screen still in development";
+    SDL_Color textColor = {255,255,255};//white
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }
+}
+
 void station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
 {
     std::cout<<"\n running station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)";
 
      //setup coords & collision box for engine station
-    stationX = 500;
+    stationX = 100;
     stationY = 250;
     stationInitialY = stationY;
     stationH = 100;
@@ -312,7 +342,7 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
     stationX = 500;
     stationY = 250;
     stationInitialY = stationY;
-    stationH = 100;
+    stationH = 80;
     stationBot = stationY+stationH;
     collidable.x = stationX+40;
     collidable.y = stationY+(stationH/2);
@@ -472,7 +502,31 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
     //std::cout<<"\n running station::renderInteractStation(SDL_Renderer* renderer, int x, int y)";
 //    std::cout<<"\n"<<stationDefaultInteractionText;
     y-=20;
-    stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //if the right half of the default text texture is on the screen, just render it.
+    if(x+stationDefaultInteractionTextTexture.getWidth() < 800)
+    {
+        stationDefaultInteractionTextTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else
+    {//if the right half of the default text texture is off the screen, shift it left.
+        if(stationDefaultInteractionTextTexture.getWidth() < x)
+        {
+            int temp = x - stationDefaultInteractionTextTexture.getWidth();
+            stationDefaultInteractionTextTexture.render(temp,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        else
+        {//if the default text texture width is larger than x, there may be some text cut off at the right, but
+            //this aligns the text as far left as possible.
+            int temp2 = 800 - stationDefaultInteractionTextTexture.getWidth();
+            if(temp2<0)
+            {
+                temp2 = 0;
+            }
+            stationDefaultInteractionTextTexture.render(temp2,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+    }
+
+
 }
 
 void station::renderInteractStationButtons(SDL_Renderer* renderer, int x, int y)

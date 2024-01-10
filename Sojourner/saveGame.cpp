@@ -111,6 +111,14 @@ void saveGame::readSaveFile(int fileNum)
                 {//harvestOkay = false
                     data[i] = 0;
                 }
+                else if(i<28)
+                {//default for inHab = true
+                    data[i] = 1;
+                }
+                else if(i<29)
+                {//default for inEng = false
+                    data[i] = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -216,6 +224,8 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         data[24] = stage.engInternalY1;
         data[25] = stage.engInternalY2;
         data[26] = stage.ship.habitation.planter.buttonAvailable[2];
+        data[27] = stage.inHab;
+        data[28] = stage.inEng;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -285,6 +295,14 @@ void saveGame::deleteSave(int fileNum)
             }
             else if(i<27)
             {//harvestOkay = false
+                data[i] = 0;
+            }
+            else if(i<28)
+            {//default for inHab = true
+                data[i] = 1;
+            }
+            else if(i<29)
+            {//default for inEng = false
                 data[i] = 0;
             }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
@@ -369,6 +387,8 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
     data[24] = stage.engInternalY1;
     data[25] = stage.engInternalY2;
     data[26] = stage.ship.habitation.planter.buttonAvailable[2]; //harvestOkay
+    data[27] = stage.inHab;
+    data[28] = stage.inEng;
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )

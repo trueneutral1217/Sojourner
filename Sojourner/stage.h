@@ -97,7 +97,7 @@ class stage
         //declare ship
         ship ship;
         //loads resources at opening of stages.
-        bool loadStage(SDL_Renderer* renderer, bool success);
+        bool loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success);
         //free resources
         void free();
         //renders stages during play.

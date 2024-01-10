@@ -145,7 +145,7 @@ void stage::loadFont()
 
 }
 
-bool stage::loadStage(SDL_Renderer* renderer, bool success)
+bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)
 {
     std::cout<<"\n running stage::loadStage(SDL_Renderer* renderer, bool success)";
     //stage file names get set and loaded into texture arrays, player gets loaded from player class.
@@ -164,7 +164,15 @@ bool stage::loadStage(SDL_Renderer* renderer, bool success)
     player1.loadNeedsTextures(renderer,font);
     //when loading from save, the colors of the text textures needs to be set, so reloadneedstextures needs to run
     player1.reloadNeedsTextures(renderer,font);
-    ship.loadHabitationModule(renderer,font,player1.need);
+    if(inHab)
+    {
+        ship.loadHabitationModule(renderer,font,player1.need);
+    }
+    else if(inEng)
+    {
+        ship.loadEngineeringModule(renderer,font,player1.need);
+    }
+
     //ship.loadModule(renderer,font,ship.gauge);
     //station.loadStation(renderer,font,ship.gauge);
     ship.loadGaugesTextures(renderer,font);
@@ -510,6 +518,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.batteryArray.renderEngStationBehindPlayer(renderer,player1.playerBot);
             ship.engineering.researchDesk.renderEngStationBehindPlayer(renderer,player1.playerBot);
             ship.engineering.engineStation.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            ship.engineering.cargoArea.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -577,6 +586,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
             ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
             ship.engineering.engineStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            ship.engineering.cargoArea.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -602,6 +612,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(player1.interactEngineStation)
                 {
                     ship.engineering.engineStation.renderInteractStation(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactCargoArea)
+                {
+                    ship.engineering.cargoArea.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
             }
         }
@@ -736,6 +750,7 @@ void stage::move(int countedFrames)
         ship.engineering.batteryArray.updateEngPosition(engInternalY1);
         ship.engineering.researchDesk.updateEngPosition(engInternalY1);
         ship.engineering.engineStation.updateEngPosition(engInternalY1);
+        ship.engineering.cargoArea.updateEngPosition(engInternalY1);
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }

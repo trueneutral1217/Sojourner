@@ -70,6 +70,7 @@ class station
         void loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int powerGauge);
         void loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font);
         void loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int fuelGauge);
+        void loadCargoArea(SDL_Renderer* renderer, TTF_Font* font);
         //these two might not be used, considering deleting
         void renderInteractEngExit(SDL_Renderer* renderer, int x, int y);
         void renderInteractHabExit(SDL_Renderer* renderer, int x, int y);

@@ -374,7 +374,7 @@ int main( int argc, char* args[] )
                                 stage.setNewgameVars();
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
-                                stage.loadStage(renderer,true);
+                                stage.loadStage(renderer,stage.inHab, stage.inEng,true);
                                 //savegame.freeTextTextures();
                             }
                             //player clicked back button.
@@ -428,8 +428,10 @@ int main( int argc, char* args[] )
                                     stage.ship.habitation.planter.planterState = savegame.data[21];
                                     stage.ship.habitation.planter.planterDaysState = savegame.data[22];
                                     stage.ship.habitation.planter.planterTimeWatered = savegame.data[23];
+                                    stage.inHab = savegame.data[27];
+                                    stage.inEng = savegame.data[28];
                                     //data needs to be loaded from save before stage loads.
-                                    stage.loadStage(renderer,true);
+                                    stage.loadStage(renderer, stage.inHab, stage.inEng, true);
                                     //previouslyPlayed is probably deprecated by timePlayed.
                                     std::cout<<"\n savegame.data[2]: "<<savegame.data[2];
                                     Uint32 previouslyPlayed = savegame.data[2];
