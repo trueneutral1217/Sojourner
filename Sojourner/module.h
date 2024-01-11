@@ -14,7 +14,7 @@ class module
         station waterTank, kitchen, infirmary, bed, bike, planter, recreation, habExit;
 
         //declare engineering stations
-        station engExit, batteryArray, researchDesk, engineStation, cargoArea;
+        station engExit, batteryArray, researchDesk, engineStation, cargoArea, commStation;
 
         void loadHabitation(SDL_Renderer* renderer,TTF_Font* font, int gauge[], int need[]);
 

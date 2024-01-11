@@ -128,6 +128,35 @@ void station::loadCargoArea(SDL_Renderer* renderer, TTF_Font* font)
     }
 }
 
+void station::loadCommStation(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running station::loadCommStation(SDL_Renderer* renderer, TTF_Font* font)";
+
+     //setup coords & collision box for comm station
+    stationX = 600;
+    stationY = 25;
+    stationInitialY = stationY;
+    stationH = 40;
+    stationBot = stationY + stationH;
+    collidable.x = stationX+6;
+    collidable.y = stationY+(stationH/2);
+    collidable.w = 87;
+    collidable.h = stationH/2;
+    interactable.x=collidable.x-2;
+    interactable.y=collidable.y-4;
+    interactable.w=collidable.w+6;
+    interactable.h=collidable.h+6;
+
+
+    stationTexture.loadFromFile("images/sprites/commStation.png",renderer);
+    stationDefaultInteractionText = "comm station still in development";
+    SDL_Color textColor = {255,255,255};//white
+    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }
+}
+
 void station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)
 {
     std::cout<<"\n running station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int shipGaugeValues)";

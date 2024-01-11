@@ -497,6 +497,20 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             interactCargoArea=false;
         }
+        if(collisionDetector(ship.engineering.commStation.interactable))
+        {
+            interactCommStation = true;
+            if(collisionDetector(ship.engineering.commStation.collidable))
+            {
+                //std::cout<<"\n collision detected!";
+                playerX-=pVelX;
+                playerY-=pVelY;
+            }
+        }
+        else
+        {
+            interactCommStation=false;
+        }
     }
     playerBot = playerY+PLAYER_HEIGHT;
 }

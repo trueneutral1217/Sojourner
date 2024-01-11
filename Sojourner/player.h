@@ -79,7 +79,7 @@ class player
         //render recreation text texture
         bool interactRec;
         //flags interaction with a station in engineering module
-        bool interactHabExit, interactEngExit, interactBatteryArray, interactResearchDesk, interactEngineStation, interactCargoArea;
+        bool interactHabExit, interactEngExit, interactBatteryArray, interactResearchDesk, interactEngineStation, interactCargoArea, interactCommStation;
 
         //used for player walk animations
         Texture currentTexture;

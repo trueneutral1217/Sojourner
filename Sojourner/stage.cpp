@@ -147,7 +147,7 @@ void stage::loadFont()
 
 bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)
 {
-    std::cout<<"\n running stage::loadStage(SDL_Renderer* renderer, bool success)";
+    std::cout<<"\n running stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)";
     //stage file names get set and loaded into texture arrays, player gets loaded from player class.
     setButtonNames();
     //updates font to stage font.
@@ -519,6 +519,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.researchDesk.renderEngStationBehindPlayer(renderer,player1.playerBot);
             ship.engineering.engineStation.renderEngStationBehindPlayer(renderer,player1.playerBot);
             ship.engineering.cargoArea.renderEngStationBehindPlayer(renderer,player1.playerBot);
+            ship.engineering.commStation.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
     if(showPlayer)
@@ -587,6 +588,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
             ship.engineering.engineStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
             ship.engineering.cargoArea.renderEngStationFrontPlayer(renderer,player1.playerBot);
+            ship.engineering.commStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
             //interact is user pressed 'e', inRange is player collision with interactable station
             if(player1.interact)
             {
@@ -616,6 +618,10 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(player1.interactCargoArea)
                 {
                     ship.engineering.cargoArea.renderInteractStation(renderer,player1.getX(),player1.getY());
+                }
+                if(player1.interactCommStation)
+                {
+                    ship.engineering.commStation.renderInteractStation(renderer,player1.getX(),player1.getY());
                 }
             }
         }
@@ -751,6 +757,7 @@ void stage::move(int countedFrames)
         ship.engineering.researchDesk.updateEngPosition(engInternalY1);
         ship.engineering.engineStation.updateEngPosition(engInternalY1);
         ship.engineering.cargoArea.updateEngPosition(engInternalY1);
+        ship.engineering.commStation.updateEngPosition(engInternalY1);
         //going to keep the line below for reference when I start creating the engineering stations
         //ship.engineering.engExit.updateEngPosition2(engInternalY2);
     }

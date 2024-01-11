@@ -12,7 +12,9 @@ module::~module()
 
 void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],int need[])
 {
+    std::cout<<"\n **********************************************************************************";
     std::cout<<"\n running module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[])";
+    std::cout<<"\n **********************************************************************************";
     //load textures and interaction dialog etc for each station.
     waterTank.loadWaterTank(renderer,font,gauge[3]);
     kitchen.loadKitchen(renderer,font,need[2]);
@@ -28,12 +30,15 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
 
 void module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font,int gauge[],int need[])
 {
+    std::cout<<"\n **********************************************************************************";
     std::cout<<"\n running module::loadEngineering(SDL_Renderer* renderer,TTF_Font* font)";
+    std::cout<<"\n **********************************************************************************";
     engExit.loadEngExit(renderer,font);
     batteryArray.loadBatteryArray(renderer,font,gauge[2]);
     researchDesk.loadResearchDesk(renderer,font);
     engineStation.loadEngineStation(renderer,font,gauge[1]);
     cargoArea.loadCargoArea(renderer, font);
+    commStation.loadCommStation(renderer, font);
 }
 
 void module::freeHab()
@@ -57,4 +62,5 @@ void module::freeEng()
     researchDesk.free();
     engineStation.free();
     cargoArea.free();
+    commStation.free();
 }

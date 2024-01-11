@@ -20,6 +20,8 @@ const int TOTAL_STATES = 6;
 //gameState = 4 credits
 //gameState = 5 stage 1
 
+//gameState = 6 Will be opening sequence gamestate, will go to gamestate 5
+
 
 //Starts up SDL and creates window
 bool init();
