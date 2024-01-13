@@ -42,11 +42,16 @@ class stage
         int engInternalY2;
 
         int timeSurvived;
-
+        //textures for the top center of the screen (UI area) during most of gamestate 5.
         Texture daysSurvived;
         Texture hoursSurvived;
         Texture minutesSurvived;
 
+        //house texture has the initial backround for the opening sequence
+        Texture openingSequenceHouse;
+        //newspaper texture displays an image of a newspaper until a click or for a certain amount of time.
+        Texture openingSequenceNewspaper;
+        //there will be a texture for the rocket ship / gantry
 
 
         //declare font
@@ -126,6 +131,10 @@ class stage
         void freeTimeSurvivedTextures();
         //refreshes the text textures for time survived so they render the correct TS.
         void refreshTS(SDL_Renderer* renderer);
+        //loads the textures etc for the opening sequence
+        void loadOpeningSequence(SDL_Renderer* renderer);
+        //renders the opening sequence textures
+        void renderOpeningSequence(SDL_Renderer* renderer);
 
     private:
 

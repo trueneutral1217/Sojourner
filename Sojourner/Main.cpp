@@ -44,7 +44,9 @@ std::vector<audio> sounds;
 //declare sound
 audio sound;
 //declare stage
-stage stage;
+stage stage,openingSequence;
+//declare opening sequence stage (used when new game is created)
+//stage openingSequence;
 //declare instance of pregame user interface.
 pregameui pregameui;
 //declare instance of animations
@@ -326,7 +328,8 @@ int main( int argc, char* args[] )
 					}
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
                     {
-                        if(gameState == 5){
+                        if(gameState == 5)
+                        {
                             gameState = stage.handleButtons(renderer,&e);
                             if(gameState!= 5)
                             {//player clicked save and exit button
@@ -370,6 +373,18 @@ int main( int argc, char* args[] )
                         {//newgame screen - handles button clicks and gamestate change
                             gameState = pregameui.handleButtons(gameState,&e, window,renderer);
 
+                            if(gameState==6)
+                            {
+                                chosenSave = pregameui.chosenSave;
+                                playedTime.timePlayed = 0;
+                                playedTime.restart();
+                                openingSequence.loadOpeningSequence(renderer);
+                                //a call to stage.setNewgameVars() will have to be called
+                                //at the end of the opening sequence
+
+                            }
+                            //This area will have to be changed.  PGUI should return gamestate == 6 after
+                            //player selects a save file.
                             if(gameState==5)
                             {//user clicked stage 1 button
                                 chosenSave = pregameui.chosenSave;
@@ -513,6 +528,12 @@ int main( int argc, char* args[] )
                             }
 
                         }
+                        if(gameState == 6)
+                        {
+                            //this is the opening sequence of a new game.
+                            //should allow player movement etc.
+                            openingSequence.handleButtons(renderer,&e);
+                        }
                     }
 					//Handle key press
 					if( e.type == SDL_KEYDOWN )
@@ -562,6 +583,10 @@ int main( int argc, char* args[] )
                     {
                         stage.freeStationButtons();
                     }
+                    if(gameState == 6)
+                    {
+                        openingSequence.player1.handleEvent(e);
+                    }
 
 				}
 				//process player movement, updates hab internal background as well
@@ -569,6 +594,11 @@ int main( int argc, char* args[] )
                 {//updates player and habitat coords
                     stage.move(countedFrames);
                 }
+                if(gameState == 6)
+                {
+                    openingSequence.move(countedFrames);
+                }
+
 				//Clear screen
 				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( renderer );
@@ -620,6 +650,10 @@ int main( int argc, char* args[] )
                 {
                     //renders bg, stage ui buttons and player
                     stage.renderStage1(renderer);
+                }
+                else if(gameState == 6)
+                {
+                    openingSequence.renderOpeningSequence(renderer);
                 }
                 if(fade)
                 {

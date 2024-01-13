@@ -145,6 +145,22 @@ void stage::loadFont()
 
 }
 
+void stage::loadOpeningSequence(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running stage::loadOpeningSequence(SDL_Renderer* renderer)";
+    //going to need the font for the opening sequence
+    loadFont();
+    //loading images for opening sequence
+    openingSequenceHouse.loadFromFile("images/openingSequenceHouse.png",renderer);
+    openingSequenceNewspaper.loadFromFile("images/newsPaper.png",renderer);
+
+    //SDL_Color textColor = {255,255,255};//white
+
+    //load player texture
+    player1.loadPlayer(renderer);
+
+}
+
 bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)
 {
     std::cout<<"\n running stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)";
@@ -158,6 +174,8 @@ bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool succe
     success = setStageTextures(renderer);
 
     loadTimeSurvivedTextures(renderer);
+    //loading the player might need an if statement based on whether a newgame is started or
+    //user is loading a save file.
     //load player texture
     player1.loadPlayer(renderer);
     //loads needs text textures for UI.
@@ -478,8 +496,21 @@ void stage::freeStationButtons()
     buttonsFreed = true;
 }
 
+void stage::renderOpeningSequence(SDL_Renderer* renderer)
+{
+    //renders house background
+    openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    //renders player on top of house background
+    player1.render(renderer);
+    //if user presses 'e' button
+    if(player1.interact)
+    {//newspaper renders
+        openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
+
 void stage::renderStage1(SDL_Renderer* renderer)
-{//while stage scene is running this displays bgs,buttons, and player with updated positions.
+{//while stage scene is running this displays bgs,buttons,stations,UI, and player with updated positions.
     stage1BG[0].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     starsHandleParallax(renderer);
     if(externalView)

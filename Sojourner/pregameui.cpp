@@ -702,6 +702,11 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                 }
             }
         }
+        //this is added to make this function return 6 (opening sequence) instead of 5 (game proper).
+        if(gameState == 5)
+        {
+            gameState = 6;
+        }
     }
     else if(gameState==2)
     {
