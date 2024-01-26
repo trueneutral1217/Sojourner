@@ -153,11 +153,20 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     //loading images for opening sequence
     openingSequenceHouse.loadFromFile("images/openingSequenceHouse.png",renderer);
     openingSequenceNewspaper.loadFromFile("images/newsPaper.png",renderer);
+    openingSequenceShip.loadFromFile("images/backyardShip.png",renderer);
+
+    inHab = false;
+    inEng = false;
 
     //SDL_Color textColor = {255,255,255};//white
 
+    //this tells loadPlayer below to load regular earth clothes
+    player1.inSpace = false;
     //load player texture
     player1.loadPlayer(renderer);
+
+    player1.setX(750);
+    player1.setY(420);
 
 }
 
@@ -176,8 +185,12 @@ bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool succe
     loadTimeSurvivedTextures(renderer);
     //loading the player might need an if statement based on whether a newgame is started or
     //user is loading a save file.
+
+    //this tells loadplayer below to load the player's space clothes.
+    player1.inSpace = true;
     //load player texture
     player1.loadPlayer(renderer);
+
     //loads needs text textures for UI.
     player1.loadNeedsTextures(renderer,font);
     //when loading from save, the colors of the text textures needs to be set, so reloadneedstextures needs to run
@@ -702,72 +715,85 @@ void stage::engInternalHandleParallax(SDL_Renderer* renderer)
 
 void stage::move(int countedFrames)
 {
-    if( player1.getY() == 360 && player1.getPVelY() > 0 )
-    {//player is heading down after hitting lower threshold.
-        if(inHab)
-        {
-            //y value of hab background continues to decrease as it moves up the screen
-            if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
-            {
-                habInternalY1 = 600;
-            }
-            if(habInternalY2 < -599)
-            {
-                habInternalY2 = 600;
-            }
-            habInternalY1-=player1.getPVelY();
-            habInternalY2-=player1.getPVelY();
-        }
-        else if(inEng)
-        {
-            //y value of hab background continues to decrease as it moves up the screen
-            if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
-            {
-                engInternalY1 = 600;
-            }
-            if(engInternalY2 < -599)
-            {
-                engInternalY2 = 600;
-            }
-
-            engInternalY1-=player1.getPVelY();
-            engInternalY2-=player1.getPVelY();
-        }
-    }
-    if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
+    if(inHab || inEng)
     {
+        if( player1.getY() == 360 && player1.getPVelY() > 0 )
+        {//player is heading down after hitting lower threshold.
+            if(inHab)
+            {
+                //y value of hab background continues to decrease as it moves up the screen
+                if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                {
+                    habInternalY1 = 600;
+                }
+                if(habInternalY2 < -599)
+                {
+                    habInternalY2 = 600;
+                }
+                habInternalY1-=player1.getPVelY();
+                habInternalY2-=player1.getPVelY();
+            }
+            else if(inEng)
+            {
+                //y value of hab background continues to decrease as it moves up the screen
+                if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                {
+                    engInternalY1 = 600;
+                }
+                if(engInternalY2 < -599)
+                {
+                    engInternalY2 = 600;
+                }
 
-        if(inHab)
-        {
-            if(habInternalY1 > 599)
-            {
-                habInternalY1 = -600;
+                engInternalY1-=player1.getPVelY();
+                engInternalY2-=player1.getPVelY();
             }
-            if(habInternalY2 > 599)
-            {
-                habInternalY2 = -600;
-            }
-
-            habInternalY1-=player1.getPVelY();
-            habInternalY2-=player1.getPVelY();
-        }
-        else if(inEng)
-        {
-            if(engInternalY1 > 599)
-            {
-                engInternalY1 = -600;
-            }
-            if(engInternalY2 > 599)
-            {
-                engInternalY2 = -600;
-            }
-
-            engInternalY1-=player1.getPVelY();
-            engInternalY2-=player1.getPVelY();
         }
     }
+    if(inHab || inEng)
+    {
+        if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
+        {
 
-    player1.move(countedFrames,ship,inHab,inEng);
+            if(inHab)
+            {
+                if(habInternalY1 > 599)
+                {
+                    habInternalY1 = -600;
+                }
+                if(habInternalY2 > 599)
+                {
+                    habInternalY2 = -600;
+                }
+
+                habInternalY1-=player1.getPVelY();
+                habInternalY2-=player1.getPVelY();
+            }
+            else if(inEng)
+            {
+                if(engInternalY1 > 599)
+                {
+                    engInternalY1 = -600;
+                }
+                if(engInternalY2 > 599)
+                {
+                    engInternalY2 = -600;
+                }
+
+                engInternalY1-=player1.getPVelY();
+                engInternalY2-=player1.getPVelY();
+            }
+        }
+    }
+    if(inHab || inEng)
+    {
+        player1.move(countedFrames,ship,inHab,inEng);
+    }
+    else
+    {
+        player1.move(countedFrames);
+    }
+
     if(inHab)
     {
         //first habitat background

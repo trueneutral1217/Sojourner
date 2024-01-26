@@ -51,8 +51,8 @@ class stage
         Texture openingSequenceHouse;
         //newspaper texture displays an image of a newspaper until a click or for a certain amount of time.
         Texture openingSequenceNewspaper;
-        //there will be a texture for the rocket ship / gantry
-
+        //texture for the rocket ship / gantry
+        Texture openingSequenceShip;
 
         //declare font
         TTF_Font *font;

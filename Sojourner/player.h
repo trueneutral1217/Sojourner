@@ -47,7 +47,7 @@ class player
         //player's dimensions and velocity
         static const int PLAYER_WIDTH = 40;
         static const int PLAYER_HEIGHT = 80;
-        static const int PLAYER_VEL = 5;
+        static const int PLAYER_VEL = 1;
         //bottom of player sprite
         int playerBot;
         //tracks current player movement state (idle, walkLR, soon to be other directions and possible other types of movement like floating or running)
@@ -107,6 +107,8 @@ class player
         //void move(int tick, SDL_Rect collidable, SDL_Rect interactable,int STATIONS, bool inHab,bool inEng);
 
         void move(int tick, ship& ship,bool inhab, bool inEng);
+        //this is the move function used in the opening sequence
+        void move(int tick);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources

@@ -7,7 +7,7 @@ player::player()
     playerY = 260;//also middle, considering player height.  player starts in screen center.
     playerBot = playerY+PLAYER_HEIGHT;
     flipHorizontal = false;
-    inSpace=true;
+    inSpace=false;
     inRange=false;
     interact=false;
     interactBed=false;
@@ -130,6 +130,170 @@ void player::handleEvent(SDL_Event& e)
     }
 }
 
+void player::move(int tick)
+{
+    playerX += pVelX;
+    playerY += pVelY;
+
+    std::cout<<"\n playerX: "<<playerX;
+
+    int tickLimit = 15;
+
+    if(pVelX > 0)//player is walking right
+    {
+        if(pVelY == 0)//player is not moving up or down
+        {
+            //the images used are right facing, therefore no need to flip.
+            flipHorizontal=false;
+            //moveState 1 = walking left/right
+            moveState = WALK_LR;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= LR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else if(pVelY > 0)//player is walking right & down
+        {
+            flipHorizontal=false;
+            moveState=WALK_DLDR;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= DLDR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else//player is walking right and up
+        {
+            flipHorizontal=false;
+            moveState=WALK_ULUR;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= ULUR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        currentTexture = playerTexture[moveState][walkFrame];
+        //std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
+    }
+    else if(pVelX < 0)//player is walking left
+    {
+        if(pVelY == 0)//player is not moving up or down
+        {
+            //images are right facing, player is walking left, so flip horizontal.
+            flipHorizontal=true;
+            //moveState 1 is walking left/right
+            moveState=WALK_LR;
+            if(tick%tickLimit == 0)
+            {
+                walkFrame++;
+                if(walkFrame >= LR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else if(pVelY > 0)//player is walking left and down
+        {
+            flipHorizontal=true;
+            moveState=WALK_DLDR;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= DLDR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else//player is walking left and up
+        {
+            flipHorizontal=true;
+            moveState=WALK_ULUR;
+            if(tick%tickLimit == 0)//every 3 frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= ULUR_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        currentTexture = playerTexture[moveState][walkFrame];
+        //std::cout<<"\n\n moveState: "<<moveState<<"\n walkFrame:"<<walkFrame;
+    }
+    else
+    {
+        //player is idling,walking down, or walking up, no need for horizontal flip.
+        flipHorizontal=false;
+
+        if(pVelY > 0)//player is walking down
+        {
+            moveState=WALK_D;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= D_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else if(pVelY < 0)//player is walking up
+        {
+            moveState=WALK_U;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= U_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        else//player is not moving up or down (idle)
+        {
+            //moveState 0 is idle
+            moveState=IDLE;
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
+            {
+                walkFrame++;
+                if(walkFrame >= IDLE_TEXTURES)
+                {
+                    walkFrame=0;
+                }
+            }
+        }
+        //walkFrame is 0 since currently only 1 texture for idle state.
+        //walkFrame = 0;
+        currentTexture = playerTexture[moveState][walkFrame];
+    }
+
+    if((playerX < 207) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
+    {
+        playerX -= pVelX;
+    }
+    if((playerY < 390) || (playerY > 455) )
+    {
+        playerY -= pVelY;
+    }
+    //update player collision box coords
+    playerCollisionBox.x = playerX+5;
+    playerCollisionBox.y = playerY+60;
+
+
+    playerBot = playerY+PLAYER_HEIGHT;
+
+}
 
 void player::move(int tick, ship& ship,bool inHab, bool inEng)
 {
