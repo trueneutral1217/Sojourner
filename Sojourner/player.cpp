@@ -135,7 +135,7 @@ void player::move(int tick)
     playerX += pVelX;
     playerY += pVelY;
 
-    std::cout<<"\n playerX: "<<playerX;
+    //std::cout<<"\n playerX: "<<playerX;
 
     int tickLimit = 15;
 

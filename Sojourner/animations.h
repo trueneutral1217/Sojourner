@@ -2,7 +2,6 @@
 #define ANIMATIONS_H
 
 #include "Texture.h"
-#include "timer.h"
 
 
 const int TAO_ANIMATION_FRAMES = 8;

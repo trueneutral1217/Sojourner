@@ -150,6 +150,22 @@ void Texture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 	SDL_RenderCopyEx( renderer, texture, clip, &renderQuad, angle, center, flip );
 }
 
+void Texture::timedRender(int ticks, int x, int y, Texture& tempTexture, SDL_Renderer* renderer)
+{
+    //still in progress
+    timer tempTimer;
+    tempTimer.start();
+    if(ticks > tempTimer.getTicks())
+    {
+        tempTexture.render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else{
+        tempTexture.free();
+    }
+
+
+}
+
 int Texture::getWidth()
 {
 	return width;

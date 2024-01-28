@@ -1262,11 +1262,10 @@
 1697400847 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
-1696283842 c:\sojourner\sojourner\animations.h
+1706401609 c:\sojourner\sojourner\animations.h
 	"Texture.h"
-	"timer.h"
 
-1699654927 c:\sojourner\sojourner\texture.h
+1706402775 c:\sojourner\sojourner\texture.h
 	"SDL.h"
 	<SDL_ttf.h>
 	"string"
@@ -1279,6 +1278,7 @@
 	<assert.h>
 	<vector>
 	"cstdlib"
+	"timer.h"
 
 1696799668 c:\sojourner\sojourner\timer.h
 	"Texture.h"
@@ -1290,11 +1290,10 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1706229397 source:c:\sojourner\sojourner\main.cpp
+1706401608 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
-	"timer.h"
 	"particle.h"
 	"saveGame.h"
 	"pregameui.h"
@@ -1305,9 +1304,8 @@
 1703293364 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
-1703035734 c:\sojourner\sojourner\particle.h
+1706401609 c:\sojourner\sojourner\particle.h
 	"Texture.h"
-	"timer.h"
 
 1682117124 c:\sojourner\sojourner\chapter.h
 	"timer.h"
@@ -1315,7 +1313,7 @@
 	"parallax.h"
 	"audio.h"
 
-1677107590 c:\sojourner\sojourner\parallax.h
+1706399341 c:\sojourner\sojourner\parallax.h
 	"Texture.h"
 
 1704855812 c:\sojourner\sojourner\savegame.h
@@ -1329,7 +1327,7 @@
 	"button.h"
 	"particle.h"
 
-1706229541 c:\sojourner\sojourner\stage.h
+1706402918 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
@@ -1340,25 +1338,25 @@
 1698102383 c:\sojourner\sojourner\text.h
 	"texture.h"
 
-1677107590 source:c:\sojourner\sojourner\parallax.cpp
+1706400181 source:c:\sojourner\sojourner\parallax.cpp
 	"parallax.h"
 
 1703035734 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1706230932 source:c:\sojourner\sojourner\player.cpp
+1706401103 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1704855812 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1706231224 source:c:\sojourner\sojourner\stage.cpp
+1706398935 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
 	"text.h"
 
-1699655024 source:c:\sojourner\sojourner\texture.cpp
+1706402775 source:c:\sojourner\sojourner\texture.cpp
 	"Texture.h"
 
 1700004430 source:c:\sojourner\sojourner\timer.cpp

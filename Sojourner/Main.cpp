@@ -2,7 +2,6 @@
 #include "audio.h"
 #include "button.h"
 #include "Texture.h"
-#include "timer.h"
 #include "particle.h"
 #include "saveGame.h"
 #include "pregameui.h"
@@ -249,6 +248,9 @@ void close()
     preferences.writePrefsFile(pregameui);
     //free pregame ui resouces
     pregameui.free();
+
+    //since the opening sequence stage doesn't have it's free function get called yet, I'm putting it here, temporarily.
+    openingSequence.free();
     //free stage resources
     //stage.free();
     //free animation textures

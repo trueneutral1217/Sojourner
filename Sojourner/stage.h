@@ -62,10 +62,13 @@ class stage
         parallax starsFore;
         parallax starsMid;
         parallax starsBack;
+
+        timer newspaperTimer;
+
         //message of courage in external view
-        std::string courage;
+        std::string courage, newspaper;
         //text texture for message of courage
-        Texture courageTexture;
+        Texture courageTexture, newspaperTexture;
         //buttons for stage UI.
         button buttons[TOTAL_STAGE_BUTTONS];
         //array of background image names.
@@ -105,6 +108,8 @@ class stage
         bool loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success);
         //free resources
         void free();
+        //free opening sequence resources.
+        void freeOpeningSequence();
         //renders stages during play.
         void renderStage1(SDL_Renderer* renderer);
         //stage font is different from gohomeless chapter font

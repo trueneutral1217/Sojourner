@@ -16,6 +16,7 @@
 #include <assert.h>
 #include <vector>
 #include "cstdlib"
+#include "timer.h"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
@@ -57,6 +58,8 @@ class Texture
 
 		//Renders texture at given point
 		void render( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE,SDL_Renderer* renderer=NULL );
+        //currently not ready
+		void timedRender(int ticks, int x, int y, Texture& tempTexture, SDL_Renderer* renderer=NULL);
 
 		//Gets image dimensions
 		int getWidth();

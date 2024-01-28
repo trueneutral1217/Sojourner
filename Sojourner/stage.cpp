@@ -158,7 +158,14 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     inHab = false;
     inEng = false;
 
-    //SDL_Color textColor = {255,255,255};//white
+    SDL_Color textColor = {255,255,255};//white
+
+    newspaper = "Maybe I should check the newspaper? (press 'E')";
+
+    if(!newspaperTexture.loadFromRenderedText(newspaper.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render newspaper string to newspaperTexture!";
+    }
 
     //this tells loadPlayer below to load regular earth clothes
     player1.inSpace = false;
@@ -167,6 +174,8 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
 
     player1.setX(750);
     player1.setY(420);
+
+    newspaperTimer.start();
 
 }
 
@@ -222,6 +231,14 @@ void stage::free()
     //station.free();
     ship.free();
 
+}
+
+void stage::freeOpeningSequence()
+{
+    std::cout<<"\n running stage::freeOpeningSequence()";
+    newspaperTexture.free();
+    openingSequenceHouse.free();
+    openingSequenceNewspaper.free();
 }
 
 void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
@@ -515,6 +532,14 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
     openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //renders player on top of house background
     player1.render(renderer);
+
+    //renders text texture saying "maybe I should read the newspaper
+    if(newspaperTimer.getTicks() < 5000)
+    {
+        newspaperTexture.render(150,350,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+
+
     //if user presses 'e' button
     if(player1.interact)
     {//newspaper renders
@@ -690,7 +715,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
 void stage::starsHandleParallax(SDL_Renderer* renderer)
 {//space parallax
     //slows down the animation of the parallax backgrounds
-    SDL_Delay(10);
+    //SDL_Delay(10);
     //parallax rendering
     starsBack.parallaxRender(renderer);
     starsMid.parallaxRender(renderer);

@@ -2,7 +2,6 @@
 #define PARTICLE_H
 
 #include "Texture.h"
-#include "timer.h"
 
 const int TOTAL_PARTICLES = 50;
 

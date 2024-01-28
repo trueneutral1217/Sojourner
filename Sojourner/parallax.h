@@ -41,10 +41,6 @@ class parallax
 
         void specialIncrementFore();
 
-        //might be able to privatize. both of the following functions
-        void resetParallax();
-        void updateRects();
-
         void specialResetParallax();
 
         void parallaxRender(SDL_Renderer* renderer);
@@ -53,9 +49,12 @@ class parallax
 
     private:
 
-    int paraX,paraY;
-    int paraX2,paraY2;
-    int paraVelX;
+    void resetParallax();
+    void updateRects();
+
+    float paraX,paraY;
+    float paraX2,paraY2;
+    float paraVelX;
 };
 
 #endif
