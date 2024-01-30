@@ -381,6 +381,7 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.y = collidable.y-3;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+6;
+
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     buttonString.push_back("Heal");

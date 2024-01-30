@@ -167,6 +167,33 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
         std::cout<<"\n unable to render newspaper string to newspaperTexture!";
     }
 
+    iDontWantToLiveOnThisPlanetAnymore = "I don't want to live on this planet anymore.";
+
+    if(!iDontWantToLiveOnThisPlanetAnymoreTexture.loadFromRenderedText(iDontWantToLiveOnThisPlanetAnymore.c_str(), textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render idontwanttoliveonthisplanetanymore string to idontwanttoliveonthisplanetanymoreTexture!";
+    }
+
+    backyard = "Time to head to the backyard.";
+
+    if(!backyardTexture.loadFromRenderedText(backyard.c_str(),textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render backyard string to backyardTexture!";
+    }
+
+    //setting up interaction box for newspaper
+    newspaperInteraction.x = 470;
+    newspaperInteraction.y = 525;
+    newspaperInteraction.w = 165;
+    newspaperInteraction.h = 75;
+
+    backdoorInteraction.x = 210;
+    backdoorInteraction.y = 430;
+    backdoorInteraction.w = 50;
+    backdoorInteraction.h = 120;
+
+    paperRead = false;
+
     //this tells loadPlayer below to load regular earth clothes
     player1.inSpace = false;
     //load player texture
@@ -175,7 +202,7 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     player1.setX(750);
     player1.setY(420);
 
-    newspaperTimer.start();
+    openingSequenceTimer.start();
 
 }
 
@@ -534,17 +561,47 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
     player1.render(renderer);
 
     //renders text texture saying "maybe I should read the newspaper
-    if(newspaperTimer.getTicks() < 5000)
-    {
-        newspaperTexture.render(150,350,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    if(openingSequenceTimer.getTicks() < 3000 && openingSequenceTimer.isStarted() && !paperRead)
+    {//this is just a text texture
+        newspaperTexture.render(150,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
-
+    else if(openingSequenceTimer.getTicks() >= 3000 && !paperRead)
+    {
+        openingSequenceTimer.stop();
+    }
 
     //if user presses 'e' button
     if(player1.interact)
     {//newspaper renders
-        openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(paperRead)
+        {
+            if(player1.interactBackdoor)
+            {
+                //this is where the transition to the backyard happens.
+                std::cout<<"\n backDoor interacted";
+            }
+        }
+        if(player1.interactNewspaper)
+        {
+            openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            paperRead = true;
+            openingSequenceTimer.start();
+        }
     }
+
+    if(paperRead)
+    {
+        if(!player1.interact)
+        {
+            if(openingSequenceTimer.getTicks() < 3000)
+            {
+                iDontWantToLiveOnThisPlanetAnymoreTexture.render(50,player1.getY() - 20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+    }
+
+
+
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -816,7 +873,7 @@ void stage::move(int countedFrames)
     }
     else
     {
-        player1.move(countedFrames);
+        player1.move(countedFrames,newspaperInteraction,backdoorInteraction);
     }
 
     if(inHab)

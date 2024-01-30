@@ -130,7 +130,8 @@ void player::handleEvent(SDL_Event& e)
     }
 }
 
-void player::move(int tick)
+//This move function is for the opening sequence
+void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInteraction)
 {
     playerX += pVelX;
     playerY += pVelY;
@@ -289,6 +290,26 @@ void player::move(int tick)
     //update player collision box coords
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
+
+    if(collisionDetector(newspaperInteraction))
+    {
+        //newspaper is interactable
+        interactNewspaper = true;
+    }
+    else
+    {
+        interactNewspaper = false;
+    }
+
+    if(collisionDetector(backdoorInteraction))
+    {
+        //newspaper is interactable
+        interactBackdoor = true;
+    }
+    else
+    {
+        interactBackdoor = false;
+    }
 
 
     playerBot = playerY+PLAYER_HEIGHT;

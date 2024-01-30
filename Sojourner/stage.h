@@ -50,7 +50,7 @@ class stage
         //house texture has the initial backround for the opening sequence
         Texture openingSequenceHouse;
         //newspaper texture displays an image of a newspaper until a click or for a certain amount of time.
-        Texture openingSequenceNewspaper;
+        Texture openingSequenceNewspaper, iDontWantToLiveOnThisPlanetAnymoreTexture,backyardTexture;
         //texture for the rocket ship / gantry
         Texture openingSequenceShip;
 
@@ -63,10 +63,17 @@ class stage
         parallax starsMid;
         parallax starsBack;
 
-        timer newspaperTimer;
+        timer openingSequenceTimer;
+
+        SDL_Rect newspaperInteraction;
+        SDL_Rect backdoorInteraction;
+
+        bool paperRead;
+
+
 
         //message of courage in external view
-        std::string courage, newspaper;
+        std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore;
         //text texture for message of courage
         Texture courageTexture, newspaperTexture;
         //buttons for stage UI.

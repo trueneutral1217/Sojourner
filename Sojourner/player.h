@@ -80,6 +80,8 @@ class player
         bool interactRec;
         //flags interaction with a station in engineering module
         bool interactHabExit, interactEngExit, interactBatteryArray, interactResearchDesk, interactEngineStation, interactCargoArea, interactCommStation;
+        //for opening sequence newspaper
+        bool interactNewspaper,interactBackdoor;
 
         //used for player walk animations
         Texture currentTexture;
@@ -108,7 +110,7 @@ class player
 
         void move(int tick, ship& ship,bool inhab, bool inEng);
         //this is the move function used in the opening sequence
-        void move(int tick);
+        void move(int tick, SDL_Rect& newspaperInteraction, SDL_Rect& backdoorInteraction);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources
