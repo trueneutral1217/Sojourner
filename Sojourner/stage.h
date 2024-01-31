@@ -68,14 +68,14 @@ class stage
         SDL_Rect newspaperInteraction;
         SDL_Rect backdoorInteraction;
 
-        bool paperRead;
+        bool paperRead,backdoorInteracted;
 
 
 
         //message of courage in external view
-        std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore;
+        std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
         //text texture for message of courage
-        Texture courageTexture, newspaperTexture;
+        Texture courageTexture, newspaperTexture, gtfoTexture;
         //buttons for stage UI.
         button buttons[TOTAL_STAGE_BUTTONS];
         //array of background image names.
@@ -145,6 +145,8 @@ class stage
         void refreshTS(SDL_Renderer* renderer);
         //loads the textures etc for the opening sequence
         void loadOpeningSequence(SDL_Renderer* renderer);
+        //frees the resources in the house portion of the opening sequence
+        void freeHouse();
         //renders the opening sequence textures
         void renderOpeningSequence(SDL_Renderer* renderer);
 

@@ -181,6 +181,13 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
         std::cout<<"\n unable to render backyard string to backyardTexture!";
     }
 
+    gtfo = "I'm getting the fuck out of here.";
+
+    if(!gtfoTexture.loadFromRenderedText(gtfo.c_str(),textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render gtfo string to gtfoTexture!";
+    }
+
     //setting up interaction box for newspaper
     newspaperInteraction.x = 470;
     newspaperInteraction.y = 525;
@@ -558,7 +565,10 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
     //renders house background
     openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //renders player on top of house background
-    player1.render(renderer);
+    if(!backdoorInteracted)
+    {
+        player1.render(renderer);
+    }
 
     //renders text texture saying "maybe I should read the newspaper
     if(openingSequenceTimer.getTicks() < 3000 && openingSequenceTimer.isStarted() && !paperRead)
@@ -579,6 +589,10 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
             {
                 //this is where the transition to the backyard happens.
                 std::cout<<"\n backDoor interacted";
+                freeHouse();
+                backdoorInteracted = true;
+                player1.setX(380);
+                player1.setY(520);
             }
         }
         if(player1.interactNewspaper)
@@ -595,12 +609,44 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
         {
             if(openingSequenceTimer.getTicks() < 3000)
             {
-                iDontWantToLiveOnThisPlanetAnymoreTexture.render(50,player1.getY() - 20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                iDontWantToLiveOnThisPlanetAnymoreTexture.render(50,player1.getY() - 40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             }
+            if(openingSequenceTimer.getTicks() > 2000 && openingSequenceTimer.getTicks() < 5000)
+            {
+                backyardTexture.render(50,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
+        }
+    }
+    if(backdoorInteracted)
+    {
+        openingSequenceShip.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        player1.render(renderer);
+        if(openingSequenceTimer.getTicks() < 3000)
+        {
+            gtfoTexture.render(50,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
     }
 
 
+}
+
+void stage::freeHouse()
+{
+    std::cout<<"\n running stage::freeHouse()";
+    //frees up the resources from the house portion of the opening sequence.
+iDontWantToLiveOnThisPlanetAnymoreTexture.free();
+openingSequenceTimer.restart();
+openingSequenceNewspaper.free();
+newspaperTexture.free();
+openingSequenceHouse.free();
+newspaperInteraction.x = 0;
+newspaperInteraction.y = 0;
+newspaperInteraction.w = 0;
+newspaperInteraction.h = 0;
+backdoorInteraction.x = 0;
+backdoorInteraction.y = 0;
+backdoorInteraction.w = 0;
+backdoorInteraction.h = 0;
 
 }
 
