@@ -155,6 +155,10 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     openingSequenceNewspaper.loadFromFile("images/newsPaper.png",renderer);
     openingSequenceShip.loadFromFile("images/backyardShip.png",renderer);
 
+    door.loadFromFile("images/door.png",renderer);
+    obscure.loadFromFile("images/obscure.png",renderer);
+    ramp.loadFromFile("images/ramp.png",renderer);
+
     inHab = false;
     inEng = false;
 
@@ -199,8 +203,17 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     backdoorInteraction.w = 50;
     backdoorInteraction.h = 120;
 
-    paperRead = false;
+    //X is hardcoded, so it can be removed (doorX, rampX)
+    doorX = 331;
+    doorY = 166;
+    rampX = 338;
+    rampY = 503;
 
+    iterations = 62;
+    iterations2 = 170;
+
+    paperRead = false;
+    inBackyard = false;
     //this tells loadPlayer below to load regular earth clothes
     player1.inSpace = false;
     //load player texture
@@ -591,6 +604,7 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
                 std::cout<<"\n backDoor interacted";
                 freeHouse();
                 backdoorInteracted = true;
+                inBackyard = true;
                 player1.setX(380);
                 player1.setY(520);
             }
@@ -619,11 +633,30 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
     }
     if(backdoorInteracted)
     {
+
         openingSequenceShip.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        ramp.render(338,rampY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        obscure.render(338,405,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         player1.render(renderer);
+        door.render(doorX,doorY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         if(openingSequenceTimer.getTicks() < 3000)
         {
             gtfoTexture.render(50,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        if(player1.getY() == 420)
+        {//retract ramp, close door
+
+            if(openingSequenceTimer.getTicks() % 100 == 0 && iterations >= 0)
+            {
+                rampY--;
+                iterations--;
+            }
+
+            if(openingSequenceTimer.getTicks() %100 == 0 && iterations2 >=0)
+            {
+                doorY++;
+                iterations2--;
+            }
         }
     }
 
@@ -648,6 +681,13 @@ backdoorInteraction.y = 0;
 backdoorInteraction.w = 0;
 backdoorInteraction.h = 0;
 
+}
+
+void stage::freeBackyard()
+{
+    std::cout<<"\n running stage::freeBackyard()";
+    backyardTexture.free();
+    openingSequenceShip.free();
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -919,7 +959,7 @@ void stage::move(int countedFrames)
     }
     else
     {
-        player1.move(countedFrames,newspaperInteraction,backdoorInteraction);
+        player1.move(countedFrames,newspaperInteraction,backdoorInteraction,inBackyard);
     }
 
     if(inHab)

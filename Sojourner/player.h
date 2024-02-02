@@ -110,7 +110,7 @@ class player
 
         void move(int tick, ship& ship,bool inhab, bool inEng);
         //this is the move function used in the opening sequence
-        void move(int tick, SDL_Rect& newspaperInteraction, SDL_Rect& backdoorInteraction);
+        void move(int tick, SDL_Rect& newspaperInteraction, SDL_Rect& backdoorInteraction,bool inBackyard);
         //renders player
         void render(SDL_Renderer* renderer);
         //frees player resources

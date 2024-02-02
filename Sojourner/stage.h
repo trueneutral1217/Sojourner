@@ -62,15 +62,20 @@ class stage
         parallax starsFore;
         parallax starsMid;
         parallax starsBack;
-
+        //used to display text textures for a set period of time.
         timer openingSequenceTimer;
-
+        //interaction boxes in opening sequence
         SDL_Rect newspaperInteraction;
         SDL_Rect backdoorInteraction;
+        //opening sequence progress flags
+        bool paperRead,backdoorInteracted,inBackyard;
+        //used in backyard scene
+        int doorX,doorY,rampX,rampY;
 
-        bool paperRead,backdoorInteracted;
+        Texture door,ramp,obscure;
 
-
+        int iterations;
+        int iterations2;
 
         //message of courage in external view
         std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
@@ -147,6 +152,8 @@ class stage
         void loadOpeningSequence(SDL_Renderer* renderer);
         //frees the resources in the house portion of the opening sequence
         void freeHouse();
+
+        void freeBackyard();
         //renders the opening sequence textures
         void renderOpeningSequence(SDL_Renderer* renderer);
 

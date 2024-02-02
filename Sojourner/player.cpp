@@ -131,7 +131,7 @@ void player::handleEvent(SDL_Event& e)
 }
 
 //This move function is for the opening sequence
-void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInteraction)
+void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInteraction,bool inBackyard)
 {
     playerX += pVelX;
     playerY += pVelY;
@@ -279,14 +279,29 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
         currentTexture = playerTexture[moveState][walkFrame];
     }
 
-    if((playerX < 207) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
+    if(!inBackyard)
     {
-        playerX -= pVelX;
+        if((playerX < 207) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
+        {
+            playerX -= pVelX;
+        }
+        if((playerY < 390) || (playerY > 455) )
+        {
+            playerY -= pVelY;
+        }
     }
-    if((playerY < 390) || (playerY > 455) )
+    else
     {
-        playerY -= pVelY;
+        if(playerX < 360 || playerX + PLAYER_WIDTH > 450)
+        {
+            playerX -= pVelX;
+        }
+        if(playerY < 420 || playerY + PLAYER_HEIGHT > SCREEN_HEIGHT)
+        {
+            playerY -= pVelY;
+        }
     }
+
     //update player collision box coords
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
