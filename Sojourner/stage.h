@@ -85,6 +85,8 @@ class stage
 
         int ascensionY,cloudY,cloudY2;
 
+        bool complete;
+
         //message of courage in external view
         std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
         //text texture for message of courage

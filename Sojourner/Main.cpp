@@ -381,6 +381,7 @@ int main( int argc, char* args[] )
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
                                 openingSequence.loadOpeningSequence(renderer);
+
                                 //a call to stage.setNewgameVars() will have to be called
                                 //at the end of the opening sequence
 
@@ -535,6 +536,17 @@ int main( int argc, char* args[] )
                             //this is the opening sequence of a new game.
                             //should allow player movement etc.
                             openingSequence.handleButtons(renderer,&e);
+                            if(openingSequence.complete)
+                            {
+                                std::cout<<"\n changing gamestate from 5 to 6";
+                                gameState = 5;
+                                //taken from the gamestate == 1 old way of transitioning to gamestate 5
+                                //chosenSave = pregameui.chosenSave;
+                                stage.setNewgameVars();
+                                //playedTime.timePlayed = 0;
+                                //playedTime.restart();
+                                stage.loadStage(renderer,stage.inHab, stage.inEng,true);
+                            }
                         }
                     }
 					//Handle key press

@@ -240,6 +240,8 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     cloudY = 200;
     cloudY2 = -300;
 
+    complete = false;
+
 }
 
 bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success)
@@ -700,15 +702,16 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
             cloud.render(500,cloudY2+150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 
 
-            if(openingSequenceTimer.getTicks() %20 == 0 && ascensionY <=0)
+            if(openingSequenceTimer.getTicks() %10 == 0 && ascensionY <=0)
             {
                 ascensionY++;
                 cloudY++;
                 cloudY2++;
             }
-            if(ascensionY >= 0)
+            if(ascensionY >= 0 && complete == false)
             {
                 freeSky();
+                complete = true;
                 //set gamestate = 5 at this point.
             }
         }
