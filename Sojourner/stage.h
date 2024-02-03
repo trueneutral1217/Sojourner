@@ -74,8 +74,16 @@ class stage
 
         Texture door,ramp,obscure;
 
+        Texture ascension, cloud, liftOffShip;
+
         int iterations;
         int iterations2;
+
+        bool backyardFree;
+
+        SDL_Rect camera;
+
+        int ascensionY,cloudY,cloudY2;
 
         //message of courage in external view
         std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
@@ -152,8 +160,10 @@ class stage
         void loadOpeningSequence(SDL_Renderer* renderer);
         //frees the resources in the house portion of the opening sequence
         void freeHouse();
-
+        //frees backyard resources
         void freeBackyard();
+        //frees the sky scene resources
+        void freeSky();
         //renders the opening sequence textures
         void renderOpeningSequence(SDL_Renderer* renderer);
 

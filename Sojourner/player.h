@@ -82,6 +82,8 @@ class player
         bool interactHabExit, interactEngExit, interactBatteryArray, interactResearchDesk, interactEngineStation, interactCargoArea, interactCommStation;
         //for opening sequence newspaper
         bool interactNewspaper,interactBackdoor;
+        //needed for opening sequence
+        bool movementDisabled;
 
         //used for player walk animations
         Texture currentTexture;

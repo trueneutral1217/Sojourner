@@ -19,7 +19,7 @@ player::player()
     interactRec = false;
     interactHabExit = false;
     interactEngExit = false;
-
+    movementDisabled = false;
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
@@ -276,6 +276,8 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
         }
         //walkFrame is 0 since currently only 1 texture for idle state.
         //walkFrame = 0;
+
+
         currentTexture = playerTexture[moveState][walkFrame];
     }
 
@@ -328,6 +330,12 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
 
 
     playerBot = playerY+PLAYER_HEIGHT;
+
+    if(movementDisabled)
+    {
+        currentTexture = playerTexture[0][0];
+    }
+
 
 }
 

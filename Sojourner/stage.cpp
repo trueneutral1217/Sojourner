@@ -159,6 +159,11 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     obscure.loadFromFile("images/obscure.png",renderer);
     ramp.loadFromFile("images/ramp.png",renderer);
 
+    ascension.loadFromFile("images/ascensionBG.png",renderer);
+    cloud.loadFromFile("images/cloud.png",renderer);
+    liftOffShip.loadFromFile("images/liftOffShip.png",renderer);
+
+
     inHab = false;
     inEng = false;
 
@@ -214,6 +219,7 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
 
     paperRead = false;
     inBackyard = false;
+    backyardFree = false;
     //this tells loadPlayer below to load regular earth clothes
     player1.inSpace = false;
     //load player texture
@@ -223,6 +229,16 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     player1.setY(420);
 
     openingSequenceTimer.start();
+
+    camera.x = 0;
+    camera.y = 1200;
+    camera.w = 800;
+    camera.y = 600;
+
+    ascensionY = -1200;
+
+    cloudY = 200;
+    cloudY2 = -300;
 
 }
 
@@ -281,7 +297,7 @@ void stage::free()
 }
 
 void stage::freeOpeningSequence()
-{
+{//only frees the house part of the opening sequence
     std::cout<<"\n running stage::freeOpeningSequence()";
     newspaperTexture.free();
     openingSequenceHouse.free();
@@ -637,7 +653,10 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
         openingSequenceShip.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         ramp.render(338,rampY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         obscure.render(338,405,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        player1.render(renderer);
+        if(!backyardFree)
+        {
+            player1.render(renderer);
+        }
         door.render(doorX,doorY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         if(openingSequenceTimer.getTicks() < 3000)
         {
@@ -645,17 +664,52 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
         }
         if(player1.getY() == 420)
         {//retract ramp, close door
-
-            if(openingSequenceTimer.getTicks() % 100 == 0 && iterations >= 0)
-            {
+            //make sure to re-enable movement later.
+            player1.movementDisabled = true;
+            if(openingSequenceTimer.getTicks() % 25 == 0 && iterations >= 0)
+            {//raises the ramp until it's behind the obscure image (gives the illusion of the ramp being retracted)
                 rampY--;
                 iterations--;
             }
-
-            if(openingSequenceTimer.getTicks() %100 == 0 && iterations2 >=0)
-            {
+            if(openingSequenceTimer.getTicks() %25 == 0 && iterations2 >=0)
+            {//lowers the door over the character
                 doorY++;
                 iterations2--;
+            }
+        }
+        if(iterations <= 0 && iterations2 <= 0)
+        {
+            //time to fly
+            if(!backyardFree)
+            {
+                freeBackyard();
+                backyardFree = true;
+                player1.movementDisabled = false;
+                player1.inSpace = true;
+            }
+
+            ascension.render(0,ascensionY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(50,cloudY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(400,cloudY-25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(450,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(100,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            liftOffShip.render(300,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(150,cloudY-600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(250,cloudY-250,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(25,cloudY2-300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(500,cloudY2+150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+
+            if(openingSequenceTimer.getTicks() %20 == 0 && ascensionY <=0)
+            {
+                ascensionY++;
+                cloudY++;
+                cloudY2++;
+            }
+            if(ascensionY >= 0)
+            {
+                freeSky();
+                //set gamestate = 5 at this point.
             }
         }
     }
@@ -688,6 +742,18 @@ void stage::freeBackyard()
     std::cout<<"\n running stage::freeBackyard()";
     backyardTexture.free();
     openingSequenceShip.free();
+    gtfoTexture.free();
+    door.free();
+    obscure.free();
+    ramp.free();
+}
+
+void stage::freeSky()
+{
+    std::cout<<"\n running stage::freeSky()";
+    ascension.free();
+    cloud.free();
+    liftOffShip.free();
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
