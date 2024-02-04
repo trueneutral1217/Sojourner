@@ -166,6 +166,8 @@ class stage
         void freeBackyard();
         //frees the sky scene resources
         void freeSky();
+
+        void resetOpeningSequenceVariables();
         //renders the opening sequence textures
         void renderOpeningSequence(SDL_Renderer* renderer);
 

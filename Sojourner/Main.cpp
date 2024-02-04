@@ -539,6 +539,7 @@ int main( int argc, char* args[] )
                             if(openingSequence.complete)
                             {
                                 std::cout<<"\n changing gamestate from 5 to 6";
+                                openingSequence.resetOpeningSequenceVariables();
                                 gameState = 5;
                                 //taken from the gamestate == 1 old way of transitioning to gamestate 5
                                 //chosenSave = pregameui.chosenSave;
@@ -546,6 +547,7 @@ int main( int argc, char* args[] )
                                 //playedTime.timePlayed = 0;
                                 //playedTime.restart();
                                 stage.loadStage(renderer,stage.inHab, stage.inEng,true);
+
                             }
                         }
                     }
@@ -562,6 +564,10 @@ int main( int argc, char* args[] )
                             if(gameState==0)
                             {
                                 quit=true;
+                            }
+                            if(gameState==6)
+                            {
+                                openingSequence.complete = true;
                             }
                             break;
 							//sound tests

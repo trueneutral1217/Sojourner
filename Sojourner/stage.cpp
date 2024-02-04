@@ -169,7 +169,7 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
 
     SDL_Color textColor = {255,255,255};//white
 
-    newspaper = "Maybe I should check the newspaper? (press 'E')";
+    newspaper = "Maybe I should check the newspaper? (hold 'e')";
 
     if(!newspaperTexture.loadFromRenderedText(newspaper.c_str(), textColor,font,renderer))
     {
@@ -630,11 +630,13 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
         if(player1.interactNewspaper)
         {
             openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            paperRead = true;
-            openingSequenceTimer.start();
+            if(!paperRead)
+            {
+                paperRead = true;
+                openingSequenceTimer.start();
+            }
         }
     }
-
     if(paperRead)
     {
         if(!player1.interact)
@@ -716,8 +718,23 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
             }
         }
     }
+}
 
-
+void stage::resetOpeningSequenceVariables()
+{
+    std::cout<<"\n running stage::resetOpeningSequenceVariables()";
+    complete = false;
+    backdoorInteracted = false;
+    paperRead = false;
+    inBackyard = false;
+    openingSequenceTimer.stop();
+    doorX = 331;
+    doorY = 166;
+    rampX = 338;
+    rampY = 503;
+    iterations = 62;
+    iterations2 = 170;
+    inHab = true;
 }
 
 void stage::freeHouse()
