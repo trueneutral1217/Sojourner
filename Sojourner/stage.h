@@ -69,6 +69,7 @@ class stage
         SDL_Rect backdoorInteraction;
         //opening sequence progress flags
         bool paperRead,backdoorInteracted,inBackyard;
+        bool paperOpen;
         //used in backyard scene
         int doorX,doorY,rampX,rampY;
 

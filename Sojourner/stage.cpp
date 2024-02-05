@@ -220,6 +220,8 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     paperRead = false;
     inBackyard = false;
     backyardFree = false;
+
+    paperOpen = false;
     //this tells loadPlayer below to load regular earth clothes
     player1.inSpace = false;
     //load player texture
@@ -629,17 +631,34 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
         }
         if(player1.interactNewspaper)
         {
+            if(paperOpen)
+            {
+                paperOpen = false;
+                paperRead = true;
+                openingSequenceTimer.start();
+                player1.interact = false;
+            }
+            else
+            {
+               paperOpen = true;
+               player1.interact = false;
+            }
+            /*
             openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             if(!paperRead)
             {
                 paperRead = true;
                 openingSequenceTimer.start();
-            }
+            }*/
         }
+    }
+    if(paperOpen)
+    {
+        openingSequenceNewspaper.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
     if(paperRead)
     {
-        if(!player1.interact)
+        if(!player1.interact && !paperOpen)
         {
             if(openingSequenceTimer.getTicks() < 3000)
             {
