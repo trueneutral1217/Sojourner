@@ -211,14 +211,7 @@ bool audio::isPlaying()
    // std::cout<<"\n running audio::isPlaying()";
     return Mix_PlayingMusic();
 }
-/*
-void audio::resetChapter1Music()
-{
-    stopMusic();
-    loadChapter1Music();
-    playMusic();
-}
-*/
+
 
 
 

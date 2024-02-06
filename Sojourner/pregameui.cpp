@@ -371,9 +371,9 @@ void pregameui::handleNewGameScreenRendering(SDL_Renderer* renderer)
 }
 
 void pregameui::renderParticles(SDL_Renderer* renderer)
-{
-
-    for( int i = 0; i < TOTAL_PARTICLES; ++i )
+{//staged roll out for star particles
+    //first 10 stars created and rendered
+    for( int i = 0; i < TOTAL_PARTICLES/5; ++i )
     {
         if(particles[i].particleTimer.getTicks() > Uint32(rand() % 2000))
         {
@@ -383,8 +383,37 @@ void pregameui::renderParticles(SDL_Renderer* renderer)
             }
         }
     }
-
-    for( int i = 0; i < TOTAL_PARTICLES; ++i )
+    for( int i = 0; i < TOTAL_PARTICLES/5; ++i )
+    {
+        particles[i].render(renderer,particles[i].renderColor,star);
+    }
+    //next 15 stars created and rendered
+    for( int i = TOTAL_PARTICLES/5; i < TOTAL_PARTICLES/2; ++i )
+    {
+        if(particles[i].particleTimer.getTicks() > Uint32(rand() % 2000))
+        {
+            if( particles[i].isDead() )
+            {
+                particles[i].createParticle(renderer);
+            }
+        }
+    }
+    for( int i = TOTAL_PARTICLES/5; i < TOTAL_PARTICLES/2; ++i )
+    {
+        particles[i].render(renderer,particles[i].renderColor,star);
+    }
+    //last 25 stars created and rendered.
+    for( int i = TOTAL_PARTICLES/2; i < TOTAL_PARTICLES; ++i )
+    {
+        if(particles[i].particleTimer.getTicks() > Uint32(rand() % 2000))
+        {
+            if( particles[i].isDead() )
+            {
+                particles[i].createParticle(renderer);
+            }
+        }
+    }
+    for( int i = TOTAL_PARTICLES/2; i < TOTAL_PARTICLES; ++i )
     {
         particles[i].render(renderer,particles[i].renderColor,star);
     }

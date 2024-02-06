@@ -50,8 +50,6 @@
 		<Unit filename="audio.h" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
-		<Unit filename="chapter.cpp" />
-		<Unit filename="chapter.h" />
 		<Unit filename="module.cpp" />
 		<Unit filename="module.h" />
 		<Unit filename="myicon.rc">
