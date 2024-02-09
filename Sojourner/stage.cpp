@@ -169,7 +169,7 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
 
     SDL_Color textColor = {255,255,255};//white
 
-    newspaper = "Maybe I should check the newspaper? (hold 'e')";
+    newspaper = "Maybe I should check the newspaper? (press 'e')";
 
     if(!newspaperTexture.loadFromRenderedText(newspaper.c_str(), textColor,font,renderer))
     {
@@ -476,6 +476,31 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     {
         std::cout<<"\n research button action should happen here.";
     }
+    else if(buttonClicked == 12)
+    {//player clicked 'inventory' button at the cargo area station
+        std::cout<<"\n should display ship's inventory";
+        freeStationButtons();
+        ship.engineering.cargoArea.loadStationButtonTextTextures(renderer,font);
+        if(!ship.engineering.cargoArea.inventoryDisplaying)
+        {
+            ship.engineering.cargoArea.inventoryDisplaying = true;
+            std::cout<<"\n creating close inventory button";
+            buttons[11].buttonTexture.loadFromFile("images/buttons/inventoryClose.png",renderer);
+            buttons[11].buttonName = "closeInventory";
+            buttons[11].setPosition(710,165);
+            buttonsFreed = false;
+        }
+        std::cout<<"\n inventory displaying: "<<ship.engineering.cargoArea.inventoryDisplaying;
+        //ship.engineering.cargoArea.displayInventory(renderer);
+    }
+    else if(buttonClicked == 13)
+    {
+        std::cout<<"\n should close ship's inventory";
+        if(ship.engineering.cargoArea.inventoryDisplaying)
+        {
+            ship.engineering.cargoArea.inventoryDisplaying = false;
+        }
+    }
 }
 
 int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
@@ -483,7 +508,6 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
     //std::cout<<"\n running stage::handleButtons( SDL_Event* e )";
     //player clicks mouse inside stage
     int buttonClicked = 0;
-
     //here's where buttons are created based on player interacting with a station
     //if they haven't been freed, don't recreate
     if(player1.interact && buttonsFreed)
@@ -554,7 +578,14 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[9].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
         }
-
+        if(player1.interactCargoArea)
+        {
+            std::cout<<"\n creating cargoArea buttons";
+            buttons[10].buttonTexture = ship.engineering.cargoArea.buttonTextTexture[0];
+            buttons[10].buttonName = "inventory";
+            buttons[10].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
     }
     //buttonClicked takes the sum of all the button checks, 0 is outside of any buttons
     for( int i = 0; i < TOTAL_STAGE_BUTTONS; ++i )
@@ -590,6 +621,7 @@ void stage::freeStationButtons()
     ship.habitation.bike.stationOptionsLoaded = false;
     ship.habitation.recreation.stationOptionsLoaded =false;
     ship.engineering.researchDesk.stationOptionsLoaded = false;
+    ship.engineering.cargoArea.stationOptionsLoaded = false;
     buttonsFreed = true;
 }
 
@@ -934,7 +966,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 }
                 if(player1.interactCargoArea)
                 {
-                    ship.engineering.cargoArea.renderInteractStation(renderer,player1.getX(),player1.getY());
+                    ship.engineering.cargoArea.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactCommStation)
                 {
@@ -949,6 +981,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
         renderTimeSurvivedTextTextures(renderer);
         player1.renderNeedsTextures(renderer);
         ship.renderGaugesTextures(renderer);
+        if(ship.engineering.cargoArea.inventoryDisplaying)
+        {//there needs to be a button that displays on top of this image that toggles inventoryDisplaying
+            ship.engineering.cargoArea.inventoryBG.render(50,150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //this is the button that closes the inventory
+            buttons[11].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
     }
     if(buttons[0].mouseOver==false)
     {
@@ -1160,6 +1198,10 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
         if(player1.interactResearchDesk && !ship.engineering.researchDesk.stationOptionsLoaded)
         {
             ship.engineering.researchDesk.loadStationButtonTextTextures(renderer,font);
+        }
+        if(player1.interactCargoArea && !ship.engineering.cargoArea.stationOptionsLoaded)
+        {
+            ship.engineering.cargoArea.loadStationButtonTextTextures(renderer,font);
         }
     }
 

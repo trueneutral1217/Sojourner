@@ -120,12 +120,25 @@ void station::loadCargoArea(SDL_Renderer* renderer, TTF_Font* font)
 
 
     stationTexture.loadFromFile("images/sprites/cargoArea.png",renderer);
+    /*
     stationDefaultInteractionText = "inventory management screen still in development";
     SDL_Color textColor = {255,255,255};//white
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
+    }*/
+
+    inventoryBG.loadFromFile("images/inventory.png",renderer);
+
+    buttonString.push_back("inventory");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    if(buttonAvailable.size() == 0)
+    {
+        buttonAvailable.push_back(true);
     }
+    loadStationButtonTextTextures(renderer,font);
 }
 
 void station::loadCommStation(SDL_Renderer* renderer, TTF_Font* font)
@@ -280,7 +293,7 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
 }
 
 void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
-{
+{//renders the color of the font of the button black for unavailable, white for available, based on player needs
     std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
     if(buttonTextTexture.size()>0)
@@ -310,8 +323,8 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
 }
 
 void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font)
-{
-    std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
+{//renders the color of the font of the button black for unavailable, white for available
+    std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font)";
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
     if(buttonTextTexture.size()>0)
     {
@@ -712,4 +725,19 @@ void station::updatePlantTexture(SDL_Renderer* renderer)
     {//if plant is not sown
         stationTexture.loadFromFile("images/sprites/planter.png",renderer);
     }
+}
+
+void station::displayInventory(SDL_Renderer* renderer)
+{
+    //std::cout<<"\n running station::displayInventory()";
+    if(inventoryDisplaying)
+    {
+        inventoryBG.render(50,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
+
+void station::freeInventory()
+{
+    std::cout<<"\n running station::freeInventory()";
+    inventoryBG.free();
 }

@@ -35,6 +35,10 @@ class station
         //this is currently only used for the waterTank I think, it's redundant, might delete.
         Texture stationDefaultInteractionTextTexture;
 
+        Texture inventoryBG;
+
+        bool inventoryDisplaying;
+
         //if the button is clickable, it shows up white, else black.
         SDL_Color available = {255,255,255};//white
         SDL_Color unavailable = {0,0,0};//black
@@ -101,6 +105,10 @@ class station
         void updatePlant(SDL_Renderer* renderer, int timeSurvived);
         //update's plant's texture
         void updatePlantTexture(SDL_Renderer* renderer);
+        //when the cargo area's inventory button is clicked, this displays the inventory
+        void displayInventory(SDL_Renderer* renderer);
+        //frees inventory background
+        void freeInventory();
 
     private:
 

@@ -351,6 +351,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
     {
         playerY+=pVelY;
     }
+    //changes the number of frames that pass before next animation image is rendered.
+    int tickLimit = 15;
 
 
     if(pVelX > 0)//player is walking right
@@ -361,7 +363,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
             flipHorizontal=false;
             //moveState 1 = walking left/right
             moveState = WALK_LR;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= LR_TEXTURES)
@@ -374,7 +376,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             flipHorizontal=false;
             moveState=WALK_DLDR;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= DLDR_TEXTURES)
@@ -387,7 +389,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             flipHorizontal=false;
             moveState=WALK_ULUR;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= ULUR_TEXTURES)
@@ -407,7 +409,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
             flipHorizontal=true;
             //moveState 1 is walking left/right
             moveState=WALK_LR;
-            if(tick%3 == 0)
+            if(tick%tickLimit == 0)
             {
                 walkFrame++;
                 if(walkFrame >= LR_TEXTURES)
@@ -420,7 +422,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             flipHorizontal=true;
             moveState=WALK_DLDR;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= DLDR_TEXTURES)
@@ -433,7 +435,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             flipHorizontal=true;
             moveState=WALK_ULUR;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= ULUR_TEXTURES)
@@ -453,7 +455,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         if(pVelY > 0)//player is walking down
         {
             moveState=WALK_D;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= D_TEXTURES)
@@ -465,7 +467,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         else if(pVelY < 0)//player is walking up
         {
             moveState=WALK_U;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= U_TEXTURES)
@@ -478,7 +480,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         {
             //moveState 0 is idle
             moveState=IDLE;
-            if(tick%3 == 0)//every 3 frames a new animation image is loaded
+            if(tick%tickLimit == 0)//every tickLimit frames a new animation image is loaded
             {
                 walkFrame++;
                 if(walkFrame >= IDLE_TEXTURES)

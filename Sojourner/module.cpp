@@ -61,6 +61,8 @@ void module::freeEng()
     batteryArray.free();
     researchDesk.free();
     engineStation.free();
+    //frees the inventoryBG texture
+    cargoArea.freeInventory();
     cargoArea.free();
     commStation.free();
 }

@@ -599,7 +599,7 @@ int main( int argc, char* args[] )
                     {
                         stage.handleStation(renderer,text.font2);
                     }
-                    if(!stage.buttonsFreed && !stage.player1.interact)
+                    if(!stage.buttonsFreed && !stage.player1.interact && !stage.ship.engineering.cargoArea.inventoryDisplaying)
                     {
                         stage.freeStationButtons();
                     }
