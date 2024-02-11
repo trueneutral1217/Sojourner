@@ -6,6 +6,7 @@ ship::ship()
     {
         gauge[i] = 100;
     }
+    scrap = 5;
 }
 
 ship::~ship()
@@ -32,7 +33,6 @@ void ship::modifyGauges(int modGaugeValues[])
     }
 }
 
-
 void ship::loadGaugesTextures(SDL_Renderer* renderer, TTF_Font* font)
 {
 //stage gets copied when it gets sent into a savegame function, can't do that with stringstream
@@ -56,7 +56,7 @@ void ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)
     //gauge needs to be reloaded before being rendered again
     std::cout<<"\n running ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)";
 
-
+    //the font color is more red when it's closer to 0, more blue when it's closer to 100
     Uint8 r,b,g;
     r = 0;
     g = 128;
@@ -121,5 +121,19 @@ void ship::loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[
 void ship::loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[])
 {
     engineering.loadEngineering(renderer,font,gauge,need);
+    loadInventory(renderer,font);
 }
 
+void ship::loadInventory(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"\n running ship::loadInventory(SDL_Renderer* renderer, TTF_Font* font)";
+    //set text color for text texture
+    SDL_Color textColor = {255,255,255};//font white
+    //create string for text texture
+    scrapString = std::to_string(scrap) + " scrap";
+    //load string into text texture
+    if(!scrapTT.loadFromRenderedText(scrapString,textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load scrap string to scrap text texture";
+    }
+}

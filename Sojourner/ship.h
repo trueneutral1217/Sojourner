@@ -16,6 +16,13 @@ class ship
     module habitation;
     module engineering;
 
+    //first inventory item
+    int scrap;
+    //string used to insert into scrap text texture
+    std::string scrapString;
+    //text texture for inventory
+    Texture scrapTT;
+
     //ship guages (0-100 percent); hull, fuel, power, water, oxygen, temperature
     int gauge[TOTAL_SHIP_GAUGES];
     //strings for the ship's gauges
@@ -40,6 +47,8 @@ class ship
     void loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[]);
 
     void loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[]);
+    //creates text texture for inventory
+    void loadInventory(SDL_Renderer* renderer, TTF_Font* font);
 
     private:
 

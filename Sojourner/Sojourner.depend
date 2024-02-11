@@ -1350,7 +1350,7 @@
 1704855812 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1707441299 source:c:\sojourner\sojourner\stage.cpp
+1707609204 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1384,7 +1384,7 @@
 1703116724 source:c:\sojourner\sojourner\ship.cpp
 	"ship.h"
 
-1703032971 c:\sojourner\sojourner\ship.h
+1707609206 c:\sojourner\sojourner\ship.h
 	"module.h"
 
 1704935865 c:\sojourner\sojourner\module.h
