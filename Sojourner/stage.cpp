@@ -987,7 +987,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             //this is the button that closes the inventory
             buttons[11].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //display scrap text texture
-            ship.scrapTT.render(100,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.scrap.itemTextTexture.render(100,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
     }
     if(buttons[0].mouseOver==false)

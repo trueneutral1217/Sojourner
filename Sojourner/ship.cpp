@@ -6,7 +6,6 @@ ship::ship()
     {
         gauge[i] = 100;
     }
-    scrap = 5;
 }
 
 ship::~ship()
@@ -121,19 +120,7 @@ void ship::loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[
 void ship::loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[])
 {
     engineering.loadEngineering(renderer,font,gauge,need);
-    loadInventory(renderer,font);
+    //inventory may need to start being loaded with the habitation module later on
+    inventory.loadInventory(renderer,font);
 }
 
-void ship::loadInventory(SDL_Renderer* renderer, TTF_Font* font)
-{
-    std::cout<<"\n running ship::loadInventory(SDL_Renderer* renderer, TTF_Font* font)";
-    //set text color for text texture
-    SDL_Color textColor = {255,255,255};//font white
-    //create string for text texture
-    scrapString = std::to_string(scrap) + " scrap";
-    //load string into text texture
-    if(!scrapTT.loadFromRenderedText(scrapString,textColor,font,renderer))
-    {
-        std::cout<<"\n unable to load scrap string to scrap text texture";
-    }
-}
