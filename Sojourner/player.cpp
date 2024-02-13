@@ -527,7 +527,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.kitchen.interactable))
         {
-            //bed is interactable
+            //kitchen is interactable
             interactKitchen = true;
             if(collisionDetector(ship.habitation.kitchen.collidable))
             {
@@ -542,7 +542,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.waterTank.interactable))
         {
-            //bed is interactable
+            //watertank is interactable
             interactWaterTank = true;
             if(collisionDetector(ship.habitation.waterTank.collidable))
             {
@@ -572,7 +572,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.infirmary.interactable))
         {
-            //bed is interactable
+            //infirmary is interactable
             interactInfirmary = true;
             if(collisionDetector(ship.habitation.infirmary.collidable))
             {
@@ -587,7 +587,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.bike.interactable))
         {
-            //bed is interactable
+            //bike is interactable
             interactBike = true;
             if(collisionDetector(ship.habitation.bike.collidable))
             {
@@ -602,7 +602,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         }
         if(collisionDetector(ship.habitation.recreation.interactable))
         {
-            //bed is interactable
+            //rec station is interactable
             interactRec = true;
             if(collisionDetector(ship.habitation.recreation.collidable))
             {
@@ -618,7 +618,7 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng)
         if(collisionDetector(ship.habitation.habExit.interactable))
         {
             //std::cout<<"\n habExit is interactable!";
-            //bed is interactable
+            //habExit is interactable
             interactHabExit = true;
             if(collisionDetector(ship.habitation.habExit.collidable))
             {

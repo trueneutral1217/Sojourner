@@ -21,7 +21,7 @@ const static int TOTAL_OPTIONS_BUTTONS = 4;
 const static int TOTAL_CREDITS_BUTTONS = 1;
 //gamestate=6, stage1 buttons
 //0=save/exit , 1=plant , 2=water, 3=sleep
-const static int TOTAL_STAGE_BUTTONS = 12;
+const static int TOTAL_STAGE_BUTTONS = 13;
 
 class button
 {

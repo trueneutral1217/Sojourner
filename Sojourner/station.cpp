@@ -299,21 +299,43 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
     if(buttonTextTexture.size()>0)
     {
         for(Uint32 i = 0; i<buttonTextTexture.size(); i++)
-        {
-            if(need == 100)
+        {//this will make the first text texture available if need <100, buttons after the first are not checked.
+            if(i == 0)
             {
-                std::cout<<"\n unavailable";
-                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],unavailable,font,renderer))
+                if(need == 100)
                 {
-                    std::cout<<"\n unable to render station button text to station button text texture!";
+                    std::cout<<"\n unavailable";
+                    if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],unavailable,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
+                }
+                else
+                {
+                    std::cout<<"\n available";
+                    if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],available,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
                 }
             }
             else
             {
-                std::cout<<"\n available";
-                if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],available,font,renderer))
+                if(!buttonAvailable[i])
                 {
-                    std::cout<<"\n unable to render station button text to station button text texture!";
+                    std::cout<<"\n unavailable";
+                    if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],unavailable,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
+                }
+                else
+                {
+                    std::cout<<"\n available";
+                    if(!buttonTextTexture[i].loadFromRenderedText(buttonString[i],available,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
                 }
             }
         }
@@ -500,10 +522,37 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+10;
     stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
+    /*
     buttonString.push_back("Sleep");
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
     Texture tempTextTexture;
     buttonTextTexture.push_back(tempTextTexture);
+    */
+
+    if(buttonString.size()==0)
+    {
+        buttonString.push_back("Sleep");
+        buttonString.push_back("Upgrade");
+        std::cout<<"\n buttonString[1]: "<<buttonString[1];
+    }
+    Texture tempTextTexture;
+    if(buttonTextTexture.size()==0)
+    {
+        buttonTextTexture.push_back(tempTextTexture);
+        buttonTextTexture.push_back(tempTextTexture);
+    }
+    if(buttonAvailable.size() == 0)
+    {
+        if(need < 100)
+        {
+            buttonAvailable.push_back(true);
+        }
+        else
+        {
+            buttonAvailable.push_back(false);
+        }
+        buttonAvailable.push_back(false);
+    }
     loadStationButtonTextTextures(renderer,font,need);
 }
 

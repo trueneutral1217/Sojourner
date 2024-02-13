@@ -501,6 +501,11 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.engineering.cargoArea.inventoryDisplaying = false;
         }
     }
+    else if(buttonClicked == 14)
+    {
+        //user clicked upgrade button for the bed
+        std::cout<<"\n user clicked upgrade button";
+    }
 }
 
 int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
@@ -535,6 +540,9 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[4].buttonTexture = ship.habitation.bed.buttonTextTexture[0];
             buttons[4].buttonName = "sleep";
             buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
+            buttons[12].buttonTexture = ship.habitation.bed.buttonTextTexture[1];
+            buttons[12].buttonName = "upgrade";
+            buttons[12].setPosition(player1.getX()+50,player1.getY());
             buttonsFreed = false;
         }
         if(player1.interactKitchen)
