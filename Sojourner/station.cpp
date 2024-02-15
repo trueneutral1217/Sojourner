@@ -220,6 +220,9 @@ void station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)
     interactable.h=collidable.h+6;
 
     stationTexture.loadFromFile("images/sprites/researchDesk.png",renderer);
+
+    researchBG.loadFromFile("images/research.png",renderer);
+
     buttonString.push_back("Research");
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
     Texture tempTextTexture;
@@ -777,11 +780,11 @@ void station::updatePlantTexture(SDL_Renderer* renderer)
 }
 
 void station::displayInventory(SDL_Renderer* renderer)
-{
+{//currently not in use
     //std::cout<<"\n running station::displayInventory()";
     if(inventoryDisplaying)
     {
-        inventoryBG.render(50,50,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        inventoryBG.render(50,150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
 }
 
@@ -789,4 +792,10 @@ void station::freeInventory()
 {
     std::cout<<"\n running station::freeInventory()";
     inventoryBG.free();
+}
+
+void station::freeResearch()
+{
+    std::cout<<"\n running station::freeResearch()";
+    researchBG.free();
 }

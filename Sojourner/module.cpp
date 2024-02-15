@@ -59,6 +59,8 @@ void module::freeEng()
     std::cout<<"\n Running module::freeEng()";
     engExit.free();
     batteryArray.free();
+    //frees the researchBG texture
+    researchDesk.freeInventory();
     researchDesk.free();
     engineStation.free();
     //frees the inventoryBG texture

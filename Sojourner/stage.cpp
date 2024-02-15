@@ -475,6 +475,17 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     else if(buttonClicked == 11)
     {
         std::cout<<"\n research button action should happen here.";
+        freeStationButtons();
+        ship.engineering.researchDesk.loadStationButtonTextTextures(renderer,font);
+        if(!ship.engineering.researchDesk.researchDisplaying)
+        {
+            ship.engineering.researchDesk.researchDisplaying = true;
+            std::cout<<"\n creating close research button";
+            buttons[13].buttonTexture.loadFromFile("images/buttons/inventoryClose.png",renderer);
+            buttons[13].buttonName = "closeResearch";
+            buttons[13].setPosition(710,165);
+            buttonsFreed = false;
+        }
     }
     else if(buttonClicked == 12)
     {//player clicked 'inventory' button at the cargo area station
@@ -494,7 +505,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         //ship.engineering.cargoArea.displayInventory(renderer);
     }
     else if(buttonClicked == 13)
-    {
+    {//player clicked the 'x' in the upper right corner of the inventory
         std::cout<<"\n should close ship's inventory";
         if(ship.engineering.cargoArea.inventoryDisplaying)
         {
@@ -505,6 +516,14 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     {
         //user clicked upgrade button for the bed
         std::cout<<"\n user clicked upgrade button";
+    }
+    else if(buttonClicked == 15)
+    {//user clicked 'x' in upper corner of research.
+        std::cout<<"\n should close research";
+        if(ship.engineering.researchDesk.researchDisplaying)
+        {
+            ship.engineering.researchDesk.researchDisplaying = false;
+        }
     }
 }
 
@@ -996,6 +1015,13 @@ void stage::renderStage1(SDL_Renderer* renderer)
             buttons[11].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //display scrap text texture
             ship.inventory.scrap.itemTextTexture.render(100,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        if(ship.engineering.researchDesk.researchDisplaying)
+        {
+            ship.engineering.researchDesk.researchBG.render(50,150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            buttons[13].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //buttons for research of upgrades should be rendered below
+
         }
     }
     if(buttons[0].mouseOver==false)

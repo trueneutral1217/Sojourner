@@ -35,9 +35,9 @@ class station
         //this is currently only used for the waterTank I think, it's redundant, might delete.
         Texture stationDefaultInteractionTextTexture;
 
-        Texture inventoryBG;
+        Texture inventoryBG, researchBG;
 
-        bool inventoryDisplaying;
+        bool inventoryDisplaying,researchDisplaying;
 
         //if the button is clickable, it shows up white, else black.
         SDL_Color available = {255,255,255};//white
@@ -109,6 +109,8 @@ class station
         void displayInventory(SDL_Renderer* renderer);
         //frees inventory background
         void freeInventory();
+        //frees research background
+        void freeResearch();
 
     private:
 

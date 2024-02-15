@@ -395,6 +395,11 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
                             std::cout<<"\n user clicked the 'Upgrade' button";
                             buttonClicked= 14;
                         }
+                        else if(buttonName == "closeResearch")
+                        {
+                            std::cout<<"\n user clicked the 'Close Research' button";
+                            buttonClicked = 15;
+                        }
                     break;
                 }
 		}
