@@ -54,6 +54,8 @@ class stage
         //texture for the rocket ship / gantry
         Texture openingSequenceShip;
 
+        Texture openingSequenceBlackground;
+
         //declare font
         TTF_Font *font;
         //temporary texture for stage background

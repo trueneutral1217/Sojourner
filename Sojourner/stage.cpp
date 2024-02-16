@@ -163,6 +163,8 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     cloud.loadFromFile("images/cloud.png",renderer);
     liftOffShip.loadFromFile("images/liftOffShip.png",renderer);
 
+    openingSequenceBlackground.loadFromFile("images/Blackground.png",renderer);
+
 
     inHab = false;
     inEng = false;
@@ -283,6 +285,9 @@ bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool succe
     //ship.loadModule(renderer,font,ship.gauge);
     //station.loadStation(renderer,font,ship.gauge);
     ship.loadGaugesTextures(renderer,font);
+
+    openingSequenceBlackground.free();
+
     return success;
 }
 
@@ -769,7 +774,7 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
                 player1.movementDisabled = false;
                 player1.inSpace = true;
             }
-
+            openingSequenceBlackground.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             ascension.render(0,ascensionY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             cloud.render(50,cloudY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             cloud.render(400,cloudY-25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -852,6 +857,7 @@ void stage::freeSky()
     ascension.free();
     cloud.free();
     liftOffShip.free();
+
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -1068,32 +1074,40 @@ void stage::move(int countedFrames)
         {//player is heading down after hitting lower threshold.
             if(inHab)
             {
-                //y value of hab background continues to decrease as it moves up the screen
-                if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                if(countedFrames%3 == 0)
                 {
-                    habInternalY1 = 600;
+
+                    //y value of hab background continues to decrease as it moves up the screen
+                    if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                    {
+                        habInternalY1 = 600;
+                    }
+                    if(habInternalY2 < -599)
+                    {
+                        habInternalY2 = 600;
+                    }
+                    habInternalY1-=player1.getPVelY();
+                    habInternalY2-=player1.getPVelY();
+
                 }
-                if(habInternalY2 < -599)
-                {
-                    habInternalY2 = 600;
-                }
-                habInternalY1-=player1.getPVelY();
-                habInternalY2-=player1.getPVelY();
             }
             else if(inEng)
             {
-                //y value of hab background continues to decrease as it moves up the screen
-                if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                if(countedFrames%3 == 0)
                 {
-                    engInternalY1 = 600;
-                }
-                if(engInternalY2 < -599)
-                {
-                    engInternalY2 = 600;
-                }
+                    //y value of hab background continues to decrease as it moves up the screen
+                    if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                    {
+                        engInternalY1 = 600;
+                    }
+                    if(engInternalY2 < -599)
+                    {
+                        engInternalY2 = 600;
+                    }
 
-                engInternalY1-=player1.getPVelY();
-                engInternalY2-=player1.getPVelY();
+                    engInternalY1-=player1.getPVelY();
+                    engInternalY2-=player1.getPVelY();
+                }
             }
         }
     }
@@ -1104,31 +1118,37 @@ void stage::move(int countedFrames)
 
             if(inHab)
             {
-                if(habInternalY1 > 599)
+                if(countedFrames%3 == 0)
                 {
-                    habInternalY1 = -600;
-                }
-                if(habInternalY2 > 599)
-                {
-                    habInternalY2 = -600;
-                }
+                    if(habInternalY1 > 599)
+                    {
+                        habInternalY1 = -600;
+                    }
+                    if(habInternalY2 > 599)
+                    {
+                        habInternalY2 = -600;
+                    }
 
-                habInternalY1-=player1.getPVelY();
-                habInternalY2-=player1.getPVelY();
+                    habInternalY1-=player1.getPVelY();
+                    habInternalY2-=player1.getPVelY();
+                }
             }
             else if(inEng)
             {
-                if(engInternalY1 > 599)
+                if(countedFrames%3 == 0)
                 {
-                    engInternalY1 = -600;
-                }
-                if(engInternalY2 > 599)
-                {
-                    engInternalY2 = -600;
-                }
+                    if(engInternalY1 > 599)
+                    {
+                        engInternalY1 = -600;
+                    }
+                    if(engInternalY2 > 599)
+                    {
+                        engInternalY2 = -600;
+                    }
 
-                engInternalY1-=player1.getPVelY();
-                engInternalY2-=player1.getPVelY();
+                    engInternalY1-=player1.getPVelY();
+                    engInternalY2-=player1.getPVelY();
+                }
             }
         }
     }

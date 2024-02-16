@@ -133,12 +133,16 @@ void player::handleEvent(SDL_Event& e)
 //This move function is for the opening sequence
 void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInteraction,bool inBackyard)
 {
-    playerX += pVelX;
-    playerY += pVelY;
+    if(tick%5 == 0)
+    {
+        playerX += pVelX;
+        playerY += pVelY;
+    }
+
 
     //std::cout<<"\n playerX: "<<playerX;
 
-    int tickLimit = 15;
+    int tickLimit = 150;
 
     if(pVelX > 0)//player is walking right
     {
@@ -341,18 +345,21 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
 
 void player::move(int tick, ship& ship,bool inHab, bool inEng)
 {
-    playerX += pVelX;
-    //keeps playerY within 100 pixels of center
-    if(playerY<360 && pVelY>0)
+    if(tick%3 == 0)//this slows down player movement a little
     {
-        playerY += pVelY;
-    }
-    if(playerY>160 && pVelY<0)
-    {
-        playerY+=pVelY;
+        playerX += pVelX;
+        //keeps playerY within 100 pixels of center
+        if(playerY<360 && pVelY>0)
+        {
+            playerY += pVelY;
+        }
+        if(playerY>160 && pVelY<0)
+        {
+            playerY+=pVelY;
+        }
     }
     //changes the number of frames that pass before next animation image is rendered.
-    int tickLimit = 15;
+    int tickLimit = 50;
 
 
     if(pVelX > 0)//player is walking right
