@@ -6,6 +6,8 @@ station::station()
     planterDaysState=0;
     planterState=-1;
     stationOptionsLoaded=false;
+    stationTier = 0;
+    availableResearchProjects = 1;
 }
 
 station::~station()
@@ -236,14 +238,6 @@ void station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)
         buttonAvailable.push_back(true);
     }
     loadStationButtonTextTextures(renderer,font);
-    /*
-    stationDefaultInteractionText = std::to_string(batteryGauge);
-    stationDefaultInteractionText = stationDefaultInteractionText + " percent charge";
-    SDL_Color textColor = {255,255,255};//white
-    if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
-    }*/
 }
 
 void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
@@ -524,7 +518,20 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.y=collidable.y-4;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+10;
-    stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
+
+    if(stationTier == 0)
+    {
+        stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
+        SDL_Color textColor = {255,255,255};//white
+        if(!bedResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
+        }
+    }
+    else if(stationTier == 1)
+    {
+        stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
+    }
     /*
     buttonString.push_back("Sleep");
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
@@ -798,4 +805,13 @@ void station::freeResearch()
 {
     std::cout<<"\n running station::freeResearch()";
     researchBG.free();
+}
+
+void station::updateStationTexture(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running station::updateStationTexture";
+    if(stationTier == 1)
+    {//stations may need constant id strings to identify which one is being upgraded.
+        stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
+    }
 }

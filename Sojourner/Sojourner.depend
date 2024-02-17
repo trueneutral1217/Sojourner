@@ -1301,7 +1301,7 @@
 	"stage.h"
 	"text.h"
 
-1707959125 c:\sojourner\sojourner\button.h
+1708131700 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
 1706401609 c:\sojourner\sojourner\particle.h
@@ -1344,13 +1344,13 @@
 1703035734 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1708043604 source:c:\sojourner\sojourner\player.cpp
+1708044293 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1704855812 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1708041254 source:c:\sojourner\sojourner\stage.cpp
+1708131972 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1362,7 +1362,7 @@
 1700004430 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1707959125 source:c:\sojourner\sojourner\button.cpp
+1708131972 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682117124 source:c:\sojourner\sojourner\chapter.cpp
@@ -1373,10 +1373,10 @@
 1707181828 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1707959534 source:c:\sojourner\sojourner\station.cpp
+1708132165 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1707959125 c:\sojourner\sojourner\station.h
+1708132165 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 	<vector>

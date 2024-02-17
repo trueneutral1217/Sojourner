@@ -489,6 +489,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             buttons[13].buttonTexture.loadFromFile("images/buttons/inventoryClose.png",renderer);
             buttons[13].buttonName = "closeResearch";
             buttons[13].setPosition(710,165);
+            if(ship.engineering.researchDesk.availableResearchProjects > 0)
+            {
+                //this is where buttons for research projects would be created (need text textures)
+                buttons[14].buttonTexture = ship.habitation.bed.bedResearch;
+                buttons[14].buttonName = "singleBed";
+                buttons[14].setPosition(60,180);
+            }
             buttonsFreed = false;
         }
     }
@@ -528,6 +535,15 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         if(ship.engineering.researchDesk.researchDisplaying)
         {
             ship.engineering.researchDesk.researchDisplaying = false;
+        }
+    }
+    else if(buttonClicked == 16)
+    {//player clicked the 'single bed' research button
+        if(ship.habitation.bed.stationTier == 0)
+        {//if the bed is a sleeping bag, upgrade tier, update station texture
+            ship.habitation.bed.stationTier = 1;
+            ship.habitation.bed.updateStationTexture(renderer);
+            //this should also update the player's needs values to reflect a more comfortable bed
         }
     }
 }
@@ -1027,7 +1043,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.researchDesk.researchBG.render(50,150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             buttons[13].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //buttons for research of upgrades should be rendered below
-
+            buttons[14].buttonTexture.render(60,180,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
     }
     if(buttons[0].mouseOver==false)

@@ -19,6 +19,8 @@ class station
 
         int planterTimeWatered, planterDaysState, planterState;
 
+        int stationTier;
+
         const static int STATIONS = 10;
 
         std::string stationDefaultInteractionText;
@@ -36,8 +38,12 @@ class station
         Texture stationDefaultInteractionTextTexture;
 
         Texture inventoryBG, researchBG;
+        //text texture for bed research button
+        Texture bedResearch;
 
         bool inventoryDisplaying,researchDisplaying;
+
+        int availableResearchProjects;
 
         //if the button is clickable, it shows up white, else black.
         SDL_Color available = {255,255,255};//white
@@ -111,6 +117,8 @@ class station
         void freeInventory();
         //frees research background
         void freeResearch();
+        //updates station Texture based on tier
+        void updateStationTexture(SDL_Renderer* renderer);
 
     private:
 
