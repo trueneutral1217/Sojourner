@@ -522,7 +522,7 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     if(stationTier == 0)
     {
         stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
-        SDL_Color textColor = {255,255,255};//white
+        SDL_Color textColor = {0,255,0};//unknown color
         if(!bedResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))
         {
             std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
@@ -532,6 +532,16 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     {
         stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
     }
+    SDL_Color textColor = {255,255,255};//white
+    if(!tierOneDescription.loadFromRenderedText("Upgrades the sleeping bag to a single bed",textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render string to tierOneDescription!";
+    }
+    if(!tierOneDescription2.loadFromRenderedText("Increasing sleep efficiency. Requires 2 hours, 5 scrap.",textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render string to tierOneDescription2!";
+    }
+
     /*
     buttonString.push_back("Sleep");
     std::cout<<"\n buttonString[0]: "<<buttonString[0];

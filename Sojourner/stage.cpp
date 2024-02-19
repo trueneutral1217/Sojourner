@@ -494,7 +494,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
                 //this is where buttons for research projects would be created (need text textures)
                 buttons[14].buttonTexture = ship.habitation.bed.bedResearch;
                 buttons[14].buttonName = "singleBed";
-                buttons[14].setPosition(60,180);
+                buttons[14].setPosition(65,190);
             }
             buttonsFreed = false;
         }
@@ -543,7 +543,20 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         {//if the bed is a sleeping bag, upgrade tier, update station texture
             ship.habitation.bed.stationTier = 1;
             ship.habitation.bed.updateStationTexture(renderer);
+            ship.engineering.researchDesk.availableResearchProjects -=1;
+            //2 hours needs to pass.
             //this should also update the player's needs values to reflect a more comfortable bed
+            int researchBedTier1[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
+            player1.modifyNeeds(researchBedTier1);
+            //ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
+            player1.reloadNeedsTextures(renderer,font);
+            //2 hours passed from exercising
+            timeSurvived +=120;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            ship.inventory.scrap.itemCount -=5;
+            std::cout<<"\n scrap should be reduced by 5";
+
         }
     }
 }
@@ -1043,7 +1056,13 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.researchDesk.researchBG.render(50,150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             buttons[13].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //buttons for research of upgrades should be rendered below
-            buttons[14].buttonTexture.render(60,180,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            //this button is for upgrading the single bed.
+            if(ship.habitation.bed.stationTier == 0)
+            {
+                buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                ship.habitation.bed.tierOneDescription2.render(65,225,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            }
         }
     }
     if(buttons[0].mouseOver==false)

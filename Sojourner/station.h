@@ -40,6 +40,8 @@ class station
         Texture inventoryBG, researchBG;
         //text texture for bed research button
         Texture bedResearch;
+        //text texture for upgrade description
+        Texture tierOneDescription, tierOneDescription2;
 
         bool inventoryDisplaying,researchDisplaying;
 
