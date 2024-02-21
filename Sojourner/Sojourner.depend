@@ -1350,7 +1350,7 @@
 1704855812 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1708301793 source:c:\sojourner\sojourner\stage.cpp
+1708473624 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1373,10 +1373,10 @@
 1707181828 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1708302300 source:c:\sojourner\sojourner\station.cpp
+1708473704 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1708302300 c:\sojourner\sojourner\station.h
+1708472036 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 	<vector>
@@ -1394,7 +1394,7 @@
 1707959279 source:c:\sojourner\sojourner\module.cpp
 	"module.h"
 
-1707689900 c:\sojourner\sojourner\inventory.h
+1708467583 c:\sojourner\sojourner\inventory.h
 	"item.h"
 
 1707689900 c:\sojourner\sojourner\item.h
@@ -1403,6 +1403,6 @@
 1707688517 source:c:\sojourner\sojourner\item.cpp
 	"item.h"
 
-1707689972 source:c:\sojourner\sojourner\inventory.cpp
+1708468270 source:c:\sojourner\sojourner\inventory.cpp
 	"inventory.h"
 

@@ -15,6 +15,8 @@ class inventory
         //load inventory
         void loadInventory(SDL_Renderer* renderer, TTF_Font* font);
 
+        void refreshInventory(SDL_Renderer* renderer, TTF_Font* font);
+
         private:
 
 };

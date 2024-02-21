@@ -537,7 +537,7 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     {
         std::cout<<"\n unable to render string to tierOneDescription!";
     }
-    if(!tierOneDescription2.loadFromRenderedText("Increasing sleep efficiency. Requires 2 hours, 5 scrap.",textColor,font,renderer))
+    if(!tierOneDescription2.loadFromRenderedText("Increase sleep efficiency. Requires 2 hours, 5 scrap.",textColor,font,renderer))
     {
         std::cout<<"\n unable to render string to tierOneDescription2!";
     }
@@ -571,7 +571,15 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
         {
             buttonAvailable.push_back(false);
         }
-        buttonAvailable.push_back(false);
+        if(availableResearchProjects > 0)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+
     }
     loadStationButtonTextTextures(renderer,font,need);
 }
@@ -824,4 +832,10 @@ void station::updateStationTexture(SDL_Renderer* renderer)
     {//stations may need constant id strings to identify which one is being upgraded.
         stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
     }
+}
+
+void station::updateUpgradeAvailability(bool availableUpgrade)
+{
+    std::cout<<"\n running station::updateUpgradeAvailability(bool availableUpgrade)";
+    buttonAvailable[1] = availableUpgrade;
 }

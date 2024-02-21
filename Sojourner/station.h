@@ -121,6 +121,8 @@ class station
         void freeResearch();
         //updates station Texture based on tier
         void updateStationTexture(SDL_Renderer* renderer);
+        //makes upgrade available or unavailable
+        void updateUpgradeAvailability(bool availableUpgrade);
 
     private:
 

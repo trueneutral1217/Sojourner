@@ -406,19 +406,28 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         if(player1.need[3] != 100)
         {
             //if player's slumber value is less than 100, modify and refresh needs from bed use.
-            int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
+            int slumberBag[TOTAL_PLAYER_NEEDS] = {0,-30,-30,100,-30};
+
+            if(ship.habitation.bed.stationTier == 0)
+            {
+                //slumberBag[TOTAL_PLAYER_NEEDS] = {0,-33,-33,100,-33};
+                slumberBag[1]=-33;
+                slumberBag[2]=-33;
+                slumberBag[4]=-33;
+            }
+
             player1.modifyNeeds(slumberBag);
             ship.habitation.bed.loadStationButtonTextTextures(renderer,font,player1.need[3]);
             player1.reloadNeedsTextures(renderer,font);
             //8 hours passed from sleeping
-            timeSurvived +=480;
+            timeSurvived +=420;
             ship.habitation.planter.updatePlant(renderer,timeSurvived);
 
             refreshTS(renderer);
         }
     }
     else if(buttonClicked == 7)
-    {
+    {//eat button clicked
         if(player1.need[2] != 100)
         {
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
@@ -478,7 +487,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         }
     }
     else if(buttonClicked == 11)
-    {
+    {//player clicked research
         std::cout<<"\n research button action should happen here.";
         freeStationButtons();
         ship.engineering.researchDesk.loadStationButtonTextTextures(renderer,font);
@@ -526,8 +535,27 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 14)
     {
-        //user clicked upgrade button for the bed
-        std::cout<<"\n user clicked upgrade button";
+        if(ship.habitation.bed.stationTier == 0)
+        {
+            //user clicked upgrade button for the bed
+            std::cout<<"\n user clicked bed upgrade button";
+            ship.habitation.bed.stationTier = 1;
+            ship.habitation.bed.updateStationTexture(renderer);
+            ship.inventory.scrap.itemCount -=5;
+            std::cout<<"\n scrap should be reduced by 5";
+            ship.inventory.refreshInventory(renderer,font);
+            int upgradeBedTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
+            player1.modifyNeeds(upgradeBedTier1);
+            //ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
+            player1.reloadNeedsTextures(renderer,font);
+            //2 hours passed from exercising
+            timeSurvived +=120;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            //upgrade just occurred, set upgrade button for bed availability to false, refresh the text textures.
+            ship.habitation.bed.updateUpgradeAvailability(false);
+            ship.habitation.bed.loadStationButtonTextTextures(renderer,font);
+        }
     }
     else if(buttonClicked == 15)
     {//user clicked 'x' in upper corner of research.
@@ -539,24 +567,26 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 16)
     {//player clicked the 'single bed' research button
-        if(ship.habitation.bed.stationTier == 0)
+        if(ship.engineering.researchDesk.availableResearchProjects > 0)
         {//if the bed is a sleeping bag, upgrade tier, update station texture
-            ship.habitation.bed.stationTier = 1;
-            ship.habitation.bed.updateStationTexture(renderer);
             ship.engineering.researchDesk.availableResearchProjects -=1;
+            std::cout<<"\n ship.engineering.researchDesk.availableResearchProjects: "<<ship.engineering.researchDesk.availableResearchProjects;
             //2 hours needs to pass.
             //this should also update the player's needs values to reflect a more comfortable bed
-            int researchBedTier1[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,-5};
+            int researchBedTier1[TOTAL_PLAYER_NEEDS] = {0,-3,-3,-3,-3};
             player1.modifyNeeds(researchBedTier1);
             //ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
             player1.reloadNeedsTextures(renderer,font);
             //2 hours passed from exercising
-            timeSurvived +=120;
+            timeSurvived +=60;
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
-            ship.inventory.scrap.itemCount -=5;
-            std::cout<<"\n scrap should be reduced by 5";
-
+            //upgrade button should be true since research is complete
+            ship.habitation.bed.updateUpgradeAvailability(true);
+            std::cout<<"\n upgrade available: "<<ship.habitation.bed.buttonAvailable[1];
+            ship.habitation.bed.loadStationButtonTextTextures(renderer,font);
+            //needed for loadBed function when returning to hab. upgrade available function and this become redundant, so clean it up!
+            ship.habitation.bed.availableResearchProjects = 0;
         }
     }
 }
@@ -1057,7 +1087,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             buttons[13].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //buttons for research of upgrades should be rendered below
             //this button is for upgrading the single bed.
-            if(ship.habitation.bed.stationTier == 0)
+            if(ship.engineering.researchDesk.availableResearchProjects > 0)
             {
                 buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                 ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
