@@ -534,10 +534,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         }
     }
     else if(buttonClicked == 14)
-    {
-        if(ship.habitation.bed.stationTier == 0)
+    {//user clicked upgrade button for the bed
+        if(ship.habitation.bed.upgradeAvailable)
         {
-            //user clicked upgrade button for the bed
             std::cout<<"\n user clicked bed upgrade button";
             ship.habitation.bed.stationTier = 1;
             ship.habitation.bed.updateStationTexture(renderer);
@@ -553,7 +552,14 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
             //upgrade just occurred, set upgrade button for bed availability to false, refresh the text textures.
-            ship.habitation.bed.updateUpgradeAvailability(false);
+            ship.habitation.bed.upgradeAvailable=false;
+            std::cout<<"\n \n \n bed.upgradeAvailable = false";
+            //updates the upgrade button's availability
+            ship.habitation.bed.updateUpgradeAvailability();
+            std::cout<<"\n\n bed.buttonAvailable.size(): "<<ship.habitation.bed.buttonAvailable.size();
+            std::cout<<"\n\n\n bed.buttonAvailable[buttonAvailable.size()]: "<<ship.habitation.bed.buttonAvailable[ship.habitation.bed.buttonAvailable.size()];
+            std::cout<<"\n\n\n bed.buttonAvailable[1]: "<<ship.habitation.bed.buttonAvailable[1];
+            //updates the upgrade button's availability color
             ship.habitation.bed.loadStationButtonTextTextures(renderer,font);
         }
     }
@@ -569,7 +575,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     {//player clicked the 'single bed' research button
         if(ship.engineering.researchDesk.availableResearchProjects > 0)
         {//if the bed is a sleeping bag, upgrade tier, update station texture
-            ship.engineering.researchDesk.availableResearchProjects -=1;
+
+            ship.habitation.bed.availableResearchProjects -=1;
+            ship.updateTotalResearchProjects();
             std::cout<<"\n ship.engineering.researchDesk.availableResearchProjects: "<<ship.engineering.researchDesk.availableResearchProjects;
             //2 hours needs to pass.
             //this should also update the player's needs values to reflect a more comfortable bed
@@ -581,12 +589,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             timeSurvived +=60;
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
-            //upgrade button should be true since research is complete
-            ship.habitation.bed.updateUpgradeAvailability(true);
-            std::cout<<"\n upgrade available: "<<ship.habitation.bed.buttonAvailable[1];
-            ship.habitation.bed.loadStationButtonTextTextures(renderer,font);
-            //needed for loadBed function when returning to hab. upgrade available function and this become redundant, so clean it up!
-            ship.habitation.bed.availableResearchProjects = 0;
+            //upgrade button should be true since research is complete, refresh the text textures.
+            ship.habitation.bed.upgradeAvailable=true;
         }
     }
 }
@@ -1089,9 +1093,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
             //this button is for upgrading the single bed.
             if(ship.engineering.researchDesk.availableResearchProjects > 0)
             {
-                buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                ship.habitation.bed.tierOneDescription2.render(65,225,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                if(ship.habitation.bed.availableResearchProjects > 0)
+                {
+                    buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.bed.tierOneDescription2.render(65,225,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
             }
         }
     }

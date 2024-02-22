@@ -450,6 +450,9 @@ int main( int argc, char* args[] )
                                     stage.ship.habitation.planter.planterTimeWatered = savegame.data[23];
                                     stage.inHab = savegame.data[27];
                                     stage.inEng = savegame.data[28];
+                                    stage.ship.habitation.bed.stationTier = savegame.data[29];
+                                    stage.ship.inventory.scrap.itemCount = savegame.data[30];
+                                    stage.ship.habitation.bed.upgradeAvailable = savegame.data[31];
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer, stage.inHab, stage.inEng, true);
                                     //previouslyPlayed is probably deprecated by timePlayed.

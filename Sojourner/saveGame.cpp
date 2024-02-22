@@ -119,6 +119,14 @@ void saveGame::readSaveFile(int fileNum)
                 {//default for inEng = false
                     data[i] = 0;
                 }
+                else if(i<30)
+                {
+                    data[i] = 0;
+                }
+                else if(i<31)
+                {
+                    data[i] = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -226,6 +234,9 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         data[26] = stage.ship.habitation.planter.buttonAvailable[2];
         data[27] = stage.inHab;
         data[28] = stage.inEng;
+        data[29] = stage.ship.habitation.bed.stationTier;
+        data[30] = stage.ship.inventory.scrap.itemCount;
+        data[31] = stage.ship.habitation.bed.upgradeAvailable;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -304,6 +315,18 @@ void saveGame::deleteSave(int fileNum)
             else if(i<29)
             {//default for inEng = false
                 data[i] = 0;
+            }
+            else if(i<30)
+            {
+                data[i] = 0;//bed station tier = 0
+            }
+            else if(i<31)
+            {
+                data[i]= 0;//default scrap.itemCount
+            }
+            else if(i<32)
+            {
+                data[i] = 0;//bed upgrade available = false
             }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
         }
@@ -389,6 +412,9 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
     data[26] = stage.ship.habitation.planter.buttonAvailable[2]; //harvestOkay
     data[27] = stage.inHab;
     data[28] = stage.inEng;
+    data[29] = stage.ship.habitation.bed.stationTier;
+    data[30] = stage.ship.inventory.scrap.itemCount;
+    data[31] = stage.ship.habitation.bed.upgradeAvailable;
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )

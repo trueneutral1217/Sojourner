@@ -44,8 +44,10 @@ class station
         Texture tierOneDescription, tierOneDescription2;
 
         bool inventoryDisplaying,researchDisplaying;
-
+        //each station has it's available research projects, the research desk is the sum of all of those.
         int availableResearchProjects;
+
+        bool upgradeAvailable;
 
         //if the button is clickable, it shows up white, else black.
         SDL_Color available = {255,255,255};//white
@@ -122,7 +124,7 @@ class station
         //updates station Texture based on tier
         void updateStationTexture(SDL_Renderer* renderer);
         //makes upgrade available or unavailable
-        void updateUpgradeAvailability(bool availableUpgrade);
+        void updateUpgradeAvailability();
 
     private:
 

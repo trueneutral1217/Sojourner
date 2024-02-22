@@ -45,6 +45,8 @@ class ship
     //loads the stations etc for the engineering module
     void loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need[]);
 
+    void updateTotalResearchProjects();
+
     private:
 
 };

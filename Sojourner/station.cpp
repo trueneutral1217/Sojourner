@@ -6,8 +6,8 @@ station::station()
     planterDaysState=0;
     planterState=-1;
     stationOptionsLoaded=false;
-    stationTier = 0;
-    availableResearchProjects = 1;
+    //stationTier = 0;
+    //availableResearchProjects = 1;
 }
 
 station::~station()
@@ -527,6 +527,8 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
         {
             std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
         }
+        //since bed is tier 0, research for tier 1 is available.
+        availableResearchProjects = 1;
     }
     else if(stationTier == 1)
     {
@@ -562,7 +564,7 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
         buttonTextTexture.push_back(tempTextTexture);
     }
     if(buttonAvailable.size() == 0)
-    {
+    {//sleep button availability
         if(need < 100)
         {
             buttonAvailable.push_back(true);
@@ -571,7 +573,8 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
         {
             buttonAvailable.push_back(false);
         }
-        if(availableResearchProjects > 0)
+        //upgrade button availability
+        if(!upgradeAvailable)
         {
             buttonAvailable.push_back(false);
         }
@@ -834,8 +837,10 @@ void station::updateStationTexture(SDL_Renderer* renderer)
     }
 }
 
-void station::updateUpgradeAvailability(bool availableUpgrade)
-{
-    std::cout<<"\n running station::updateUpgradeAvailability(bool availableUpgrade)";
-    buttonAvailable[1] = availableUpgrade;
+void station::updateUpgradeAvailability()
+{//this only works for bed right now, will have to make sure the last button is always the upgrade button for this to work correctly.
+    std::cout<<"\n running station::updateUpgradeAvailability()";
+    std::cout<<"\n upgradeAvailable: "<<upgradeAvailable;
+    std::cout<<"\n buttonAvailable.size(): "<<buttonAvailable.size();
+    buttonAvailable[(buttonAvailable.size()-1)] = upgradeAvailable;
 }

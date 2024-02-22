@@ -122,5 +122,36 @@ void ship::loadEngineeringModule(SDL_Renderer* renderer,TTF_Font* font, int need
     engineering.loadEngineering(renderer,font,gauge,need);
     //inventory may need to start being loaded with the habitation module later on
     inventory.loadInventory(renderer,font);
+    updateTotalResearchProjects();
+    std::cout<<"\n \n \n \n bed.available research projects: "<<habitation.bed.availableResearchProjects;
+    std::cout<<"\n researchDesk.available research projects: "<<engineering.researchDesk.availableResearchProjects;
 }
 
+void ship::updateTotalResearchProjects()
+{
+    std::cout<<"\n running ship::updateTotalResearchProjects()";
+    //total research projects for habitation
+    int TRP = 0;
+    //sums it up from each station
+    TRP += habitation.waterTank.availableResearchProjects;
+    TRP += habitation.kitchen.availableResearchProjects;
+    TRP += habitation.infirmary.availableResearchProjects;
+    TRP += habitation.bed.availableResearchProjects;
+    TRP += habitation.bike.availableResearchProjects;
+    TRP += habitation.planter.availableResearchProjects;
+    TRP += habitation.recreation.availableResearchProjects;
+    std::cout<<"\n total habitation module research projects: "<<TRP;
+
+    //total engineering research projects
+    int TRP2 = 0;
+    //sum from the stations from that module, except the research station.
+    TRP2 += engineering.batteryArray.availableResearchProjects;
+    TRP2 += engineering.engineStation.availableResearchProjects;
+    TRP2 += engineering.cargoArea.availableResearchProjects;
+    TRP2 += engineering.commStation.availableResearchProjects;
+
+    std::cout<<"\n total engineering module research projects: "<<TRP2;
+    int total = TRP + TRP2;
+
+    engineering.researchDesk.availableResearchProjects = total;
+}
