@@ -527,8 +527,11 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
         {
             std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
         }
-        //since bed is tier 0, research for tier 1 is available.
-        availableResearchProjects = 1;
+        if(!upgradeAvailable)
+        {
+            //since bed is tier 0, research for tier 1 is available.
+            availableResearchProjects = 1;
+        }
     }
     else if(stationTier == 1)
     {

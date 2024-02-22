@@ -470,11 +470,9 @@ void pregameui::freeMainButtons()
 
 void pregameui::handleTitleScreenRendering(SDL_Renderer* renderer)
 {
-
     PGUIBlackGround.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderParticles(renderer);
     titleTexture.render( 0, 0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer );
-
     title.render(200, 100,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     //render title screen buttons
     renderMainButtons(renderer);
@@ -512,8 +510,6 @@ bool pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)
     {
         printf("\n \n there was a problem loading pregame UI textures. \n \n");
     }
-
-
 	return success;
 }
 
@@ -522,8 +518,6 @@ bool pregameui::loadLoadGameTextures(SDL_Renderer* renderer)
     std::cout<<"\n running pregameui::loadLoadGameTextures(SDL_Renderer* renderer)";
     bool success = true;
     success = promptDeleteBG.loadFromFile("images/sprites/deleteSavePrompt.png",renderer);
-
-
     success = chapterSelectTexture.loadFromFile( "images/Cosmos.png",renderer ); //used in new/loadgame screens
     if(!success)
     {
