@@ -535,8 +535,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 14)
     {//user clicked upgrade button for the bed
-        if(ship.habitation.bed.upgradeAvailable)
-        {
+        if(ship.habitation.bed.upgradeAvailable && ship.inventory.scrap.itemCount >= 5)
+        {//5 is a magic number for scrap.itemCount required for update.
             std::cout<<"\n user clicked bed upgrade button";
             ship.habitation.bed.stationTier = 1;
             ship.habitation.bed.updateStationTexture(renderer);

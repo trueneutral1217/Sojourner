@@ -521,6 +521,7 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
 
     if(stationTier == 0)
     {
+        upgradeCost.insert({"scrap", 5});
         stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
         SDL_Color textColor = {0,255,0};//unknown color
         if(!bedResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))

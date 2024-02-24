@@ -4,6 +4,8 @@
 #include "texture.h"
 #include "button.h"
 #include <vector>
+#include <unordered_map>
+#include <map>
 
 class station
 {
@@ -48,6 +50,8 @@ class station
         int availableResearchProjects;
 
         bool upgradeAvailable;
+        //hash map of inventory items (by item name), and amount required to update a station.
+        std::unordered_map<std::string, int> upgradeCost;
 
         //if the button is clickable, it shows up white, else black.
         SDL_Color available = {255,255,255};//white
