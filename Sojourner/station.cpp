@@ -34,6 +34,8 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
     interactable.w=collidable.w+6;
     interactable.h=collidable.h+6;
 
+    stationID = "water";
+
     int waterGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     stationDefaultInteractionText = std::to_string(waterGauge);
@@ -61,6 +63,9 @@ void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
     interactable.y = collidable.y - 3;
     interactable.w = collidable.w + 6;
     interactable.h = collidable.h + 6;
+
+    stationID = "engExit";
+
     stationTexture.loadFromFile("images/sprites/engExit.png",renderer);
     stationDefaultInteractionText = "Leaving Engineering Module";
     SDL_Color textColor = {255,255,255};
@@ -88,6 +93,8 @@ void station::loadBatteryArray(SDL_Renderer* renderer, TTF_Font* font, int shipG
     interactable.y=collidable.y-4;
     interactable.w=collidable.w+6;
     interactable.h=collidable.h+6;
+
+    stationID = "battery";
 
     int batteryGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/batteryArray.png",renderer);
@@ -120,6 +127,7 @@ void station::loadCargoArea(SDL_Renderer* renderer, TTF_Font* font)
     interactable.w=collidable.w+6;
     interactable.h=collidable.h+6;
 
+    stationID = "cargo";
 
     stationTexture.loadFromFile("images/sprites/cargoArea.png",renderer);
     /*
@@ -162,6 +170,8 @@ void station::loadCommStation(SDL_Renderer* renderer, TTF_Font* font)
     interactable.w=collidable.w+6;
     interactable.h=collidable.h+6;
 
+    stationID = "comm";
+
 
     stationTexture.loadFromFile("images/sprites/commStation.png",renderer);
     stationDefaultInteractionText = "comm station still in development";
@@ -190,6 +200,8 @@ void station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int ship
     interactable.y = collidable.y-3;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+6;
+
+    stationID = "engine";
 
     int fuelGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/engineStation.png",renderer);
@@ -220,6 +232,8 @@ void station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)
     interactable.y=collidable.y-3;
     interactable.w=collidable.w+6;
     interactable.h=collidable.h+6;
+
+    stationID = "research";
 
     stationTexture.loadFromFile("images/sprites/researchDesk.png",renderer);
 
@@ -256,6 +270,9 @@ void station::loadHabExit(SDL_Renderer* renderer, TTF_Font* font)
     interactable.y = collidable.y - 3;
     interactable.w = collidable.w + 6;
     interactable.h = collidable.h + 6;
+
+    stationID = "habExit";
+
     stationTexture.loadFromFile("images/sprites/habExit.png",renderer);
     stationDefaultInteractionText = "Leaving Habitation Module";
     SDL_Color textColor = {255,255,255};
@@ -281,12 +298,71 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
     interactable.y = collidable.y-2;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+4;
-    stationTexture.loadFromFile("images/sprites/recreation.png",renderer);
-    buttonString.push_back("Relax");
-    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+
+    stationID = "rec";
+
+
+    if(stationTier == 0)
+    {
+        upgradeCost.insert({"scrap", 2});
+        stationTexture.loadFromFile("images/sprites/recreation.png",renderer);
+        SDL_Color textColor = {0,255,0};//green
+        if(!stationResearch.loadFromRenderedText("Record player", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Record player' string to stationResearch Texture!";
+        }
+        textColor = {255,255,255};//white
+        if(!tierOneDescription.loadFromRenderedText("Upgrades the recreation station",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription!";
+        }
+        if(!tierOneDescription2.loadFromRenderedText("Increase rec efficiency. Requires 2 hours, 2 scrap.",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription2!";
+        }
+        if(!upgradeAvailable)
+        {
+            //since bed is tier 0, research for tier 1 is available.
+            availableResearchProjects = 1;
+        }
+    }
+    else if(stationTier == 1)
+    {
+        stationTexture.loadFromFile("images/sprites/recreationTier1.png",renderer);
+    }
+    if(buttonString.size()==0)
+    {
+        buttonString.push_back("Relax");
+        buttonString.push_back("Upgrade");
+        std::cout<<"\n buttonString[0]: "<<buttonString[0]<<"\n buttonString[1]: "<<buttonString[1];
+    }
     Texture tempTextTexture;
-    buttonTextTexture.push_back(tempTextTexture);
-    loadStationButtonTextTextures(renderer,font,need);
+    if(buttonTextTexture.size()==0)
+    {
+        buttonTextTexture.push_back(tempTextTexture);
+        buttonTextTexture.push_back(tempTextTexture);
+    }
+    if(buttonAvailable.size() == 0)
+    {//relax button availability
+        if(need < 100)
+        {
+            buttonAvailable.push_back(true);
+        }
+        else
+        {
+            buttonAvailable.push_back(false);
+        }
+        //upgrade button availability
+        if(!upgradeAvailable)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+
+    }
 }
 
 void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
@@ -387,6 +463,8 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
     interactable.y = collidable.y-2;
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+4;
+
+    stationID = "bike";
     //setting bike image to station texture
     stationTexture.loadFromFile("images/sprites/stationaryBicycle.png", renderer);
     buttonString.push_back("Exercise");
@@ -414,6 +492,8 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.w = collidable.w+4;
     interactable.h = collidable.h+6;
 
+    stationID = "infirmary";
+
     //set infirmary image to stationTexture
     stationTexture.loadFromFile("images/sprites/infirmary.png",renderer);
     buttonString.push_back("Heal");
@@ -440,6 +520,9 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
     interactable.y=collidable.y-3;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+6;
+
+    stationID = "kitchen";
+
     stationTexture.loadFromFile("images/sprites/kitchen.png",renderer);
     buttonString.push_back("Eat");
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
@@ -465,6 +548,9 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     interactable.y=collidable.y-2;
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+4;
+
+    stationID = "planter";
+
     if(planterState == -1)
     {
         stationTexture.loadFromFile("images/sprites/planter.png",renderer);
@@ -519,14 +605,25 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     interactable.w=collidable.w+4;
     interactable.h=collidable.h+10;
 
+    stationID = "bed";
+
     if(stationTier == 0)
     {
-        upgradeCost.insert({"scrap", 5});
+        upgradeCost.insert({"scrap", 3});
         stationTexture.loadFromFile("images/sprites/sleepingbag.png",renderer);
         SDL_Color textColor = {0,255,0};//unknown color
-        if(!bedResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))
+        if(!stationResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))
         {
             std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
+        }
+        textColor = {255,255,255};//white
+        if(!tierOneDescription.loadFromRenderedText("Upgrades the sleeping bag to a single bed",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription!";
+        }
+        if(!tierOneDescription2.loadFromRenderedText("Increase sleep efficiency. Requires 2 hours, 3 scrap.",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription2!";
         }
         if(!upgradeAvailable)
         {
@@ -538,23 +635,6 @@ void station::loadBed(SDL_Renderer* renderer,TTF_Font* font,int need)
     {
         stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
     }
-    SDL_Color textColor = {255,255,255};//white
-    if(!tierOneDescription.loadFromRenderedText("Upgrades the sleeping bag to a single bed",textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render string to tierOneDescription!";
-    }
-    if(!tierOneDescription2.loadFromRenderedText("Increase sleep efficiency. Requires 2 hours, 5 scrap.",textColor,font,renderer))
-    {
-        std::cout<<"\n unable to render string to tierOneDescription2!";
-    }
-
-    /*
-    buttonString.push_back("Sleep");
-    std::cout<<"\n buttonString[0]: "<<buttonString[0];
-    Texture tempTextTexture;
-    buttonTextTexture.push_back(tempTextTexture);
-    */
-
     if(buttonString.size()==0)
     {
         buttonString.push_back("Sleep");
@@ -835,9 +915,19 @@ void station::freeResearch()
 void station::updateStationTexture(SDL_Renderer* renderer)
 {
     std::cout<<"\n running station::updateStationTexture";
-    if(stationTier == 1)
-    {//stations may need constant id strings to identify which one is being upgraded.
-        stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
+    if(stationID == "bed")
+    {
+        if(stationTier == 1)
+        {
+            stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
+        }
+    }
+    else if(stationID == "rec")
+    {
+        if(stationTier == 1)
+        {
+            stationTexture.loadFromFile("images/sprites/recreationTier1.png",renderer);
+        }
     }
 }
 

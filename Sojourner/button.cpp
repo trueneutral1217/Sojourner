@@ -390,7 +390,7 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
                             std::cout<<"\n user clicked 'Close Inventory' button";
                             buttonClicked = 13;
                         }
-                        else if(buttonName == "upgrade")
+                        else if(buttonName == "upgradeBed")
                         {
                             std::cout<<"\n user clicked the 'Upgrade' button";
                             buttonClicked= 14;
@@ -404,6 +404,16 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
                         {
                             std::cout<<"\n user clicked the 'singleBed' button";
                             buttonClicked = 16;
+                        }
+                        else if(buttonName == "recordPlayer")
+                        {
+                            std::cout<<"\n user clicked the 'recordPlayer' button";
+                            buttonClicked = 17;
+                        }
+                        else if(buttonName == "upgradeRec")
+                        {
+                            std::cout<<"\n user clicked the 'upgradeRec' button";
+                            buttonClicked = 18;
                         }
                     break;
                 }

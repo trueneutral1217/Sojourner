@@ -476,7 +476,15 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         if(player1.need[4] != 100)
         {
             //if player's hunger value is less than 100, modify and refresh needs from kitchen use.
-            int recreation[TOTAL_PLAYER_NEEDS] = {0,-5,-5,-5,100};
+            int recreation[TOTAL_PLAYER_NEEDS] = {0,-4,-4,-4,100};
+
+            if(ship.habitation.recreation.stationTier == 0)
+            {
+                recreation[1]=-5;
+                recreation[2]=-5;
+                recreation[3]=-5;
+            }
+
             player1.modifyNeeds(recreation);
             ship.habitation.recreation.loadStationButtonTextTextures(renderer,font,player1.need[4]);
             player1.reloadNeedsTextures(renderer,font);
@@ -498,12 +506,18 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             buttons[13].buttonTexture.loadFromFile("images/buttons/inventoryClose.png",renderer);
             buttons[13].buttonName = "closeResearch";
             buttons[13].setPosition(710,165);
-            if(ship.engineering.researchDesk.availableResearchProjects > 0)
+            if(ship.habitation.bed.availableResearchProjects > 0)
             {
                 //this is where buttons for research projects would be created (need text textures)
-                buttons[14].buttonTexture = ship.habitation.bed.bedResearch;
+                buttons[14].buttonTexture = ship.habitation.bed.stationResearch;
                 buttons[14].buttonName = "singleBed";
-                buttons[14].setPosition(65,190);
+                buttons[14].setPosition(65,190);//y coordinate is going to have to be more dynamic
+            }
+            if(ship.habitation.recreation.availableResearchProjects>0)
+            {
+                buttons[15].buttonTexture = ship.habitation.recreation.stationResearch;
+                buttons[15].buttonName = "recordPlayer";
+                buttons[15].setPosition(65,240);
             }
             buttonsFreed = false;
         }
@@ -535,13 +549,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 14)
     {//user clicked upgrade button for the bed
-        if(ship.habitation.bed.upgradeAvailable && ship.inventory.scrap.itemCount >= 5)
+        if(ship.habitation.bed.upgradeAvailable && ship.inventory.scrap.itemCount >= 3)
         {//5 is a magic number for scrap.itemCount required for update.
             std::cout<<"\n user clicked bed upgrade button";
             ship.habitation.bed.stationTier = 1;
             ship.habitation.bed.updateStationTexture(renderer);
-            ship.inventory.scrap.itemCount -=5;
-            std::cout<<"\n scrap should be reduced by 5";
+            ship.inventory.scrap.itemCount -=3;
+            std::cout<<"\n scrap should be reduced by 3";
             ship.inventory.refreshInventory(renderer,font);
             int upgradeBedTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
             player1.modifyNeeds(upgradeBedTier1);
@@ -573,13 +587,13 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked == 16)
     {//player clicked the 'single bed' research button
-        if(ship.engineering.researchDesk.availableResearchProjects > 0)
+        if(ship.habitation.bed.availableResearchProjects > 0)
         {//if the bed is a sleeping bag, upgrade tier, update station texture
 
             ship.habitation.bed.availableResearchProjects -=1;
             ship.updateTotalResearchProjects();
             std::cout<<"\n ship.engineering.researchDesk.availableResearchProjects: "<<ship.engineering.researchDesk.availableResearchProjects;
-            //2 hours needs to pass.
+            //1 hour needs to pass.
             //this should also update the player's needs values to reflect a more comfortable bed
             int researchBedTier1[TOTAL_PLAYER_NEEDS] = {0,-3,-3,-3,-3};
             player1.modifyNeeds(researchBedTier1);
@@ -591,6 +605,56 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             refreshTS(renderer);
             //upgrade button should be true since research is complete, refresh the text textures.
             ship.habitation.bed.upgradeAvailable=true;
+        }
+    }
+    else if(buttonClicked == 17)
+    {//user clicked 'record player' button on research screen
+        if(ship.habitation.recreation.availableResearchProjects > 0)
+        {//research project is available
+            ship.habitation.recreation.availableResearchProjects -=1;
+            ship.updateTotalResearchProjects();
+            std::cout<<"\n ship.engineering.researchDesk.availableResearchProjects: "<<ship.engineering.researchDesk.availableResearchProjects;
+            //update player needs since it takes 1 hour for research
+            int researchRecTier1[TOTAL_PLAYER_NEEDS] = {0,-3,-3,-3,-3};
+            player1.modifyNeeds(researchRecTier1);
+            player1.reloadNeedsTextures(renderer,font);
+            //pass 1 hour
+            timeSurvived +=60;
+            //grow plants
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            //upgrade button should be true since research is complete, refresh the text textures.
+            ship.habitation.recreation.upgradeAvailable=true;
+        }
+    }
+    else if(buttonClicked==18)
+    {
+        //user clicked upgrade button for the rec station
+        if(ship.habitation.recreation.upgradeAvailable && ship.inventory.scrap.itemCount >= 2)
+        {//5 is a magic number for scrap.itemCount required for update.
+            std::cout<<"\n user clicked rec upgrade button";
+            ship.habitation.recreation.stationTier = 1;
+            ship.habitation.recreation.updateStationTexture(renderer);
+            ship.inventory.scrap.itemCount -=2;
+            std::cout<<"\n scrap should be reduced by 2";
+            ship.inventory.refreshInventory(renderer,font);
+            int upgradeRecTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
+            player1.modifyNeeds(upgradeRecTier1);
+            player1.reloadNeedsTextures(renderer,font);
+            //2 hours passed from building upgrade
+            timeSurvived +=120;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            //upgrade just occurred, set upgrade button for rec availability to false, refresh the text textures.
+            ship.habitation.recreation.upgradeAvailable=false;
+            std::cout<<"\n \n \n Rec.upgradeAvailable = false";
+            //updates the upgrade button's availability
+            ship.habitation.recreation.updateUpgradeAvailability();
+            std::cout<<"\n\n bed.buttonAvailable.size(): "<<ship.habitation.recreation.buttonAvailable.size();
+            std::cout<<"\n\n\n bed.buttonAvailable[buttonAvailable.size()]: "<<ship.habitation.recreation.buttonAvailable[ship.habitation.recreation.buttonAvailable.size()];
+            std::cout<<"\n\n\n bed.buttonAvailable[1]: "<<ship.habitation.recreation.buttonAvailable[1];
+            //updates the upgrade button's availability color
+            ship.habitation.recreation.loadStationButtonTextTextures(renderer,font);
         }
     }
 }
@@ -628,7 +692,7 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[4].buttonName = "sleep";
             buttons[4].setPosition(player1.getX()+50,player1.getY()-20);
             buttons[12].buttonTexture = ship.habitation.bed.buttonTextTexture[1];
-            buttons[12].buttonName = "upgrade";
+            buttons[12].buttonName = "upgradeBed";
             buttons[12].setPosition(player1.getX()+50,player1.getY());
             buttonsFreed = false;
         }
@@ -663,6 +727,9 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[8].buttonTexture = ship.habitation.recreation.buttonTextTexture[0];
             buttons[8].buttonName = "relax";
             buttons[8].setPosition(player1.getX()+50,player1.getY()-20);
+            buttons[16].buttonTexture = ship.habitation.recreation.buttonTextTexture[1];
+            buttons[16].buttonName = "upgradeRec";
+            buttons[16].setPosition(player1.getX()+50,player1.getY());
             buttonsFreed = false;
         }
         if(player1.interactResearchDesk)
@@ -1094,10 +1161,16 @@ void stage::renderStage1(SDL_Renderer* renderer)
             if(ship.engineering.researchDesk.availableResearchProjects > 0)
             {
                 if(ship.habitation.bed.availableResearchProjects > 0)
-                {
+                {//y coords need to be dynamic
                     buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                     ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                     ship.habitation.bed.tierOneDescription2.render(65,225,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
+                if(ship.habitation.recreation.availableResearchProjects>0)
+                {
+                    buttons[15].buttonTexture.render(65,240,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.recreation.tierOneDescription.render(65,260,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.recreation.tierOneDescription2.render(65,275,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                 }
             }
         }

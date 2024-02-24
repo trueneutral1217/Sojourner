@@ -27,6 +27,8 @@ class station
 
         std::string stationDefaultInteractionText;
 
+        std::string stationID;
+
         //strings for interaction button text textures
         std::vector<std::string> buttonString;
         //flags for button availability (to player).  true = clickable,white.  false = not clickable/black.
@@ -41,7 +43,7 @@ class station
 
         Texture inventoryBG, researchBG;
         //text texture for bed research button
-        Texture bedResearch;
+        Texture stationResearch;
         //text texture for upgrade description
         Texture tierOneDescription, tierOneDescription2;
 
