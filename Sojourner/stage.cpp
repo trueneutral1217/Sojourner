@@ -906,15 +906,18 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
             }
             openingSequenceBlackground.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             ascension.render(0,ascensionY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(50,cloudY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(400,cloudY-25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(450,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(100,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+
+
+            cloud.render(cloudY,cloudY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-900+cloudY,cloudY-25,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-550+cloudY,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-310+cloudY,cloudY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             liftOffShip.render(300,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(150,cloudY-600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(250,cloudY-250,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(25,cloudY2-300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            cloud.render(500,cloudY2+150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-50+cloudY,cloudY-600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-250+cloudY,cloudY-250,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-425+cloudY,cloudY2-300,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            cloud.render(-800+cloudY,cloudY2+150,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 
 
             if(openingSequenceTimer.getTicks() %10 == 0 && ascensionY <=0)
