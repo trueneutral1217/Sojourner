@@ -504,7 +504,7 @@ bool pregameui::loadTitleScreenTextures(SDL_Renderer* renderer)
     bool success = true;
     //game title image
 	success = title.loadFromFile( "images/title.png",renderer ); //used in main screen
-	success = titleTexture.loadFromFile( "images/EarthMoon2.png",renderer );  //used in background of main screen
+	success = titleTexture.loadFromFile( "images/EarthMoon3.png",renderer );  //used in background of main screen
 	success = PGUIBlackGround.loadFromFile("images/blackground.png",renderer); //used in main screen behind particles
 	if(!success)
     {

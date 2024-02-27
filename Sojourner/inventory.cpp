@@ -3,7 +3,7 @@
 inventory::inventory()
 {
     //this is a temporary value for scrap's itemCount
-    scrap.itemCount = 5;
+    //scrap.itemCount = 5;
     scrap.itemName = "scrap";
 }
 
@@ -13,7 +13,7 @@ inventory::~inventory()
 }
 
 void inventory::loadInventory(SDL_Renderer* renderer, TTF_Font* font)
-{
+{//creates text textures for inventory items.  rendered when player checks inventory at cargo station
     std::cout<<"\n running inventory::loadInventory(SDL_Renderer* renderer, TTF_Font* font)";
     //set text color for text texture
     SDL_Color textColor = {255,255,255};//font white

@@ -1337,7 +1337,7 @@ void stage::move(int countedFrames)
 
 void stage::setNewgameVars()
 {
-    std::cout<<"\n running stage::setNewgameVars()";
+    std::cout<<"\n **** \n running stage::setNewgameVars() \n **** \n";
     player1.setX(380);
     player1.setY(260);
     habInternalY1 = 0;
@@ -1354,6 +1354,8 @@ void stage::setNewgameVars()
     {
         ship.gauge[i] = 100;
     }
+    //start with 5 scrap.
+    ship.inventory.scrap.itemCount = 5;
 }
 
 

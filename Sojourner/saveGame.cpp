@@ -121,11 +121,23 @@ void saveGame::readSaveFile(int fileNum)
                 }
                 else if(i<30)
                 {
-                    data[i] = 0;
+                    data[i] = 0;//bed stationTier default
                 }
                 else if(i<31)
                 {
-                    data[i] = 0;
+                    data[i] = 0;//inventory.scrap.itemCount default
+                }
+                else if(i<32)
+                {
+                    data[i] = 0;//bed.upgradeAvailable
+                }
+                else if(i<33)
+                {
+                    data[i] = 0;//rec upgrade available = false
+                }
+                else if(i<34)
+                {
+                    data[i] = 0;//rec stationTier = 0;
                 }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
@@ -237,6 +249,8 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         data[29] = stage.ship.habitation.bed.stationTier;
         data[30] = stage.ship.inventory.scrap.itemCount;
         data[31] = stage.ship.habitation.bed.upgradeAvailable;
+        data[32] = stage.ship.habitation.recreation.upgradeAvailable;
+        data[33] = stage.ship.habitation.recreation.stationTier;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -328,6 +342,14 @@ void saveGame::deleteSave(int fileNum)
             {
                 data[i] = 0;//bed upgrade available = false
             }
+            else if(i<33)
+            {
+                data[i] = 0;//rec upgrade available = false
+            }
+            else if(i<34)
+            {
+                data[i] = 0;//rec stationTier = 0;
+            }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
         }
         //Close file handler
@@ -414,7 +436,9 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
     data[28] = stage.inEng;
     data[29] = stage.ship.habitation.bed.stationTier;
     data[30] = stage.ship.inventory.scrap.itemCount;
-    data[31] = stage.ship.habitation.bed.upgradeAvailable;
+    data[31] = stage.ship.habitation.bed.upgradeAvailable;//research complete, upgrade not complete
+    data[32] = stage.ship.habitation.recreation.upgradeAvailable;
+    data[33] = stage.ship.habitation.recreation.stationTier;
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )

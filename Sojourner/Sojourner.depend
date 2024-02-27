@@ -1316,7 +1316,7 @@
 1706399341 c:\sojourner\sojourner\parallax.h
 	"Texture.h"
 
-1704855812 c:\sojourner\sojourner\savegame.h
+1708989249 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 	"pregameui.h"
 	"stage.h"
@@ -1347,10 +1347,10 @@
 1708044293 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
-1708557088 source:c:\sojourner\sojourner\savegame.cpp
+1708989177 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1708816535 source:c:\sojourner\sojourner\stage.cpp
+1708901051 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
@@ -1370,7 +1370,7 @@
 
 1680648821 source:c:\sojourner\sojourner\myicon.rc
 
-1708639209 source:c:\sojourner\sojourner\pregameui.cpp
+1708986529 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
 1708817373 source:c:\sojourner\sojourner\station.cpp
@@ -1383,7 +1383,7 @@
 	<unordered_map>
 	<map>
 
-1708816535 source:c:\sojourner\sojourner\ship.cpp
+1708901278 source:c:\sojourner\sojourner\ship.cpp
 	"ship.h"
 
 1708557762 c:\sojourner\sojourner\ship.h

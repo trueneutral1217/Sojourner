@@ -390,6 +390,8 @@ int main( int argc, char* args[] )
                             //player selects a save file.
                             if(gameState==5)
                             {//user clicked stage 1 button
+                                std::cout<<"\n not from opening sequence";
+                                //I don't think this code ever runs.
                                 chosenSave = pregameui.chosenSave;
                                 stage.setNewgameVars();
                                 playedTime.timePlayed = 0;
@@ -451,8 +453,12 @@ int main( int argc, char* args[] )
                                     stage.inHab = savegame.data[27];
                                     stage.inEng = savegame.data[28];
                                     stage.ship.habitation.bed.stationTier = savegame.data[29];
+                                    std::cout<<"\n *** \n before loading scrap.itemCount = "<<stage.ship.inventory.scrap.itemCount;
                                     stage.ship.inventory.scrap.itemCount = savegame.data[30];
+                                    std::cout<<"\n *** \n after loading scrap.itemCount = "<<stage.ship.inventory.scrap.itemCount;
                                     stage.ship.habitation.bed.upgradeAvailable = savegame.data[31];
+                                    stage.ship.habitation.recreation.upgradeAvailable = savegame.data[32];
+                                    stage.ship.habitation.recreation.stationTier = savegame.data[33];
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer, stage.inHab, stage.inEng, true);
                                     //previouslyPlayed is probably deprecated by timePlayed.
@@ -546,6 +552,7 @@ int main( int argc, char* args[] )
                                 gameState = 5;
                                 //taken from the gamestate == 1 old way of transitioning to gamestate 5
                                 //chosenSave = pregameui.chosenSave;
+                                std::cout<<"\n from opening sequence";
                                 stage.setNewgameVars();
                                 //playedTime.timePlayed = 0;
                                 //playedTime.restart();
