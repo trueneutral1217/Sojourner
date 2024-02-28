@@ -15,6 +15,14 @@ const static int TOTAL_STAGE_BACKGROUNDS = 6;
 //number of UI images
 const int TOTAL_STAGE_UI = 1;
 
+const static int RESEARCHSLOT1 = 190;
+
+const static int RESEARCHSLOT2 = 240;
+
+const static int RESEARCHSLOT3 = 290;
+
+const static int RESEARCHSLOT4 = 340;
+
 class stage
 {
     public:
@@ -169,10 +177,12 @@ class stage
         void freeBackyard();
         //frees the sky scene resources
         void freeSky();
-
+        //resets variables used during opening sequence back to their default once the opening sequence is complete.
         void resetOpeningSequenceVariables();
         //renders the opening sequence textures
         void renderOpeningSequence(SDL_Renderer* renderer);
+        //restores variables in stage to their default values when player clicks 'save & exit'.
+        void resetStageVariables();
 
     private:
 

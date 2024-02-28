@@ -580,9 +580,9 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
     if(buttonAvailable.size() == 0)
     {
-        buttonAvailable.push_back(true);
-        buttonAvailable.push_back(false);
-        buttonAvailable.push_back(false);
+        buttonAvailable.push_back(true); //plant
+        buttonAvailable.push_back(false); //water
+        buttonAvailable.push_back(false); //harvest
     }
     loadStationButtonTextTextures(renderer,font);
 }

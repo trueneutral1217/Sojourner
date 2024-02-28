@@ -279,6 +279,10 @@ bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool succe
     }
     else if(inEng)
     {
+        //loading hab module too since the research desk needs it to load to show available research.
+        ship.loadHabitationModule(renderer,font,player1.need);
+        ship.habitation.freeHab();
+
         ship.loadEngineeringModule(renderer,font,player1.need);
     }
 
@@ -322,6 +326,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         internalView = false;
         showPlayer = false;
         externalView = true;
+        resetStageVariables();
     }
     else if(buttonClicked==2)
     {
@@ -508,16 +513,25 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             buttons[13].setPosition(710,165);
             if(ship.habitation.bed.availableResearchProjects > 0)
             {
+                std::cout<<"\n \n buttons[14].buttonTexture = ship.habitation.bed.stationResearch; \n \n";
                 //this is where buttons for research projects would be created (need text textures)
                 buttons[14].buttonTexture = ship.habitation.bed.stationResearch;
                 buttons[14].buttonName = "singleBed";
-                buttons[14].setPosition(65,190);//y coordinate is going to have to be more dynamic
+                buttons[14].setPosition(65,RESEARCHSLOT1);//y coordinate is going to have to be more dynamic
             }
             if(ship.habitation.recreation.availableResearchProjects>0)
             {
+                std::cout<<"\n \n buttons[15].buttonTexture = ship.habitation.recreation.stationResearch; \n \n";
                 buttons[15].buttonTexture = ship.habitation.recreation.stationResearch;
                 buttons[15].buttonName = "recordPlayer";
-                buttons[15].setPosition(65,240);
+                if(ship.habitation.bed.availableResearchProjects>0)
+                {
+                    buttons[15].setPosition(65,RESEARCHSLOT2);
+                }
+                else
+                {
+                    buttons[15].setPosition(65,RESEARCHSLOT1);
+                }
             }
             buttonsFreed = false;
         }
@@ -1166,14 +1180,23 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 if(ship.habitation.bed.availableResearchProjects > 0)
                 {//y coords need to be dynamic
                     buttons[14].buttonTexture.render(65,190,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                    ship.habitation.bed.tierOneDescription.render(65,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                    ship.habitation.bed.tierOneDescription2.render(65,225,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.bed.tierOneDescription.render(65,RESEARCHSLOT1+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    ship.habitation.bed.tierOneDescription2.render(65,RESEARCHSLOT1+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                 }
                 if(ship.habitation.recreation.availableResearchProjects>0)
                 {
-                    buttons[15].buttonTexture.render(65,240,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                    ship.habitation.recreation.tierOneDescription.render(65,260,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-                    ship.habitation.recreation.tierOneDescription2.render(65,275,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    if(ship.habitation.bed.availableResearchProjects>0)
+                    {
+                        buttons[15].buttonTexture.render(65,RESEARCHSLOT2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.habitation.recreation.tierOneDescription.render(65,RESEARCHSLOT2+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.habitation.recreation.tierOneDescription2.render(65,RESEARCHSLOT2+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
+                    else
+                    {
+                        buttons[15].buttonTexture.render(65,RESEARCHSLOT1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.habitation.recreation.tierOneDescription.render(65,RESEARCHSLOT1+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.habitation.recreation.tierOneDescription2.render(65,RESEARCHSLOT1+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
                 }
             }
         }
@@ -1486,4 +1509,27 @@ void stage::refreshTS(SDL_Renderer* renderer)
     {
         std::cout<<"\n unable to render dSurvived string to daysSurvived Texture!";
     }
+}
+
+void stage::resetStageVariables()
+{
+    std::cout<<"\n running stage::resetStageVariables()";
+    ship.habitation.bed.stationTier = 0;
+    ship.habitation.bed.upgradeAvailable = false;
+    ship.habitation.bed.availableResearchProjects = 1;
+    ship.habitation.recreation.stationTier = 0;
+    ship.habitation.recreation.upgradeAvailable = false;
+    ship.habitation.recreation.availableResearchProjects = 1;
+    ship.inventory.scrap.itemCount = 0;
+    inHab = true;
+    inEng = false;
+    ship.habitation.planter.planterDaysState=0;
+    ship.habitation.planter.planterState = -1;//unsown, unwatered
+    ship.habitation.planter.planterTimeWatered = 0;
+    //set planter buttons to default (plant okay, water not okay, harvest not okay.)
+    ship.habitation.planter.buttonAvailable[0] = true;
+    ship.habitation.planter.buttonAvailable[1] = false;
+    ship.habitation.planter.buttonAvailable[2] = false;
+    //gauges and player needs seem to be resetting elsewhere
+    timeSurvived = 0;
 }
