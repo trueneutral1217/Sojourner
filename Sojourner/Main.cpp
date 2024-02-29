@@ -328,7 +328,7 @@ int main( int argc, char* args[] )
 					{
 						quit = true;
 					}
-                    if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION)
+                    if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION || openingSequence.complete)
                     {
                         if(gameState == 5)
                         {
@@ -544,10 +544,9 @@ int main( int argc, char* args[] )
                         {
                             //this is the opening sequence of a new game.
                             //should allow player movement etc.
-                            openingSequence.handleButtons(renderer,&e);
                             if(openingSequence.complete)
                             {
-                                std::cout<<"\n changing gamestate from 5 to 6";
+                                std::cout<<"\n changing gamestate from 6 to 5";
                                 openingSequence.resetOpeningSequenceVariables();
                                 gameState = 5;
                                 //taken from the gamestate == 1 old way of transitioning to gamestate 5
@@ -557,8 +556,13 @@ int main( int argc, char* args[] )
                                 //playedTime.timePlayed = 0;
                                 //playedTime.restart();
                                 stage.loadStage(renderer,stage.inHab, stage.inEng,true);
-
                             }
+                            else
+                            {
+                                openingSequence.handleButtons(renderer,&e);
+                            }
+
+
                         }
                     }
 					//Handle key press
@@ -575,7 +579,7 @@ int main( int argc, char* args[] )
                             {
                                 quit=true;
                             }
-                            if(gameState==6)
+                            else if(gameState==6)
                             {
                                 openingSequence.complete = true;
                             }

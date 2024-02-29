@@ -18,6 +18,10 @@ class item
         Texture itemTextTexture;
         //the amount of the item in the inventory
         int itemCount;
+        //brief description for items, to be used in text textures at inventory screen
+        std::string itemDescription;
+        //textTextures for itemDescriptions
+        Texture itemDescriptionTextTexture;
 
         private:
 

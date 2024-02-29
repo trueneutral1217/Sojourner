@@ -573,9 +573,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.inventory.refreshInventory(renderer,font);
             int upgradeBedTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
             player1.modifyNeeds(upgradeBedTier1);
-            //ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
+
             player1.reloadNeedsTextures(renderer,font);
-            //2 hours passed from exercising
+            //2 hours passed from building
             timeSurvived +=120;
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
@@ -588,6 +588,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             std::cout<<"\n\n\n bed.buttonAvailable[buttonAvailable.size()]: "<<ship.habitation.bed.buttonAvailable[ship.habitation.bed.buttonAvailable.size()];
             std::cout<<"\n\n\n bed.buttonAvailable[1]: "<<ship.habitation.bed.buttonAvailable[1];
             //updates the upgrade button's availability color
+
             ship.habitation.bed.loadStationButtonTextTextures(renderer,font);
         }
     }
@@ -611,14 +612,19 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //this should also update the player's needs values to reflect a more comfortable bed
             int researchBedTier1[TOTAL_PLAYER_NEEDS] = {0,-3,-3,-3,-3};
             player1.modifyNeeds(researchBedTier1);
-            //ship.habitation.bike.loadStationButtonTextTextures(renderer,font,player1.need[1]);
+
             player1.reloadNeedsTextures(renderer,font);
-            //2 hours passed from exercising
+            //1 hour passed from researching
             timeSurvived +=60;
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
             //upgrade button should be true since research is complete, refresh the text textures.
             ship.habitation.bed.upgradeAvailable=true;
+
+            //free's the research screen button that was just clicked
+            buttons[14].free();
+            //moves the 'record player' button up.  this will require something a bit more scalable for the future.
+            buttons[15].setPosition(65,RESEARCHSLOT1);
         }
     }
     else if(buttonClicked == 17)
@@ -1167,7 +1173,12 @@ void stage::renderStage1(SDL_Renderer* renderer)
             //this is the button that closes the inventory
             buttons[11].buttonTexture.render(710,165,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             //display scrap text texture
-            ship.inventory.scrap.itemTextTexture.render(100,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.scrap.itemTextTexture.render(75,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.scrap.itemDescriptionTextTexture.render(200,200,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.wood.itemTextTexture.render(75,220,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.wood.itemDescriptionTextTexture.render(200,220,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.plastic.itemTextTexture.render(75,240,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            ship.inventory.plastic.itemDescriptionTextTexture.render(200,240,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         if(ship.engineering.researchDesk.researchDisplaying)
         {

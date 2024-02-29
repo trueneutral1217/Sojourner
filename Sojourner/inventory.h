@@ -10,8 +10,8 @@ class inventory
 		inventory();
 		//deconstructor
         ~inventory();
-        //initialize item
-        item scrap;
+        //initialize items
+        item scrap,wood,plastic;
         //load inventory
         void loadInventory(SDL_Renderer* renderer, TTF_Font* font);
 
