@@ -9,6 +9,7 @@
 //#include "saveGame.h"
 //#include "station.h"
 #include "ship.h"
+#include "animations.h"
 
 //these are the parallax images used for the bg's.
 const static int TOTAL_STAGE_BACKGROUNDS = 6;
@@ -57,11 +58,12 @@ class stage
 
         //house texture has the initial backround for the opening sequence
         Texture openingSequenceHouse;
+
         //newspaper texture displays an image of a newspaper until a click or for a certain amount of time.
         Texture openingSequenceNewspaper, iDontWantToLiveOnThisPlanetAnymoreTexture,backyardTexture;
         //texture for the rocket ship / gantry
         Texture openingSequenceShip;
-
+        //after opening sequence runs this keeps the background from going white while transitioning to gamestate 5.
         Texture openingSequenceBlackground;
 
         //declare font
@@ -82,9 +84,9 @@ class stage
         bool paperOpen;
         //used in backyard scene
         int doorX,doorY,rampX,rampY;
-
+        //used in the backyard scene of opening sequence
         Texture door,ramp,obscure;
-
+        //textures used while traveling to orbit at end of opening sequence
         Texture ascension, cloud, liftOffShip;
 
         int iterations;
@@ -93,9 +95,9 @@ class stage
         bool backyardFree;
 
         SDL_Rect camera;
-
+        //used for the space ship flying upward scene
         int ascensionY,cloudY,cloudY2;
-
+        //true when player presses 'esc' during opening sequence or finishes it normally.
         bool complete;
 
         //message of courage in external view

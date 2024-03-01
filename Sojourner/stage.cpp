@@ -155,6 +155,8 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     openingSequenceNewspaper.loadFromFile("images/newsPaper.png",renderer);
     openingSequenceShip.loadFromFile("images/backyardShip.png",renderer);
 
+
+
     door.loadFromFile("images/door.png",renderer);
     obscure.loadFromFile("images/obscure.png",renderer);
     ramp.loadFromFile("images/ramp.png",renderer);

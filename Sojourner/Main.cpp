@@ -313,13 +313,11 @@ int main( int argc, char* args[] )
 			int countedFrames = 0;
 			//Event handler
 			SDL_Event e;
-
+            //Start cap timer
             capTimer.start();
 			//While application is running
 			while( !quit )
 			{
-			    //Start cap timer
-
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
@@ -365,6 +363,7 @@ int main( int argc, char* args[] )
                             {
                                 animations.loadCreditsAnimationTextures(renderer);
                             }
+
                             if(gameState==1 || gameState == 2)
                             {
                                 savegame.loadSaveTextTextures(renderer,text.font);
@@ -377,11 +376,14 @@ int main( int argc, char* args[] )
 
                             if(gameState==6)
                             {
+
+
+
                                 chosenSave = pregameui.chosenSave;
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
                                 openingSequence.loadOpeningSequence(renderer);
-
+                                animations.loadBushAnimationTextures(renderer);
                                 //a call to stage.setNewgameVars() will have to be called
                                 //at the end of the opening sequence
 
@@ -538,31 +540,20 @@ int main( int argc, char* args[] )
                             {
                                 animations.freeCreditsAnimationTextures();
                             }
-
                         }
                         if(gameState == 6)
                         {
                             //this is the opening sequence of a new game.
                             //should allow player movement etc.
-                            if(openingSequence.complete)
+                            openingSequence.handleButtons(renderer,&e);
+                            if(!animations.animationTimer11.isStarted())
                             {
-                                std::cout<<"\n changing gamestate from 6 to 5";
-                                openingSequence.resetOpeningSequenceVariables();
-                                gameState = 5;
-                                //taken from the gamestate == 1 old way of transitioning to gamestate 5
-                                //chosenSave = pregameui.chosenSave;
-                                std::cout<<"\n from opening sequence";
-                                stage.setNewgameVars();
-                                //playedTime.timePlayed = 0;
-                                //playedTime.restart();
-                                stage.loadStage(renderer,stage.inHab, stage.inEng,true);
+                                animations.animationTimer11.start();
                             }
-                            else
+                            if(openingSequence.backdoorInteracted)
                             {
-                                openingSequence.handleButtons(renderer,&e);
+                                animations.freeBushAnimationTextures();
                             }
-
-
                         }
                     }
 					//Handle key press
@@ -688,11 +679,30 @@ int main( int argc, char* args[] )
                 else if(gameState == 6)
                 {
                     openingSequence.renderOpeningSequence(renderer);
+                    if(!openingSequence.backdoorInteracted)
+                    {
+                        animations.renderBush(renderer);
+                        animations.bushAnimationProgress();
+                        animations.cycleAnimations();
+                    }
                 }
                 if(fade)
                 {
                     fade = fadeIn(countedFrames,fade);
                     blackGround.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                }
+                if(openingSequence.complete)
+                {
+                    std::cout<<"\n changing gamestate from 6 to 5";
+                    openingSequence.resetOpeningSequenceVariables();
+                    gameState = 5;
+                    //taken from the gamestate == 1 old way of transitioning to gamestate 5
+                    //chosenSave = pregameui.chosenSave;
+                    std::cout<<"\n from opening sequence";
+                    stage.setNewgameVars();
+                    //playedTime.timePlayed = 0;
+                    //playedTime.restart();
+                    stage.loadStage(renderer,stage.inHab, stage.inEng,true);
                 }
 				//Update screen
 				SDL_RenderPresent( renderer );

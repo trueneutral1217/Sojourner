@@ -8,14 +8,13 @@ const int TAO_ANIMATION_FRAMES = 8;
 const int TOASTER_ANIMATION_FRAMES = 8;
 //I've made a second toaster, I'm testing out walking animation.
 const int TOASTER2_ANIMATION_FRAMES = 3;
-
+//these don't do anything in this project currently, will probably remove eventually.
 const int BLACKSTAR_ANIMATION_FRAMES=9;
-
 const int PORTAL_ANIMATION_FRAMES=20;
-
 const int RAT_ANIMATION_FRAMES=11;
-
 const int TRAILER_ANIMATION_FRAMES=16;
+//used in opening sequence during house scene.
+const int BUSH_ANIMATION_FRAMES = 2;
 
 
 class animations
@@ -46,6 +45,8 @@ class animations
         timer animationTimer9;
         //trailer animationTimer
         timer animationTimer10;
+        //bush animation timer
+        timer animationTimer11;
 
         bool aniCountUp;
 
@@ -60,6 +61,8 @@ class animations
         int aniFrame9;
         //track trailer frame
         int aniFrame10;
+        //track bush animation frame
+        int aniFrame11;
         //creating 4 blackstar animations with random x/y coords to be displayed
         int bsX1,bsX2,bsX3,bsX4,bsY1,bsY2,bsY3,bsY4;
 
@@ -75,11 +78,16 @@ class animations
         Texture portal[PORTAL_ANIMATION_FRAMES];
         Texture rat[RAT_ANIMATION_FRAMES];
         Texture trailer[TRAILER_ANIMATION_FRAMES];
+        Texture bush[BUSH_ANIMATION_FRAMES];
 
         //bool setAnimationTextures(SDL_Renderer* renderer);
         bool loadCreditsAnimationTextures(SDL_Renderer* renderer);
 
+        void loadBushAnimationTextures(SDL_Renderer* renderer);
+
         void freeCreditsAnimationTextures();
+
+        void freeBushAnimationTextures();
 
         //void freeAnimationTextures();
 
@@ -90,6 +98,8 @@ class animations
         //void renderPortal(SDL_Renderer* renderer);
         //void renderRat(SDL_Renderer* renderer);
         //void renderTrailer(SDL_Renderer* renderer);
+        //renders bush during house scene of opening sequence.
+        void renderBush(SDL_Renderer* renderer);
 
         void cycleAnimations();
         void oscillateCount();
@@ -97,6 +107,8 @@ class animations
 
         //void taoAnimationProgress();
         void toasterAnimationProgress();
+        //progresses the bush animation during house scene of opening sequence.
+        void bushAnimationProgress();
         //void toaster2AnimationProgress();
         //void blackstarAnimationProgress();
         //void portalAnimationProgress();

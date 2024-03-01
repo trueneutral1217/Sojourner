@@ -36,12 +36,34 @@ bool animations::loadCreditsAnimationTextures(SDL_Renderer* renderer)
     return success;
 }
 
+void animations::loadBushAnimationTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running animations::loadBushAnimationTextures(SDL_Renderer* renderer)";
+    for(int i = 0; i<BUSH_ANIMATION_FRAMES;i++)
+    {
+        int a = i;
+        std::stringstream ss;
+        ss<<"images/animations/bush/bush"<<a<<".png";
+        std::string str = ss.str();
+        bush[i].loadFromFile(str,renderer);
+    }
+}
+
 void animations::freeCreditsAnimationTextures()
 {
     std::cout<<"\n running animations::freeCreditsAnimationTextures()";
     for(int i=0;i<TOASTER_ANIMATION_FRAMES;i++)
     {
         toaster[i].free();
+    }
+}
+
+void animations::freeBushAnimationTextures()
+{
+    std::cout<<"\n running animations::freeBushAnimationTextures()";
+    for(int i = 0; i<BUSH_ANIMATION_FRAMES;i++)
+    {
+        bush[i].free();
     }
 }
 
@@ -64,6 +86,17 @@ void animations::renderToaster(SDL_Renderer* renderer)
     case 6:toaster[6].render(50,400,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         break;
     case 7:toaster[7].render(50,400,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
+    }
+}
+
+void animations::renderBush(SDL_Renderer* renderer)
+{
+    switch(aniFrame11)
+    {
+    case 0:bush[0].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        break;
+    case 1:bush[1].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         break;
     }
 }
@@ -125,6 +158,10 @@ void animations::cycleAnimations()
     {
         aniFrame10 = 0;
     }
+    if(aniFrame11 >= BUSH_ANIMATION_FRAMES)
+    {
+        aniFrame11 = 0;
+    }
 }
 
 void animations::oscillateCount()
@@ -137,7 +174,7 @@ void animations::oscillateCount()
     else
     {
         aniFrame2--;
-        SDL_Delay(50);
+        SDL_Delay(50);//probably shouldn't use delay but since this is only on credits screen it doesn't effect anything
     }
 }
 
@@ -150,10 +187,19 @@ void animations::toasterAnimationProgress()
     }
 }
 
+void animations::bushAnimationProgress()
+{
+    if(animationTimer11.getTicks() / 60 > 1)
+    {
+        aniFrame11++;
+    }
+}
+
 void animations::progress()
 { //this function should probably be renamed to progressToaster in refactor
     //the tao animation timer
     //taoAnimationProgress();
+    bushAnimationProgress();
     //the timer for toaster the robot's animation
     toasterAnimationProgress();
     //Cycle animation
