@@ -14,7 +14,10 @@ const int PORTAL_ANIMATION_FRAMES=20;
 const int RAT_ANIMATION_FRAMES=11;
 const int TRAILER_ANIMATION_FRAMES=16;
 //used in opening sequence during house scene.
-const int BUSH_ANIMATION_FRAMES = 2;
+const int BUSH_ANIMATION_FRAMES = 4;
+
+const int LEFTCURTAIN_ANIMATION_FRAMES = 4;
+const int RIGHTCURTAIN_ANIMATION_FRAMES = 4;
 
 
 class animations
@@ -48,58 +51,53 @@ class animations
         //bush animation timer
         timer animationTimer11;
 
+        timer animationTimer12;
+
+        timer animationTimer13;
+
         bool aniCountUp;
 
         //tracker for the frame of the animation being used
-        int aniFrame,aniFrame2,aniFrame3;
-
-        //aniFrame4, 5,6,and 7 are for the blackstar animations
-        int aniFrame4,aniFrame5,aniFrame6,aniFrame7;
-        //for the portal animation
-        int aniFrame8;
-        //keeps track of frame for rat animation
-        int aniFrame9;
-        //track trailer frame
-        int aniFrame10;
+        int aniFrame,aniFrame2;
         //track bush animation frame
         int aniFrame11;
-        //creating 4 blackstar animations with random x/y coords to be displayed
-        int bsX1,bsX2,bsX3,bsX4,bsY1,bsY2,bsY3,bsY4;
+        //for the curtains in the house scene.
+        int aniFrame12,aniFrame13;
 
-        //variable coordinates for animations
-        int portalY;
-        int toaster2X;
 
         //animation textures
-        Texture tao[TAO_ANIMATION_FRAMES];
         Texture toaster[TOASTER_ANIMATION_FRAMES];
-        Texture toaster2[TOASTER2_ANIMATION_FRAMES];
-        Texture blackstar[BLACKSTAR_ANIMATION_FRAMES];
-        Texture portal[PORTAL_ANIMATION_FRAMES];
-        Texture rat[RAT_ANIMATION_FRAMES];
-        Texture trailer[TRAILER_ANIMATION_FRAMES];
         Texture bush[BUSH_ANIMATION_FRAMES];
+        Texture leftCurtain[LEFTCURTAIN_ANIMATION_FRAMES];
+        Texture rightCurtain[RIGHTCURTAIN_ANIMATION_FRAMES];
 
         //bool setAnimationTextures(SDL_Renderer* renderer);
         bool loadCreditsAnimationTextures(SDL_Renderer* renderer);
 
         void loadBushAnimationTextures(SDL_Renderer* renderer);
 
+        void loadLeftCurtainAnimationTextures(SDL_Renderer* renderer);
+
+        void loadRightCurtainAnimationTextures(SDL_Renderer* renderer);
+
         void freeCreditsAnimationTextures();
 
         void freeBushAnimationTextures();
 
+        void freeLeftCurtainAnimationTextures();
+
+        void freeRightCurtainAnimationTextures();
+
         //void freeAnimationTextures();
 
-        //void renderTao(SDL_Renderer* renderer);
         void renderToaster(SDL_Renderer* renderer);
-        //void renderToaster2(SDL_Renderer* renderer);
-        //void renderBlackstar(SDL_Renderer* renderer);
-        //void renderPortal(SDL_Renderer* renderer);
-        //void renderRat(SDL_Renderer* renderer);
-        //void renderTrailer(SDL_Renderer* renderer);
+
         //renders bush during house scene of opening sequence.
         void renderBush(SDL_Renderer* renderer);
+
+        void renderLeftCurtain(SDL_Renderer* renderer);
+
+        void renderRightCurtain(SDL_Renderer* renderer);
 
         void cycleAnimations();
         void oscillateCount();
@@ -109,11 +107,10 @@ class animations
         void toasterAnimationProgress();
         //progresses the bush animation during house scene of opening sequence.
         void bushAnimationProgress();
-        //void toaster2AnimationProgress();
-        //void blackstarAnimationProgress();
-        //void portalAnimationProgress();
-        //void ratAnimationProgress();
-        //void trailerAnimationProgress();
+
+        void leftCurtainAnimationProgress();
+
+        void rightCurtainAnimationProgress();
 
         //consolidates executing progress & cycle animations functions
         void progress();

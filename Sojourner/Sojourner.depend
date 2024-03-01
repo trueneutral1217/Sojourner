@@ -1259,10 +1259,10 @@
 	"text.h"
 	"text.h"
 
-1709254602 source:c:\sojourner\sojourner\animations.cpp
+1709334910 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
-1709255293 c:\sojourner\sojourner\animations.h
+1709335494 c:\sojourner\sojourner\animations.h
 	"Texture.h"
 
 1706402775 c:\sojourner\sojourner\texture.h
@@ -1290,7 +1290,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1709254856 source:c:\sojourner\sojourner\main.cpp
+1709334045 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"

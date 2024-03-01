@@ -4,14 +4,7 @@ animations::animations()
 {
     aniFrame=0;
     aniFrame2=0;
-    aniFrame3=0;
-    aniFrame4=0;
-    aniFrame5=0;
-    aniFrame6=0;
-    aniFrame7=0;
-    aniFrame8=0;
-    aniFrame9=0;
-    aniFrame10=0;
+
     aniCountUp=true;
 
 }
@@ -47,6 +40,47 @@ void animations::loadBushAnimationTextures(SDL_Renderer* renderer)
         std::string str = ss.str();
         bush[i].loadFromFile(str,renderer);
     }
+    if(!animationTimer11.isStarted())
+    {
+        animationTimer11.start();
+        std::cout<<"\n \n starting bush animation timer";
+    }
+}
+
+void animations::loadLeftCurtainAnimationTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running animations::loadLeftCurtainAnimationTextures(SDL_Renderer* renderer)";
+    for(int i = 0; i<LEFTCURTAIN_ANIMATION_FRAMES;i++)
+    {
+        int a = i;
+        std::stringstream ss;
+        ss<<"images/animations/leftCurtain/leftCurtain"<<a<<".png";
+        std::string str = ss.str();
+        leftCurtain[i].loadFromFile(str,renderer);
+    }
+    if(!animationTimer12.isStarted())
+    {
+        animationTimer12.start();
+        std::cout<<"\n \n starting leftCurtain animation timer";
+    }
+}
+
+void animations::loadRightCurtainAnimationTextures(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running animations::loadRightCurtainAnimationTextures(SDL_Renderer* renderer)";
+    for(int i = 0; i<RIGHTCURTAIN_ANIMATION_FRAMES;i++)
+    {
+        int a = i;
+        std::stringstream ss;
+        ss<<"images/animations/rightCurtain/rightCurtain"<<a<<".png";
+        std::string str = ss.str();
+        rightCurtain[i].loadFromFile(str,renderer);
+    }
+    if(!animationTimer13.isStarted())
+    {
+        animationTimer13.start();
+        std::cout<<"\n \n starting rightCurtain animation timer";
+    }
 }
 
 void animations::freeCreditsAnimationTextures()
@@ -64,6 +98,24 @@ void animations::freeBushAnimationTextures()
     for(int i = 0; i<BUSH_ANIMATION_FRAMES;i++)
     {
         bush[i].free();
+    }
+}
+
+void animations::freeLeftCurtainAnimationTextures()
+{
+    std::cout<<"\n running animations::freeLeftCurtainAnimationTextures()";
+    for(int i = 0; i<LEFTCURTAIN_ANIMATION_FRAMES;i++)
+    {
+        leftCurtain[i].free();
+    }
+}
+
+void animations::freeRightCurtainAnimationTextures()
+{
+    std::cout<<"\n running animations::freeRightCurtainAnimationTextures()";
+    for(int i = 0; i<RIGHTCURTAIN_ANIMATION_FRAMES;i++)
+    {
+        rightCurtain[i].free();
     }
 }
 
@@ -94,73 +146,68 @@ void animations::renderBush(SDL_Renderer* renderer)
 {
     switch(aniFrame11)
     {
-    case 0:bush[0].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        break;
-    case 1:bush[1].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        break;
+        case 0:bush[0].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 1:bush[1].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 2:bush[2].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 3:bush[3].render(100,467,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+    }
+}
+
+void animations::renderLeftCurtain(SDL_Renderer* renderer)
+{
+    switch(aniFrame12)
+    {
+        case 0:leftCurtain[0].render(387,256,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 1:leftCurtain[1].render(387,256,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 2:leftCurtain[2].render(387,256,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 3:leftCurtain[3].render(387,256,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+    }
+}
+
+void animations::renderRightCurtain(SDL_Renderer* renderer)
+{
+    switch(aniFrame13)
+    {
+        case 0:rightCurtain[0].render(485,253,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 1:rightCurtain[1].render(485,253,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 2:rightCurtain[2].render(485,253,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
+        case 3:rightCurtain[3].render(485,253,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            break;
     }
 }
 
 void animations::cycleAnimations()
 {
-    if( aniFrame >= TAO_ANIMATION_FRAMES )
-    {
-        aniFrame = 0;
-    }
-    if(aniFrame3 >= TOASTER2_ANIMATION_FRAMES)
-    {
-        aniFrame3 = 0;
-    }
     if( aniFrame2 >= TOASTER_ANIMATION_FRAMES-1 )
     {
         aniCountUp = false;
-    }
-    if( aniFrame4 >= BLACKSTAR_ANIMATION_FRAMES)
-    {
-        aniFrame4 = 0;
-        bsX1=rand() % 200;
-        bsY1=rand()% 350;
-    }
-    if( aniFrame5 >= BLACKSTAR_ANIMATION_FRAMES)
-    {
-        aniFrame5 = 0;
-        bsX2=rand() % 200;
-        bsX2+=200;
-        bsY2=rand()% 350;
-    }
-    if( aniFrame6 >= BLACKSTAR_ANIMATION_FRAMES)
-    {
-        aniFrame6 = 0;
-        bsX3=rand() % 200;
-        bsX3+=400;
-        bsY3=rand()% 350;
-    }
-    if( aniFrame7 >= BLACKSTAR_ANIMATION_FRAMES)
-    {
-        aniFrame7 = 0;
-        bsX4=rand() % 200;
-        bsX4+=550;
-        bsY4=rand()% 350;
-    }
-    if(aniFrame8 >= PORTAL_ANIMATION_FRAMES)
-    {
-        aniFrame8 = 20;
     }
     else if(aniFrame2 <= 0)
     {
         aniCountUp = true;
     }
-    if( aniFrame9 >= RAT_ANIMATION_FRAMES )
-    {
-        aniFrame9 = 0;
-    }
-    if( aniFrame10 >= TRAILER_ANIMATION_FRAMES )
-    {
-        aniFrame10 = 0;
-    }
     if(aniFrame11 >= BUSH_ANIMATION_FRAMES)
     {
         aniFrame11 = 0;
+    }
+    if(aniFrame12 >= LEFTCURTAIN_ANIMATION_FRAMES)
+    {
+        aniFrame12 = 0;
+    }
+    if(aniFrame13 >= RIGHTCURTAIN_ANIMATION_FRAMES)
+    {
+        aniFrame13 = 0;
     }
 }
 
@@ -189,9 +236,25 @@ void animations::toasterAnimationProgress()
 
 void animations::bushAnimationProgress()
 {
-    if(animationTimer11.getTicks() / 60 > 1)
+    if((animationTimer11.getTicks() % 500) == 1)
     {
         aniFrame11++;
+    }
+}
+
+void animations::leftCurtainAnimationProgress()
+{
+    if((animationTimer12.getTicks()%600) == 1)
+    {
+        aniFrame12++;
+    }
+}
+
+void animations::rightCurtainAnimationProgress()
+{
+    if((animationTimer13.getTicks()%700) == 1)
+    {
+        aniFrame13++;
     }
 }
 
@@ -200,6 +263,9 @@ void animations::progress()
     //the tao animation timer
     //taoAnimationProgress();
     bushAnimationProgress();
+
+    leftCurtainAnimationProgress();
+    rightCurtainAnimationProgress();
     //the timer for toaster the robot's animation
     toasterAnimationProgress();
     //Cycle animation

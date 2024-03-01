@@ -382,8 +382,11 @@ int main( int argc, char* args[] )
                                 chosenSave = pregameui.chosenSave;
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
-                                openingSequence.loadOpeningSequence(renderer);
                                 animations.loadBushAnimationTextures(renderer);
+                                animations.loadLeftCurtainAnimationTextures(renderer);
+                                animations.loadRightCurtainAnimationTextures(renderer);
+                                openingSequence.loadOpeningSequence(renderer);
+
                                 //a call to stage.setNewgameVars() will have to be called
                                 //at the end of the opening sequence
 
@@ -543,16 +546,16 @@ int main( int argc, char* args[] )
                         }
                         if(gameState == 6)
                         {
+
                             //this is the opening sequence of a new game.
                             //should allow player movement etc.
                             openingSequence.handleButtons(renderer,&e);
-                            if(!animations.animationTimer11.isStarted())
-                            {
-                                animations.animationTimer11.start();
-                            }
+
                             if(openingSequence.backdoorInteracted)
                             {
                                 animations.freeBushAnimationTextures();
+                                animations.freeLeftCurtainAnimationTextures();
+                                animations.freeRightCurtainAnimationTextures();
                             }
                         }
                     }
@@ -681,9 +684,13 @@ int main( int argc, char* args[] )
                     openingSequence.renderOpeningSequence(renderer);
                     if(!openingSequence.backdoorInteracted)
                     {
-                        animations.renderBush(renderer);
-                        animations.bushAnimationProgress();
                         animations.cycleAnimations();
+                        animations.bushAnimationProgress();
+                        animations.leftCurtainAnimationProgress();
+                        animations.rightCurtainAnimationProgress();
+                        animations.renderBush(renderer);
+                        animations.renderLeftCurtain(renderer);
+                        animations.renderRightCurtain(renderer);
                     }
                 }
                 if(fade)
