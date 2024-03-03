@@ -71,6 +71,8 @@ class animations
         Texture leftCurtain[LEFTCURTAIN_ANIMATION_FRAMES];
         Texture rightCurtain[RIGHTCURTAIN_ANIMATION_FRAMES];
 
+        bool bushFree;
+
         //bool setAnimationTextures(SDL_Renderer* renderer);
         bool loadCreditsAnimationTextures(SDL_Renderer* renderer);
 

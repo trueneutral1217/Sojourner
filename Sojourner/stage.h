@@ -192,7 +192,7 @@ class stage
         //resets variables used during opening sequence back to their default once the opening sequence is complete.
         void resetOpeningSequenceVariables();
         //renders the opening sequence textures
-        void renderOpeningSequence(SDL_Renderer* renderer);
+        void renderOpeningSequence(SDL_Renderer* renderer, animations& animations);
         //restores variables in stage to their default values when player clicks 'save & exit'.
         void resetStageVariables();
 

@@ -198,7 +198,7 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
         std::cout<<"\n unable to render backyard string to backyardTexture!";
     }
 
-    gtfo = "I'm getting the fuck out of here.";
+    gtfo = "Fuck this planet.";
 
     if(!gtfoTexture.loadFromRenderedText(gtfo.c_str(),textColor,font,renderer))
     {
@@ -813,24 +813,30 @@ void stage::freeStationButtons()
     buttonsFreed = true;
 }
 
-void stage::renderOpeningSequence(SDL_Renderer* renderer)
+void stage::renderOpeningSequence(SDL_Renderer* renderer, animations& animations)
 {
     //renders clouds parallaxing behind house.
     houseCloudsHandleParallax(renderer);
     //renders house background
     openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    if(!backdoorInteracted)
+    {
+        rainDrop.render(10,(100+rainTimer.getTicks())%590,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(20,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(30,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(40,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(50,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(60,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(70,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(80,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(90,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(100,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        rainDrop.render(110,(200+rainTimer.getTicks())%589,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
 
-    rainDrop.render(10,(100+rainTimer.getTicks())%590,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(20,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(30,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(40,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(50,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(60,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(70,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(80,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(90,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(100,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    rainDrop.render(110,(200+rainTimer.getTicks())%589,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    animations.renderBush(renderer);
+    animations.renderLeftCurtain(renderer);
+    animations.renderRightCurtain(renderer);
 
     //renders player on top of house background
     if(!backdoorInteracted)
@@ -917,6 +923,52 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer)
             player1.render(renderer);
         }
         door.render(doorX,doorY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+        if(!backyardFree)
+        {
+            rainDrop.render(10,(100+rainTimer.getTicks())%590,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(20,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(30,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(40,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(50,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(60,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(70,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(80,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(90,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(100,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(110,(200+rainTimer.getTicks())%589,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(120,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(130,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(140,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(150,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(160,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(170,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(180,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(190,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(200,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+            rainDrop.render(600,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(610,(100+rainTimer.getTicks())%590,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(620,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(630,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(640,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(650,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(660,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(670,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(680,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(690,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(700,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(710,(200+rainTimer.getTicks())%589,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(720,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(730,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(740,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(750,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(760,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(770,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(780,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            rainDrop.render(790,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+
         if(openingSequenceTimer.getTicks() < 3000)
         {
             gtfoTexture.render(50,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
@@ -1012,7 +1064,7 @@ backdoorInteraction.x = 0;
 backdoorInteraction.y = 0;
 backdoorInteraction.w = 0;
 backdoorInteraction.h = 0;
-houseClouds.freeParallaxTexture();
+
 }
 
 void stage::freeBackyard()
@@ -1024,6 +1076,8 @@ void stage::freeBackyard()
     door.free();
     obscure.free();
     ramp.free();
+    houseClouds.freeParallaxTexture();
+    rainDrop.free();
 }
 
 void stage::freeSky()
@@ -1032,7 +1086,6 @@ void stage::freeSky()
     ascension.free();
     cloud.free();
     liftOffShip.free();
-    rainDrop.free();
     rainTimer.stop();
 }
 

@@ -45,6 +45,7 @@ void animations::loadBushAnimationTextures(SDL_Renderer* renderer)
         animationTimer11.start();
         std::cout<<"\n \n starting bush animation timer";
     }
+    bushFree = false;
 }
 
 void animations::loadLeftCurtainAnimationTextures(SDL_Renderer* renderer)

@@ -551,11 +551,12 @@ int main( int argc, char* args[] )
                             //should allow player movement etc.
                             openingSequence.handleButtons(renderer,&e);
 
-                            if(openingSequence.backdoorInteracted)
+                            if(openingSequence.backdoorInteracted & !animations.bushFree)
                             {
                                 animations.freeBushAnimationTextures();
                                 animations.freeLeftCurtainAnimationTextures();
                                 animations.freeRightCurtainAnimationTextures();
+                                animations.bushFree = true;
                             }
                         }
                     }
@@ -681,16 +682,14 @@ int main( int argc, char* args[] )
                 }
                 else if(gameState == 6)
                 {
-                    openingSequence.renderOpeningSequence(renderer);
+                    openingSequence.renderOpeningSequence(renderer,animations);
                     if(!openingSequence.backdoorInteracted)
                     {
                         animations.cycleAnimations();
                         animations.bushAnimationProgress();
                         animations.leftCurtainAnimationProgress();
                         animations.rightCurtainAnimationProgress();
-                        animations.renderBush(renderer);
-                        animations.renderLeftCurtain(renderer);
-                        animations.renderRightCurtain(renderer);
+
                     }
                 }
                 if(fade)
