@@ -155,7 +155,11 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     openingSequenceNewspaper.loadFromFile("images/newsPaper.png",renderer);
     openingSequenceShip.loadFromFile("images/backyardShip.png",renderer);
 
+    houseClouds.parallaxTexture.loadFromFile("images/houseParallaxClouds.png",renderer);
 
+    rainDrop.loadFromFile("images/rainDrop.png",renderer);
+
+    rainTimer.start();
 
     door.loadFromFile("images/door.png",renderer);
     obscure.loadFromFile("images/obscure.png",renderer);
@@ -811,11 +815,27 @@ void stage::freeStationButtons()
 
 void stage::renderOpeningSequence(SDL_Renderer* renderer)
 {
+    //renders clouds parallaxing behind house.
+    houseCloudsHandleParallax(renderer);
     //renders house background
     openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+    rainDrop.render(10,(100+rainTimer.getTicks())%590,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(20,rainTimer.getTicks()%598,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(30,(160+rainTimer.getTicks())%591,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(40,rainTimer.getTicks()%592,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(50,(500+rainTimer.getTicks())%593,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(60,rainTimer.getTicks()%594,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(70,(400+rainTimer.getTicks())%595,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(80,rainTimer.getTicks()%596,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(90,(300+rainTimer.getTicks())%597,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(100,rainTimer.getTicks()%599,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    rainDrop.render(110,(200+rainTimer.getTicks())%589,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
     //renders player on top of house background
     if(!backdoorInteracted)
     {
+
         player1.render(renderer);
     }
 
@@ -992,7 +1012,7 @@ backdoorInteraction.x = 0;
 backdoorInteraction.y = 0;
 backdoorInteraction.w = 0;
 backdoorInteraction.h = 0;
-
+houseClouds.freeParallaxTexture();
 }
 
 void stage::freeBackyard()
@@ -1012,7 +1032,8 @@ void stage::freeSky()
     ascension.free();
     cloud.free();
     liftOffShip.free();
-
+    rainDrop.free();
+    rainTimer.stop();
 }
 
 void stage::renderStage1(SDL_Renderer* renderer)
@@ -1236,6 +1257,12 @@ void stage::starsHandleParallax(SDL_Renderer* renderer)
     starsFore.incrementFore();
     starsMid.incrementMid();
     starsBack.incrementBack();
+}
+
+void stage::houseCloudsHandleParallax(SDL_Renderer* renderer)
+{
+    houseClouds.parallaxRender(renderer);
+    houseClouds.incrementBack();
 }
 
 void stage::habInternalHandleParallax(SDL_Renderer* renderer)

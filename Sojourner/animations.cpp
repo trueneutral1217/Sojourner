@@ -236,7 +236,7 @@ void animations::toasterAnimationProgress()
 
 void animations::bushAnimationProgress()
 {
-    if((animationTimer11.getTicks() % 500) == 1)
+    if((animationTimer11.getTicks() % 400) == 1)
     {
         aniFrame11++;
     }
@@ -244,7 +244,7 @@ void animations::bushAnimationProgress()
 
 void animations::leftCurtainAnimationProgress()
 {
-    if((animationTimer12.getTicks()%600) == 1)
+    if((animationTimer12.getTicks()%300) == 1)
     {
         aniFrame12++;
     }
@@ -252,7 +252,7 @@ void animations::leftCurtainAnimationProgress()
 
 void animations::rightCurtainAnimationProgress()
 {
-    if((animationTimer13.getTicks()%700) == 1)
+    if((animationTimer13.getTicks()%310) == 1)
     {
         aniFrame13++;
     }

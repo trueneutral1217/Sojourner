@@ -3,24 +3,8 @@
 
 #include "Texture.h"
 
-
-/*
-SDL_Rect starlax;
-starlax.x = 0;
-starlax.y = 0;
-starlax.w = 800;
-starlax.h = 600;
-
-SDL_Rect starlax2;
-starlax2.x = -799;
-starlax2.y = 0;
-starlax2.w = 800;
-starlax2.h = 600;
-*/
-
 const int PARALLAX_WIDTH = 800;
 const int PARALLAX_HEIGHT = 600;
-
 
 class parallax
 {

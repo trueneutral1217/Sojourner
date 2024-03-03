@@ -58,6 +58,9 @@ class stage
 
         //house texture has the initial backround for the opening sequence
         Texture openingSequenceHouse;
+        //texture vector for raindrops during house scene of opening sequence.
+        Texture rainDrop;
+        //std::vector<Texture> rainDrop;
 
         //newspaper texture displays an image of a newspaper until a click or for a certain amount of time.
         Texture openingSequenceNewspaper, iDontWantToLiveOnThisPlanetAnymoreTexture,backyardTexture;
@@ -74,8 +77,13 @@ class stage
         parallax starsFore;
         parallax starsMid;
         parallax starsBack;
+
+        //clouds for house scene of opening sequence
+        parallax houseClouds;
         //used to display text textures for a set period of time.
         timer openingSequenceTimer;
+        //used for the raindrops in the opening sequence
+        timer rainTimer;
         //interaction boxes in opening sequence
         SDL_Rect newspaperInteraction;
         SDL_Rect backdoorInteraction;
@@ -120,6 +128,8 @@ class stage
         void freeUITextures();
         //handles movement and rendering for parallax images
         void starsHandleParallax(SDL_Renderer* renderer);
+        //handles movement and rendering for clouds in house scene of opening sequence.
+        void houseCloudsHandleParallax(SDL_Renderer* renderer);
         //button textures are applied via button names from button class
         bool setStageButtonTextures(SDL_Renderer* renderer, bool success);
         //background textures are applied via bgFileName array above.

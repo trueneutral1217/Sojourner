@@ -1259,7 +1259,7 @@
 	"text.h"
 	"text.h"
 
-1709334910 source:c:\sojourner\sojourner\animations.cpp
+1709422466 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
 1709335494 c:\sojourner\sojourner\animations.h
@@ -1313,7 +1313,7 @@
 	"parallax.h"
 	"audio.h"
 
-1706399341 c:\sojourner\sojourner\parallax.h
+1709422015 c:\sojourner\sojourner\parallax.h
 	"Texture.h"
 
 1708989249 c:\sojourner\sojourner\savegame.h
@@ -1327,7 +1327,7 @@
 	"button.h"
 	"particle.h"
 
-1709253261 c:\sojourner\sojourner\stage.h
+1709423181 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
@@ -1351,7 +1351,7 @@
 1708989177 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1709254529 source:c:\sojourner\sojourner\stage.cpp
+1709423621 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698102383 source:c:\sojourner\sojourner\text.cpp
