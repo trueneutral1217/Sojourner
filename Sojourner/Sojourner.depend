@@ -1290,7 +1290,7 @@
 	"texture.h"
 	<SDL_mixer.h>
 
-1709507588 source:c:\sojourner\sojourner\main.cpp
+1709750468 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1327,13 +1327,13 @@
 	"button.h"
 	"particle.h"
 
-1709688153 c:\sojourner\sojourner\stage.h
+1709752279 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
 	"animations.h"
 
-1709688107 c:\sojourner\sojourner\player.h
+1709751647 c:\sojourner\sojourner\player.h
 	"ship.h"
 
 1698102383 c:\sojourner\sojourner\text.h
@@ -1345,7 +1345,7 @@
 1703035734 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1709688045 source:c:\sojourner\sojourner\player.cpp
+1709752034 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
 1708989177 source:c:\sojourner\sojourner\savegame.cpp

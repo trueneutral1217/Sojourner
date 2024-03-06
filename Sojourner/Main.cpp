@@ -610,7 +610,7 @@ int main( int argc, char* args[] )
 					//if wasd are pressed player will be moved. 'e' to interact with stations
 					if(stage.internalView)
                     {
-                        stage.player1.handleEvent(e);
+                        stage.player1.handleEvent(e,delta);
 					}
                     //handles the interactions with the stations.
                     if(stage.player1.interact)
@@ -623,7 +623,7 @@ int main( int argc, char* args[] )
                     }
                     if(gameState == 6)
                     {
-                        openingSequence.player1.handleEvent(e);
+                        openingSequence.player1.handleEvent(e,delta);
                     }
 
 				}

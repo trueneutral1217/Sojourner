@@ -5,10 +5,10 @@ stage::stage()
     internalView=false;
     externalView=true;
     showPlayer=false;
-    habInternalY1=0;
-    habInternalY2=-600;
-    engInternalY1 = 0;
-    engInternalY2 = -600;
+    habInternalY1=0.0f;
+    habInternalY2=-600.0f;
+    engInternalY1 = 0.0f;
+    engInternalY2 = -600.0f;
     timeSurvived = 0;
     //player starts in habitation module
     inHab = true;

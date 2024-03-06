@@ -82,23 +82,23 @@ player::~player()
     freeNeedsTextures();
 }
 
-void player::handleEvent(SDL_Event& e)
+void player::handleEvent(SDL_Event& e, float delta)
 {
     if( e.type == SDL_KEYDOWN && e.key.repeat == 0)
     {
         switch(e.key.keysym.sym)
         {
         case SDLK_w:
-            pVelY -= PLAYER_VEL;
+            pVelY -= PLAYER_VEL * delta;
             break;
         case SDLK_s:
-            pVelY += PLAYER_VEL;
+            pVelY += PLAYER_VEL * delta;
             break;
         case SDLK_a:
-            pVelX -= PLAYER_VEL;
+            pVelX -= PLAYER_VEL * delta;
             break;
         case SDLK_d:
-            pVelX += PLAYER_VEL;
+            pVelX += PLAYER_VEL * delta;
             break;
         case SDLK_e:
             interact = true;
@@ -111,16 +111,20 @@ void player::handleEvent(SDL_Event& e)
         switch(e.key.keysym.sym)
         {
         case SDLK_w:
-            pVelY += PLAYER_VEL;
+            //pVelY += PLAYER_VEL * delta;
+            pVelY = 0;
             break;
         case SDLK_s:
-            pVelY -= PLAYER_VEL;
+            //pVelY -= PLAYER_VEL * delta;
+            pVelY = 0;
             break;
         case SDLK_a:
-            pVelX += PLAYER_VEL;
+            //pVelX += PLAYER_VEL * delta;
+            pVelX = 0;
             break;
         case SDLK_d:
-            pVelX -= PLAYER_VEL;
+            //pVelX -= PLAYER_VEL * delta;
+            pVelX = 0;
             break;
         case SDLK_e:
             interact = false;
@@ -135,8 +139,8 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
 {
     if(tick%5 == 0)
     {
-        playerX += pVelX * delta;
-        playerY += pVelY * delta;
+        playerX += pVelX;
+        playerY += pVelY;
     }
 
 
@@ -289,22 +293,22 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
     {
         if((playerX < 207) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
         {
-            playerX -= pVelX * delta;
+            playerX -= pVelX;
         }
         if((playerY < 390) || (playerY > 455) )
         {
-            playerY -= pVelY * delta;
+            playerY -= pVelY;
         }
     }
     else
     {
         if(playerX < 360 || playerX + PLAYER_WIDTH > 450)
         {
-            playerX -= pVelX * delta;
+            playerX -= pVelX;
         }
         if(playerY < 420 || playerY + PLAYER_HEIGHT > SCREEN_HEIGHT)
         {
-            playerY -= pVelY * delta;
+            playerY -= pVelY;
         }
     }
 
@@ -347,15 +351,15 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
 {
     if(tick%3 == 0)//this slows down player movement a little
     {
-        playerX += pVelX * delta;
+        playerX += pVelX;
         //keeps playerY within 100 pixels of center
         if(playerY<360 && pVelY>0)
         {
-            playerY += pVelY * delta;
+            playerY += pVelY;
         }
         if(playerY>160 && pVelY<0)
         {
-            playerY+=pVelY *delta;
+            playerY+=pVelY;
         }
     }
     //changes the number of frames that pass before next animation image is rendered.
@@ -503,11 +507,11 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
 
     if((playerX < 0) || (playerX + PLAYER_WIDTH > SCREEN_WIDTH) )
     {
-        playerX -= pVelX *delta;
+        playerX -= pVelX;
     }
     if((playerY < 0) || (playerY + PLAYER_HEIGHT > SCREEN_HEIGHT) )
     {
-        playerY -= pVelY*delta;
+        playerY -= pVelY;
     }
     //update player collision box coords
     playerCollisionBox.x = playerX+5;
@@ -524,8 +528,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.bed.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -539,8 +543,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.kitchen.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -554,8 +558,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.waterTank.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -569,8 +573,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.planter.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -584,8 +588,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.infirmary.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -599,8 +603,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.bike.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -614,8 +618,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.recreation.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -630,8 +634,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.habitation.habExit.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -650,8 +654,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.engExit.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -664,8 +668,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.batteryArray.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -678,8 +682,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.researchDesk.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -692,8 +696,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.engineStation.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -706,8 +710,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.cargoArea.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else
@@ -720,8 +724,8 @@ void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
             if(collisionDetector(ship.engineering.commStation.collidable))
             {
                 //std::cout<<"\n collision detected!";
-                playerX-=pVelX*delta;
-                playerY-=pVelY*delta;
+                playerX-=pVelX;
+                playerY-=pVelY;
             }
         }
         else

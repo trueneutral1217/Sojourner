@@ -44,11 +44,11 @@ class stage
 
 
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
-        int habInternalY1;
-        int habInternalY2;
+        float habInternalY1;
+        float habInternalY2;
         //handling it like habInternal variables currently.
-        int engInternalY1;
-        int engInternalY2;
+        float engInternalY1;
+        float engInternalY2;
 
         int timeSurvived;
         //textures for the top center of the screen (UI area) during most of gamestate 5.

@@ -47,7 +47,7 @@ class player
         //player's dimensions and velocity
         static const int PLAYER_WIDTH = 40;
         static const int PLAYER_HEIGHT = 80;
-        static const int PLAYER_VEL = 1;
+        float PLAYER_VEL = 1000.0f;
         //bottom of player sprite
         int playerBot;
         //tracks current player movement state (idle, walkLR, soon to be other directions and possible other types of movement like floating or running)
@@ -106,7 +106,7 @@ class player
         //loads player resources
         void loadPlayer(SDL_Renderer* renderer);
         //if user presses wasd, this update's player velocity
-        void handleEvent(SDL_Event& e);
+        void handleEvent(SDL_Event& e, float delta);
         //updates player position, walk animation, station collision box, station interaction box
         //void move(int tick, SDL_Rect collidable, SDL_Rect interactable,int STATIONS, bool inHab,bool inEng);
 
@@ -140,7 +140,7 @@ class player
         //player coordinates
         int playerX,playerY;
         //player velocity
-        int pVelX,pVelY;
+        float pVelX,pVelY;
         //necessary for many operations, from walking to potentially fighting.
         SDL_Rect playerCollisionBox;
 
