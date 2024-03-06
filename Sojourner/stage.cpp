@@ -815,8 +815,12 @@ void stage::freeStationButtons()
 
 void stage::renderOpeningSequence(SDL_Renderer* renderer, animations& animations)
 {
-    //renders clouds parallaxing behind house.
-    houseCloudsHandleParallax(renderer);
+    //renders clouds parallaxing behind house and in backyard
+    if(!backyardFree)
+    {
+        houseCloudsHandleParallax(renderer);
+    }
+
     //renders house background
     openingSequenceHouse.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     if(!backdoorInteracted)
@@ -1078,6 +1082,7 @@ void stage::freeBackyard()
     ramp.free();
     houseClouds.freeParallaxTexture();
     rainDrop.free();
+    rainTimer.stop();
 }
 
 void stage::freeSky()
@@ -1330,7 +1335,7 @@ void stage::engInternalHandleParallax(SDL_Renderer* renderer)
     stage1BG[5].render(0,engInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
-void stage::move(int countedFrames)
+void stage::move(int countedFrames, float delta)
 {
     if(inHab || inEng)
     {
@@ -1418,11 +1423,11 @@ void stage::move(int countedFrames)
     }
     if(inHab || inEng)
     {
-        player1.move(countedFrames,ship,inHab,inEng);
+        player1.move(countedFrames,ship,inHab,inEng,delta);
     }
     else
     {
-        player1.move(countedFrames,newspaperInteraction,backdoorInteraction,inBackyard);
+        player1.move(countedFrames,newspaperInteraction,backdoorInteraction,inBackyard,delta);
     }
 
     if(inHab)

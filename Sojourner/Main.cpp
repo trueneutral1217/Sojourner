@@ -55,6 +55,10 @@ text text;
 //tracks the amount of time user has been in gameState 5
 timer playedTime;
 
+int currentTime =0;
+int previousTime = 0;
+float delta = 0.0f;
+
 
 //declare sound vector & load sounds into it.
 bool loadSounds();
@@ -318,6 +322,11 @@ int main( int argc, char* args[] )
 			//While application is running
 			while( !quit )
 			{
+
+			    previousTime = currentTime;
+			    currentTime = SDL_GetTicks();
+			    delta = (currentTime - previousTime) / 1000.0f;
+
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
@@ -621,11 +630,11 @@ int main( int argc, char* args[] )
 				//process player movement, updates hab internal background as well
 				if(stage.internalView)
                 {//updates player and habitat coords
-                    stage.move(countedFrames);
+                    stage.move(countedFrames,delta);
                 }
                 if(gameState == 6)
                 {
-                    openingSequence.move(countedFrames);
+                    openingSequence.move(countedFrames,delta);
                 }
 
 				//Clear screen

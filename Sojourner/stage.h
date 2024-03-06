@@ -164,7 +164,7 @@ class stage
         //renders internal engineering by bg images
         void engInternalHandleParallax(SDL_Renderer* renderer);
         //updates the Y coords for habitat background
-        void move(int countedFrames);
+        void move(int countedFrames,float delta);
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
         //loads saved data from savesfile (player coords, location in habitat)
