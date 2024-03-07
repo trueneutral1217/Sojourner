@@ -583,6 +583,15 @@ int main( int argc, char* args[] )
                             {
                                 quit=true;
                             }
+                            else if(gameState == 1 || gameState == 2 || gameState == 3 || gameState == 4)
+                            {//if player presses escape in newgame,loadgame,options, or credits screen, return to title screen
+                                pregameui.loadState(gameState,0,renderer);
+                                if(gameState == 4)
+                                {
+                                    animations.freeCreditsAnimationTextures();
+                                }
+                                gameState=0;
+                            }
                             else if(gameState==6)
                             {
                                 openingSequence.complete = true;

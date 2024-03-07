@@ -1325,21 +1325,21 @@ void stage::houseCloudsHandleParallax(SDL_Renderer* renderer)
 
 void stage::habInternalHandleParallax(SDL_Renderer* renderer)
 {
-    stage1BG[2].render(0,habInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    stage1BG[3].render(0,habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[2].render(0,(int)habInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[3].render(0,(int)habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void stage::engInternalHandleParallax(SDL_Renderer* renderer)
 {
-    stage1BG[4].render(0,engInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    stage1BG[5].render(0,engInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[4].render(0,(int)engInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    stage1BG[5].render(0,(int)engInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void stage::move(int countedFrames, float delta)
 {
     if(inHab || inEng)
     {
-        if( player1.getY() == 360 && player1.getPVelY() > 0 )
+        if( player1.getY() >= 360 && player1.getPVelY() > 0 )
         {//player is heading down after hitting lower threshold.
             if(inHab)
             {
@@ -1347,13 +1347,13 @@ void stage::move(int countedFrames, float delta)
                 {
 
                     //y value of hab background continues to decrease as it moves up the screen
-                    if(habInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                    if(habInternalY1 < -599.9)//if hab y value is -600 or less, reset hab background position to bottom of screen
                     {
-                        habInternalY1 = 600;
+                        habInternalY1 = 600.0;
                     }
-                    if(habInternalY2 < -599)
+                    if(habInternalY2 < -599.9)
                     {
-                        habInternalY2 = 600;
+                        habInternalY2 = 600.0;
                     }
                     habInternalY1-=player1.getPVelY();
                     habInternalY2-=player1.getPVelY();
@@ -1365,13 +1365,13 @@ void stage::move(int countedFrames, float delta)
                 if(countedFrames%3 == 0)
                 {
                     //y value of hab background continues to decrease as it moves up the screen
-                    if(engInternalY1 < -599)//if hab y value is -600 or less, reset hab background position to bottom of screen
+                    if(engInternalY1 < -599.9)//if hab y value is -600 or less, reset hab background position to bottom of screen
                     {
-                        engInternalY1 = 600;
+                        engInternalY1 = 600.0;
                     }
-                    if(engInternalY2 < -599)
+                    if(engInternalY2 < -599.9)
                     {
-                        engInternalY2 = 600;
+                        engInternalY2 = 600.0;
                     }
 
                     engInternalY1-=player1.getPVelY();
@@ -1382,22 +1382,23 @@ void stage::move(int countedFrames, float delta)
     }
     if(inHab || inEng)
     {
-        if(player1.getY()==160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
+        if(player1.getY()<=160 && player1.getPVelY()<0)//player is heading up,bg scrolling down
         {
 
             if(inHab)
             {
                 if(countedFrames%3 == 0)
-                {
-                    if(habInternalY1 > 599)
+                {//resets the background image's coordinates
+                    if(habInternalY1 > 599.9)
                     {
-                        habInternalY1 = -600;
+                        habInternalY1 = -600.0;
                     }
-                    if(habInternalY2 > 599)
+                    if(habInternalY2 > 599.9)
                     {
-                        habInternalY2 = -600;
+                        habInternalY2 = -600.0;
                     }
-
+                    //player is heading in upward direction, the y coordinates of the stage are being reduced at the
+                    //same speed the player is heading upward.
                     habInternalY1-=player1.getPVelY();
                     habInternalY2-=player1.getPVelY();
                 }
@@ -1405,14 +1406,14 @@ void stage::move(int countedFrames, float delta)
             else if(inEng)
             {
                 if(countedFrames%3 == 0)
-                {
-                    if(engInternalY1 > 599)
+                {//reset engineering background image coordinates. (wrap's around)
+                    if(engInternalY1 > 599.9)
                     {
-                        engInternalY1 = -600;
+                        engInternalY1 = -600.0;
                     }
-                    if(engInternalY2 > 599)
+                    if(engInternalY2 > 599.9)
                     {
-                        engInternalY2 = -600;
+                        engInternalY2 = -600.0;
                     }
 
                     engInternalY1-=player1.getPVelY();

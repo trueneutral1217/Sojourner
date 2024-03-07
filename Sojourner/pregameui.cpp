@@ -732,7 +732,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
         }
     }
     else if(gameState==2)
-    {
+    {//loadgame screen
         for( int i = 0; i < TOTAL_LOADGAME_BUTTONS; ++i )
         {//handlePGUIEvent needs to be broken up into 5 parts
             gameState = loadgameButtons[ i ].handlePGUIEvent(e, window,renderer );
@@ -752,7 +752,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
                     }
                 }
                 if(gameState == 1 || gameState == 2 || gameState == 3)
-                {
+                {//choose file to delete
                     if(existingSave[gameState-1])
                     {
                         if(!promptDelete)
@@ -798,7 +798,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
         }
     }
     else if(gameState==3)
-    {
+    {//options screen
         for( int i = 0; i < TOTAL_OPTIONS_BUTTONS; ++i )
         {//handlePGUIEvent needs to be broken up into 5 parts
             gameState = optionsButtons[ i ].handlePGUIEvent(e, window,renderer );
@@ -810,7 +810,7 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
         }
     }
     else if(gameState==4)
-    {
+    {//credits screen
         for( int i = 0; i < TOTAL_CREDITS_BUTTONS; ++i )
         {//handlePGUIEvent needs to be broken up into 5 parts
             gameState = creditsButtons[ i ].handlePGUIEvent(e, window,renderer );
