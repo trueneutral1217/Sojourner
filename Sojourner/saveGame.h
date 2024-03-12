@@ -20,6 +20,8 @@ class saveGame
     Sint32 data[ TOTAL_DATA ];
     Sint32 prefsData[ TOTAL_PREFS_DATA ];
 
+    std::string dataDescription[TOTAL_DATA] = {"save exists","current time","played time","player1.getX","player1.getY","habInternalY1","habInternalY2","player health","player hunger","player physique","player slumber","player morale","ship hull","ship fuel","ship power","ship water","ship oxygen","ship temperature","planter.buttonAvailable[0]","planter.buttonAvailable[1]","timeSurvived","planterState","planterDaysState","planterTimeWatered","engInternalY1","engInternalY2","planter.buttonAvailable[2]","inHab","inEng","bed.stationTier","scrap.itemCount","bed.upgradeAvailable","recreation.upgradeAvailable","recreation.stationTier","waterTank.upgradeAvailable","waterTank.stationTier"};
+
     std::stringstream savedDate[TOTAL_SAVES];
     std::stringstream savedPlayTime[TOTAL_SAVES];
     Texture savedDateTexture[TOTAL_SAVES];

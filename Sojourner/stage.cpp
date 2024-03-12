@@ -304,6 +304,7 @@ bool stage::loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool succe
 void stage::free()
 {
     std::cout<<"\n running stage::free()";
+    resetStageVariables();
     //free resources
     freeTimeSurvivedTextures();
     freeButtons();
@@ -332,7 +333,6 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         internalView = false;
         showPlayer = false;
         externalView = true;
-        resetStageVariables();
     }
     else if(buttonClicked==2)
     {
@@ -1641,11 +1641,11 @@ void stage::loadSavedGameData(Uint32 dataValues[])
     player1.setX(dataValues[0]);
     player1.setY(dataValues[1]);
     //load habitat Y1 and Y2 coords from save file
-    habInternalY1 = dataValues[2];
-    habInternalY2 = dataValues[3];
+    habInternalY1 = dataValues[2]/1000.0f;
+    habInternalY2 = dataValues[3]/1000.0f;
     //load engineering Y1 & Y2 values from save file
-    engInternalY1 = dataValues[4];
-    engInternalY2 = dataValues[5];
+    engInternalY1 = dataValues[4]/1000.0f;
+    engInternalY2 = dataValues[5]/1000.0f;
 }
 
 void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)

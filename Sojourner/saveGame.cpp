@@ -165,7 +165,7 @@ void saveGame::readSaveFile(int fileNum)
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
             SDL_RWread( saveFile, &data[ i ], sizeof(Sint32), 1 );
-            std::cout<<"\n reading "<<data[i]<<" from fileNum "<<fileNum;
+            std::cout<<"\n reading data["<<i<<"] "<<dataDescription[i]<<" "<<data[i]<<" from fileNum "<<fileNum;
         }
         if(data[0])
         {
@@ -265,7 +265,7 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
-            std::cout<<"\n writing "<<data[i]<<" to fileNum "<<fileNum;
+            std::cout<<"\n writing data["<<i<<"] "<<dataDescription[i]<<" "<<data[i]<<" to fileNum "<<fileNum;
         }
         //Close file handler
         SDL_RWclose( saveFile );
@@ -462,7 +462,7 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
     for( int i = 0; i < TOTAL_DATA; ++i )
     {
         SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
-        std::cout<<"\n writing "<<data[i]<<" to fileNum "<<fileNum;
+        std::cout<<"\n writing data["<<i<<"] "<<dataDescription[i]<<" "<<data[i]<<" to fileNum "<<fileNum;
     }
     //Close file handler
     SDL_RWclose( saveFile );
