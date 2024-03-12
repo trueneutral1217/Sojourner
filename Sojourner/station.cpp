@@ -36,6 +36,7 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
 
     stationID = "water";
 
+    /*
     int waterGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/WaterTank.png",renderer);
     stationDefaultInteractionText = std::to_string(waterGauge);
@@ -44,7 +45,73 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render waterLevel string to waterLevelTexture!";
+    }*/
+
+    if(stationTier == 0)
+    {
+        upgradeCost.insert({"scrap", 3});
+        stationTexture.loadFromFile("images/sprites/waterTank.png",renderer);
+        SDL_Color textColor = {0,255,0};//unknown color
+        if(!stationResearch.loadFromRenderedText("Tier 2 water tank", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Tier 2 water tank' string to waterResearch Texture!";
+        }
+        textColor = {255,255,255};//white
+        if(!tierOneDescription.loadFromRenderedText("Upgrades the water tank.",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription!";
+        }
+        if(!tierOneDescription2.loadFromRenderedText("Increase water capacity. Requires 2 hours, 3 scrap.",textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render string to tierOneDescription2!";
+        }
+        if(!upgradeAvailable)
+        {
+            //since bed is tier 0, research for tier 1 is available.
+            availableResearchProjects = 1;
+        }
     }
+    else if(stationTier == 1)
+    {
+        stationTexture.loadFromFile("images/sprites/waterTank2.png",renderer);
+    }
+    if(buttonString.size()==0)
+    {
+        //buttonString.push_back("Sleep");
+        buttonString.push_back("Upgrade");
+        std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    }
+    Texture tempTextTexture;
+    if(buttonTextTexture.size()==0)
+    {
+        //buttonTextTexture.push_back(tempTextTexture);
+        buttonTextTexture.push_back(tempTextTexture);
+        std::cout<<"\n buttonTextTexture.size(): "<<buttonTextTexture.size();
+    }
+    if(buttonAvailable.size() == 0)
+    {//
+        /*
+        if(shipGaugeValues < 100)
+        {
+            buttonAvailable.push_back(true);
+        }
+        else
+        {
+            buttonAvailable.push_back(false);
+        }*/
+        //upgrade button availability
+        if(!upgradeAvailable)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+    }
+    std::cout<<"\n buttonAvailable.size(): "<<buttonAvailable.size();
+    std::cout<<"\n buttonAvailable[0] = "<<buttonAvailable[0];
+    loadStationButtonTextTextures(renderer,font);
 }
 
 void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)
@@ -927,6 +994,13 @@ void station::updateStationTexture(SDL_Renderer* renderer)
         if(stationTier == 1)
         {
             stationTexture.loadFromFile("images/sprites/recreationTier1.png",renderer);
+        }
+    }
+    else if(stationID == "water")
+    {
+        if(stationTier == 1)
+        {
+            stationTexture.loadFromFile("images/sprites/waterTank2.png",renderer);
         }
     }
 }

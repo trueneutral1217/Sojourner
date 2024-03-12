@@ -473,6 +473,9 @@ int main( int argc, char* args[] )
                                     stage.ship.habitation.bed.upgradeAvailable = savegame.data[31];
                                     stage.ship.habitation.recreation.upgradeAvailable = savegame.data[32];
                                     stage.ship.habitation.recreation.stationTier = savegame.data[33];
+                                    stage.ship.habitation.waterTank.upgradeAvailable = savegame.data[34];
+                                    stage.ship.habitation.waterTank.stationTier = savegame.data[35];
+
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer, stage.inHab, stage.inEng, true);
                                     //previouslyPlayed is probably deprecated by timePlayed.

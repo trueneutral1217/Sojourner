@@ -33,7 +33,7 @@
 	<vector>
 	"cstdlib"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -70,12 +70,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_main.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_stdinc.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -104,28 +104,28 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_config.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 	<winsdkver.h>
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_platform.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_platform.h
 	"AvailabilityMacros.h"
 	"TargetConditionals.h"
 	<winapifamily.h>
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\begin_code.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\begin_code.h
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\close_code.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\close_code.h
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_assert.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_assert.h
 	"SDL_config.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_atomic.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
@@ -133,7 +133,7 @@
 	<mbarrier.h>
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_audio.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -143,12 +143,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_error.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_endian.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<endian.h>
@@ -157,13 +157,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_mutex.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_thread.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
@@ -174,18 +174,18 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_rwops.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_clipboard.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_cpuinfo.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -205,7 +205,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_events.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -219,7 +219,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_video.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -227,13 +227,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_pixels.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
 	"SDL_endian.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_rect.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -241,7 +241,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_surface.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -250,11 +250,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_blendmode.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_keyboard.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -262,27 +262,27 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_keycode.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_scancode.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_mouse.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_joystick.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_gamecontroller.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
@@ -291,17 +291,17 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_sensor.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_sensor.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_quit.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_gesture.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -309,70 +309,70 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_touch.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_filesystem.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_haptic.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_hidapi.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_hidapi.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_hints.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_loadso.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_log.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_messagebox.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_metal.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_metal.h
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_power.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_render.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_shape.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_shape.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -381,7 +381,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_system.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -389,34 +389,34 @@
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_timer.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906807 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_version.h
+1650910407 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_locale.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_locale.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1650906806 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_misc.h
+1650910406 c:\mingw_dev_lib\sdl2-2.0.22\x86_64-w64-mingw32\include\sdl2\sdl_misc.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1641928995 c:\mingw_dev_lib\sdl2_ttf-2.0.18\x86_64-w64-mingw32\include\sdl2\sdl_ttf.h
+1641932595 c:\mingw_dev_lib\sdl2_ttf-2.0.18\x86_64-w64-mingw32\include\sdl2\sdl_ttf.h
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
 
-1654298729 c:\mingw_dev_lib\sdl2_image-2.0.5\x86_64-w64-mingw32\include\sdl2\sdl_image.h
+1654302329 c:\mingw_dev_lib\sdl2_image-2.0.5\x86_64-w64-mingw32\include\sdl2\sdl_image.h
 	"SDL.h"
 	"SDL_version.h"
 	"begin_code.h"
@@ -468,7 +468,7 @@
 	"stage.h"
 	"text.h"
 
-1540994418 c:\mingw_dev_lib\sdl2_mixer-2.0.4\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
+1540998018 c:\mingw_dev_lib\sdl2_mixer-2.0.4\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
 	"SDL_stdinc.h"
 	"SDL_rwops.h"
 	"SDL_audio.h"
@@ -1259,13 +1259,13 @@
 	"text.h"
 	"text.h"
 
-1709507919 source:c:\sojourner\sojourner\animations.cpp
+1709511519 source:c:\sojourner\sojourner\animations.cpp
 	"animations.h"
 
-1709507919 c:\sojourner\sojourner\animations.h
+1709511519 c:\sojourner\sojourner\animations.h
 	"Texture.h"
 
-1706402775 c:\sojourner\sojourner\texture.h
+1706406375 c:\sojourner\sojourner\texture.h
 	"SDL.h"
 	<SDL_ttf.h>
 	"string"
@@ -1280,17 +1280,17 @@
 	"cstdlib"
 	"timer.h"
 
-1696799668 c:\sojourner\sojourner\timer.h
+1696803268 c:\sojourner\sojourner\timer.h
 	"Texture.h"
 
-1707183287 source:c:\sojourner\sojourner\audio.cpp
+1707186887 source:c:\sojourner\sojourner\audio.cpp
 	"audio.h"
 
-1682135694 c:\sojourner\sojourner\audio.h
+1682139294 c:\sojourner\sojourner\audio.h
 	"texture.h"
 	<SDL_mixer.h>
 
-1709849495 source:c:\sojourner\sojourner\main.cpp
+1710201447 source:c:\sojourner\sojourner\main.cpp
 	"audio.h"
 	"button.h"
 	"Texture.h"
@@ -1301,10 +1301,10 @@
 	"stage.h"
 	"text.h"
 
-1708815868 c:\sojourner\sojourner\button.h
+1710200061 c:\sojourner\sojourner\button.h
 	"Texture.h"
 
-1706401609 c:\sojourner\sojourner\particle.h
+1706405209 c:\sojourner\sojourner\particle.h
 	"Texture.h"
 
 1682117124 c:\sojourner\sojourner\chapter.h
@@ -1313,99 +1313,99 @@
 	"parallax.h"
 	"audio.h"
 
-1709422015 c:\sojourner\sojourner\parallax.h
+1709425615 c:\sojourner\sojourner\parallax.h
 	"Texture.h"
 
-1708989249 c:\sojourner\sojourner\savegame.h
+1710201373 c:\sojourner\sojourner\savegame.h
 	"Texture.h"
 	"pregameui.h"
 	"stage.h"
 	<ctime>
 
-1703033887 c:\sojourner\sojourner\pregameui.h
+1703037487 c:\sojourner\sojourner\pregameui.h
 	"texture.h"
 	"button.h"
 	"particle.h"
 
-1709752279 c:\sojourner\sojourner\stage.h
+1709755879 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
 	"animations.h"
 
-1709751647 c:\sojourner\sojourner\player.h
+1709755247 c:\sojourner\sojourner\player.h
 	"ship.h"
 
-1698102383 c:\sojourner\sojourner\text.h
+1698105983 c:\sojourner\sojourner\text.h
 	"texture.h"
 
-1706400181 source:c:\sojourner\sojourner\parallax.cpp
+1706403781 source:c:\sojourner\sojourner\parallax.cpp
 	"parallax.h"
 
-1703035734 source:c:\sojourner\sojourner\particle.cpp
+1703039334 source:c:\sojourner\sojourner\particle.cpp
 	"particle.h"
 
-1709752034 source:c:\sojourner\sojourner\player.cpp
+1709755634 source:c:\sojourner\sojourner\player.cpp
 	"player.h"
 
-1708989177 source:c:\sojourner\sojourner\savegame.cpp
+1710201373 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1709848629 source:c:\sojourner\sojourner\stage.cpp
+1710202834 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
-1698102383 source:c:\sojourner\sojourner\text.cpp
+1698105983 source:c:\sojourner\sojourner\text.cpp
 	"text.h"
 
-1706402775 source:c:\sojourner\sojourner\texture.cpp
+1706406375 source:c:\sojourner\sojourner\texture.cpp
 	"Texture.h"
 
-1700004430 source:c:\sojourner\sojourner\timer.cpp
+1700008030 source:c:\sojourner\sojourner\timer.cpp
 	"timer.h"
 
-1708815868 source:c:\sojourner\sojourner\button.cpp
+1710200061 source:c:\sojourner\sojourner\button.cpp
 	"button.h"
 
 1682117124 source:c:\sojourner\sojourner\chapter.cpp
 	"chapter.h"
 
-1680648821 source:c:\sojourner\sojourner\myicon.rc
+1680652421 source:c:\sojourner\sojourner\myicon.rc
 
-1709849144 source:c:\sojourner\sojourner\pregameui.cpp
+1709852744 source:c:\sojourner\sojourner\pregameui.cpp
 	"pregameui.h"
 
-1709084425 source:c:\sojourner\sojourner\station.cpp
+1710204044 source:c:\sojourner\sojourner\station.cpp
 	"station.h"
 
-1708817373 c:\sojourner\sojourner\station.h
+1708820973 c:\sojourner\sojourner\station.h
 	"texture.h"
 	"button.h"
 	<vector>
 	<unordered_map>
 	<map>
 
-1708901278 source:c:\sojourner\sojourner\ship.cpp
+1708904878 source:c:\sojourner\sojourner\ship.cpp
 	"ship.h"
 
-1708557762 c:\sojourner\sojourner\ship.h
+1708561362 c:\sojourner\sojourner\ship.h
 	"module.h"
 	"inventory.h"
 
-1704935865 c:\sojourner\sojourner\module.h
+1704939465 c:\sojourner\sojourner\module.h
 	"station.h"
 
-1708558682 source:c:\sojourner\sojourner\module.cpp
+1708562282 source:c:\sojourner\sojourner\module.cpp
 	"module.h"
 
-1709162951 c:\sojourner\sojourner\inventory.h
+1709166551 c:\sojourner\sojourner\inventory.h
 	"item.h"
 
-1709163576 c:\sojourner\sojourner\item.h
+1709167176 c:\sojourner\sojourner\item.h
 	"texture.h"
 
-1707688517 source:c:\sojourner\sojourner\item.cpp
+1707692117 source:c:\sojourner\sojourner\item.cpp
 	"item.h"
 
-1709163950 source:c:\sojourner\sojourner\inventory.cpp
+1709167550 source:c:\sojourner\sojourner\inventory.cpp
 	"inventory.h"
 

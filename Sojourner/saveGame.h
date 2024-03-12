@@ -8,7 +8,7 @@
 
 
 //total save game data points
-const int TOTAL_DATA = 34;
+const int TOTAL_DATA = 36;
 //total preferences data points
 const int TOTAL_PREFS_DATA = 3;
 

@@ -139,6 +139,14 @@ void saveGame::readSaveFile(int fileNum)
                 {
                     data[i] = 0;//rec stationTier = 0;
                 }
+                else if(i<35)
+                {
+                    data[i] = 0; // waterTank upgrade available = false
+                }
+                else if(i<36)
+                {
+                    data[i] = 0;//waterTank stationTier = 0;
+                }
                 SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
             }
             //Close file handler
@@ -251,6 +259,8 @@ void saveGame::writeSaveFile(int fileNum,stage& stage,Uint32 playedTime)
         data[31] = stage.ship.habitation.bed.upgradeAvailable;
         data[32] = stage.ship.habitation.recreation.upgradeAvailable;
         data[33] = stage.ship.habitation.recreation.stationTier;
+        data[34] = stage.ship.habitation.waterTank.upgradeAvailable;
+        data[35] = stage.ship.habitation.waterTank.stationTier;
 
         for( int i = 0; i < TOTAL_DATA; ++i )
         {
@@ -349,6 +359,14 @@ void saveGame::deleteSave(int fileNum)
             else if(i<34)
             {
                 data[i] = 0;//rec stationTier = 0;
+            }
+            else if(i<35)
+            {
+                data[i] = 0; // waterTank upgrade available = false
+            }
+            else if(i<36)
+            {
+                data[i] = 0;//waterTank stationTier = 0;
             }
             SDL_RWwrite( saveFile, &data[ i ], sizeof(Sint32), 1 );
         }
