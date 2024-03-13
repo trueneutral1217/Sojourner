@@ -168,7 +168,7 @@ class stage
         //new game created, this sets player coords and bg coords for hab internal view
         void setNewgameVars();
         //loads saved data from savesfile (player coords, location in habitat)
-        void loadSavedGameData(Uint32 dataValues[]);
+        void loadSavedGameData(Sint32 dataValues[]);
         //handles station interaction textures and updates station texture
         void handleStation(SDL_Renderer* renderer, TTF_Font* font);
         //

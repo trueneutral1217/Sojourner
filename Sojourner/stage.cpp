@@ -1635,17 +1635,17 @@ void stage::setNewgameVars()
 }
 
 
-void stage::loadSavedGameData(Uint32 dataValues[])
+void stage::loadSavedGameData(Sint32 dataValues[])
 {
-    std::cout<<"\n running stage::loadSavedGameData(Uint32 dataValues[])";
+    std::cout<<"\n running stage::loadSavedGameData(Sint32 dataValues[])";
     player1.setX(dataValues[0]);
     player1.setY(dataValues[1]);
     //load habitat Y1 and Y2 coords from save file
-    habInternalY1 = dataValues[2]/1000.0f;
-    habInternalY2 = dataValues[3]/1000.0f;
+    habInternalY1 = dataValues[2];
+    habInternalY2 = dataValues[3];
     //load engineering Y1 & Y2 values from save file
-    engInternalY1 = dataValues[4]/1000.0f;
-    engInternalY2 = dataValues[5]/1000.0f;
+    engInternalY1 = dataValues[4];
+    engInternalY2 = dataValues[5];
 }
 
 void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)

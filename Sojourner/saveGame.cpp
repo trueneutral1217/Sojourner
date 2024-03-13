@@ -593,6 +593,7 @@ void saveGame::setDataValues()
     {
         dataValues1[i] = data[i+3];
     }
+    //these two are engInternalY1 & Y2
     dataValues1[4] = data[24];
     dataValues1[5] = data[25];
     //player needs values

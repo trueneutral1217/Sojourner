@@ -1136,9 +1136,9 @@ void player::renderNeedsTextures(SDL_Renderer* renderer)
     }
 }
 
-void player::loadSavedPlayerData(Uint32 dataValues[])
+void player::loadSavedPlayerData(Sint32 dataValues[])
 {
-    std::cout<<"\n running loadSavedPlayerData(Uint32 dataValues[])";
+    std::cout<<"\n running loadSavedPlayerData(Sint32 dataValues[])";
     //load character needs from save
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {

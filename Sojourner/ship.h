@@ -39,7 +39,7 @@ class ship
     //free ship resources
     void free();
     //load ship saved data from file
-    void loadSavedShipData(Uint32 dataValues[]);
+    void loadSavedShipData(Sint32 dataValues[]);
     //loads the stations etc for the habitation module
     void loadHabitationModule(SDL_Renderer* renderer,TTF_Font* font, int need[]);
     //loads the stations etc for the engineering module

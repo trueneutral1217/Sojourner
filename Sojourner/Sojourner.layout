@@ -2,19 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="text.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="player.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="314" topLine="14" />
-		</Cursor>
-	</File>
-	<File name="particle.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="414" topLine="82" />
-		</Cursor>
-	</File>
-	<File name="button.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="902" topLine="12" />
+			<Cursor1 position="33060" topLine="1130" />
 		</Cursor>
 	</File>
 	<File name="timer.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -22,19 +12,14 @@
 			<Cursor1 position="751" topLine="23" />
 		</Cursor>
 	</File>
-	<File name="audio.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="saveGame.h" open="1" top="1" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="483" topLine="16" />
+			<Cursor1 position="2882" topLine="8" />
 		</Cursor>
 	</File>
-	<File name="item.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="animations.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="38" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="texture.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1549" topLine="0" />
+			<Cursor1 position="1856" topLine="124" />
 		</Cursor>
 	</File>
 	<File name="myicon.rc" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -42,57 +27,14 @@
 			<Cursor1 position="28" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="ship.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5190" topLine="128" />
+			<Cursor1 position="17162" topLine="443" />
 		</Cursor>
 	</File>
-	<File name="station.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="texture.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="27525" topLine="381" />
-		</Cursor>
-		<Folding>
-			<Collapse line="13" />
-			<Collapse line="117" />
-			<Collapse line="177" />
-			<Collapse line="221" />
-			<Collapse line="252" />
-			<Collapse line="284" />
-			<Collapse line="324" />
-			<Collapse line="352" />
-			<Collapse line="517" />
-			<Collapse line="544" />
-			<Collapse line="573" />
-			<Collapse line="601" />
-			<Collapse line="741" />
-			<Collapse line="750" />
-			<Collapse line="824" />
-			<Collapse line="832" />
-			<Collapse line="840" />
-			<Collapse line="848" />
-			<Collapse line="855" />
-			<Collapse line="874" />
-			<Collapse line="907" />
-			<Collapse line="961" />
-			<Collapse line="970" />
-			<Collapse line="976" />
-			<Collapse line="982" />
-			<Collapse line="1008" />
-		</Folding>
-	</File>
-	<File name="particle.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="91" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="pregameui.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3872" topLine="98" />
-		</Cursor>
-	</File>
-	<File name="item.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="681" topLine="0" />
+			<Cursor1 position="1549" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="button.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -116,9 +58,9 @@
 			<Collapse line="119" />
 		</Folding>
 	</File>
-	<File name="player.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="station.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2156" topLine="82" />
+			<Cursor1 position="4336" topLine="82" />
 		</Cursor>
 	</File>
 	<File name="pregameui.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -164,19 +106,34 @@
 			<Collapse line="632" />
 		</Folding>
 	</File>
-	<File name="animations.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="audio.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2084" topLine="63" />
+			<Cursor1 position="5332" topLine="91" />
+		</Cursor>
+	</File>
+	<File name="button.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="902" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="ship.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3041" topLine="101" />
 		</Cursor>
 	</File>
 	<File name="player.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1995" topLine="50" />
+			<Cursor1 position="5900" topLine="119" />
 		</Cursor>
 	</File>
-	<File name="animations.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="module.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1856" topLine="124" />
+			<Cursor1 position="524" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="text.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="314" topLine="14" />
 		</Cursor>
 	</File>
 	<File name="inventory.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -184,14 +141,9 @@
 			<Cursor1 position="1211" topLine="26" />
 		</Cursor>
 	</File>
-	<File name="parallax.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="module.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="131" topLine="5" />
-		</Cursor>
-	</File>
-	<File name="Main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11567" topLine="346" />
+			<Cursor1 position="1067" topLine="33" />
 		</Cursor>
 	</File>
 	<File name="timer.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -199,44 +151,40 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="module.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="pregameui.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1411" topLine="24" />
+			<Cursor1 position="3872" topLine="98" />
 		</Cursor>
 	</File>
-	<File name="station.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="stage.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4336" topLine="82" />
+			<Cursor1 position="72221" topLine="1061" />
 		</Cursor>
+		<Folding>
+			<Collapse line="22" />
+			<Collapse line="102" />
+			<Collapse line="117" />
+			<Collapse line="131" />
+			<Collapse line="140" />
+			<Collapse line="319" />
+			<Collapse line="949" />
+			<Collapse line="1170" />
+			<Collapse line="1187" />
+			<Collapse line="1207" />
+			<Collapse line="1221" />
+			<Collapse line="1460" />
+			<Collapse line="1474" />
+			<Collapse line="1480" />
+			<Collapse line="1486" />
+			<Collapse line="1492" />
+			<Collapse line="1727" />
+			<Collapse line="1734" />
+			<Collapse line="1741" />
+		</Folding>
 	</File>
-	<File name="saveGame.cpp" open="1" top="1" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="animations.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15228" topLine="590" />
-		</Cursor>
-	</File>
-	<File name="text.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="249" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="audio.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5332" topLine="91" />
-		</Cursor>
-	</File>
-	<File name="saveGame.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1088" topLine="14" />
-		</Cursor>
-	</File>
-	<File name="stage.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8109" topLine="184" />
-		</Cursor>
-	</File>
-	<File name="module.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="524" topLine="0" />
+			<Cursor1 position="2084" topLine="63" />
 		</Cursor>
 	</File>
 	<File name="texture.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -263,38 +211,87 @@
 			<Cursor1 position="233" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="stage.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="station.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9414" topLine="259" />
+			<Cursor1 position="27525" topLine="381" />
 		</Cursor>
 		<Folding>
-			<Collapse line="22" />
-			<Collapse line="102" />
+			<Collapse line="13" />
 			<Collapse line="117" />
-			<Collapse line="131" />
-			<Collapse line="140" />
-			<Collapse line="319" />
-			<Collapse line="949" />
-			<Collapse line="1170" />
-			<Collapse line="1187" />
-			<Collapse line="1207" />
-			<Collapse line="1221" />
-			<Collapse line="1460" />
-			<Collapse line="1474" />
-			<Collapse line="1480" />
-			<Collapse line="1486" />
-			<Collapse line="1492" />
-			<Collapse line="1614" />
-			<Collapse line="1651" />
-			<Collapse line="1696" />
-			<Collapse line="1727" />
-			<Collapse line="1734" />
-			<Collapse line="1741" />
+			<Collapse line="177" />
+			<Collapse line="221" />
+			<Collapse line="252" />
+			<Collapse line="284" />
+			<Collapse line="324" />
+			<Collapse line="352" />
+			<Collapse line="517" />
+			<Collapse line="544" />
+			<Collapse line="573" />
+			<Collapse line="601" />
+			<Collapse line="741" />
+			<Collapse line="750" />
+			<Collapse line="824" />
+			<Collapse line="832" />
+			<Collapse line="840" />
+			<Collapse line="848" />
+			<Collapse line="855" />
+			<Collapse line="874" />
+			<Collapse line="907" />
+			<Collapse line="961" />
+			<Collapse line="970" />
+			<Collapse line="976" />
+			<Collapse line="982" />
+			<Collapse line="1008" />
 		</Folding>
+	</File>
+	<File name="audio.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="483" topLine="16" />
+		</Cursor>
+	</File>
+	<File name="item.h" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="681" topLine="0" />
+		</Cursor>
 	</File>
 	<File name="ship.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1639" topLine="35" />
+			<Cursor1 position="1391" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="saveGame.cpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20538" topLine="592" />
+		</Cursor>
+	</File>
+	<File name="particle.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="414" topLine="82" />
+		</Cursor>
+	</File>
+	<File name="particle.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="91" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="item.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="38" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="text.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="249" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="stage.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6973" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="parallax.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="131" topLine="5" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

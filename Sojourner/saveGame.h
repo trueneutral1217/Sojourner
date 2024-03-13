@@ -12,6 +12,9 @@ const int TOTAL_DATA = 36;
 //total preferences data points
 const int TOTAL_PREFS_DATA = 3;
 
+const static std::string dataDescription[TOTAL_DATA] = {"save exists","current time","played time","player1.getX","player1.getY","habInternalY1","habInternalY2","player health","player hunger","player physique","player slumber","player morale","ship hull","ship fuel","ship power","ship water","ship oxygen","ship temperature","planter.buttonAvailable[0]","planter.buttonAvailable[1]","timeSurvived","planterState","planterDaysState","planterTimeWatered","engInternalY1","engInternalY2","planter.buttonAvailable[2]","inHab","inEng","bed.stationTier","scrap.itemCount","bed.upgradeAvailable","recreation.upgradeAvailable","recreation.stationTier","waterTank.upgradeAvailable","waterTank.stationTier"};
+
+
 class saveGame
 {
     public:
@@ -20,7 +23,6 @@ class saveGame
     Sint32 data[ TOTAL_DATA ];
     Sint32 prefsData[ TOTAL_PREFS_DATA ];
 
-    std::string dataDescription[TOTAL_DATA] = {"save exists","current time","played time","player1.getX","player1.getY","habInternalY1","habInternalY2","player health","player hunger","player physique","player slumber","player morale","ship hull","ship fuel","ship power","ship water","ship oxygen","ship temperature","planter.buttonAvailable[0]","planter.buttonAvailable[1]","timeSurvived","planterState","planterDaysState","planterTimeWatered","engInternalY1","engInternalY2","planter.buttonAvailable[2]","inHab","inEng","bed.stationTier","scrap.itemCount","bed.upgradeAvailable","recreation.upgradeAvailable","recreation.stationTier","waterTank.upgradeAvailable","waterTank.stationTier"};
 
     std::stringstream savedDate[TOTAL_SAVES];
     std::stringstream savedPlayTime[TOTAL_SAVES];
@@ -67,11 +69,11 @@ class saveGame
     //considering adding time played to saved game progress variables.
 
     //stage/player variables
-    Uint32 dataValues1[6];
+    Sint32 dataValues1[6];
     //player needs
-    Uint32 dataValues2[5];
+    Sint32 dataValues2[5];
     //ship gauges
-    Uint32 dataValues3[6];
+    Sint32 dataValues3[6];
 
     void setDataValues();
 

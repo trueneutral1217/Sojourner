@@ -101,9 +101,9 @@ void ship::free()
     freeGaugesTextures();
 }
 
-void ship::loadSavedShipData(Uint32 dataValues[])
+void ship::loadSavedShipData(Sint32 dataValues[])
 {
-    std::cout<<"\n running ship::loadSavedShipData(Uint32 dataValues[])";
+    std::cout<<"\n running ship::loadSavedShipData(Sint32 dataValues[])";
     //load ship gauges from save
     for(int i = 0; i<TOTAL_SHIP_GAUGES; i++)
     {

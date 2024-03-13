@@ -133,7 +133,7 @@ class player
 
         //loads needs from saved game file into working variables
         //void loadSavedPlayerData(Uint32 d1, Uint32 d2, Uint32 d3, Uint32 d4, Uint32 d5);
-        void loadSavedPlayerData(Uint32 dataValues[]);
+        void loadSavedPlayerData(Sint32 dataValues[]);
 
 
     private:
