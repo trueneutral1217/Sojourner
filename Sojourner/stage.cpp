@@ -750,6 +750,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         {//3 is a magic number, it'll be changed later
             std::cout<<"\n user clicked waterTank upgrade button";
             ship.habitation.waterTank.stationTier = 1;
+            std::cout<<"\n waterTank.stationTier: "<<ship.habitation.waterTank.stationTier;
             ship.habitation.waterTank.updateStationTexture(renderer);
             ship.inventory.scrap.itemCount -=3;
             std::cout<<"\n scrap should be reduced by 3";

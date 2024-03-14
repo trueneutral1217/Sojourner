@@ -1351,7 +1351,7 @@
 1710366106 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1710366249 source:c:\sojourner\sojourner\stage.cpp
+1710452140 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1698105983 source:c:\sojourner\sojourner\text.cpp
@@ -1384,7 +1384,7 @@
 	<unordered_map>
 	<map>
 
-1708904878 source:c:\sojourner\sojourner\ship.cpp
+1710366331 source:c:\sojourner\sojourner\ship.cpp
 	"ship.h"
 
 1710366331 c:\sojourner\sojourner\ship.h

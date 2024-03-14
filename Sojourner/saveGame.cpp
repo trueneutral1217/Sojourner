@@ -457,6 +457,8 @@ void saveGame::updateSaveData(int fileNum,stage& stage,Uint32 playedTime)
     data[31] = stage.ship.habitation.bed.upgradeAvailable;//research complete, upgrade not complete
     data[32] = stage.ship.habitation.recreation.upgradeAvailable;
     data[33] = stage.ship.habitation.recreation.stationTier;
+    data[34] = stage.ship.habitation.waterTank.upgradeAvailable;
+    data[35] = stage.ship.habitation.waterTank.stationTier;
 
     SDL_RWops* saveFile = SDL_RWFromFile(saveLocation[fileNum], "w+b");
     for( int i = 0; i < TOTAL_DATA; ++i )
