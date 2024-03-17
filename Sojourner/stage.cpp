@@ -517,58 +517,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             buttons[13].buttonTexture.loadFromFile("images/buttons/inventoryClose.png",renderer);
             buttons[13].buttonName = "closeResearch";
             buttons[13].setPosition(710,165);
-            if(ship.habitation.bed.availableResearchProjects > 0)
-            {
-                std::cout<<"\n \n buttons[14].buttonTexture = ship.habitation.bed.stationResearch; \n \n";
-                //this is where buttons for research projects would be created (need text textures)
-                buttons[14].buttonTexture = ship.habitation.bed.stationResearch;
-                buttons[14].buttonName = "singleBed";
-                buttons[14].setPosition(65,RESEARCHSLOT1);//y coordinate is going to have to be more dynamic
-            }
-            if(ship.habitation.recreation.availableResearchProjects>0)
-            {
-                std::cout<<"\n \n buttons[15].buttonTexture = ship.habitation.recreation.stationResearch; \n \n";
-                buttons[15].buttonTexture = ship.habitation.recreation.stationResearch;
-                buttons[15].buttonName = "recordPlayer";
-                if(ship.habitation.bed.availableResearchProjects>0)
-                {
-                    buttons[15].setPosition(65,RESEARCHSLOT2);
-                }
-                else
-                {
-                    buttons[15].setPosition(65,RESEARCHSLOT1);
-                }
-            }
-            if(ship.habitation.waterTank.availableResearchProjects>0)
-            {
-                std::cout<<"\n \n buttons[18].buttonTexture = ship.habitation.waterTank.stationResearch; \n \n";
-                buttons[18].buttonTexture = ship.habitation.waterTank.stationResearch;
-                buttons[18].buttonName = "waterTank2";
-                //buttons[17]
-                if(ship.habitation.bed.availableResearchProjects>0)
-                {//at some point I'm going to want to do this based off the sum of all available research projects
-                    if(ship.habitation.recreation.availableResearchProjects>0)
-                    {
-                        buttons[18].setPosition(65,RESEARCHSLOT3);
-                    }
-                    else
-                    {
-                        buttons[18].setPosition(65,RESEARCHSLOT2);
-                    }
-                }
-                else
-                {
-                    if(ship.habitation.recreation.availableResearchProjects>0)
-                    {
-                        buttons[18].setPosition(65,RESEARCHSLOT2);
-                    }
-                    else
-                    {
-                        buttons[18].setPosition(65,RESEARCHSLOT1);
-                    }
-                }
-            }
-            buttonsFreed = false;
+            assignResearchSlots(renderer);
         }
     }
     else if(buttonClicked == 12)
@@ -633,6 +582,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         if(ship.engineering.researchDesk.researchDisplaying)
         {
             ship.engineering.researchDesk.researchDisplaying = false;
+            //freeResearchButtons();
         }
     }
     else if(buttonClicked == 16)
@@ -659,22 +609,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //free's the research screen button that was just clicked
             buttons[14].free();
             //moves the 'record player' button up.  this will require something a bit more scalable for the future.
-            if(ship.engineering.researchDesk.availableResearchProjects == 1)
-            {
-                if(ship.habitation.recreation.availableResearchProjects>0)
-                {
-                    buttons[15].setPosition(65,RESEARCHSLOT1);
-                }
-                else if(ship.habitation.waterTank.availableResearchProjects>0)
-                {
-                    buttons[18].setPosition(65,RESEARCHSLOT1);
-                }
-            }
-            else if(ship.engineering.researchDesk.availableResearchProjects == 2)
-            {
-                buttons[15].setPosition(65,RESEARCHSLOT1);
-                buttons[18].setPosition(65,RESEARCHSLOT2);
-            }
+            assignResearchSlots(renderer);
         }
     }
     else if(buttonClicked == 17)
@@ -696,22 +631,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //upgrade button should be true since research is complete, refresh the text textures.
             ship.habitation.recreation.upgradeAvailable=true;
             buttons[15].free();
-            if(ship.engineering.researchDesk.availableResearchProjects == 1)
-            {
-                if(ship.habitation.bed.availableResearchProjects>0)
-                {
-                    buttons[14].setPosition(65,RESEARCHSLOT1);
-                }
-                else if(ship.habitation.waterTank.availableResearchProjects>0)
-                {
-                    buttons[18].setPosition(65,RESEARCHSLOT1);
-                }
-            }
-            else if(ship.engineering.researchDesk.availableResearchProjects == 2)
-            {
-                buttons[14].setPosition(65,RESEARCHSLOT1);
-                buttons[18].setPosition(65,RESEARCHSLOT2);
-            }
+            assignResearchSlots(renderer);
         }
     }
     else if(buttonClicked==18)
@@ -790,22 +710,9 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.habitation.planter.updatePlant(renderer, timeSurvived);
             refreshTS(renderer);
             ship.habitation.waterTank.upgradeAvailable=true;
-            if(ship.engineering.researchDesk.availableResearchProjects == 1)
-            {
-                if(ship.habitation.bed.availableResearchProjects>0)
-                {
-                    buttons[14].setPosition(65,RESEARCHSLOT1);
-                }
-                else if(ship.habitation.recreation.availableResearchProjects>0)
-                {
-                    buttons[15].setPosition(65,RESEARCHSLOT1);
-                }
-            }
-            else if(ship.engineering.researchDesk.availableResearchProjects == 2)
-            {
-                buttons[14].setPosition(65,RESEARCHSLOT1);
-                buttons[15].setPosition(65,RESEARCHSLOT2);
-            }
+            //frees the button that was just clicked.
+            buttons[18].free();
+            assignResearchSlots(renderer);
         }
     }
 }
@@ -934,7 +841,10 @@ void stage::freeStationButtons()
     std::cout<<"\n running stage::freeStationButtons()";
     for(int i = 1; i<TOTAL_STAGE_BUTTONS; i++)
     {
-        buttons[i].free();
+        //if(i != 14 && i!= 15 && i!=18)//don't free research buttons
+       // {
+            buttons[i].free();
+       // }
     }
     ship.habitation.planter.stationOptionsLoaded = false;
     ship.habitation.bed.stationOptionsLoaded = false;
@@ -1660,6 +1570,14 @@ void stage::handleStation(SDL_Renderer* renderer, TTF_Font* font)
         }
         if(player1.interactBed && !ship.habitation.bed.stationOptionsLoaded)
         {
+            if(ship.inventory.scrap.itemCount >= 3)//upgrade button should appear unavailable if material reqs not met.
+            {
+                ship.habitation.bed.buttonAvailable[1] = true;
+            }
+            else
+            {
+                ship.habitation.bed.buttonAvailable[1] = false;
+            }
             ship.habitation.bed.loadStationButtonTextTextures(renderer,font,player1.need[3]);
         }
         if(player1.interactWaterTank && !ship.habitation.waterTank.stationOptionsLoaded)
@@ -1793,4 +1711,78 @@ void stage::resetStageVariables()
     ship.habitation.planter.buttonAvailable[2] = false;
     //gauges and player needs seem to be resetting elsewhere
     timeSurvived = 0;
+    //if player save & exits with research or inventory screen open, this closes them.
+    ship.engineering.researchDesk.researchDisplaying = false;
+    ship.engineering.cargoArea.inventoryDisplaying = false;
 }
+
+void stage::assignResearchSlots(SDL_Renderer* renderer)
+{
+    if(ship.habitation.bed.availableResearchProjects > 0)
+    {
+        std::cout<<"\n \n buttons[14].buttonTexture = ship.habitation.bed.stationResearch; \n \n";
+        //this is where buttons for research projects would be created (need text textures)
+        ship.habitation.bed.reloadStationResearchTexture(renderer,font);
+        buttons[14].buttonTexture = ship.habitation.bed.stationResearch;
+        buttons[14].buttonName = "singleBed";
+        buttons[14].setPosition(65,RESEARCHSLOT1);//y coordinate is going to have to be more dynamic
+    }
+    if(ship.habitation.recreation.availableResearchProjects>0)
+    {
+        std::cout<<"\n \n buttons[15].buttonTexture = ship.habitation.recreation.stationResearch; \n \n";
+        ship.habitation.recreation.reloadStationResearchTexture(renderer,font);
+        buttons[15].buttonTexture = ship.habitation.recreation.stationResearch;
+        buttons[15].buttonName = "recordPlayer";
+        if(ship.habitation.bed.availableResearchProjects>0)
+        {
+            buttons[15].setPosition(65,RESEARCHSLOT2);
+        }
+        else
+        {
+            buttons[15].setPosition(65,RESEARCHSLOT1);
+        }
+    }
+    if(ship.habitation.waterTank.availableResearchProjects>0)
+    {
+        std::cout<<"\n \n buttons[18].buttonTexture = ship.habitation.waterTank.stationResearch; \n \n";
+        ship.habitation.waterTank.reloadStationResearchTexture(renderer,font);
+        buttons[18].buttonTexture = ship.habitation.waterTank.stationResearch;
+        buttons[18].buttonName = "waterTank2";
+        //buttons[17]
+        if(ship.habitation.bed.availableResearchProjects>0)
+        {//at some point I'm going to want to do this based off the sum of all available research projects
+            if(ship.habitation.recreation.availableResearchProjects>0)
+            {
+                buttons[18].setPosition(65,RESEARCHSLOT3);
+            }
+            else
+            {
+                buttons[18].setPosition(65,RESEARCHSLOT2);
+            }
+        }
+        else
+        {
+            if(ship.habitation.recreation.availableResearchProjects>0)
+            {
+                buttons[18].setPosition(65,RESEARCHSLOT2);
+            }
+            else
+            {
+                buttons[18].setPosition(65,RESEARCHSLOT1);
+            }
+        }
+    }
+    buttonsFreed = false;
+}
+/*
+void stage::freeResearchButtons()
+{//might not be necessary
+    std::cout<<"\n running stage::freeResearchButtons()";
+    for(int i = 1; i<TOTAL_STAGE_BUTTONS; i++)
+    {
+        if(i == 14 || i== 15 || i==18)//free research buttons
+        {
+            buttons[i].free();
+        }
+    }
+}*/

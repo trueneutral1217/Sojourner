@@ -195,6 +195,10 @@ class stage
         void renderOpeningSequence(SDL_Renderer* renderer, animations& animations);
         //restores variables in stage to their default values when player clicks 'save & exit'.
         void resetStageVariables();
+        //assigns slots in the research screen for upgrade buttons and their descriptions
+        void assignResearchSlots(SDL_Renderer* renderer);
+        //frees the research screen buttons when player closes research screen.
+        //void freeResearchButtons();
 
     private:
 

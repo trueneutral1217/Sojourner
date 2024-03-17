@@ -51,7 +51,7 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
     {
         upgradeCost.insert({"scrap", 3});
         stationTexture.loadFromFile("images/sprites/waterTank.png",renderer);
-        SDL_Color textColor = {0,255,0};//unknown color
+        SDL_Color textColor = {0,255,0};//green color
         if(!stationResearch.loadFromRenderedText("Tier 2 water tank", textColor,font,renderer))
         {
             std::cout<<"\n unable to render 'Tier 2 water tank' string to waterResearch Texture!";
@@ -112,6 +112,33 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
     std::cout<<"\n buttonAvailable.size(): "<<buttonAvailable.size();
     std::cout<<"\n buttonAvailable[0] = "<<buttonAvailable[0];
     loadStationButtonTextTextures(renderer,font);
+}
+
+void station::reloadStationResearchTexture(SDL_Renderer* renderer, TTF_Font* font)
+{
+    std::cout<<"running station::reloadStationResearchTexture(SDL_Renderer* renderer, TTF_Font* font)";
+    SDL_Color textColor = {0,255,0};//green color
+    if(stationID == "water")
+    {
+        if(!stationResearch.loadFromRenderedText("Tier 2 water tank", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Tier 2 water tank' string to waterResearch Texture!";
+        }
+    }
+    if(stationID == "bed")
+    {
+        if(!stationResearch.loadFromRenderedText("Single Bed", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Single Bed' string to bedResearch Texture!";
+        }
+    }
+    if(stationID == "rec")
+    {
+        if(!stationResearch.loadFromRenderedText("Record player", textColor,font,renderer))
+        {
+            std::cout<<"\n unable to render 'Record player' string to stationResearch Texture!";
+        }
+    }
 }
 
 void station::loadEngExit(SDL_Renderer* renderer, TTF_Font* font)

@@ -43,7 +43,7 @@ class station
 
         Texture inventoryBG, researchBG;
         //text texture for bed research button
-        Texture stationResearch;
+        Texture stationResearch; //does this texture ever get freed? not just assigned to a button.
         //text texture for upgrade description
         Texture tierOneDescription, tierOneDescription2;
 
@@ -131,6 +131,8 @@ class station
         void updateStationTexture(SDL_Renderer* renderer);
         //makes upgrade available or unavailable
         void updateUpgradeAvailability();
+        //reloads texture for research screen button.
+        void reloadStationResearchTexture(SDL_Renderer* renderer, TTF_Font* font);
 
     private:
 
