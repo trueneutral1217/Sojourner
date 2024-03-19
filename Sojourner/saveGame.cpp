@@ -530,7 +530,7 @@ void saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)
     std::cout<<"\n running saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)";
     for(int i =0; i<TOTAL_SAVES;i++)
     {
-        //freeing textures before reloading them.
+        //freeing textures before reloading them. might not be necessary
         savedDateTexture[i].free();
         savedPlayTimeTexture[i].free();
     }
@@ -571,11 +571,15 @@ void saveGame::loadSaveTextTextures(SDL_Renderer* renderer, TTF_Font* font)
 
 void saveGame::handleSavedMetaDataRendering(SDL_Renderer* renderer)
 {
-    for(int i; i<TOTAL_SAVES;i++)
-    {
-        savedPlayTimeTexture[i].render(160,(110+(i*100)),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        savedDateTexture[i].render(160,(130+(i*100)),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
+    //note to self, don't use a for loop to render these haha.
+    savedPlayTimeTexture[0].render(160,110,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    savedDateTexture[0].render(160,130,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+    savedPlayTimeTexture[1].render(160,210,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    savedDateTexture[1].render(160,230,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
+    savedPlayTimeTexture[2].render(160,310,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    savedDateTexture[2].render(160,330,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void saveGame::freeTextTextures()
