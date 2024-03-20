@@ -475,6 +475,8 @@ int main( int argc, char* args[] )
                                     stage.ship.habitation.recreation.stationTier = savegame.data[33];
                                     stage.ship.habitation.waterTank.upgradeAvailable = savegame.data[34];
                                     stage.ship.habitation.waterTank.stationTier = savegame.data[35];
+                                    stage.ship.engineering.batteryArray.upgradeAvailable = savegame.data[36];
+                                    stage.ship.engineering.batteryArray.stationTier = savegame.data[37];
 
                                     //data needs to be loaded from save before stage loads.
                                     stage.loadStage(renderer, stage.inHab, stage.inEng, true);

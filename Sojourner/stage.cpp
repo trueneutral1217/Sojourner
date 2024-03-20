@@ -688,7 +688,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //updates the upgrade button's availability
             ship.habitation.waterTank.updateUpgradeAvailability();
             std::cout<<"\n\n waterTank.buttonAvailable.size(): "<<ship.habitation.waterTank.buttonAvailable.size();
-            std::cout<<"\n\n\n waterTank.buttonAvailable[buttonAvailable.size()]: "<<ship.habitation.waterTank.buttonAvailable[ship.habitation.recreation.buttonAvailable.size()];
+            std::cout<<"\n\n\n waterTank.buttonAvailable[buttonAvailable.size()]: "<<ship.habitation.waterTank.buttonAvailable[ship.habitation.waterTank.buttonAvailable.size()];
             std::cout<<"\n\n\n waterTank.buttonAvailable[1]: "<<ship.habitation.waterTank.buttonAvailable[1];
             //updates the upgrade button's availability color
             ship.habitation.waterTank.loadStationButtonTextTextures(renderer,font);
@@ -713,6 +713,66 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //frees the button that was just clicked.
             buttons[18].free();
             assignResearchSlots(renderer);
+            //ship.habitation.waterTank.buttonAvailable[0] = 0 at this point, but hab gets loaded before player
+            //goes to click upgrade, and in that process buttonAvailable[0] becomes 1.
+            //std::cout<<"\n ship.habitation.waterTank.buttonAvailable[0]: "<<ship.habitation.waterTank.buttonAvailable[0];
+        }
+    }
+    else if(buttonClicked==21)
+    {//user clicked the upgrade button for the batteryArray
+        if(ship.engineering.batteryArray.upgradeAvailable && ship.inventory.scrap.itemCount >= 2)
+        {//3 is a magic number, it'll be changed later
+            std::cout<<"\n user clicked batteryArray upgrade button";
+            ship.engineering.batteryArray.stationTier = 1;
+            std::cout<<"\n batteryArray.stationTier: "<<ship.engineering.batteryArray.stationTier;
+            ship.engineering.batteryArray.updateStationTexture(renderer);
+            ship.inventory.scrap.itemCount -=3;
+            std::cout<<"\n scrap should be reduced by 3";
+            ship.inventory.refreshInventory(renderer,font);
+            int upgradeBatteryArrayTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
+            player1.modifyNeeds(upgradeBatteryArrayTier1);
+            player1.reloadNeedsTextures(renderer,font);
+            //2 hours passed from building upgrade
+            timeSurvived +=120;
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            //upgrade just occurred, set upgrade button for rec availability to false, refresh the text textures.
+            ship.engineering.batteryArray.upgradeAvailable=false;
+            std::cout<<"\n \n \n batteryArray.upgradeAvailable = false";
+            //updates the upgrade button's availability
+            ship.engineering.batteryArray.updateUpgradeAvailability();
+            std::cout<<"\n\n batteryArray.buttonAvailable.size(): "<<ship.engineering.batteryArray.buttonAvailable.size();
+            std::cout<<"\n\n\n batteryArray.buttonAvailable[buttonAvailable.size()]: "<<ship.engineering.batteryArray.buttonAvailable[ship.habitation.recreation.buttonAvailable.size()];
+            std::cout<<"\n\n\n batteryArray.buttonAvailable[1]: "<<ship.engineering.batteryArray.buttonAvailable[1];
+            //updates the upgrade button's availability color
+            ship.engineering.batteryArray.loadStationButtonTextTextures(renderer,font);
+        }
+    }
+    else if(buttonClicked == 22)
+    {//user clicked 'batteryArray2' button from research screen
+        if(ship.engineering.batteryArray.availableResearchProjects>0)
+        {
+            ship.engineering.batteryArray.availableResearchProjects -=1;
+            ship.updateTotalResearchProjects();
+            std::cout<<"\n ship.engineering.researchDesk.availableResearchProjects: "<<ship.engineering.researchDesk.availableResearchProjects;
+            int researchBatteryArrayTier1[TOTAL_PLAYER_NEEDS] = {0,-3,-3,-3,-3};
+            player1.modifyNeeds(researchBatteryArrayTier1);
+            player1.reloadNeedsTextures(renderer,font);
+            //pass 1 hour
+            timeSurvived += 120;
+            //grow plants
+            ship.habitation.planter.updatePlant(renderer, timeSurvived);
+            refreshTS(renderer);
+            ship.engineering.batteryArray.upgradeAvailable=true;
+            //since this is an engineering section upgrade, buttonAvailability needs to be reloaded, otherwise player
+            //would have to leave engineering and come back and it would work.
+            ship.engineering.batteryArray.updateUpgradeAvailability();
+            //updates the upgrade button's availability color
+            ship.engineering.batteryArray.loadStationButtonTextTextures(renderer,font);
+            //frees the button that was just clicked.
+            buttons[20].free();
+            assignResearchSlots(renderer);
+            std::cout<<"\n ship.engineering.batteryArray.buttonAvailable[0]: "<<ship.engineering.batteryArray.buttonAvailable[0];
         }
     }
 }
@@ -760,7 +820,14 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[17].buttonTexture = ship.habitation.waterTank.buttonTextTexture[0];
             buttons[17].buttonName = "upgradeWater";
             buttons[17].setPosition(player1.getX()+50,player1.getY()-20);
-            //buttons[18]
+            buttonsFreed = false;
+        }
+        if(player1.interactBatteryArray)
+        {
+            std::cout<<"\n creating batteryArray buttons";
+            buttons[19].buttonTexture = ship.engineering.batteryArray.buttonTextTexture[0];
+            buttons[19].buttonName = "upgradeBattery";
+            buttons[19].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
         }
         if(player1.interactKitchen)
@@ -854,6 +921,7 @@ void stage::freeStationButtons()
     ship.habitation.recreation.stationOptionsLoaded =false;
     ship.engineering.researchDesk.stationOptionsLoaded = false;
     ship.engineering.cargoArea.stationOptionsLoaded = false;
+    ship.engineering.batteryArray.stationOptionsLoaded = false;
     buttonsFreed = true;
 }
 
@@ -1265,7 +1333,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
                 }
                 if(player1.interactBatteryArray)
                 {
-                    ship.engineering.batteryArray.renderInteractStation(renderer,player1.getX(),player1.getY());
+                    ship.engineering.batteryArray.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
                 }
                 if(player1.interactResearchDesk)
                 {
@@ -1353,6 +1421,33 @@ void stage::renderStage1(SDL_Renderer* renderer)
                         buttons[18].buttonTexture.render(65,RESEARCHSLOT1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                         ship.habitation.waterTank.tierOneDescription.render(65,RESEARCHSLOT1+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                         ship.habitation.waterTank.tierOneDescription2.render(65,RESEARCHSLOT1+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
+                }
+                if(ship.engineering.batteryArray.availableResearchProjects>0)
+                {
+                    if((ship.habitation.bed.availableResearchProjects + ship.habitation.recreation.availableResearchProjects + ship.habitation.waterTank.availableResearchProjects)==3)
+                    {
+                        buttons[20].buttonTexture.render(65,RESEARCHSLOT4,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription.render(65,RESEARCHSLOT4+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription2.render(65,RESEARCHSLOT4+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
+                    else if((ship.habitation.bed.availableResearchProjects + ship.habitation.recreation.availableResearchProjects + ship.habitation.waterTank.availableResearchProjects)==2)
+                    {
+                        buttons[20].buttonTexture.render(65,RESEARCHSLOT3,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription.render(65,RESEARCHSLOT3+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription2.render(65,RESEARCHSLOT3+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
+                    else if((ship.habitation.bed.availableResearchProjects + ship.habitation.recreation.availableResearchProjects + ship.habitation.waterTank.availableResearchProjects)==1)
+                    {
+                        buttons[20].buttonTexture.render(65,RESEARCHSLOT2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription.render(65,RESEARCHSLOT2+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription2.render(65,RESEARCHSLOT2+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    }
+                    else
+                    {
+                        buttons[20].buttonTexture.render(65,RESEARCHSLOT1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription.render(65,RESEARCHSLOT1+20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                        ship.engineering.batteryArray.tierOneDescription2.render(65,RESEARCHSLOT1+35,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                     }
                 }
             }
@@ -1699,6 +1794,8 @@ void stage::resetStageVariables()
     ship.habitation.waterTank.stationTier = 0;
     ship.habitation.waterTank.upgradeAvailable = false;
     ship.habitation.waterTank.availableResearchProjects = 1;
+    ship.engineering.batteryArray.upgradeAvailable = false;
+    ship.engineering.batteryArray.availableResearchProjects =1;
     ship.inventory.scrap.itemCount = 0;
     inHab = true;
     inEng = false;
@@ -1772,17 +1869,62 @@ void stage::assignResearchSlots(SDL_Renderer* renderer)
             }
         }
     }
-    buttonsFreed = false;
-}
-/*
-void stage::freeResearchButtons()
-{//might not be necessary
-    std::cout<<"\n running stage::freeResearchButtons()";
-    for(int i = 1; i<TOTAL_STAGE_BUTTONS; i++)
+    if(ship.engineering.batteryArray.availableResearchProjects>0)
     {
-        if(i == 14 || i== 15 || i==18)//free research buttons
+        std::cout<<"\n \n buttons[20].buttonTexture = ship.engineering.batteryArray.stationResearch; \n \n";
+        ship.engineering.batteryArray.reloadStationResearchTexture(renderer,font);
+        buttons[20].buttonTexture = ship.engineering.batteryArray.stationResearch;
+        buttons[20].buttonName = "batteryArray2";
+        if(ship.habitation.bed.availableResearchProjects>0)
+        {//at some point I'm going to want to do this based off the sum of all available research projects
+            if(ship.habitation.recreation.availableResearchProjects>0)
+            {
+                if(ship.habitation.waterTank.availableResearchProjects>0)
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT4);
+                }
+                else
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT3);
+                }
+            }
+            else
+            {
+                if(ship.habitation.waterTank.availableResearchProjects>0)
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT3);
+                }
+                else
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT2);
+                }
+            }
+        }
+        else
         {
-            buttons[i].free();
+            if(ship.habitation.recreation.availableResearchProjects>0)
+            {
+                if(ship.habitation.waterTank.availableResearchProjects>0)
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT3);
+                }
+                else
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT2);
+                }
+            }
+            else
+            {
+                if(ship.habitation.waterTank.availableResearchProjects>0)
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT2);
+                }
+                else
+                {
+                    buttons[20].setPosition(65,RESEARCHSLOT1);
+                }
+            }
         }
     }
-}*/
+    buttonsFreed = false;
+}

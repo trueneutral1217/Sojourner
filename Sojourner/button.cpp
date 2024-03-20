@@ -425,6 +425,16 @@ int button::handleStageEvent(bool internalView,std::string buttonName, SDL_Event
                             std::cout<<"\n user clicked the 'WaterTank2' button";
                             buttonClicked = 20;
                         }
+                        else if(buttonName == "upgradeBattery")
+                        {
+                            std::cout<<"\n user clicked the 'upgradeBattery' button";
+                            buttonClicked = 21;
+                        }
+                        else if(buttonName == "batteryArray2")
+                        {
+                            std::cout<<"\n user clicked the 'batteryArray2' button";
+                            buttonClicked = 22;
+                        }
                     break;
                 }
 		}

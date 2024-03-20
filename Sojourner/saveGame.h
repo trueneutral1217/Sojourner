@@ -8,11 +8,11 @@
 
 
 //total save game data points
-const int TOTAL_DATA = 36;
+const int TOTAL_DATA = 38;
 //total preferences data points
 const int TOTAL_PREFS_DATA = 3;
 
-const static std::string dataDescription[TOTAL_DATA] = {"save exists","current time","played time","player1.getX","player1.getY","habInternalY1","habInternalY2","player health","player hunger","player physique","player slumber","player morale","ship hull","ship fuel","ship power","ship water","ship oxygen","ship temperature","planter.buttonAvailable[0]","planter.buttonAvailable[1]","timeSurvived","planterState","planterDaysState","planterTimeWatered","engInternalY1","engInternalY2","planter.buttonAvailable[2]","inHab","inEng","bed.stationTier","scrap.itemCount","bed.upgradeAvailable","recreation.upgradeAvailable","recreation.stationTier","waterTank.upgradeAvailable","waterTank.stationTier"};
+const static std::string dataDescription[TOTAL_DATA] = {"save exists","current time","played time","player1.getX","player1.getY","habInternalY1","habInternalY2","player health","player hunger","player physique","player slumber","player morale","ship hull","ship fuel","ship power","ship water","ship oxygen","ship temperature","planter.buttonAvailable[0]","planter.buttonAvailable[1]","timeSurvived","planterState","planterDaysState","planterTimeWatered","engInternalY1","engInternalY2","planter.buttonAvailable[2]","inHab","inEng","bed.stationTier","scrap.itemCount","bed.upgradeAvailable","recreation.upgradeAvailable","recreation.stationTier","waterTank.upgradeAvailable","waterTank.stationTier","batteryArray.upgradeAvailable","batteryArray.stationTier"};
 
 
 class saveGame
