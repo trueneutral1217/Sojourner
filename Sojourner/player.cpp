@@ -342,13 +342,15 @@ void player::move(int tick, SDL_Rect& newspaperInteraction,SDL_Rect& backdoorInt
     if(movementDisabled)
     {
         currentTexture = playerTexture[0][0];
+        pVelX = 0;
+        pVelY = 0;
     }
 
 
 }
 
 void player::move(int tick, ship& ship,bool inHab, bool inEng, float delta)
-{
+{//this move function is for gameState = 5.
     if(tick%3 == 0)//this slows down player movement a little
     {
         playerX += pVelX;
