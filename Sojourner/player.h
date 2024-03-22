@@ -84,6 +84,8 @@ class player
         bool interactNewspaper,interactBackdoor;
         //needed for opening sequence
         bool movementDisabled;
+        //the player's health is <= 0
+        bool isDead;
 
         //used for player walk animations
         Texture currentTexture;

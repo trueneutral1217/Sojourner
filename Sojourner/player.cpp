@@ -20,6 +20,7 @@ player::player()
     interactHabExit = false;
     interactEngExit = false;
     movementDisabled = false;
+    isDead = false;
     //making the collision box a 30x20 pixel box at player's feet area.
     playerCollisionBox.x = playerX+5;
     playerCollisionBox.y = playerY+60;
@@ -1074,6 +1075,10 @@ void player::modifyNeeds(int modNeedValues[])
         {
             need[i] = 0;
         }
+    }
+    if(need[0] <= 0)
+    {
+        isDead = true;
     }
 }
 

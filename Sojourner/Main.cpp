@@ -18,8 +18,8 @@ const int TOTAL_STATES = 6;
 //gameState = 3 options
 //gameState = 4 credits
 //gameState = 5 stage 1
-
-//gameState = 6 Will be opening sequence gamestate, will go to gamestate 5
+//gameState = 6 opening sequence gamestate, goes to gamestate 5
+//gameState = 7 gameover
 
 
 //Starts up SDL and creates window
@@ -385,9 +385,6 @@ int main( int argc, char* args[] )
 
                             if(gameState==6)
                             {
-
-
-
                                 chosenSave = pregameui.chosenSave;
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
@@ -395,15 +392,9 @@ int main( int argc, char* args[] )
                                 animations.loadLeftCurtainAnimationTextures(renderer);
                                 animations.loadRightCurtainAnimationTextures(renderer);
                                 openingSequence.loadOpeningSequence(renderer);
-
-                                //a call to stage.setNewgameVars() will have to be called
-                                //at the end of the opening sequence
-
                             }
-                            //This area will have to be changed.  PGUI should return gamestate == 6 after
-                            //player selects a save file.
                             if(gameState==5)
-                            {//user clicked stage 1 button
+                            {//user loadeded a saved game
                                 std::cout<<"\n not from opening sequence";
                                 //I don't think this code ever runs.
                                 chosenSave = pregameui.chosenSave;
@@ -411,11 +402,6 @@ int main( int argc, char* args[] )
                                 playedTime.timePlayed = 0;
                                 playedTime.restart();
                                 stage.loadStage(renderer,stage.inHab, stage.inEng,true);
-                                //savegame.freeTextTextures();
-                            }
-                            //player clicked back button.
-                            else if(gameState == 0)
-                            {
                                 //savegame.freeTextTextures();
                             }
                             if(pregameui.triggerDelete)
@@ -439,8 +425,6 @@ int main( int argc, char* args[] )
 
                             if(gameState==5)
                             {//user clicked a load saved game button (1, 2, or 3)
-
-
                                 std::cout<<"\n chosenSave: "<<chosenSave<<"\n pregameui.chosenSave: "<<pregameui.chosenSave<<"\n pregameui.deleteCandidate: "<<pregameui.deleteCandidate;
                                 chosenSave = pregameui.chosenSave;
                                 std::cout<<"\n chosenSave: "<<chosenSave;
@@ -511,11 +495,6 @@ int main( int argc, char* args[] )
                                 //savegame.readSaveFile(pregameui.deleteCandidate);
                                 savegame.loadSaveTextTextures(renderer, text.font);
                             }
-                            //player clicked back button.
-                            else if(gameState == 0)
-                            {
-                                //savegame.freeTextTextures();
-                            }
                         }
                         if(gameState==3)
                         {//options screen button handling /gamestate change handing
@@ -560,11 +539,10 @@ int main( int argc, char* args[] )
                         }
                         if(gameState == 6)
                         {
-
                             //this is the opening sequence of a new game.
                             //should allow player movement etc.
                             openingSequence.handleButtons(renderer,&e);
-
+                            //frees animations between house and backyard scene in opening sequence
                             if(openingSequence.backdoorInteracted & !animations.bushFree)
                             {
                                 animations.freeBushAnimationTextures();
@@ -572,6 +550,10 @@ int main( int argc, char* args[] )
                                 animations.freeRightCurtainAnimationTextures();
                                 animations.bushFree = true;
                             }
+                        }
+                        if(gameState == 7)
+                        {
+                            //gameover scene of the game
                         }
                     }
 					//Handle key press
@@ -581,15 +563,13 @@ int main( int argc, char* args[] )
 						{
                             case SDLK_SPACE:
                                 break;
-
-
                             case SDLK_ESCAPE:
                             if(gameState==0)
                             {
                                 quit=true;
                             }
-                            else if(gameState == 1 || gameState == 2 || gameState == 3 || gameState == 4)
-                            {//if player presses escape in newgame,loadgame,options, or credits screen, return to title screen
+                            else if(gameState == 1 || gameState == 2 || gameState == 3 || gameState == 4 || gameState == 7)
+                            {//if player presses escape in newgame,loadgame,options,credits, or gameOver screen, return to title screen
                                 pregameui.loadState(gameState,0,renderer);
                                 if(gameState == 4)
                                 {
@@ -639,7 +619,6 @@ int main( int argc, char* args[] )
                     {
                         openingSequence.player1.handleEvent(e,delta);
                     }
-
 				}
 				//process player movement, updates hab internal background as well
 				if(stage.internalView)
@@ -650,7 +629,6 @@ int main( int argc, char* args[] )
                 {
                     openingSequence.move(countedFrames,delta);
                 }
-
 				//Clear screen
 				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( renderer );
@@ -714,6 +692,10 @@ int main( int argc, char* args[] )
                         animations.rightCurtainAnimationProgress();
 
                     }
+                }
+                else if(gameState == 7)
+                {
+                    //this is where gameover scene will be rendered.
                 }
                 if(fade)
                 {
