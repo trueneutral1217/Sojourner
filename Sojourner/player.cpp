@@ -1072,7 +1072,12 @@ void player::modifyNeeds(int modNeedValues[])
             need[i] = 100;
         }
         else if(need[i] < 0)
-        {
+        {//temp is used to determine how far below 0 a need is, that way that amount can be removed from hp (need[0])
+            int temp = 0 + need[i];
+            if(i>0)
+            {
+                need[0] += temp;
+            }
             need[i] = 0;
         }
     }

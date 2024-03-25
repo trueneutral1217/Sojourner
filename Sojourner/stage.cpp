@@ -1928,3 +1928,8 @@ void stage::assignResearchSlots(SDL_Renderer* renderer)
     }
     buttonsFreed = false;
 }
+
+void stage::loadGameOver(SDL_Renderer* renderer)
+{
+    gameOverBG.loadFromFile("images/gameOver.png",renderer);
+}

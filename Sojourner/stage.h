@@ -118,6 +118,8 @@ class stage
         std::string bgFileName[TOTAL_STAGE_BACKGROUNDS];
         //array of background images for stage1
         Texture stage1BG[TOTAL_STAGE_BACKGROUNDS];
+        //background texture for gameover scene.
+        Texture gameOverBG;
         //UI image names
         std::string uiFileName[TOTAL_STAGE_UI];
         //UI texture(s) for stage
@@ -151,6 +153,8 @@ class stage
         ship ship;
         //loads resources at opening of stages.
         bool loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success);
+        //loads the gameOver scene's resources
+        void loadGameOver(SDL_Renderer* renderer);
         //free resources
         void free();
         //free opening sequence resources.
@@ -171,13 +175,13 @@ class stage
         void loadSavedGameData(Sint32 dataValues[]);
         //handles station interaction textures and updates station texture
         void handleStation(SDL_Renderer* renderer, TTF_Font* font);
-        //
+        //frees text textures for station's buttons
         void freeStationButtons();
-        //
+        //generates time survived text textures from time survived
         void loadTimeSurvivedTextures(SDL_Renderer* renderer);
-        //
+        //renders the amount of time survived by player
         void renderTimeSurvivedTextTextures(SDL_Renderer* renderer);
-        //
+        //frees time survived text textures
         void freeTimeSurvivedTextures();
         //refreshes the text textures for time survived so they render the correct TS.
         void refreshTS(SDL_Renderer* renderer);

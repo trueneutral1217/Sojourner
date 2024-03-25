@@ -43,7 +43,7 @@ std::vector<audio> sounds;
 //declare sound
 audio sound;
 //declare stage
-stage stage,openingSequence;
+stage stage,openingSequence,gameOver;
 //declare opening sequence stage (used when new game is created)
 //stage openingSequence;
 //declare instance of pregame user interface.
@@ -335,6 +335,12 @@ int main( int argc, char* args[] )
 					{
 						quit = true;
 					}
+					if(stage.player1.isDead)
+                    {
+                        gameOver.loadGameOver(renderer);
+                        gameState = 7;
+                        stage.player1.isDead = false;
+                    }
                     if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEMOTION || openingSequence.complete)
                     {
                         if(gameState == 5)
@@ -696,6 +702,7 @@ int main( int argc, char* args[] )
                 else if(gameState == 7)
                 {
                     //this is where gameover scene will be rendered.
+                    gameOver.gameOverBG.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
                 }
                 if(fade)
                 {
