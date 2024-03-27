@@ -191,6 +191,11 @@ int button::handlePGUIEvent(SDL_Event* e, SDL_Window* window, SDL_Renderer* rend
                             printf("\n \n back button pressed \n \n");
                             gameState = 0;
                         }
+                        else if(buttonName == "gameOver")
+                        {
+                            printf("\n \n gameOver button pressed");
+                            gameState = 0;
+                        }
                         else if(buttonName=="save1")
                         {
                             printf("\n \n save 1 button pressed \n \n");

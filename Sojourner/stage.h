@@ -155,6 +155,8 @@ class stage
         bool loadStage(SDL_Renderer* renderer, bool inHab, bool inEng, bool success);
         //loads the gameOver scene's resources
         void loadGameOver(SDL_Renderer* renderer);
+        //free gameover resources
+        void freeGameOver();
         //free resources
         void free();
         //free opening sequence resources.

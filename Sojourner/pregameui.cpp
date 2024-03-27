@@ -120,6 +120,24 @@ void pregameui::loadCreditsButtons(SDL_Renderer* renderer)
     creditsButtons[0].setPosition(600,20);
 }
 
+void pregameui::loadGameOverButton(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running pregameui::loadGameOverButton(SDL_Renderer* renderer)";
+    gameOverButtonName = "gameOver";
+    gameOverButton.buttonName = gameOverButtonName;
+
+    std::string str;
+    std::string str2;
+
+    str="images/buttons/returnToTitle.png";
+    str2="images/buttons/returnToTitleMO.png";
+    gameOverButton.buttonTexture.loadFromFile(str,renderer);
+    gameOverButton.buttonMOTexture.loadFromFile(str2,renderer);
+
+    gameOverButton.setPosition(350,400);
+
+}
+
 void pregameui::renderCreditsButtons(SDL_Renderer* renderer)
 {
     for(int i =0; i<TOTAL_CREDITS_BUTTONS;i++)
@@ -135,6 +153,18 @@ void pregameui::renderCreditsButtons(SDL_Renderer* renderer)
    }
 }
 
+void pregameui::renderGameOverButton(SDL_Renderer* renderer)
+{
+    if(gameOverButton.mouseOver == false)
+    {
+        gameOverButton.buttonTexture.render(gameOverButton.getPositionX(),gameOverButton.getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    else
+    {
+        gameOverButton.buttonMOTexture.render(gameOverButton.getPositionX(),gameOverButton.getPositionY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+}
+
 void pregameui::freeCreditsButtons()
 {
     std::cout<<"\n running pregameui::freeCreditsButtons()";
@@ -145,11 +175,23 @@ void pregameui::freeCreditsButtons()
     }
 }
 
+void pregameui::freeGameOverButton()
+{
+    std::cout<<"\n running pregameui::freeGameOverButton()";
+    gameOverButton.buttonTexture.free();
+    gameOverButton.buttonMOTexture.free();
+}
+
 void pregameui::handleCreditsScreenRendering(SDL_Renderer* renderer)
 {
 
     creditsTexture.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     renderCreditsButtons(renderer);
+}
+
+void pregameui::handleGameOverScreenRendering(SDL_Renderer* renderer)
+{
+    renderGameOverButton(renderer);
 }
 
 void pregameui::loadLoadgameButtons(SDL_Renderer* renderer)
@@ -641,6 +683,8 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
     //user clicks a button in the pregameui scenes
     //backing up gamestate
     int oldGameState = gameState;
+
+
     //handles buttons by gamestate.
     if(gameState==0)
     {
@@ -821,6 +865,10 @@ int pregameui::handleButtons( int gameState, SDL_Event* e, SDL_Window* window,SD
             }
         }
     }
+    else if(gameState == 7)
+    {
+        gameState = gameOverButton.handlePGUIEvent(e,window,renderer);
+    }
     if(gameState<0)
     {
         gameState=oldGameState;
@@ -856,6 +904,8 @@ void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* rend
         case 4: freeCreditsTextures();
             freeCreditsButtons();
             break;
+        case 7: freeGameOverButton();
+            break;
     }
     switch( newGameState )
     {
@@ -873,6 +923,8 @@ void pregameui::loadState(int oldGameState, int newGameState, SDL_Renderer* rend
             break;
         case 4: loadCreditsTextures(renderer);
             loadCreditsButtons(renderer);
+        break;
+        case 7: loadGameOverButton(renderer);
         break;
     }
 }

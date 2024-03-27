@@ -43,12 +43,16 @@ public:
     button optionsButtons[TOTAL_OPTIONS_BUTTONS];
     button creditsButtons[TOTAL_CREDITS_BUTTONS];
 
+    button gameOverButton;
+
     //this is the new set of string arrays
     std::string mainButtonNames[TOTAL_MAIN_BUTTONS];
     std::string newgameButtonNames[TOTAL_NEWGAME_BUTTONS];
     std::string loadgameButtonNames[TOTAL_LOADGAME_BUTTONS];
     std::string optionsButtonNames[TOTAL_OPTIONS_BUTTONS];
     std::string creditsButtonNames[TOTAL_CREDITS_BUTTONS];
+
+    std::string gameOverButtonName;
 
     //loads each scene's buttons
     void loadMainButtons(SDL_Renderer* renderer);
@@ -57,6 +61,8 @@ public:
     void loadOptionsButtons(SDL_Renderer* renderer);
     void loadCreditsButtons(SDL_Renderer* renderer);
 
+    void loadGameOverButton(SDL_Renderer* renderer);
+
     //renders the buttons for each scene
     void renderMainButtons(SDL_Renderer* renderer);
     void renderNewgameButtons(SDL_Renderer* renderer);
@@ -64,12 +70,16 @@ public:
     void renderOptionsButtons(SDL_Renderer* renderer);
     void renderCreditsButtons(SDL_Renderer* renderer);
 
+    void renderGameOverButton(SDL_Renderer* renderer);
+
     //these free up set of buttons depending on the scene the user is in.
     void freeMainButtons();
     void freeNewgameButtons();
     void freeLoadgameButtons();
     void freeOptionsButtons();
     void freeCreditsButtons();
+
+    void freeGameOverButton();
 
     int chosenSave;
     //handles button presses/mouseover
@@ -111,6 +121,8 @@ public:
     void handleNewGameScreenRendering(SDL_Renderer* renderer);
 
     void handleTitleScreenRendering(SDL_Renderer* renderer);
+
+    void handleGameOverScreenRendering(SDL_Renderer* renderer);
 
     //particle objects
     Particle particles[ TOTAL_PARTICLES ];

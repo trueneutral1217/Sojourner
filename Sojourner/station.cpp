@@ -538,6 +538,7 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
             }
         }
     }
+    std::cout<<"\n end of loadStationButtonTextTextures function";
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
 }

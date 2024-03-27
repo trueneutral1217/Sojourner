@@ -1933,3 +1933,9 @@ void stage::loadGameOver(SDL_Renderer* renderer)
 {
     gameOverBG.loadFromFile("images/gameOver.png",renderer);
 }
+
+void stage::freeGameOver()
+{
+    std::cout<<"\n running stage::freeGameOver()";
+    gameOverBG.free();
+}

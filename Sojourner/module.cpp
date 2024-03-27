@@ -15,6 +15,8 @@ void module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[],in
     std::cout<<"\n **********************************************************************************";
     std::cout<<"\n running module::loadHabitation(SDL_Renderer* renderer,TTF_Font* font,int gauge[])";
     std::cout<<"\n **********************************************************************************";
+
+    std::cout<<"\n player needs 0: "<<need[0]<<" 1: "<<need[1]<<" 2: "<<need[2]<<" 3: "<<need[3]<<" 4: "<<need[4];
     //load textures and interaction dialog etc for each station.
     waterTank.loadWaterTank(renderer,font,gauge[3]);
     kitchen.loadKitchen(renderer,font,need[2]);

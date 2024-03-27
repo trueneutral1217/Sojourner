@@ -337,7 +337,21 @@ int main( int argc, char* args[] )
 					}
 					if(stage.player1.isDead)
                     {
+                        std::cout<<"\n stage.player1.isDead == true";
+                        //loads bg image
                         gameOver.loadGameOver(renderer);
+                        //frees stage resources, resets stage variables to default.
+                        stage.free();
+                        //delete the savegame haha
+                        savegame.deleteSave(chosenSave);
+                        //flag that a save does not exist so that new game can be created in that slot.
+                        pregameui.existingSave[chosenSave] = false;
+                        //clear saved date & time of deleted save (may be redundant).
+                        savegame.updateSavedMetaData(chosenSave,renderer,text.font);
+                        savegame.savedDate[chosenSave].str("");
+                        savegame.savedPlayTime[chosenSave].str("");
+                        //pgui used for button handling
+                        pregameui.loadState(5,7,renderer);
                         gameState = 7;
                         stage.player1.isDead = false;
                     }
@@ -560,6 +574,11 @@ int main( int argc, char* args[] )
                         if(gameState == 7)
                         {
                             //gameover scene of the game
+                            gameState = pregameui.handleButtons(gameState,&e, window,renderer);
+                            if(gameState == 0)
+                            {
+                                gameOver.freeGameOver();
+                            }
                         }
                     }
 					//Handle key press
@@ -703,6 +722,8 @@ int main( int argc, char* args[] )
                 {
                     //this is where gameover scene will be rendered.
                     gameOver.gameOverBG.render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+                    pregameui.renderGameOverButton(renderer);
+                    //pregameui.handleGameOverScreenRendering(renderer);
                 }
                 if(fade)
                 {
