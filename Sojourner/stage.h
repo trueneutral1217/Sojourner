@@ -109,9 +109,9 @@ class stage
         bool complete;
 
         //message of courage in external view
-        std::string courage, newspaper,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
-        //text texture for message of courage
-        Texture courageTexture, newspaperTexture, gtfoTexture;
+        std::string courage, newspaper, wasd2move,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
+        //text texture for message of courage,opening sequence check newspaper text,wasdToMove runs right after newspaperTexture,gtfo is after reading newspaper.
+        Texture courageTexture, newspaperTexture,wasdToMove, gtfoTexture;
         //buttons for stage UI.
         button buttons[TOTAL_STAGE_BUTTONS];
         //array of background image names.

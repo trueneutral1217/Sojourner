@@ -178,10 +178,15 @@ void stage::loadOpeningSequence(SDL_Renderer* renderer)
     SDL_Color textColor = {255,255,255};//white
 
     newspaper = "Maybe I should check the newspaper? (press 'e')";
+    wasd2move = "W,A,S, and D to move.";
 
     if(!newspaperTexture.loadFromRenderedText(newspaper.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render newspaper string to newspaperTexture!";
+    }
+    if(!wasdToMove.loadFromRenderedText(wasd2move.c_str(),textColor,font,renderer))
+    {
+        std::cout<<"\n unable to render wasd2move string to wasdToMove texture!";
     }
 
     iDontWantToLiveOnThisPlanetAnymore = "I don't want to live on this planet anymore.";
@@ -320,6 +325,7 @@ void stage::freeOpeningSequence()
 {//only frees the house part of the opening sequence
     std::cout<<"\n running stage::freeOpeningSequence()";
     newspaperTexture.free();
+    wasdToMove.free();
     openingSequenceHouse.free();
     openingSequenceNewspaper.free();
 }
@@ -965,6 +971,10 @@ void stage::renderOpeningSequence(SDL_Renderer* renderer, animations& animations
     if(openingSequenceTimer.getTicks() < 3000 && openingSequenceTimer.isStarted() && !paperRead)
     {//this is just a text texture
         newspaperTexture.render(150,player1.getY()-20,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    }
+    if(openingSequenceTimer.getTicks() > 1000 && openingSequenceTimer.getTicks() < 4000 && openingSequenceTimer.isStarted() && !paperRead)
+    {
+        wasdToMove.render(150,player1.getY(),NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     }
     else if(openingSequenceTimer.getTicks() >= 3000 && !paperRead)
     {

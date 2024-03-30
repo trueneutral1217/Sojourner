@@ -606,6 +606,19 @@ int main( int argc, char* args[] )
                             {
                                 openingSequence.complete = true;
                             }
+                            else if(gameState==5)
+                            {
+                                if(stage.ship.engineering.cargoArea.inventoryDisplaying)
+                                {
+                                    std::cout<<"\n should close ship's inventory";
+                                    stage.ship.engineering.cargoArea.inventoryDisplaying = false;
+                                }
+                                if(stage.ship.engineering.researchDesk.researchDisplaying)
+                                {
+                                    std::cout<<"\n should close research";
+                                    stage.ship.engineering.researchDesk.researchDisplaying = false;
+                                }
+                            }
                             break;
 							//sound tests
 							case SDLK_1:

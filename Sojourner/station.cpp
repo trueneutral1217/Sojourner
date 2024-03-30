@@ -668,12 +668,12 @@ void station::loadPlanter(SDL_Renderer* renderer,TTF_Font* font)
     stationBot = stationY+stationH;
     collidable.x = stationX;
     collidable.y = stationY+(stationH/2);
-    collidable.w = 100;
-    collidable.h = stationH/2;
-    interactable.x=collidable.x-2;
-    interactable.y=collidable.y-2;
-    interactable.w=collidable.w+4;
-    interactable.h=collidable.h+4;
+    collidable.w = 90;
+    collidable.h = stationH/3;
+    interactable.x=collidable.x-5;
+    interactable.y=collidable.y-5;
+    interactable.w=collidable.w+10;
+    interactable.h=collidable.h+10;
 
     stationID = "planter";
 
