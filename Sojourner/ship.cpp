@@ -78,11 +78,18 @@ void ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)
 }
 
 void ship::renderGaugesTextures(SDL_Renderer* renderer)
-{
+{//for loop was causing a problem with rendering sometimes.  best to just do them all individually.
+    /*
     for(int i = 0; i<TOTAL_SHIP_GAUGES; i++)
     {
         gaugesTexture[i].render(450+(i*60),40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
+    }*/
+    gaugesTexture[0].render(450,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    gaugesTexture[1].render(510,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    gaugesTexture[2].render(570,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    gaugesTexture[3].render(630,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    gaugesTexture[4].render(700,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    gaugesTexture[5].render(760,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }
 
 void ship::freeGaugesTextures()

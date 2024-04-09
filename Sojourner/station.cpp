@@ -66,7 +66,6 @@ void station::loadWaterTank(SDL_Renderer* renderer, TTF_Font* font, int shipGaug
     }
     if(buttonString.size()==0)
     {
-        //buttonString.push_back("Sleep");
         buttonString.push_back("Upgrade");
         std::cout<<"\n buttonString[0]: "<<buttonString[0];
     }
@@ -863,7 +862,8 @@ void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
 }
 
 void station::renderInteractStationButtons(SDL_Renderer* renderer, int x, int y)
-{
+{//rendering in a for loop sometimes causes problems, so I'm removing the for loop.
+    //note, this function works for up to 6 buttons per station.
     if(buttonTextTexture.size() > 0)
     {
         x+=50;
@@ -871,11 +871,34 @@ void station::renderInteractStationButtons(SDL_Renderer* renderer, int x, int y)
         buttonTextTexture[0].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         if(buttonTextTexture.size() > 1)
         {
+            y+=20;
+            buttonTextTexture[1].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            /*
             for(Uint32 i = 1; i<buttonTextTexture.size(); i++)
             {
                 y+=20;
                 buttonTextTexture[i].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            }
+            }*/
+        }
+        if(buttonTextTexture.size()>2)
+        {
+            y+=20;
+            buttonTextTexture[2].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        if(buttonTextTexture.size()>3)
+        {
+            y+=20;
+            buttonTextTexture[3].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        if(buttonTextTexture.size()>4)
+        {
+            y+=20;
+            buttonTextTexture[4].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
+        if(buttonTextTexture.size()>5)
+        {
+            y+=20;
+            buttonTextTexture[5].render(x,y,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
     }
 }

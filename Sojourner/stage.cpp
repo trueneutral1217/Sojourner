@@ -1494,7 +1494,7 @@ void stage::houseCloudsHandleParallax(SDL_Renderer* renderer)
 }
 
 void stage::habInternalHandleParallax(SDL_Renderer* renderer)
-{
+{//renders background images of habitat, they parallax with player y movement.
     stage1BG[2].render(0,(int)habInternalY1,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
     stage1BG[3].render(0,(int)habInternalY2,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
 }

@@ -1141,11 +1141,18 @@ void player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
 }
 
 void player::renderNeedsTextures(SDL_Renderer* renderer)
-{
+{//for loop causes problems with rendering, rendering individually should fix it.
+    /*
     for(int i = 0; i<TOTAL_PLAYER_NEEDS; i++)
     {
         needsTexture[i].render(20+(i*70),40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-    }
+    }*/
+    needsTexture[0].render(20,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    needsTexture[1].render(90,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    needsTexture[2].render(160,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    needsTexture[3].render(230,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+    needsTexture[4].render(300,40,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+
 }
 
 void player::loadSavedPlayerData(Sint32 dataValues[])
