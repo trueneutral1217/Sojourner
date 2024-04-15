@@ -74,6 +74,7 @@ class station
 
         //when interacting with a station, these two set up the render color for text textures
         void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font,int need);
+        //this second one actually is for stations w/o buttons.
         void loadStationButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font);
         //when loading stage, these functions set up each station
         //hab stations

@@ -106,6 +106,14 @@ void player::handleEvent(SDL_Event& e, float delta)
             std::cout<<"\n interact: "<<interact;
             break;
         }
+        if(pVelY > 3000.0f)
+        {
+            pVelY = 3000.0f;
+        }
+        if(pVelX>3000.0f)
+        {
+            pVelX = 3000.0f;
+        }
     }
     else if(e.type == SDL_KEYUP && e.key.repeat == 0)
     {
@@ -1107,10 +1115,31 @@ void player::loadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
         //playerNeeds[i].str("");
         //needsTexture[i].free();
         playerNeeds[i] = std::to_string(need[i]);// << need[i];
+        /*
         if(!needsTexture[i].loadFromRenderedText(playerNeeds[i], textColor,font,renderer))
         {
             std::cout<<"\n unable to load playerNeeds["<<i<<"] string to needsTexture["<<i<<"]";
-        }
+        }*/
+    }
+    if(!needsTexture[0].loadFromRenderedText(playerNeeds[0],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[0] string to needsTexture[0]";
+    }
+    if(!needsTexture[1].loadFromRenderedText(playerNeeds[1],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[1] string to needsTexture[1]";
+    }
+    if(!needsTexture[2].loadFromRenderedText(playerNeeds[2],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[2] string to needsTexture[2]";
+    }
+    if(!needsTexture[3].loadFromRenderedText(playerNeeds[3],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[3] string to needsTexture[3]";
+    }
+    if(!needsTexture[4].loadFromRenderedText(playerNeeds[4],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[4] string to needsTexture[4]";
     }
 }
 
@@ -1133,10 +1162,32 @@ void player::reloadNeedsTextures(SDL_Renderer* renderer, TTF_Font* font)
         textColor = {r,g,b};
         needsTexture[i].free();
         playerNeeds[i] = std::to_string(need[i]);// << need[i];
+        //still having problems with the textures showing up in weird random places.  maybe this (pulling out of for loop) will help.
+        /*
         if(!needsTexture[i].loadFromRenderedText(playerNeeds[i], textColor,font,renderer))
         {
             std::cout<<"\n unable to load playerNeeds["<<i<<"] string to needsTexture["<<i<<"]";
-        }
+        }*/
+    }
+    if(!needsTexture[0].loadFromRenderedText(playerNeeds[0],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[0] string to needsTexture[0]";
+    }
+    if(!needsTexture[1].loadFromRenderedText(playerNeeds[1],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[1] string to needsTexture[1]";
+    }
+    if(!needsTexture[2].loadFromRenderedText(playerNeeds[2],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[2] string to needsTexture[2]";
+    }
+    if(!needsTexture[3].loadFromRenderedText(playerNeeds[3],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[3] string to needsTexture[3]";
+    }
+    if(!needsTexture[4].loadFromRenderedText(playerNeeds[4],textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load playerNeeds[4] string to needsTexture[4]";
     }
 }
 

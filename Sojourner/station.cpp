@@ -327,15 +327,25 @@ void station::loadEngineStation(SDL_Renderer* renderer, TTF_Font* font, int ship
 
     stationID = "engine";
 
-    int fuelGauge = shipGaugeValues;
+    //int fuelGauge = shipGaugeValues;
     stationTexture.loadFromFile("images/sprites/engineStation.png",renderer);
+    buttonString.push_back("collect");
+    std::cout<<"\n buttonString[0]: "<<buttonString[0];
+    Texture tempTextTexture;
+    buttonTextTexture.push_back(tempTextTexture);
+    if(buttonAvailable.size() == 0)
+    {
+        buttonAvailable.push_back(true);
+    }
+    loadStationButtonTextTextures(renderer,font);
+    /*
     stationDefaultInteractionText = std::to_string(fuelGauge);
     stationDefaultInteractionText = stationDefaultInteractionText + " percent fuel";
     SDL_Color textColor = {255,255,255};//white
     if(!stationDefaultInteractionTextTexture.loadFromRenderedText(stationDefaultInteractionText.c_str(), textColor,font,renderer))
     {
         std::cout<<"\n unable to render stationDefaultInteractionText string to stationDefaultInteractionTextTexture!";
-    }
+    }*/
 }
 
 void station::loadResearchDesk(SDL_Renderer* renderer, TTF_Font* font)
@@ -485,14 +495,109 @@ void station::loadRec(SDL_Renderer* renderer, TTF_Font* font, int need)
         {
             buttonAvailable.push_back(true);
         }
-
     }
+    loadStationButtonTextTextures(renderer,font,need);
 }
 
 void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)
 {//renders the color of the font of the button black for unavailable, white for available, based on player needs
     std::cout<<"\n running station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* font,int need)";
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
+    //this will make the first text texture available if need <100, buttons after the first are not checked.
+    if(need == 100)
+    {
+        std::cout<<"\n unavailable";
+        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],unavailable,font,renderer))
+        {
+            std::cout<<"\n unable to render station button text to station button text texture!";
+        }
+    }
+    else
+    {
+        std::cout<<"\n available";
+        if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],available,font,renderer))
+        {
+            std::cout<<"\n unable to render station button text to station button text texture!";
+        }
+    }
+    if(buttonTextTexture.size() > 1)
+    {
+        if(!buttonAvailable[1])
+        {
+            std::cout<<"\n unavailable";
+            if(!buttonTextTexture[1].loadFromRenderedText(buttonString[1],unavailable,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        else
+        {
+            std::cout<<"\n available";
+            if(!buttonTextTexture[1].loadFromRenderedText(buttonString[1],available,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+    }
+    if(buttonTextTexture.size() > 2)
+    {
+        if(!buttonAvailable[2])
+        {
+            std::cout<<"\n unavailable";
+            if(!buttonTextTexture[2].loadFromRenderedText(buttonString[2],unavailable,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        else
+        {
+            std::cout<<"\n available";
+            if(!buttonTextTexture[2].loadFromRenderedText(buttonString[2],available,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+    }
+    if(buttonTextTexture.size() > 3)
+    {
+        if(!buttonAvailable[3])
+        {
+            std::cout<<"\n unavailable";
+            if(!buttonTextTexture[3].loadFromRenderedText(buttonString[3],unavailable,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        else
+        {
+            std::cout<<"\n available";
+            if(!buttonTextTexture[3].loadFromRenderedText(buttonString[3],available,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+    }
+    if(buttonTextTexture.size() > 4)
+    {
+        if(!buttonAvailable[4])
+        {
+            std::cout<<"\n unavailable";
+            if(!buttonTextTexture[4].loadFromRenderedText(buttonString[4],unavailable,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        else
+        {
+            std::cout<<"\n available";
+            if(!buttonTextTexture[4].loadFromRenderedText(buttonString[4],available,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+    }
+
+    /* old way
     if(buttonTextTexture.size()>0)
     {
         for(Uint32 i = 0; i<buttonTextTexture.size(); i++)
@@ -536,7 +641,7 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
                 }
             }
         }
-    }
+    }*/
     std::cout<<"\n end of loadStationButtonTextTextures function";
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
@@ -548,6 +653,80 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
     std::cout<<"\n buttonTextTexture.size() = "<<buttonTextTexture.size();
     if(buttonTextTexture.size()>0)
     {
+        if(!buttonAvailable[0])
+        {
+            std::cout<<"\n unavailable";
+            if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],unavailable,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        else
+        {
+            std::cout<<"\n available";
+            if(!buttonTextTexture[0].loadFromRenderedText(buttonString[0],available,font,renderer))
+            {
+                std::cout<<"\n unable to render station button text to station button text texture!";
+            }
+        }
+        if(buttonTextTexture.size()>1)
+        {
+            if(!buttonAvailable[1])
+            {
+                std::cout<<"\n unavailable";
+                if(!buttonTextTexture[1].loadFromRenderedText(buttonString[1],unavailable,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
+            else
+            {
+                std::cout<<"\n available";
+                if(!buttonTextTexture[1].loadFromRenderedText(buttonString[1],available,font,renderer))
+                {
+                    std::cout<<"\n unable to render station button text to station button text texture!";
+                }
+            }
+            if(buttonTextTexture.size()>2)
+            {
+                if(!buttonAvailable[2])
+                {
+                    std::cout<<"\n unavailable";
+                    if(!buttonTextTexture[2].loadFromRenderedText(buttonString[2],unavailable,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
+                }
+                else
+                {
+                    std::cout<<"\n available";
+                    if(!buttonTextTexture[2].loadFromRenderedText(buttonString[2],available,font,renderer))
+                    {
+                        std::cout<<"\n unable to render station button text to station button text texture!";
+                    }
+                }
+                if(buttonTextTexture.size()>3)
+                {
+                    if(!buttonAvailable[3])
+                    {
+                        std::cout<<"\n unavailable";
+                        if(!buttonTextTexture[3].loadFromRenderedText(buttonString[3],unavailable,font,renderer))
+                        {
+                            std::cout<<"\n unable to render station button text to station button text texture!";
+                        }
+                    }
+                    else
+                    {
+                        std::cout<<"\n available";
+                        if(!buttonTextTexture[3].loadFromRenderedText(buttonString[3],available,font,renderer))
+                        {
+                            std::cout<<"\n unable to render station button text to station button text texture!";
+                        }
+                    }
+                }
+            }
+        }
+        /*
         for(Uint32 i = 0; i<buttonTextTexture.size(); i++)
         {
             if(!buttonAvailable[i])
@@ -566,7 +745,7 @@ void station::loadStationButtonTextTextures(SDL_Renderer* renderer,TTF_Font* fon
                     std::cout<<"\n unable to render station button text to station button text texture!";
                 }
             }
-        }
+        }*/
     }
     //tells the stage.handleStation function not to keep running this function.
     stationOptionsLoaded = true;
@@ -596,6 +775,17 @@ void station::loadBike(SDL_Renderer* renderer, TTF_Font* font, int need)
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
     Texture tempTextTexture;
     buttonTextTexture.push_back(tempTextTexture);
+    if(buttonAvailable.size() == 0)
+    {
+        if(need == 100)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+    }
     loadStationButtonTextTextures(renderer,font,need);
 }
 
@@ -625,6 +815,17 @@ void station::loadInfirmary(SDL_Renderer* renderer,TTF_Font* font,int need)
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
     Texture tempTextTexture;
     buttonTextTexture.push_back(tempTextTexture);
+    if(buttonAvailable.size() == 0)
+    {
+        if(need == 100)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+    }
     loadStationButtonTextTextures(renderer,font,need);
 }
 
@@ -653,6 +854,17 @@ void station::loadKitchen(SDL_Renderer* renderer,TTF_Font* font, int need)
     std::cout<<"\n buttonString[0]: "<<buttonString[0];
     Texture tempTextTexture;
     buttonTextTexture.push_back(tempTextTexture);
+    if(buttonAvailable.size() == 0)
+    {
+        if(need == 100)
+        {
+            buttonAvailable.push_back(false);
+        }
+        else
+        {
+            buttonAvailable.push_back(true);
+        }
+    }
     loadStationButtonTextTextures(renderer,font,need);
 }
 
@@ -830,7 +1042,7 @@ void station::updateEngPosition2(int y)
 }
 
 void station::renderInteractStation(SDL_Renderer* renderer, int x, int y)
-{
+{//if station doesn't have a button to upgrade or otherwise interact with the station, default interaction text is displayed.
     //std::cout<<"\n running station::renderInteractStation(SDL_Renderer* renderer, int x, int y)";
 //    std::cout<<"\n"<<stationDefaultInteractionText;
     y-=20;
@@ -937,18 +1149,22 @@ void station::renderEngStationFrontPlayer(SDL_Renderer* renderer, int playerBot)
 void station::free()
 {
     std::cout<<"\n running station::free()";
+    stationResearch.free();
     stationTexture.free();
     stationDefaultInteractionTextTexture.free();
     while(buttonString.size()>0)
     {
+        buttonString[buttonString.size()-1] = "";
         buttonString.pop_back();
     }
     while(buttonTextTexture.size()>0)
     {
+        buttonTextTexture[buttonTextTexture.size()-1].free();
         buttonTextTexture.pop_back();
     }
     while(buttonAvailable.size()>0)
     {
+        buttonAvailable[buttonAvailable.size()-1] = false;
         buttonAvailable.pop_back();
     }
 }
@@ -1064,30 +1280,21 @@ void station::freeResearch()
 void station::updateStationTexture(SDL_Renderer* renderer)
 {
     std::cout<<"\n running station::updateStationTexture";
-    if(stationID == "bed")
+    if(stationTier == 1)
     {
-        if(stationTier == 1)
+        if(stationID == "bed")
         {
             stationTexture.loadFromFile("images/sprites/singleBed.png",renderer);
         }
-    }
-    else if(stationID == "rec")
-    {
-        if(stationTier == 1)
+        else if(stationID == "rec")
         {
             stationTexture.loadFromFile("images/sprites/recreationTier1.png",renderer);
         }
-    }
-    else if(stationID == "water")
-    {
-        if(stationTier == 1)
+        else if(stationID == "water")
         {
             stationTexture.loadFromFile("images/sprites/waterTank2.png",renderer);
         }
-    }
-    else if(stationID == "battery")
-    {
-        if(stationTier == 1)
+        else if(stationID == "battery")
         {
             stationTexture.loadFromFile("images/sprites/batteryArray2.png",renderer);
         }

@@ -618,6 +618,12 @@ int main( int argc, char* args[] )
                                     std::cout<<"\n should close research";
                                     stage.ship.engineering.researchDesk.researchDisplaying = false;
                                 }
+                                if(stage.collecting)
+                                {
+                                    stage.collecting = false;
+                                    stage.internalView = true;
+                                    stage.externalView = false;
+                                }
                             }
                             break;
 							//sound tests

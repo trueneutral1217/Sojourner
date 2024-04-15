@@ -5,6 +5,7 @@ stage::stage()
     internalView=false;
     externalView=true;
     showPlayer=false;
+    collecting = false;
     habInternalY1=0.0f;
     habInternalY2=-600.0f;
     engInternalY1 = 0.0f;
@@ -672,6 +673,8 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
     }
     else if(buttonClicked==19)
     {//user clicked the upgrade button for the water tank
+        std::cout<<"\n waterTank.upgradeAvailable: "<<ship.habitation.waterTank.upgradeAvailable;
+        std::cout<<"\n scrap.itemCount: "<<ship.inventory.scrap.itemCount<<" out of 3 required to upgrade";
         if(ship.habitation.waterTank.upgradeAvailable && ship.inventory.scrap.itemCount >= 3)
         {//3 is a magic number, it'll be changed later
             std::cout<<"\n user clicked waterTank upgrade button";
@@ -724,7 +727,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             //std::cout<<"\n ship.habitation.waterTank.buttonAvailable[0]: "<<ship.habitation.waterTank.buttonAvailable[0];
         }
     }
-    else if(buttonClicked==21)
+    else if(buttonClicked == 21)
     {//user clicked the upgrade button for the batteryArray
         if(ship.engineering.batteryArray.upgradeAvailable && ship.inventory.scrap.itemCount >= 2)
         {//3 is a magic number, it'll be changed later
@@ -732,7 +735,7 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             ship.engineering.batteryArray.stationTier = 1;
             std::cout<<"\n batteryArray.stationTier: "<<ship.engineering.batteryArray.stationTier;
             ship.engineering.batteryArray.updateStationTexture(renderer);
-            ship.inventory.scrap.itemCount -=3;
+            ship.inventory.scrap.itemCount -=2;
             std::cout<<"\n scrap should be reduced by 3";
             ship.inventory.refreshInventory(renderer,font);
             int upgradeBatteryArrayTier1[TOTAL_PLAYER_NEEDS] = {0,-6,-6,-6,-6};
@@ -780,6 +783,12 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
             assignResearchSlots(renderer);
             std::cout<<"\n ship.engineering.batteryArray.buttonAvailable[0]: "<<ship.engineering.batteryArray.buttonAvailable[0];
         }
+    }
+    else if(buttonClicked == 23)
+    {//user clicked the 'collect' button from engineStation
+        externalView = true;
+        internalView = false;
+        collecting = true;
     }
 }
 
@@ -886,6 +895,14 @@ int stage::handleButtons(SDL_Renderer* renderer, SDL_Event* e )
             buttons[10].buttonTexture = ship.engineering.cargoArea.buttonTextTexture[0];
             buttons[10].buttonName = "inventory";
             buttons[10].setPosition(player1.getX()+50,player1.getY()-20);
+            buttonsFreed = false;
+        }
+        if(player1.interactEngineStation)
+        {
+            std::cout<<"\n creating engine station buttons";
+            buttons[21].buttonTexture = ship.engineering.engineStation.buttonTextTexture[0];
+            buttons[21].buttonName = "collect";
+            buttons[21].setPosition(player1.getX()+50,player1.getY()-20);
             buttonsFreed = false;
         }
     }
@@ -1222,8 +1239,17 @@ void stage::renderStage1(SDL_Renderer* renderer)
     starsHandleParallax(renderer);
     if(externalView)
     {//renders the exterior of the ship
-        stage1BG[1].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-        courageTexture.render(10,580,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        if(collecting)
+        {
+            SDL_RenderSetScale(renderer, .5f, .5f);
+            stage1BG[1].render(400,600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            SDL_RenderSetScale(renderer, 1.0f,1.0f);
+        }
+        else
+        {
+            stage1BG[1].render(0,0,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+            courageTexture.render(10,580,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
+        }
     }
     else if(internalView)
     {//renders the interior of the ship (supposed to parallax as player walks up or down.
@@ -1260,106 +1286,109 @@ void stage::renderStage1(SDL_Renderer* renderer)
             ship.engineering.commStation.renderEngStationBehindPlayer(renderer,player1.playerBot);
         }
     }
-    if(showPlayer)
-    {//player is shown if internalView is on.
-        player1.render(renderer);
-        if(inHab)
+    if(internalView)
+    {
+        if(showPlayer)
         {
-            ship.habitation.waterTank.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.planter.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.infirmary.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.kitchen.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.recreation.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.bike.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            ship.habitation.bed.renderHabStationFrontPlayer(renderer,player1.playerBot);
-            //interact is user pressed 'e', inRange is player collision with interactable station
-            if(player1.interact)
+            player1.render(renderer);
+            if(inHab)
             {
-                if(player1.interactWaterTank)
+                ship.habitation.waterTank.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.planter.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.infirmary.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.kitchen.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.recreation.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.bike.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                ship.habitation.bed.renderHabStationFrontPlayer(renderer,player1.playerBot);
+                //interact is user pressed 'e', inRange is player collision with interactable station
+                if(player1.interact)
                 {
-                    ship.habitation.waterTank.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactBed)
-                {
-                    ship.habitation.bed.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactRec)
-                {
-                    ship.habitation.recreation.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactBike)
-                {
-                    ship.habitation.bike.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactInfirmary)
-                {
-                    ship.habitation.infirmary.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactKitchen)
-                {
-                    ship.habitation.kitchen.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactPlanter)
-                {
-                    ship.habitation.planter.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactHabExit)
-                {
-                    if(inHab)
+                    if(player1.interactWaterTank)
                     {
-                        player1.interactHabExit = false;
-                        player1.setX(60);
-                        inHab = false;
-                        inEng = true;
-                        ship.habitation.freeHab();
-                        ship.loadEngineeringModule(renderer,font,player1.need);
-                        std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
-                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                        ship.habitation.waterTank.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactBed)
+                    {
+                        ship.habitation.bed.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactRec)
+                    {
+                        ship.habitation.recreation.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactBike)
+                    {
+                        ship.habitation.bike.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactInfirmary)
+                    {
+                        ship.habitation.infirmary.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactKitchen)
+                    {
+                        ship.habitation.kitchen.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactPlanter)
+                    {
+                        ship.habitation.planter.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactHabExit)
+                    {
+                        if(inHab)
+                        {
+                            player1.interactHabExit = false;
+                            player1.setX(60);
+                            inHab = false;
+                            inEng = true;
+                            ship.habitation.freeHab();
+                            ship.loadEngineeringModule(renderer,font,player1.need);
+                            std::cout<<"\n player1.interactHabExit = "<<player1.interactHabExit;
+                            std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                        }
                     }
                 }
             }
-        }
-        if(inEng)
-        {
-            //engExit should be invisible, which means the line below is pointless.
-            ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
-            ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
-            ship.engineering.engineStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
-            ship.engineering.cargoArea.renderEngStationFrontPlayer(renderer,player1.playerBot);
-            ship.engineering.commStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
-            //interact is user pressed 'e', inRange is player collision with interactable station
-            if(player1.interact)
+            if(inEng)
             {
-                if(player1.interactEngExit)
+                //engExit should be invisible, which means the line below is pointless.
+                ship.engineering.batteryArray.renderEngStationFrontPlayer(renderer,player1.playerBot);
+                ship.engineering.researchDesk.renderEngStationFrontPlayer(renderer,player1.playerBot);
+                ship.engineering.engineStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
+                ship.engineering.cargoArea.renderEngStationFrontPlayer(renderer,player1.playerBot);
+                ship.engineering.commStation.renderEngStationFrontPlayer(renderer,player1.playerBot);
+                //interact is user pressed 'e', inRange is player collision with interactable station
+                if(player1.interact)
                 {
-                    player1.interactEngExit = false;
-                    player1.setX(720);
-                    inHab = true;
-                    inEng = false;
-                    ship.engineering.freeEng();
-                    ship.loadHabitationModule(renderer,font,player1.need);
-                    std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
-                    std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
-                }
-                if(player1.interactBatteryArray)
-                {
-                    ship.engineering.batteryArray.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactResearchDesk)
-                {
-                    ship.engineering.researchDesk.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactEngineStation)
-                {
-                    ship.engineering.engineStation.renderInteractStation(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactCargoArea)
-                {
-                    ship.engineering.cargoArea.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
-                }
-                if(player1.interactCommStation)
-                {
-                    ship.engineering.commStation.renderInteractStation(renderer,player1.getX(),player1.getY());
+                    if(player1.interactEngExit)
+                    {
+                        player1.interactEngExit = false;
+                        player1.setX(720);
+                        inHab = true;
+                        inEng = false;
+                        ship.engineering.freeEng();
+                        ship.loadHabitationModule(renderer,font,player1.need);
+                        std::cout<<"\n player1.interactEngExit = "<<player1.interactEngExit;
+                        std::cout<<"\n inHab = "<<inHab<<" inEng = "<<inEng;
+                    }
+                    if(player1.interactBatteryArray)
+                    {
+                        ship.engineering.batteryArray.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactResearchDesk)
+                    {
+                        ship.engineering.researchDesk.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactEngineStation)
+                    {
+                        ship.engineering.engineStation.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactCargoArea)
+                    {
+                        ship.engineering.cargoArea.renderInteractStationButtons(renderer,player1.getX(),player1.getY());
+                    }
+                    if(player1.interactCommStation)
+                    {
+                        ship.engineering.commStation.renderInteractStation(renderer,player1.getX(),player1.getY());
+                    }
                 }
             }
         }

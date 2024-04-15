@@ -41,10 +41,35 @@ void ship::loadGaugesTextures(SDL_Renderer* renderer, TTF_Font* font)
     {
         //std::cout<<"\n gauge["<<i<<"] value: "<<gauge[i];
         shipGauges[i] = std::to_string(gauge[i]);// << need[i];
+        /*
         if(!gaugesTexture[i].loadFromRenderedText(shipGauges[i], textColor,font,renderer))
         {
             std::cout<<"\n unable to load shipGauges["<<i<<"] string to gaugesTexture["<<i<<"]";
-        }
+        }*/
+    }
+    if(!gaugesTexture[0].loadFromRenderedText(shipGauges[0], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[0] string to gaugesTexture[0]";
+    }
+    if(!gaugesTexture[1].loadFromRenderedText(shipGauges[1], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[1] string to gaugesTexture[1]";
+    }
+    if(!gaugesTexture[2].loadFromRenderedText(shipGauges[2], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[2] string to gaugesTexture[2]";
+    }
+    if(!gaugesTexture[3].loadFromRenderedText(shipGauges[3], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[3] string to gaugesTexture[3]";
+    }
+    if(!gaugesTexture[4].loadFromRenderedText(shipGauges[4], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[4] string to gaugesTexture[4]";
+    }
+    if(!gaugesTexture[5].loadFromRenderedText(shipGauges[5], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[5] string to gaugesTexture[5]";
     }
 }
 
@@ -69,11 +94,35 @@ void ship::reloadGaugesTextures(SDL_Renderer* renderer,TTF_Font* font)
         b = gauge[i]*2;
         textColor = {r,g,b};
         shipGauges[i] = std::to_string(gauge[i]);
-
+/*
         if(!gaugesTexture[i].loadFromRenderedText(shipGauges[i], textColor,font,renderer))
         {
             std::cout<<"\n unable to load shipGauges["<<i<<"] string to gaugesTexture["<<i<<"]";
-        }
+        }*/
+    }
+    if(!gaugesTexture[0].loadFromRenderedText(shipGauges[0], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[0] string to gaugesTexture[0]";
+    }
+    if(!gaugesTexture[1].loadFromRenderedText(shipGauges[1], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[1] string to gaugesTexture[1]";
+    }
+    if(!gaugesTexture[2].loadFromRenderedText(shipGauges[2], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[2] string to gaugesTexture[2]";
+    }
+    if(!gaugesTexture[3].loadFromRenderedText(shipGauges[3], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[3] string to gaugesTexture[3]";
+    }
+    if(!gaugesTexture[4].loadFromRenderedText(shipGauges[4], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[4] string to gaugesTexture[4]";
+    }
+    if(!gaugesTexture[5].loadFromRenderedText(shipGauges[5], textColor,font,renderer))
+    {
+        std::cout<<"\n unable to load shipGauges[5] string to gaugesTexture[5]";
     }
 }
 

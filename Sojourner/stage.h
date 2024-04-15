@@ -42,6 +42,8 @@ class stage
 
         bool buttonsFreed;
 
+        bool collecting;
+
 
         //internal habitat needs 2 Y values for background rendering (parallax based on player Y-axis velocity at threshold points)
         float habInternalY1;
