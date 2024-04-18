@@ -50,6 +50,8 @@
 		<Unit filename="audio.h" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
+		<Unit filename="debris.cpp" />
+		<Unit filename="debris.h" />
 		<Unit filename="inventory.cpp" />
 		<Unit filename="inventory.h" />
 		<Unit filename="item.cpp" />

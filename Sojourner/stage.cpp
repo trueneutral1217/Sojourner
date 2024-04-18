@@ -1978,3 +1978,53 @@ void stage::freeGameOver()
     std::cout<<"\n running stage::freeGameOver()";
     gameOverBG.free();
 }
+
+void stage::generateDebris(SDL_Renderer* renderer)
+{
+    std::cout<<"\n running stage::generateDebris(SDL_Renderer* renderer)";
+    //generates an asteroid or satellite.
+    if(rand()%2 == 1)
+    {
+        //generate asteroid
+        debris asteroid;
+        //set random speed and Y position
+        asteroid.debrisSpeed = rand() % 5000;
+        asteroid.debrisY = rand() % 400;
+        //set asteroid X (for now starting with asteroids that only move left to right).
+        asteroid.debrisX = 0;
+        //asteroids don't drop food, fuel, plastic, or wood.
+        asteroid.debrisFoodDrop = 0;
+        asteroid.debrisFuelDrop = 0;
+        asteroid.debrisPlasticDrop = 0;
+        asteroid.debrisWoodDrop = 0;
+        //set amount of metal and water the asteroid drops.
+        asteroid.debrisWaterDrop = rand() % 50;
+        asteroid.debrisScrapDrop = rand() % 20;
+        //make sure player gets at least 1 scrap and 1 water.
+        asteroid.debrisWaterDrop++;
+        asteroid.debrisScrapDrop++;
+    }
+    else
+    {
+        //generate satellite.
+        debris satellite;
+        //set satellite speed and Y location
+        satellite.debrisSpeed = rand() % 5000;
+        satellite.debrisY = rand() % 400;
+        //making simple like asteroid
+        satellite.debrisX = 0;
+        //how much stuff the satellite drops.
+        satellite.debrisFoodDrop = rand() % 10;
+        satellite.debrisFuelDrop = rand() % 15;
+        satellite.debrisPlasticDrop = rand() % 15;
+        satellite.debrisWoodDrop = rand() % 15;
+        satellite.debrisWaterDrop = rand() % 10;
+        satellite.debrisScrapDrop = rand() % 5;
+        //set baseline for certain resources
+        satellite.debrisPlasticDrop++;
+        satellite.debrisFoodDrop++;
+        satellite.debrisFuelDrop++;
+        satellite.debrisWoodDrop++;
+    }
+    //this will probably be pushed into a vector at some point.  but for now, maybe I can use this to test the basics.
+}

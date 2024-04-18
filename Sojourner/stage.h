@@ -10,6 +10,7 @@
 //#include "station.h"
 #include "ship.h"
 #include "animations.h"
+#include "debris.h"
 
 //these are the parallax images used for the bg's.
 const static int TOTAL_STAGE_BACKGROUNDS = 6;
@@ -207,6 +208,7 @@ class stage
         void assignResearchSlots(SDL_Renderer* renderer);
         //frees the research screen buttons when player closes research screen.
         //void freeResearchButtons();
+        void generateDebris(SDL_Renderer* renderer);
 
     private:
 

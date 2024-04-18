@@ -1327,11 +1327,12 @@
 	"button.h"
 	"particle.h"
 
-1713224952 c:\sojourner\sojourner\stage.h
+1713398712 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
 	"animations.h"
+	"debris.h"
 
 1711136238 c:\sojourner\sojourner\player.h
 	"ship.h"
@@ -1351,7 +1352,7 @@
 1710964926 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1713221361 source:c:\sojourner\sojourner\stage.cpp
+1713398712 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1710795536 source:c:\sojourner\sojourner\text.cpp
@@ -2234,4 +2235,7 @@
 	"SDL_version.h"
 	"begin_code.h"
 	"close_code.h"
+
+1713398712 c:\sojourner\sojourner\debris.h
+	"texture.h"
 
