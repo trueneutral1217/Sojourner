@@ -789,6 +789,21 @@ void stage::handleStageButtonPresses(SDL_Renderer* renderer, int buttonClicked)
         externalView = true;
         internalView = false;
         collecting = true;
+        singleDebris = generateDebris(renderer);
+        if(singleDebris.asteroid)
+        {
+            if(!singleDebris.debrisTexture.loadFromFile("images/sprites/debrisAsteroid.png",renderer))
+            {
+                std::cout<<"\n debrisAsteroid.png did not load!";
+            }
+        }
+        if(singleDebris.satellite)
+        {
+            if(!singleDebris.debrisTexture.loadFromFile("images/sprites/debrisSatellite.png",renderer))
+            {
+                std::cout<<"\n debrisSatellite.png did not load!";
+            }
+        }
     }
 }
 
@@ -1244,6 +1259,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
             SDL_RenderSetScale(renderer, .5f, .5f);
             stage1BG[1].render(400,600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
             SDL_RenderSetScale(renderer, 1.0f,1.0f);
+            singleDebris.debrisTexture.render(singleDebris.debrisX,singleDebris.debrisY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         else
         {
@@ -1979,12 +1995,13 @@ void stage::freeGameOver()
     gameOverBG.free();
 }
 
-void stage::generateDebris(SDL_Renderer* renderer)
+debris stage::generateDebris(SDL_Renderer* renderer)
 {
     std::cout<<"\n running stage::generateDebris(SDL_Renderer* renderer)";
     //generates an asteroid or satellite.
     if(rand()%2 == 1)
     {
+        std::cout<<"\n debris is an asteroid";
         //generate asteroid
         debris asteroid;
         //set random speed and Y position
@@ -2003,9 +2020,17 @@ void stage::generateDebris(SDL_Renderer* renderer)
         //make sure player gets at least 1 scrap and 1 water.
         asteroid.debrisWaterDrop++;
         asteroid.debrisScrapDrop++;
+        asteroid.asteroid = true;
+        /*
+        if(asteroid.debrisTexture.loadFromFile("images/sprites/debrisAsteroid.png",renderer))
+        {
+            std::cout<<"\n asteroid.png failed to load!";
+        }*/
+        return asteroid;
     }
     else
     {
+        std::cout<<"\n debris is a satellite";
         //generate satellite.
         debris satellite;
         //set satellite speed and Y location
@@ -2025,6 +2050,13 @@ void stage::generateDebris(SDL_Renderer* renderer)
         satellite.debrisFoodDrop++;
         satellite.debrisFuelDrop++;
         satellite.debrisWoodDrop++;
+        satellite.satellite = true;
+        /*
+        if(!satellite.debrisTexture.loadFromFile("images/sprites/debrisSatellite.png",renderer))
+        {
+            std::cout<<"\n satellite.png did not load!";
+        }*/
+        return satellite;
     }
     //this will probably be pushed into a vector at some point.  but for now, maybe I can use this to test the basics.
 }

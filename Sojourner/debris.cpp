@@ -3,7 +3,7 @@
 debris::debris()
 {
     debrisSpeed = 0;
-    debrisX = 0;
+    debrisX = 200;
     debrisY = 0;
 }
 

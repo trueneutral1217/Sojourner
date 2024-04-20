@@ -127,6 +127,8 @@ class stage
         std::string uiFileName[TOTAL_STAGE_UI];
         //UI texture(s) for stage
         Texture UI[TOTAL_STAGE_UI];
+        //debris when collecting (single test one for now)
+        debris singleDebris;
         //free resources
         void freeButtons();
         void freeBGTextures();
@@ -208,7 +210,7 @@ class stage
         void assignResearchSlots(SDL_Renderer* renderer);
         //frees the research screen buttons when player closes research screen.
         //void freeResearchButtons();
-        void generateDebris(SDL_Renderer* renderer);
+        debris generateDebris(SDL_Renderer* renderer);
 
     private:
 
