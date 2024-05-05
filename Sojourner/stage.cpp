@@ -11,6 +11,7 @@ stage::stage()
     engInternalY1 = 0.0f;
     engInternalY2 = -600.0f;
     timeSurvived = 0;
+    zoom = 1.0f;
     //player starts in habitation module
     inHab = true;
     //player does not start in engineering module
@@ -1258,7 +1259,7 @@ void stage::renderStage1(SDL_Renderer* renderer)
         {
             SDL_RenderSetScale(renderer, .5f, .5f);
             stage1BG[1].render(400,600,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
-            SDL_RenderSetScale(renderer, 1.0f,1.0f);
+            SDL_RenderSetScale(renderer, zoom,zoom);
             singleDebris.debrisTexture.render(singleDebris.debrisX,singleDebris.debrisY,NULL,0.0,NULL,SDL_FLIP_NONE,renderer);
         }
         else

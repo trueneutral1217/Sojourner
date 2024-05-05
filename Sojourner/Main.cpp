@@ -642,9 +642,28 @@ int main( int argc, char* args[] )
 							case SDLK_9:
                                 //press 9 to play / pause music
                                 music.playMusic();
+                            break;
+                            case SDL_MOUSEWHEEL:
+                                //player is scrolling mouse wheel
+
 							break;
 						}
 					}
+					if(stage.externalView)
+                    {
+                        if(e.type == SDL_MOUSEWHEEL)
+                        {
+                            switch( (int)e.wheel.preciseY )
+                            {
+                                case 1: stage.zoom += .05f;
+                                    break;
+                                case -1: stage.zoom -= .05f;
+                                    break;
+                            }
+                        //stage.zoom = e.wheel.preciseY;
+                        //std::cout<<"\n e.wheel.preciseY = "<<e.wheel.preciseY;
+                        }
+                    }
 					//if wasd are pressed player will be moved. 'e' to interact with stations
 					if(stage.internalView)
                     {

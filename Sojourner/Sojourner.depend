@@ -1327,7 +1327,7 @@
 	"button.h"
 	"particle.h"
 
-1713581184 c:\sojourner\sojourner\stage.h
+1714950570 c:\sojourner\sojourner\stage.h
 	"player.h"
 	"parallax.h"
 	"ship.h"
@@ -1352,7 +1352,7 @@
 1710964926 source:c:\sojourner\sojourner\savegame.cpp
 	"saveGame.h"
 
-1713581706 source:c:\sojourner\sojourner\stage.cpp
+1714950570 source:c:\sojourner\sojourner\stage.cpp
 	"stage.h"
 
 1710795536 source:c:\sojourner\sojourner\text.cpp

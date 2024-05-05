@@ -110,6 +110,8 @@ class stage
         int ascensionY,cloudY,cloudY2;
         //true when player presses 'esc' during opening sequence or finishes it normally.
         bool complete;
+        //zoom is used to modify scale when player is in external view and uses mouse scroll wheel.
+        float zoom;
 
         //message of courage in external view
         std::string courage, newspaper, wasd2move,backyard, iDontWantToLiveOnThisPlanetAnymore,gtfo;
